@@ -1,0 +1,68 @@
+[
+  {
+    "id": "pub-1",
+    "title": "Radiology's Last Exam (RadLE): Benchmarking Frontier Multimodal AI Against Expert Radiologists",
+    "venue": "RSNA 2025 Cutting Edge Oral Presentation",
+    "year": 2025,
+    "type": "benchmark",
+    "link": "https://arxiv.org/",
+    "authors": ["Dr. Suvrankar Datta et al."],
+    "summary": "The flagship benchmark establishing the current human-AI gap in high-stakes radiology reasoning.",
+    "tags": ["radiology", "benchmark", "multimodal-AI"]
+  },
+  {
+    "id": "pub-2",
+    "title": "Autonomous Optimization Pipelines for Personalized Radiology Report Generation",
+    "venue": "RSNA 2025",
+    "year": 2025,
+    "type": "paper",
+    "link": "https://arxiv.org/",
+    "authors": ["Dr. Suvrankar Datta et al."],
+    "summary": "Evaluation framework for autonomous report-writing systems in head CT and chest radiography.",
+    "tags": ["report-generation", "NLP", "radiology"]
+  },
+  {
+    "id": "pub-3",
+    "title": "India-Specific Validation of Clinical AI Systems Across Heterogeneous Hospital Settings",
+    "venue": "RSNA 2025",
+    "year": 2025,
+    "type": "abstract",
+    "link": "https://arxiv.org/",
+    "authors": ["Dr. Suvrankar Datta et al."],
+    "summary": "Evidence on why diagnostic AI degrades when moved into Indian clinical environments.",
+    "tags": ["India-healthcare", "benchmark", "computer-vision"]
+  },
+  {
+    "id": "pub-4",
+    "title": "Designing Clinician-Trusted AI Workflows for Radiology Practice",
+    "venue": "MICCAI Workshop 2025",
+    "year": 2025,
+    "type": "paper",
+    "link": "https://arxiv.org/",
+    "authors": ["Dr. Suvrankar Datta et al."],
+    "summary": "Human factors and workflow design principles for responsible AI adoption in radiology.",
+    "tags": ["human-AI-collaboration", "radiology"]
+  },
+  {
+    "id": "pub-5",
+    "title": "Federated Data Commons for Healthcare AI in India",
+    "venue": "NeurIPS Datasets and Benchmarks 2025",
+    "year": 2025,
+    "type": "paper",
+    "link": "https://arxiv.org/",
+    "authors": ["Dr. Suvrankar Datta et al."],
+    "summary": "Blueprint for privacy-preserving clinical data collaboration across Indian institutions.",
+    "tags": ["data-commons", "federated-learning"]
+  },
+  {
+    "id": "pub-6",
+    "title": "Accountability Frameworks for Clinical AI Deployment in High-Risk Settings",
+    "venue": "Health AI Policy Forum 2025",
+    "year": 2025,
+    "type": "talk",
+    "link": "https://arxiv.org/",
+    "authors": ["Dr. Suvrankar Datta et al."],
+    "summary": "Governance framework for evaluating responsibility in medical AI misdiagnosis scenarios.",
+    "tags": ["governance", "policy"]
+  }
+]

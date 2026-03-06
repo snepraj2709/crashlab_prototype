@@ -1,0 +1,156 @@
+[
+  {
+    "_id": "post-1",
+    "_type": "post",
+    "slug": {
+      "current": "gemini-3-pro-surpasses-radiology-trainees"
+    },
+    "title": "Gemini 3.0 Pro Surpasses Radiology Trainees on RadLE — What It Means",
+    "excerpt": "The latest RadLE benchmark results show frontier multimodal AI crossing trainee-level performance, while still falling well short of experts.",
+    "body": [
+      {
+        "_key": "post1-1",
+        "_type": "block",
+        "style": "h2",
+        "children": [
+          {
+            "_type": "span",
+            "text": "A new threshold"
+          }
+        ]
+      },
+      {
+        "_key": "post1-2",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Gemini 3.0 Pro outperformed radiology trainees on RadLE, a result that matters because it turns benchmark progress into a clinically legible threshold."
+          }
+        ]
+      },
+      {
+        "_key": "post1-3",
+        "_type": "block",
+        "style": "h3",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Why the expert gap still matters"
+          }
+        ]
+      },
+      {
+        "_key": "post1-4",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "The same results also show a clear deployment boundary: expert radiologists remain substantially ahead, leaving a 26-point margin that cannot be waved away as noise."
+          }
+        ]
+      }
+    ],
+    "coverImage": {
+      "url": "/og/default.svg",
+      "alt": "RadLE benchmark visualization"
+    },
+    "publishedAt": "2025-11-20T09:00:00.000Z",
+    "authorSlug": "suvrankar-datta",
+    "category": "benchmark-update",
+    "tags": ["radle", "benchmark", "radiology"],
+    "seoTitle": "Gemini 3.0 Pro Surpasses Radiology Trainees on RadLE",
+    "seoDescription": "What the latest RadLE results say about the real progress and real limits of frontier healthcare AI.",
+    "featured": true
+  },
+  {
+    "_id": "post-2",
+    "_type": "post",
+    "slug": {
+      "current": "why-we-built-radiologys-last-exam"
+    },
+    "title": "Why We Built Radiology's Last Exam: The Gap Nobody Was Measuring",
+    "excerpt": "CRASH Lab started from a simple observation: most clinical AI systems were being evaluated against the wrong baseline.",
+    "body": [
+      {
+        "_key": "post2-1",
+        "_type": "block",
+        "style": "h2",
+        "children": [
+          {
+            "_type": "span",
+            "text": "The benchmark problem"
+          }
+        ]
+      },
+      {
+        "_key": "post2-2",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "If a model claims clinical usefulness, it should be measured against the clinicians it intends to assist or replace. That standard was missing."
+          }
+        ]
+      }
+    ],
+    "coverImage": {
+      "url": "/og/default.svg",
+      "alt": "CRASH Lab benchmark article cover"
+    },
+    "publishedAt": "2025-10-02T09:00:00.000Z",
+    "authorSlug": "suvrankar-datta",
+    "category": "research-paper",
+    "tags": ["radle", "evaluation", "research"],
+    "seoTitle": "Why CRASH Lab Built Radiology's Last Exam",
+    "seoDescription": "The origin story behind RadLE and the measurement gap it was designed to fix.",
+    "featured": false
+  },
+  {
+    "_id": "post-3",
+    "_type": "post",
+    "slug": {
+      "current": "rsna-2025-what-crash-lab-presented"
+    },
+    "title": "6 Abstracts at RSNA 2025: What CRASH Lab Presented in Chicago",
+    "excerpt": "From benchmark design to report generation, CRASH Lab used RSNA 2025 to show the shape of its research agenda.",
+    "body": [
+      {
+        "_key": "post3-1",
+        "_type": "block",
+        "style": "h2",
+        "children": [
+          {
+            "_type": "span",
+            "text": "A signal year"
+          }
+        ]
+      },
+      {
+        "_key": "post3-2",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Six accepted abstracts at RSNA 2025 gave the lab a public record of its pace and research range across evaluation, workflow design, and data infrastructure."
+          }
+        ]
+      }
+    ],
+    "coverImage": {
+      "url": "/og/default.svg",
+      "alt": "CRASH Lab at RSNA 2025"
+    },
+    "publishedAt": "2025-09-30T09:00:00.000Z",
+    "authorSlug": "suvrankar-datta",
+    "category": "lab-news",
+    "tags": ["rsna", "lab-news", "research"],
+    "seoTitle": "CRASH Lab at RSNA 2025",
+    "seoDescription": "A closer look at the six CRASH Lab abstracts accepted at RSNA 2025.",
+    "featured": false
+  }
+]

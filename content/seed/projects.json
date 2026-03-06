@@ -1,0 +1,217 @@
+[
+  {
+    "slug": "radle-benchmark",
+    "title": "Radiology's Last Exam (RadLE)",
+    "problemStatement": "Can AI read a chest X-ray as well as a radiologist?",
+    "summary": "A landmark benchmark testing frontier multimodal AI against board-certified radiologists on complex, multi-finding radiology cases.",
+    "body": [
+      {
+        "_key": "radle-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "RadLE was built to answer a blunt question that most healthcare AI vendors avoid: how far are current frontier models from expert clinical performance when the cases are messy, ambiguous, and real?"
+          }
+        ]
+      },
+      {
+        "_key": "radle-2",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "The benchmark compares expert radiologists, trainees, and multimodal AI models on chest radiology tasks that require clinical reasoning rather than pattern matching alone."
+          }
+        ]
+      },
+      {
+        "_key": "radle-3",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Its headline result matters beyond rankings: the best AI crossed trainee-level performance, but still remained far behind experts, defining a clearer threshold for responsible deployment."
+          }
+        ]
+      }
+    ],
+    "status": "published",
+    "venue": "RSNA 2025 — Cutting Edge Oral Presentation",
+    "publishedAt": "2025-09-29",
+    "paperUrl": "https://arxiv.org/",
+    "heroImage": {
+      "url": "/og/default.svg",
+      "alt": "Abstract radiology benchmark visualization for the RadLE project"
+    },
+    "tags": ["radiology", "benchmark", "multimodal-AI", "chest-xray"],
+    "audience": ["researcher", "industry", "investor"],
+    "lead": "suvrankar-datta",
+    "team": ["suvrankar-datta"],
+    "featured": true,
+    "seekingCollaborators": false,
+    "metrics": [
+      { "label": "Expert Radiologists", "value": "83%", "type": "human" },
+      { "label": "Gemini 3.0 Pro", "value": "57%", "type": "ai" },
+      { "label": "Radiology Trainees", "value": "45%", "type": "human" },
+      { "label": "GPT-5 Thinking", "value": "30%", "type": "ai" },
+      { "label": "Human–AI Gap", "value": "26pt", "type": "gap" }
+    ]
+  },
+  {
+    "slug": "autonomous-report-generation",
+    "title": "Autonomous Radiology Report Generation",
+    "problemStatement": "Can AI autonomously write radiology reports that radiologists trust?",
+    "summary": "Multidimensional evaluation framework for autonomous optimization pipelines in personalized head CT and chest radiograph report generation.",
+    "body": [
+      {
+        "_key": "report-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "This work studies how autonomous report-writing systems should be judged when correctness, clarity, uncertainty calibration, and workflow fit all matter at once."
+          }
+        ]
+      }
+    ],
+    "status": "published",
+    "venue": "RSNA 2025",
+    "publishedAt": "2025-11-01",
+    "paperUrl": "https://arxiv.org/",
+    "heroImage": {
+      "url": "/og/default.svg",
+      "alt": "Autonomous report generation interface"
+    },
+    "tags": ["report-generation", "NLP", "radiology"],
+    "audience": ["researcher", "industry"],
+    "lead": "suvrankar-datta",
+    "team": ["suvrankar-datta"],
+    "featured": false,
+    "seekingCollaborators": false
+  },
+  {
+    "slug": "data-commons",
+    "title": "National Healthcare Data Commons",
+    "problemStatement": "What does responsible healthcare data infrastructure look like at national scale?",
+    "summary": "Building federated, privacy-preserving platforms for secure healthcare data sharing — addressing India's clinical data fragmentation.",
+    "body": [
+      {
+        "_key": "commons-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "The Data Commons program explores how to make clinical data more usable for science without compromising privacy, governance, or institutional autonomy."
+          }
+        ]
+      }
+    ],
+    "status": "active",
+    "heroImage": {
+      "url": "/og/default.svg",
+      "alt": "Connected healthcare data nodes"
+    },
+    "tags": ["federated-learning", "data-commons", "India-healthcare"],
+    "audience": ["industry", "investor"],
+    "lead": "suvrankar-datta",
+    "team": ["suvrankar-datta"],
+    "featured": false,
+    "seekingCollaborators": true
+  },
+  {
+    "slug": "india-ai-validation",
+    "title": "India-Specific Clinical AI Validation",
+    "problemStatement": "Why do AI diagnostics fail in Indian clinical contexts?",
+    "summary": "Systematic evaluation of how frontier AI models perform on clinical data from Indian healthcare settings versus the Western datasets they were trained on.",
+    "body": [
+      {
+        "_key": "india-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Many medical AI systems inherit assumptions from the datasets, hardware, reporting styles, and patient populations they were trained on. This program measures the resulting gap in Indian hospitals."
+          }
+        ]
+      }
+    ],
+    "status": "active",
+    "heroImage": {
+      "url": "/og/default.svg",
+      "alt": "Clinical validation dashboard for Indian healthcare contexts"
+    },
+    "tags": ["benchmark", "India-healthcare", "computer-vision"],
+    "audience": ["researcher", "industry"],
+    "lead": "suvrankar-datta",
+    "team": ["suvrankar-datta"],
+    "featured": false,
+    "seekingCollaborators": true
+  },
+  {
+    "slug": "human-ai-collaboration",
+    "title": "Human-Centric Radiology AI Design",
+    "problemStatement": "How do we build AI systems that clinicians actually trust?",
+    "summary": "Co-creating intuitive AI tools with frontline clinicians. Hyper-personalized documentation systems and trusted AI-driven assistants.",
+    "body": [
+      {
+        "_key": "human-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Clinical adoption is not a model score problem alone. This work studies interface design, workflow integration, and clinician oversight patterns that make AI usable in practice."
+          }
+        ]
+      }
+    ],
+    "status": "active",
+    "heroImage": {
+      "url": "/og/default.svg",
+      "alt": "Clinician working with an AI-assisted radiology interface"
+    },
+    "tags": ["human-AI-collaboration", "radiology"],
+    "audience": ["researcher", "industry"],
+    "lead": "suvrankar-datta",
+    "team": ["suvrankar-datta"],
+    "featured": false,
+    "seekingCollaborators": true
+  },
+  {
+    "slug": "healthcare-ai-governance",
+    "title": "Governance and Ethics of Medical AI",
+    "problemStatement": "Who is responsible when AI misdiagnoses a patient?",
+    "summary": "Building evaluation and governance frameworks for clinical AI that go beyond accuracy — addressing fairness, explainability, and accountability.",
+    "body": [
+      {
+        "_key": "gov-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "CRASH Lab treats governance as a design problem, not a compliance afterthought. The goal is to define what responsible clinical AI deployment should require before systems scale."
+          }
+        ]
+      }
+    ],
+    "status": "active",
+    "heroImage": {
+      "url": "/og/default.svg",
+      "alt": "Healthcare AI governance and accountability diagram"
+    },
+    "tags": ["governance", "benchmark"],
+    "audience": ["researcher", "investor"],
+    "lead": "suvrankar-datta",
+    "team": ["suvrankar-datta"],
+    "featured": false,
+    "seekingCollaborators": false
+  }
+]

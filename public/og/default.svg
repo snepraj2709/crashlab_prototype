@@ -1,0 +1,12 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0A0F1E"/>
+  <circle cx="924" cy="146" r="190" fill="#00D4FF" fill-opacity="0.1"/>
+  <circle cx="248" cy="486" r="164" fill="#FF6B35" fill-opacity="0.12"/>
+  <rect x="84" y="82" width="1032" height="466" rx="32" fill="#111827" stroke="#1F2937"/>
+  <text x="120" y="168" fill="#00D4FF" font-family="Georgia, serif" font-size="22" letter-spacing="8">CRASH LAB</text>
+  <text x="120" y="270" fill="white" font-family="Georgia, serif" font-size="72">Responsible AI,</text>
+  <text x="120" y="348" fill="white" font-family="Georgia, serif" font-size="72">built for Healthcare.</text>
+  <text x="120" y="430" fill="#94A3B8" font-family="Arial, sans-serif" font-size="28">
+    Benchmarks, clinical tools, and healthcare infrastructure from Ashoka University.
+  </text>
+</svg>

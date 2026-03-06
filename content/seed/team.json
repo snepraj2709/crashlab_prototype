@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "suvrankar-datta",
+    "name": "Dr. Suvrankar Datta",
+    "role": "Group Lead",
+    "title": "Dr.",
+    "photo": {
+      "url": "/og/default.svg",
+      "alt": "Portrait placeholder for Dr. Suvrankar Datta"
+    },
+    "shortBio": "Dr. Suvrankar Datta is a radiologist and AI researcher who trained at AIIMS Delhi and JIPMER, now leading CRASH Lab at Ashoka University. He created Radiology's Last Exam (RadLE), the benchmark that revealed a 53-point gap between frontier AI and expert radiologists at RSNA 2025.",
+    "fullBio": [
+      {
+        "_key": "bio-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Dr. Suvrankar Datta works at the intersection of radiology, evaluation science, and frontier AI. His research focuses on building rigorous benchmarks, clinically grounded AI systems, and the governance infrastructure required for responsible deployment."
+          }
+        ]
+      }
+    ],
+    "email": "suvrankar.datta@ashoka.edu.in",
+    "credentials": [
+      "RSNA Trainee Research Prize 2023",
+      "Gold Medallist, JIPMER Puducherry",
+      "Senior Resident, AIIMS New Delhi (Radiodiagnosis & Interventional Radiology)",
+      "Harvard Medical School — Visiting Researcher",
+      "Ex-President, FAIMA (Federation of All India Medical Associations)"
+    ],
+    "researchFocus": [
+      "Radiology AI Benchmarks",
+      "Clinical Evaluation",
+      "Responsible AI",
+      "Healthcare Data Infrastructure"
+    ],
+    "socialLinks": {
+      "twitter": "https://x.com/DrDatta_AIIMS",
+      "googleScholar": "https://scholar.google.com/",
+      "linkedin": "https://www.linkedin.com/",
+      "personalWebsite": "https://crashlab.in/people/suvrankar-datta"
+    },
+    "isPrincipalInvestigator": true,
+    "isActive": true,
+    "joinedAt": "2025-04-01",
+    "position": 1,
+    "headline": [
+      "Faculty Fellow, Koita Centre for Digital Health, Ashoka University",
+      "Visiting Researcher, Harvard Medical School",
+      "Group Lead & Founder, CRASH Lab"
+    ],
+    "originStory": [
+      {
+        "_key": "origin-1",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "CRASH Lab started with a question: if AI companies claim clinical performance, why are so few systems tested against the best radiologists under realistic conditions?"
+          }
+        ]
+      },
+      {
+        "_key": "origin-2",
+        "_type": "block",
+        "style": "normal",
+        "children": [
+          {
+            "_type": "span",
+            "text": "Dr. Datta built Radiology's Last Exam to make that gap visible. The benchmark did more than compare models. It defined the lab's mission: build healthcare AI that can survive contact with real clinical practice."
+          }
+        ]
+      }
+    ],
+    "collaborations": [
+      "Ashoka University",
+      "AIIMS New Delhi",
+      "Harvard Medical School",
+      "JIPMER Puducherry",
+      "Koita Foundation"
+    ]
+  }
+]
