@@ -1,0 +1,56 @@
+import { ArrowUpRight } from "lucide-react";
+
+import { RadleWidget } from "@/components/sections/RadleWidget";
+import { Button, SectionLabel } from "@/components/ui";
+import type { ProjectSeed } from "@/types/research";
+
+interface FeaturedProjectProps {
+  project: ProjectSeed;
+}
+
+export function FeaturedProject({ project }: FeaturedProjectProps): React.ReactElement {
+  return (
+    <section className="py-24 lg:py-32">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
+        <div>
+          <SectionLabel number="04" text="Featured Research" />
+          <h2 className="mt-6 font-display text-4xl text-white lg:text-5xl">
+            Radiology&apos;s Last Exam (RadLE)
+          </h2>
+          <p className="mt-6 text-xl text-text-secondary">
+            The benchmark that tested frontier AI against real radiologists — and found a
+            53-point gap.
+          </p>
+          <div className="mt-8 space-y-5 text-base leading-8 text-text-secondary">
+            <p>
+              RadLE was created to measure what most healthcare AI benchmarks do not: whether
+              frontier multimodal systems can perform in the same reasoning environment as trained
+              radiologists.
+            </p>
+            <p>
+              Its key result reset expectations. Expert radiologists scored 83%, the best AI
+              scored 57%, trainees scored 45%, and GPT-5 Thinking scored 30%.
+            </p>
+            <p>
+              That matters because it marks the first time AI has clearly beaten trainees while
+              still remaining too far from experts to justify careless clinical deployment.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Button href={project.paperUrl || "https://arxiv.org/"} target="_blank">
+              Read the Paper (arXiv) <ArrowUpRight className="size-4" />
+            </Button>
+            <Button href="https://crashlab.in/radle" rel="noreferrer" target="_blank" variant="outline">
+              Explore the Benchmark <ArrowUpRight className="size-4" />
+            </Button>
+          </div>
+          <p className="mt-6 text-sm uppercase tracking-[0.16em] text-text-tertiary">
+            Dr. Suvrankar Datta et al. | RSNA 2025 Cutting Edge Oral Presentation | Ashoka
+            University
+          </p>
+        </div>
+        <RadleWidget metrics={project.metrics ?? []} variant="feature" />
+      </div>
+    </section>
+  );
+}
