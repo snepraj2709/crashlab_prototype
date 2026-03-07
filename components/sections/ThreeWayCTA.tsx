@@ -20,7 +20,7 @@ const cards = [
     body: "We offer Research Licensing, Commissioned Studies, and Joint Grant programs — backed by clinical-grade data and expert radiologists.",
     href: "/partners",
     cta: "Partner With Us",
-    className: "border-border bg-bg-elevated",
+    className: "border-cyan-400/25",
   },
   {
     icon: TrendingUp,
@@ -29,8 +29,7 @@ const cards = [
     body: "#1 Indian lab by AI abstracts at RSNA 2025. 15 papers in under 8 months. Led by an AIIMS-trained, Harvard-affiliated radiologist with national healthcare policy influence.",
     href: "/impact",
     cta: "Our Impact",
-    className:
-      "border-transparent bg-[linear-gradient(var(--color-card-gradient-surface),var(--color-card-gradient-surface))_padding-box,linear-gradient(135deg,var(--color-gradient-border-start),var(--color-gradient-border-end))_border-box]",
+    className: "border-cyan-400/25",
   },
 ];
 
