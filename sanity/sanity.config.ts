@@ -1,16 +1,16 @@
 import { defineConfig } from "sanity";
 import { codeInput } from "@sanity/code-input";
-import { deskTool } from "sanity/desk";
+import { structureTool } from "sanity/structure";
 
 import { schemaTypes } from "./schemaTypes";
-import { structure } from "./structure";
+import { structure } from "./deskStructure";
 
 export default defineConfig({
   name: "default",
   title: "CRASH Lab Studio",
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "demo-project",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  plugins: [deskTool({ structure }), codeInput()],
+  plugins: [structureTool({ structure }), codeInput()],
   schema: {
     types: schemaTypes
   }
