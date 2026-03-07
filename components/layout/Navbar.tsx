@@ -54,8 +54,8 @@ export function Navbar(): React.ReactElement {
           </nav>
 
           <div className="hidden lg:block">
-            <Button href="/partners" size="sm" variant="secondary">
-              Work With Us
+            <Button href="/join" size="sm" variant="primary">
+              Join the Lab
             </Button>
           </div>
 

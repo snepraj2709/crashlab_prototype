@@ -78,7 +78,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
                 ))}
               </nav>
               <Button href="/join" onClick={onClose} size="lg">
-                Apply to Work With Us
+                Join the Lab
               </Button>
             </div>
           </motion.div>
