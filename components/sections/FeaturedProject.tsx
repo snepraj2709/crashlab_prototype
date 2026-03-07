@@ -49,7 +49,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps): React.ReactE
             University
           </p>
         </div>
-        <RadleWidget metrics={project.metrics ?? []} variant="feature" />
+        <RadleWidget compact metrics={project.metrics ?? []} />
       </div>
     </section>
   );

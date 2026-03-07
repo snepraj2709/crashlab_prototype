@@ -8,6 +8,7 @@ import type { ProjectMetric } from "@/types/research";
 
 interface RadleWidgetProps {
   metrics: ProjectMetric[];
+  compact?: boolean;
   variant?: "hero" | "feature";
 }
 
@@ -18,11 +19,15 @@ const accentByType = {
 } satisfies Record<ProjectMetric["type"], string>;
 
 export function RadleWidget({
+  compact = false,
   metrics,
   variant = "hero"
 }: RadleWidgetProps): React.ReactElement {
+  const displayedMetrics = compact ? metrics.filter((metric) => metric.type !== "gap") : metrics;
   const maxValue = Math.max(
-    ...metrics.map((metric) => Number.parseInt(metric.value.replace(/[^\d]/g, ""), 10) || 0),
+    ...displayedMetrics.map(
+      (metric) => Number.parseInt(metric.value.replace(/[^\d]/g, ""), 10) || 0
+    ),
     100
   );
 
@@ -30,21 +35,25 @@ export function RadleWidget({
     <Card
       className={cn(
         "overflow-hidden border-white/10 bg-[linear-gradient(180deg,rgba(17,24,39,0.96),rgba(10,15,30,0.96))]",
-        variant === "hero" ? "p-5 md:p-6" : "p-6 md:p-8"
+        compact ? "p-4" : variant === "hero" ? "p-5 md:p-6" : "p-6 md:p-8"
       )}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">RadLE Live Benchmark</p>
-          <h3 className="mt-2 text-2xl font-semibold text-white">How far is AI from expert radiologists?</h3>
+      {compact ? null : (
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">RadLE Live Benchmark</p>
+            <h3 className="mt-2 text-2xl font-semibold text-white">
+              How far is AI from expert radiologists?
+            </h3>
+          </div>
+          <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-text-secondary">
+            Updated from seed data
+          </span>
         </div>
-        <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-text-secondary">
-          Updated from seed data
-        </span>
-      </div>
+      )}
 
-      <div className="mt-8 space-y-4">
-        {metrics.map((metric, index) => {
+      <div className={cn("space-y-4", compact ? "" : "mt-8")}>
+        {displayedMetrics.map((metric, index) => {
           const rawValue = Number.parseInt(metric.value.replace(/[^\d]/g, ""), 10) || 0;
           const width = Math.max((rawValue / maxValue) * 100, 12);
 
