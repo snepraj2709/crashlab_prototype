@@ -1,9 +1,9 @@
 "use client";
 
-import { NextStudio } from "next-sanity/studio";
+import { Studio } from "sanity";
 
 import config from "@/sanity/sanity.config";
 
 export default function StudioPage(): React.ReactElement {
-  return <NextStudio config={config} />;
+  return <Studio config={config} unstable_globalStyles />;
 }
