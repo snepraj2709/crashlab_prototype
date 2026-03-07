@@ -56,11 +56,36 @@
     "featured": true,
     "seekingCollaborators": false,
     "metrics": [
-      { "label": "Expert Radiologists", "value": "83%", "type": "human" },
-      { "label": "Gemini 3.0 Pro", "value": "57%", "type": "ai" },
-      { "label": "Radiology Trainees", "value": "45%", "type": "human" },
-      { "label": "GPT-5 Thinking", "value": "30%", "type": "ai" },
-      { "label": "Human–AI Gap", "value": "26pt", "type": "gap" }
+      {
+        "id": "expert-radiologists",
+        "label": "Expert Radiologists",
+        "value": "83%",
+        "type": "human"
+      },
+      {
+        "id": "gemini-3-pro",
+        "label": "Gemini 3.0 Pro",
+        "value": "57%",
+        "type": "ai"
+      },
+      {
+        "id": "radiology-trainees",
+        "label": "Radiology Trainees",
+        "value": "45%",
+        "type": "human"
+      },
+      {
+        "id": "gpt-5-thinking",
+        "label": "GPT-5 Thinking",
+        "value": "30%",
+        "type": "ai"
+      },
+      {
+        "id": "human-ai-gap",
+        "label": "Human–AI Gap",
+        "value": "26pt",
+        "type": "gap"
+      }
     ]
   },
   {

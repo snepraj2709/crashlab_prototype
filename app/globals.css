@@ -30,6 +30,14 @@
   --color-accent-yellow: #f59e0b;
   --color-accent-yellow-muted: rgba(245, 158, 11, 0.12);
 
+  /* RadLE Widget - semantic bar colors */
+  --radle-human-primary: #38bdf8;
+  --radle-human-secondary: #38bdf8;
+  --radle-ai-primary: #a78bfa;
+  --radle-ai-secondary: #a78bfa;
+  --radle-gap: #ff6b35;
+  --radle-track: #1f2937;
+
   --color-white: #ffffff;
   --color-hero-mesh-secondary: rgba(255, 255, 255, 0.08);
   --color-card-gradient-surface: #111827;
@@ -79,6 +87,14 @@
   --color-accent-green-muted: rgba(5, 150, 105, 0.08);
   --color-accent-yellow: #d97706;
   --color-accent-yellow-muted: rgba(217, 119, 6, 0.08);
+
+  /* RadLE Widget - semantic bar colors */
+  --radle-human-primary: #0284c7;
+  --radle-human-secondary: #0284c7;
+  --radle-ai-primary: #7c3aed;
+  --radle-ai-secondary: #7c3aed;
+  --radle-gap: #ea580c;
+  --radle-track: #e2e8f0;
 
   --color-white: #ffffff;
   --color-hero-mesh-secondary: rgba(15, 23, 42, 0.05);
