@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
 
 import { RadleWidget } from "@/components/sections/RadleWidget";
-import { Button, ProofChip } from "@/components/ui";
+import { Button, ProofChip, SectionLabel } from "@/components/ui";
 import type { ProjectMetric } from "@/types/research";
 
 interface HeroSectionProps {
@@ -12,10 +12,13 @@ interface HeroSectionProps {
 }
 
 const proofChips = [
-  { label: "RadLE Benchmark — RSNA 2025 Cutting Edge", variant: "filled" as const },
+  {
+    label: "RadLE Benchmark — RSNA 2025 Cutting Edge",
+    variant: "filled" as const,
+  },
   { label: "RSNA Trainee Research Prize 2023", variant: "outline" as const },
   { label: "15 Papers — Founded April 2025", variant: "outline" as const },
-  { label: "Harvard × AIIMS × Ashoka", variant: "outline" as const }
+  { label: "Harvard × AIIMS × Ashoka", variant: "outline" as const },
 ];
 
 export function HeroSection({ metrics }: HeroSectionProps): React.ReactElement {
@@ -26,18 +29,17 @@ export function HeroSection({ metrics }: HeroSectionProps): React.ReactElement {
 
       <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-14 px-6 pb-20 pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-accent-cyan">
-            CRASH LAB — ASHOKA UNIVERSITY
-          </p>
+          <SectionLabel number="01" text="CRASH LAB — ASHOKA UNIVERSITY" />
           <h1 className="mt-6 font-display text-6xl leading-[0.92] text-white lg:text-7xl">
             Responsible AI,
             <br />
             built for Healthcare.
           </h1>
           <p className="mt-8 max-w-2xl text-base leading-8 text-text-secondary lg:text-lg">
-            CRASH Lab is an interdisciplinary research group at the intersection of clinical
-            practice and frontier AI — building benchmarks that hold AI accountable, tools
-            clinicians trust, and infrastructure for India&apos;s healthcare future.
+            CRASH Lab is an interdisciplinary research group at the intersection
+            of clinical practice and frontier AI — building benchmarks that hold
+            AI accountable, tools clinicians trust, and infrastructure for
+            India&apos;s healthcare future.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">

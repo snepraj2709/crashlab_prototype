@@ -54,8 +54,8 @@
       }
     ],
     "coverImage": {
-      "url": "/og/default.svg",
-      "alt": "RadLE benchmark visualization"
+      "url": "/og/benchmark-update.svg",
+      "alt": "Benchmark update cover for the RadLE benchmark article"
     },
     "publishedAt": "2025-11-20T09:00:00.000Z",
     "authorSlug": "suvrankar-datta",
@@ -98,8 +98,8 @@
       }
     ],
     "coverImage": {
-      "url": "/og/default.svg",
-      "alt": "CRASH Lab benchmark article cover"
+      "url": "/og/research-paper.svg",
+      "alt": "Research paper cover for the RadLE benchmark article"
     },
     "publishedAt": "2025-10-02T09:00:00.000Z",
     "authorSlug": "suvrankar-datta",
@@ -142,8 +142,8 @@
       }
     ],
     "coverImage": {
-      "url": "/og/default.svg",
-      "alt": "CRASH Lab at RSNA 2025"
+      "url": "/og/lab-news.svg",
+      "alt": "Lab news cover for CRASH Lab at RSNA 2025"
     },
     "publishedAt": "2025-09-30T09:00:00.000Z",
     "authorSlug": "suvrankar-datta",

@@ -10,26 +10,28 @@ const cards = [
     body: "CRASH Lab offers publication velocity, clinical data access, and mentorship from AIIMS-trained, Harvard-affiliated researchers.",
     href: "/join",
     cta: "Explore Open Projects",
-    className: "border-cyan-400/25"
+    className: "border-cyan-400/25",
   },
   {
     icon: Building2,
     eyebrow: "For Industry",
-    headline: "License research. Validate your AI. Commission India-specific studies.",
+    headline:
+      "License research. Validate your AI. Commission India-specific studies.",
     body: "We offer Research Licensing, Commissioned Studies, and Joint Grant programs — backed by clinical-grade data and expert radiologists.",
     href: "/partners",
     cta: "Partner With Us",
-    className: "border-white/10 bg-bg-elevated"
+    className: "border-white/10 bg-bg-elevated",
   },
   {
     icon: TrendingUp,
     eyebrow: "For Investors",
     headline: "Fund India's most credible responsible health AI lab.",
-    body: "15 papers in 8 months. RSNA's top-ranked Indian team. A lead PI with AIIMS training, Harvard affiliation, and national policy influence.",
+    body: "#1 Indian lab by AI abstracts at RSNA 2025. 15 papers in under 8 months. Led by an AIIMS-trained, Harvard-affiliated radiologist with national healthcare policy influence.",
     href: "/impact",
     cta: "Our Impact",
-    className: "border-transparent bg-[linear-gradient(#111827,#111827)_padding-box,linear-gradient(135deg,#FF6B35,#00D4FF)_border-box]"
-  }
+    className:
+      "border-transparent bg-[linear-gradient(#111827,#111827)_padding-box,linear-gradient(135deg,#FF6B35,#00D4FF)_border-box]",
+  },
 ];
 
 export function ThreeWayCTA(): React.ReactElement {
@@ -44,8 +46,12 @@ export function ThreeWayCTA(): React.ReactElement {
               <p className="mt-8 text-xs uppercase tracking-[0.22em] text-text-tertiary">
                 {card.eyebrow}
               </p>
-              <h3 className="mt-4 text-2xl font-semibold text-white">{card.headline}</h3>
-              <p className="mt-4 text-base leading-8 text-text-secondary">{card.body}</p>
+              <h3 className="mt-4 text-2xl font-semibold text-white">
+                {card.headline}
+              </h3>
+              <p className="mt-4 text-base leading-8 text-text-secondary">
+                {card.body}
+              </p>
               <div className="mt-8">
                 <Button href={card.href} variant="secondary">
                   {card.cta}

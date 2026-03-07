@@ -43,7 +43,8 @@
     "venue": "RSNA 2025 — Cutting Edge Oral Presentation",
     "publishedAt": "2025-09-29",
     "benchmarkUpdatedAt": "2025-11-20",
-    "paperUrl": "https://arxiv.org/",
+    "paperUrl": "https://arxiv.org/abs/2509.25559",
+    "paperStatus": "preprint",
     "heroImage": {
       "url": "/og/default.svg",
       "alt": "Abstract radiology benchmark visualization for the RadLE project"

@@ -8,6 +8,8 @@ export type ProjectAudience = "researcher" | "industry" | "investor" | "all";
 
 export type ProjectMetricType = "human" | "ai" | "gap";
 
+export type PaperStatus = "preprint" | "coming-soon" | "published";
+
 export interface PortableTextSpan {
   _type: "span";
   text: string;
@@ -41,6 +43,7 @@ export interface ProjectSeed {
   venue?: string;
   publishedAt?: string;
   paperUrl?: string;
+  paperStatus?: PaperStatus;
   heroImage?: ImageAsset | null;
   tags: string[];
   audience: ProjectAudience[];

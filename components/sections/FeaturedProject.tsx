@@ -1,5 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
-
 import { RadleWidget } from "@/components/sections/RadleWidget";
 import { Button, SectionLabel } from "@/components/ui";
 import type { ProjectSeed } from "@/types/research";
@@ -8,7 +6,21 @@ interface FeaturedProjectProps {
   project: ProjectSeed;
 }
 
-export function FeaturedProject({ project }: FeaturedProjectProps): React.ReactElement {
+export function FeaturedProject({
+  project,
+}: FeaturedProjectProps): React.ReactElement {
+  const resolvedPaperUrl =
+    project.paperUrl && project.paperUrl !== "https://arxiv.org/"
+      ? project.paperUrl
+      : project.slug === "radle-benchmark"
+        ? "https://arxiv.org/abs/2509.25559"
+        : undefined;
+  const paperStatus =
+    project.paperStatus ??
+    (resolvedPaperUrl?.startsWith("https://arxiv.org/abs/")
+      ? "preprint"
+      : undefined);
+
   return (
     <section className="py-24 lg:py-32">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
@@ -18,35 +30,53 @@ export function FeaturedProject({ project }: FeaturedProjectProps): React.ReactE
             Radiology&apos;s Last Exam (RadLE)
           </h2>
           <p className="mt-6 text-xl text-text-secondary">
-            The benchmark that tested frontier AI against real radiologists — and found a
-            53-point gap.
+            The benchmark that tested frontier AI against real radiologists —
+            and found a 53-point gap.
           </p>
           <div className="mt-8 space-y-5 text-base leading-8 text-text-secondary">
             <p>
-              RadLE was created to measure what most healthcare AI benchmarks do not: whether
-              frontier multimodal systems can perform in the same reasoning environment as trained
-              radiologists.
+              RadLE was created to measure what most healthcare AI benchmarks do
+              not: whether frontier multimodal systems can perform in the same
+              reasoning environment as trained radiologists.
             </p>
             <p>
-              Its key result reset expectations. Expert radiologists scored 83%, the best AI
-              scored 57%, trainees scored 45%, and GPT-5 Thinking scored 30%.
+              Its key result reset expectations. Expert radiologists scored 83%,
+              the best AI scored 57%, trainees scored 45%, and GPT-5 Thinking
+              scored 30%.
             </p>
             <p>
-              That matters because it marks the first time AI has clearly beaten trainees while
-              still remaining too far from experts to justify careless clinical deployment.
+              That matters because it marks the first time AI has clearly beaten
+              trainees while still remaining too far from experts to justify
+              careless clinical deployment.
             </p>
           </div>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Button href={project.paperUrl || "https://arxiv.org/"} target="_blank">
-              Read the Paper (arXiv) <ArrowUpRight className="size-4" />
-            </Button>
-            <Button href="https://crashlab.in/radle" rel="noreferrer" target="_blank" variant="outline">
-              Explore the Benchmark <ArrowUpRight className="size-4" />
+            {resolvedPaperUrl ? (
+              <Button
+                href={resolvedPaperUrl}
+                rel="noreferrer"
+                target="_blank"
+                variant="outline"
+              >
+                Read the Paper
+                {paperStatus === "preprint" ? (
+                  <span className="ml-2 rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-[0.16em] text-text-secondary">
+                    arXiv
+                  </span>
+                ) : null}
+              </Button>
+            ) : (
+              <Button aria-disabled="true" disabled variant="outline">
+                Pre-print Coming Soon
+              </Button>
+            )}
+            <Button href="/research/radle-benchmark" variant="ghost">
+              Explore the Benchmark
             </Button>
           </div>
           <p className="mt-6 text-sm uppercase tracking-[0.16em] text-text-tertiary">
-            Dr. Suvrankar Datta et al. | RSNA 2025 Cutting Edge Oral Presentation | Ashoka
-            University
+            Dr. Suvrankar Datta et al. | RSNA 2025 Cutting Edge Oral
+            Presentation | Ashoka University
           </p>
         </div>
         <RadleWidget compact metrics={project.metrics ?? []} />
