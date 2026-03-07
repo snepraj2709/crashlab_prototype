@@ -66,7 +66,7 @@ export default async function PersonPage({
       <section className="pt-32 pb-24 lg:pb-32">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">People</p>
-          <h1 className="mt-6 font-display text-5xl text-white lg:text-6xl">{person.name}</h1>
+          <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">{person.name}</h1>
           {"headline" in person && person.headline ? (
             <div className="mt-6 space-y-2 text-lg text-text-secondary">
               {person.headline.map((line) => (
@@ -107,8 +107,8 @@ export default async function PersonPage({
                 <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Publications</p>
                 <div className="mt-6 space-y-4">
                   {publications.map((publication) => (
-                    <div className="border-b border-white/8 pb-4 last:border-b-0 last:pb-0" key={publication.id}>
-                      <p className="text-lg font-medium text-white">{publication.title}</p>
+                    <div className="border-b border-border pb-4 last:border-b-0 last:pb-0" key={publication.id}>
+                      <p className="text-lg font-medium text-text-primary">{publication.title}</p>
                       <p className="mt-2 text-sm text-text-secondary">
                         {publication.venue} · {publication.year}
                       </p>
@@ -123,7 +123,7 @@ export default async function PersonPage({
                 <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Research areas</p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   {person.researchFocus.map((focus) => (
-                    <span className="rounded-full border border-white/10 px-4 py-2 text-sm text-text-secondary" key={focus}>
+                    <span className="rounded-full border border-border px-4 py-2 text-sm text-text-secondary" key={focus}>
                       {focus}
                     </span>
                   ))}
@@ -135,7 +135,7 @@ export default async function PersonPage({
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Collaborations</p>
                   <div className="mt-6 flex flex-wrap gap-3">
                     {person.collaborations.map((collaboration) => (
-                      <span className="rounded-full border border-white/10 px-4 py-2 text-sm text-white" key={collaboration}>
+                      <span className="rounded-full border border-border px-4 py-2 text-sm text-text-primary" key={collaboration}>
                         {collaboration}
                       </span>
                     ))}
@@ -149,7 +149,7 @@ export default async function PersonPage({
                   {Object.entries(person.socialLinks ?? {}).map(([key, value]) =>
                     value ? (
                       <Link
-                        className="block text-white transition hover:text-accent-cyan"
+                        className="block text-text-primary transition hover:text-accent-cyan"
                         href={value}
                         key={key}
                         rel="noreferrer"

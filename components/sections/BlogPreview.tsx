@@ -37,7 +37,7 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel number="06" text="From the Lab" />
-            <h2 className="mt-6 font-display text-4xl text-white lg:text-5xl">
+            <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
               Research updates. Benchmark changes. What we&apos;re learning in
               the field.
             </h2>
@@ -57,7 +57,7 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
           {posts.slice(0, 3).map((post) => (
             <Link href={`/blog/${post.slug}`} key={post._id}>
               <Card className="h-full transition hover:border-accent-cyan">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] border border-white/10">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] border border-border">
                   <Image
                     alt={`Cover image for ${post.title}`}
                     className="object-cover"
@@ -74,7 +74,7 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
                     {formatDate(post.publishedAt)}
                   </span>
                 </div>
-                <h3 className="mt-4 line-clamp-2 text-2xl font-semibold text-white">
+                <h3 className="mt-4 line-clamp-2 text-2xl font-semibold text-text-primary">
                   {post.title}
                 </h3>
                 <p className="mt-3 line-clamp-2 text-text-secondary">

@@ -69,8 +69,8 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
   }
 
   return (
-    <Card className="border-white/12">
-      <h3 className="font-display text-3xl text-white">Interest Form</h3>
+    <Card className="border-border">
+      <h3 className="font-display text-3xl text-text-primary">Interest Form</h3>
       <p className="mt-3 max-w-2xl text-text-secondary">
         Tell the lab what you work on, why this research agenda matters to you, and how soon you
         could start.
@@ -78,17 +78,17 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
       <form action="/api/join" className="mt-8 grid gap-5 md:grid-cols-2" method="post" onSubmit={handleSubmit}>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Name</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="name" required />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="name" required />
           {errors.name ? <span className="mt-2 block text-sm text-red-300">{errors.name}</span> : null}
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Email</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="email" required type="email" />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="email" required type="email" />
           {errors.email ? <span className="mt-2 block text-sm text-red-300">{errors.email}</span> : null}
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Current Role</span>
-          <select className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" defaultValue="" name="currentRole" required>
+          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="" name="currentRole" required>
             <option disabled value="">
               Select one
             </option>
@@ -101,14 +101,14 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Institution</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="institution" required />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="institution" required />
         </label>
         <fieldset className="md:col-span-2">
           <legend className="mb-3 text-sm text-text-secondary">Research interests</legend>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {sortedInterests.map((interest) => (
-              <label className="flex items-center gap-3 rounded-2xl border border-white/10 px-4 py-3 text-sm text-text-secondary" key={interest}>
-                <input className="rounded border-white/20 bg-bg-primary text-accent-cyan" name="researchInterests" type="checkbox" value={interest} />
+              <label className="flex items-center gap-3 rounded-2xl border border-border px-4 py-3 text-sm text-text-secondary" key={interest}>
+                <input className="rounded border-border bg-bg-primary text-accent-cyan" name="researchInterests" type="checkbox" value={interest} />
                 {interest}
               </label>
             ))}
@@ -119,16 +119,16 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
         </fieldset>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Portfolio / GitHub URL</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="portfolioUrl" type="url" />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="portfolioUrl" type="url" />
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">CV URL</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="cvUrl" type="url" />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="cvUrl" type="url" />
         </label>
         <label className="md:col-span-2">
           <span className="mb-2 block text-sm text-text-secondary">Motivation</span>
           <textarea
-            className="min-h-40 w-full rounded-3xl border border-white/10 bg-bg-primary px-4 py-4 text-white"
+            className="min-h-40 w-full rounded-3xl border border-border bg-bg-primary px-4 py-4 text-text-primary"
             name="motivation"
             onChange={(event) => setMotivationLength(event.target.value.length)}
             required
@@ -142,8 +142,8 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
           <legend className="mb-3 text-sm text-text-secondary">Availability</legend>
           <div className="flex flex-wrap gap-3">
             {availabilityOptions.map((option) => (
-              <label className="flex items-center gap-3 rounded-full border border-white/10 px-4 py-3 text-sm text-text-secondary" key={option}>
-                <input className="rounded border-white/20 bg-bg-primary text-accent-cyan" defaultChecked={option === "exploring"} name="availability" type="radio" value={option} />
+              <label className="flex items-center gap-3 rounded-full border border-border px-4 py-3 text-sm text-text-secondary" key={option}>
+                <input className="rounded border-border bg-bg-primary text-accent-cyan" defaultChecked={option === "exploring"} name="availability" type="radio" value={option} />
                 {option}
               </label>
             ))}
@@ -154,7 +154,7 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
         {successMessage ? (
           <div className="md:col-span-2 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-5">
             <p className="text-sm text-emerald-300">{successMessage}</p>
-            {referenceId ? <p className="mt-2 font-mono text-white">{referenceId}</p> : null}
+            {referenceId ? <p className="mt-2 font-mono text-text-primary">{referenceId}</p> : null}
           </div>
         ) : null}
         <div className="md:col-span-2">

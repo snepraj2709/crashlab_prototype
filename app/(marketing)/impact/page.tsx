@@ -22,7 +22,7 @@ export default async function ImpactPage(): Promise<React.ReactElement> {
       <section className="pt-32 pb-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionLabel number="01" text="Impact" />
-          <h1 className="mt-6 max-w-4xl font-display text-5xl text-white lg:text-6xl">
+          <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
             15 papers in 8 months. From a lab that didn&apos;t exist a year ago.
           </h1>
           <p className="mt-6 max-w-3xl text-lg text-text-secondary">
@@ -44,9 +44,9 @@ export default async function ImpactPage(): Promise<React.ReactElement> {
 
       <section className="py-24 lg:py-32">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-8">
+          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Upcoming</p>
-            <h2 className="mt-4 font-display text-4xl text-white">
+            <h2 className="mt-4 font-display text-4xl text-text-primary">
               Scale Data Commons to 50+ hospitals by 2027
             </h2>
             <p className="mt-6 text-text-secondary">
@@ -54,18 +54,18 @@ export default async function ImpactPage(): Promise<React.ReactElement> {
               AI research faster, more accountable, and more representative across India.
             </p>
           </div>
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-8">
+          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Lead PI credibility</p>
-            <h2 className="mt-4 font-display text-4xl text-white">{lead?.name}</h2>
+            <h2 className="mt-4 font-display text-4xl text-text-primary">{lead?.name}</h2>
             <div className="mt-6 flex flex-wrap gap-3">
               {lead?.credentials.slice(0, 5).map((credential) => (
                 <ProofChip key={credential} label={credential} size="sm" />
               ))}
             </div>
             <p className="mt-6 text-text-secondary">{lead?.shortBio}</p>
-            <div className="mt-8 rounded-[24px] border border-white/10 bg-bg-surface p-6">
+            <div className="mt-8 rounded-[24px] border border-border bg-bg-surface p-6">
               <p className="text-sm uppercase tracking-[0.16em] text-text-tertiary">Funding</p>
-              <p className="mt-3 text-xl text-white">Supported by Koita Foundation</p>
+              <p className="mt-3 text-xl text-text-primary">Supported by Koita Foundation</p>
               <p className="mt-3 text-text-secondary">
                 The lab is building a portfolio for future grants, institutional partnerships, and
                 aligned philanthropic capital.

@@ -33,7 +33,7 @@ export function ProjectCard({
               </span>
             ) : null}
           </div>
-          <h3 className="mt-6 line-clamp-2 text-xl font-semibold text-white">
+          <h3 className="mt-6 line-clamp-2 text-xl font-semibold text-text-primary">
             {project.problemStatement}
           </h3>
           <p className="mt-3 text-sm uppercase tracking-[0.16em] text-accent-cyan">{project.title}</p>
@@ -44,7 +44,7 @@ export function ProjectCard({
             <div className="mt-5 flex flex-wrap gap-2">
               {project.tags.slice(0, 4).map((tag) => (
                 <span
-                  className="rounded-full border border-white/10 px-3 py-1 text-xs text-text-secondary"
+                  className="rounded-full border border-border px-3 py-1 text-xs text-text-secondary"
                   key={tag}
                 >
                   {tag}
@@ -54,7 +54,7 @@ export function ProjectCard({
           ) : null}
         </div>
         <Link
-          className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-white transition group-hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+          className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-text-primary transition group-hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
           href={`/research/${project.slug}`}
         >
           View Research <ArrowRight className="size-4" />

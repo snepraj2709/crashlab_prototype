@@ -26,7 +26,7 @@ export function FeaturedProject({
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div>
           <SectionLabel number="04" text="Featured Research" />
-          <h2 className="mt-6 font-display text-4xl text-white lg:text-5xl">
+          <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
             Radiology&apos;s Last Exam (RadLE)
           </h2>
           <p className="mt-6 text-xl text-text-secondary">
@@ -60,7 +60,7 @@ export function FeaturedProject({
               >
                 Read the Paper
                 {paperStatus === "preprint" ? (
-                  <span className="ml-2 rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-[0.16em] text-text-secondary">
+                  <span className="ml-2 rounded-full border border-border bg-bg-elevated px-2 py-0.5 text-[10px] uppercase tracking-[0.16em] text-text-secondary">
                     arXiv
                   </span>
                 ) : null}

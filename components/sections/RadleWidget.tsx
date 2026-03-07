@@ -16,8 +16,8 @@ interface RadleWidgetProps {
 
 const accentByType = {
   human: "bg-accent-cyan",
-  ai: "bg-accent-orange",
-  gap: "bg-white/40"
+  ai: "bg-border",
+  gap: "bg-accent-orange",
 } satisfies Record<ProjectMetric["type"], string>;
 
 interface SeedProjectWithBenchmarkUpdate {
@@ -47,8 +47,8 @@ export function RadleWidget({
   return (
     <Card
       className={cn(
-        "overflow-hidden border-white/10 bg-[linear-gradient(180deg,rgba(17,24,39,0.96),rgba(10,15,30,0.96))]",
-        compact ? "p-4" : variant === "hero" ? "p-5 md:p-6" : "p-6 md:p-8"
+        "overflow-hidden border-border bg-bg-surface shadow-[var(--shadow-elevated)]",
+        compact ? "p-4" : variant === "hero" ? "p-5 md:p-6" : "p-6 md:p-8",
       )}
     >
       {compact ? null : (
@@ -59,7 +59,7 @@ export function RadleWidget({
               How far is AI from expert radiologists?
             </h3>
           </div>
-          <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-text-secondary">
+          <span className="rounded-full border border-border px-3 py-1 text-xs uppercase tracking-[0.18em] text-text-secondary">
             {subtitle}
           </span>
         </div>
@@ -74,9 +74,18 @@ export function RadleWidget({
             <div key={metric.label}>
               <div className="mb-2 flex items-center justify-between gap-4">
                 <p className="text-sm text-text-secondary">{metric.label}</p>
-                <p className="font-mono text-sm text-white">{metric.value}</p>
+                <p
+                  className={cn(
+                    "font-mono text-sm",
+                    metric.type === "gap"
+                      ? "text-accent-orange"
+                      : "text-text-primary",
+                  )}
+                >
+                  {metric.value}
+                </p>
               </div>
-              <div className="h-3 overflow-hidden rounded-full bg-white/6">
+              <div className="h-3 overflow-hidden rounded-full bg-bg-elevated">
                 <motion.div
                   animate={{ width: `${width}%` }}
                   className={cn("h-full rounded-full", accentByType[metric.type])}

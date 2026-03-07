@@ -9,7 +9,7 @@ export function Card({ children, className, ...props }: CardProps): React.ReactE
     <div
       {...props}
       className={cn(
-        "rounded-[28px] border border-border bg-bg-surface p-6 shadow-[0_30px_80px_rgba(0,0,0,0.18)]",
+        "rounded-[28px] border border-border bg-bg-surface p-6 shadow-[var(--shadow-card)]",
         className
       )}
     >

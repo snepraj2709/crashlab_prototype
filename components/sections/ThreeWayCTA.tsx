@@ -20,7 +20,7 @@ const cards = [
     body: "We offer Research Licensing, Commissioned Studies, and Joint Grant programs — backed by clinical-grade data and expert radiologists.",
     href: "/partners",
     cta: "Partner With Us",
-    className: "border-white/10 bg-bg-elevated",
+    className: "border-border bg-bg-elevated",
   },
   {
     icon: TrendingUp,
@@ -30,7 +30,7 @@ const cards = [
     href: "/impact",
     cta: "Our Impact",
     className:
-      "border-transparent bg-[linear-gradient(#111827,#111827)_padding-box,linear-gradient(135deg,#FF6B35,#00D4FF)_border-box]",
+      "border-transparent bg-[linear-gradient(var(--color-card-gradient-surface),var(--color-card-gradient-surface))_padding-box,linear-gradient(135deg,var(--color-gradient-border-start),var(--color-gradient-border-end))_border-box]",
   },
 ];
 
@@ -46,7 +46,7 @@ export function ThreeWayCTA(): React.ReactElement {
               <p className="mt-8 text-xs uppercase tracking-[0.22em] text-text-tertiary">
                 {card.eyebrow}
               </p>
-              <h3 className="mt-4 text-2xl font-semibold text-white">
+              <h3 className="mt-4 text-2xl font-semibold text-text-primary">
                 {card.headline}
               </h3>
               <p className="mt-4 text-base leading-8 text-text-secondary">

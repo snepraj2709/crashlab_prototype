@@ -87,7 +87,7 @@ export default async function BlogPostPage({
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
             {post.category?.replace(/-/g, " ") || "Article"}
           </p>
-          <h1 className="mt-6 max-w-5xl font-display text-5xl text-white lg:text-6xl">
+          <h1 className="mt-6 max-w-5xl font-display text-5xl text-text-primary lg:text-6xl">
             {post.title}
           </h1>
           <div className="mt-6 flex flex-wrap gap-4 text-sm text-text-tertiary">
@@ -100,9 +100,9 @@ export default async function BlogPostPage({
             <div>
               <PortableTextContent blocks={post.body} />
 
-              <div className="mt-12 rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+              <div className="mt-12 rounded-[28px] border border-border bg-bg-surface p-6">
                 <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">About the author</p>
-                <h2 className="mt-4 text-2xl font-semibold text-white">
+                <h2 className="mt-4 text-2xl font-semibold text-text-primary">
                   {post.author?.name || "CRASH Lab"}
                 </h2>
                 <p className="mt-4 text-text-secondary">
@@ -113,7 +113,7 @@ export default async function BlogPostPage({
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
-                  className="rounded-full border border-white/10 px-5 py-3 text-white transition hover:border-accent-cyan hover:text-accent-cyan"
+                  className="rounded-full border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.title)}`}
                   rel="noreferrer"
                   target="_blank"
@@ -121,7 +121,7 @@ export default async function BlogPostPage({
                   Share on Twitter
                 </Link>
                 <Link
-                  className="rounded-full border border-white/10 px-5 py-3 text-white transition hover:border-accent-cyan hover:text-accent-cyan"
+                  className="rounded-full border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`}
                   rel="noreferrer"
                   target="_blank"
@@ -133,14 +133,14 @@ export default async function BlogPostPage({
 
             <aside className="space-y-6">
               {headings.length ? (
-                <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+                <div className="rounded-[28px] border border-border bg-bg-surface p-6">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
                     Table of contents
                   </p>
                   <div className="mt-5 space-y-3">
                     {headings.map((heading) => (
                       <a
-                        className={`block text-sm ${heading.level === 3 ? "pl-4 text-text-tertiary" : "text-white"}`}
+                        className={`block text-sm ${heading.level === 3 ? "pl-4 text-text-tertiary" : "text-text-primary"}`}
                         href={`#${heading.id}`}
                         key={heading.id}
                       >
@@ -152,11 +152,11 @@ export default async function BlogPostPage({
               ) : null}
 
               {relatedPosts.length ? (
-                <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+                <div className="rounded-[28px] border border-border bg-bg-surface p-6">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Related posts</p>
                   <div className="mt-5 space-y-4">
                     {relatedPosts.map((related) => (
-                      <Link className="block text-white transition hover:text-accent-cyan" href={`/blog/${related.slug}`} key={related._id}>
+                      <Link className="block text-text-primary transition hover:text-accent-cyan" href={`/blog/${related.slug}`} key={related._id}>
                         {related.title}
                       </Link>
                     ))}

@@ -33,7 +33,7 @@ export function TimelineSection(): React.ReactElement {
             <Card className="relative overflow-hidden" key={item.year}>
               <div className="absolute inset-x-6 top-0 h-1 rounded-full bg-accent-cyan" />
               <p className="mt-6 font-mono text-sm text-accent-cyan">{item.year}</p>
-              <h3 className="mt-4 text-2xl font-semibold text-white">{item.title}</h3>
+              <h3 className="mt-4 text-2xl font-semibold text-text-primary">{item.title}</h3>
               <p className="mt-4 text-text-secondary">{item.body}</p>
             </Card>
           ))}

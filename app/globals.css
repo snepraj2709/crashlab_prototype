@@ -2,20 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* ============================================================
+   DARK THEME
+   Applied when: data-theme="dark"
+   ============================================================ */
+
+[data-theme="dark"] {
   --color-bg-primary: #0a0f1e;
   --color-bg-surface: #111827;
   --color-bg-elevated: #1a2235;
+  --color-bg-overlay: rgba(10, 15, 30, 0.92);
+
   --color-border: #1f2937;
   --color-border-subtle: #161d2b;
+
   --color-text-primary: #e8edf5;
   --color-text-secondary: #94a3b8;
   --color-text-tertiary: #64748b;
+  --color-text-inverse: #0a0f1e;
+
   --color-accent-cyan: #00d4ff;
+  --color-accent-cyan-muted: rgba(0, 212, 255, 0.12);
   --color-accent-orange: #ff6b35;
+  --color-accent-orange-muted: rgba(255, 107, 53, 0.12);
   --color-accent-green: #10b981;
+  --color-accent-green-muted: rgba(16, 185, 129, 0.12);
   --color-accent-yellow: #f59e0b;
+  --color-accent-yellow-muted: rgba(245, 158, 11, 0.12);
+
   --color-white: #ffffff;
+  --color-hero-mesh-secondary: rgba(255, 255, 255, 0.08);
+  --color-card-gradient-surface: #111827;
+  --color-gradient-border-start: #ff6b35;
+  --color-gradient-border-end: #00d4ff;
+
+  --navbar-bg-transparent: transparent;
+  --navbar-bg-solid: rgba(10, 15, 30, 0.96);
+  --navbar-border: rgba(31, 41, 55, 0.8);
+
+  --shadow-card: 0 30px 80px rgba(0, 0, 0, 0.18);
+  --shadow-elevated: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow:
+    0 0 0 1px rgba(0, 212, 255, 0.18), 0 18px 40px rgba(10, 15, 30, 0.38);
+
+  --mesh-opacity: 0.15;
+  --toggle-icon: "sun";
+
+  color-scheme: dark;
+}
+
+/* ============================================================
+   LIGHT THEME (default fallback)
+   Applied when: data-theme="light" OR no data-theme attribute
+   ============================================================ */
+
+:root:not([data-theme]),
+[data-theme="light"] {
+  --color-bg-primary: #f8fafc;
+  --color-bg-surface: #ffffff;
+  --color-bg-elevated: #f1f5f9;
+  --color-bg-overlay: rgba(248, 250, 252, 0.95);
+
+  --color-border: #e2e8f0;
+  --color-border-subtle: #f1f5f9;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
+  --color-text-inverse: #f8fafc;
+
+  --color-accent-cyan: #0284c7;
+  --color-accent-cyan-muted: rgba(2, 132, 199, 0.08);
+  --color-accent-orange: #ea580c;
+  --color-accent-orange-muted: rgba(234, 88, 12, 0.08);
+  --color-accent-green: #059669;
+  --color-accent-green-muted: rgba(5, 150, 105, 0.08);
+  --color-accent-yellow: #d97706;
+  --color-accent-yellow-muted: rgba(217, 119, 6, 0.08);
+
+  --color-white: #ffffff;
+  --color-hero-mesh-secondary: rgba(15, 23, 42, 0.05);
+  --color-card-gradient-surface: #ffffff;
+  --color-gradient-border-start: #ea580c;
+  --color-gradient-border-end: #0284c7;
+
+  --navbar-bg-transparent: transparent;
+  --navbar-bg-solid: rgba(248, 250, 252, 0.96);
+  --navbar-border: rgba(226, 232, 240, 0.9);
+
+  --shadow-card: 0 30px 80px rgba(15, 23, 42, 0.08);
+  --shadow-elevated: 0 4px 24px rgba(15, 23, 42, 0.12);
+  --shadow-glow:
+    0 0 0 1px rgba(2, 132, 199, 0.12), 0 18px 40px rgba(2, 132, 199, 0.16);
+
+  --mesh-opacity: 0.06;
+  --toggle-icon: "moon";
+
+  color-scheme: light;
 }
 
 @layer base {
@@ -24,27 +107,29 @@
   }
 
   html {
+    background-color: var(--color-bg-primary);
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-bg-primary font-sans text-text-primary antialiased;
+    @apply font-sans text-text-primary antialiased;
+    background-color: var(--color-bg-primary);
     background-image:
       radial-gradient(
         circle at top left,
-        rgba(0, 212, 255, 0.08),
+        var(--color-accent-cyan-muted),
         transparent 30%
       ),
       radial-gradient(
         circle at bottom right,
-        rgba(255, 107, 53, 0.08),
+        var(--color-accent-orange-muted),
         transparent 20%
       );
   }
 
   ::selection {
-    background: rgba(0, 212, 255, 0.18);
-    color: var(--color-white);
+    background: var(--color-accent-cyan);
+    color: var(--color-text-inverse);
   }
 }
 
@@ -53,22 +138,44 @@
     background-image:
       radial-gradient(
         circle at 20% 25%,
-        rgba(0, 212, 255, 0.14) 0,
+        var(--color-accent-cyan-muted) 0,
         transparent 18%
       ),
       radial-gradient(
         circle at 80% 30%,
-        rgba(255, 255, 255, 0.08) 0,
+        var(--color-hero-mesh-secondary) 0,
         transparent 14%
       ),
       radial-gradient(
         circle at 55% 70%,
-        rgba(0, 212, 255, 0.11) 0,
+        var(--color-accent-cyan-muted) 0,
         transparent 16%
       );
     mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.9), transparent);
     animation: meshFloat 14s ease-in-out infinite alternate;
   }
+}
+
+/* ============================================================
+   THEME TRANSITION
+   Smooth color transition when switching themes.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    fill 200ms ease,
+    stroke 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.no-theme-transition,
+.no-theme-transition * {
+  transition: none !important;
 }
 
 @keyframes meshFloat {

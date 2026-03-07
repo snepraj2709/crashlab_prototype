@@ -60,29 +60,29 @@ export function ContactFormSection({
   return (
     <section className="py-24 lg:py-32">
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
-        <Card className="border-white/12">
+        <Card className="border-border">
           <SectionLabel number="08" text="Contact" />
-          <h2 className="mt-6 font-display text-4xl text-white lg:text-5xl">{title}</h2>
+          <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">{title}</h2>
           <p className="mt-4 max-w-2xl text-text-secondary">{intro}</p>
           <form action="/api/contact" className="mt-10 grid gap-5 md:grid-cols-2" method="post" onSubmit={handleSubmit}>
             <label className="block">
               <span className="mb-2 block text-sm text-text-secondary">Name</span>
-              <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="name" required />
+              <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="name" required />
               {errors.name ? <span className="mt-2 block text-sm text-red-300">{errors.name}</span> : null}
             </label>
             <label className="block">
               <span className="mb-2 block text-sm text-text-secondary">Email</span>
-              <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="email" required type="email" />
+              <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="email" required type="email" />
               {errors.email ? <span className="mt-2 block text-sm text-red-300">{errors.email}</span> : null}
             </label>
             <label className="block">
               <span className="mb-2 block text-sm text-text-secondary">Organization</span>
-              <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="organization" />
+              <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="organization" />
             </label>
             <label className="block">
               <span className="mb-2 block text-sm text-text-secondary">Audience</span>
               <select
-                className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white"
+                className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary"
                 defaultValue={audienceType}
                 name="audienceType"
               >
@@ -95,7 +95,7 @@ export function ContactFormSection({
             </label>
             <label className="block md:col-span-2">
               <span className="mb-2 block text-sm text-text-secondary">Message</span>
-              <textarea className="min-h-36 w-full rounded-3xl border border-white/10 bg-bg-primary px-4 py-4 text-white" name="message" required />
+              <textarea className="min-h-36 w-full rounded-3xl border border-border bg-bg-primary px-4 py-4 text-text-primary" name="message" required />
               {errors.message ? <span className="mt-2 block text-sm text-red-300">{errors.message}</span> : null}
             </label>
             <input autoComplete="off" className="hidden" name="honeypot" tabIndex={-1} />

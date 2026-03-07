@@ -5,7 +5,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 import { MobileMenu } from "@/components/layout/MobileMenu";
-import { Button } from "@/components/ui/Button";
+import { Button, ThemeToggle } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
@@ -27,8 +27,16 @@ export function Navbar(): React.ReactElement {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-40 transition-all duration-300",
-          hasScrolled ? "border-b border-white/10 bg-bg-primary/85 backdrop-blur-xl" : "bg-transparent"
+          hasScrolled ? "border-b backdrop-blur-xl" : "bg-transparent",
         )}
+        style={
+          hasScrolled
+            ? {
+                backgroundColor: "var(--navbar-bg-solid)",
+                borderColor: "var(--navbar-border)",
+              }
+            : undefined
+        }
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <Link
@@ -41,19 +49,19 @@ export function Navbar(): React.ReactElement {
             <span className="text-sm text-text-secondary">Ashoka University</span>
           </Link>
 
-          <nav className="hidden items-center gap-6 lg:flex">
-            {navLinks.map((link) => (
-              <Link
-                className="text-sm text-text-secondary transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-                href={link.href}
-                key={link.href}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden lg:block">
+          <div className="hidden items-center gap-3 lg:flex">
+            <nav className="flex items-center gap-6">
+              {navLinks.map((link) => (
+                <Link
+                  className="text-sm text-text-secondary transition hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                  href={link.href}
+                  key={link.href}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <ThemeToggle />
             <Button href="/join" size="sm" variant="primary">
               Join the Lab
             </Button>
@@ -62,7 +70,7 @@ export function Navbar(): React.ReactElement {
           <button
             aria-expanded={menuOpen}
             aria-label="Open menu"
-            className="rounded-full border border-white/10 p-3 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary lg:hidden"
+            className="rounded-full border border-border p-3 text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary lg:hidden"
             onClick={() => setMenuOpen(true)}
             type="button"
           >

@@ -51,11 +51,11 @@ const config: Config = {
         ]
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(0, 212, 255, 0.18), 0 18px 40px rgba(10, 15, 30, 0.38)"
+        glow: "var(--shadow-glow)"
       },
       backgroundImage: {
         "hero-grid":
-          "radial-gradient(circle at top right, rgba(0, 212, 255, 0.18), transparent 35%), radial-gradient(circle at 20% 20%, rgba(255, 107, 53, 0.12), transparent 26%)"
+          "radial-gradient(circle at top right, var(--color-accent-cyan-muted), transparent 35%), radial-gradient(circle at 20% 20%, var(--color-accent-orange-muted), transparent 26%)"
       }
     }
   },

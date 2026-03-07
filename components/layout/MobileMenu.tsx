@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
 
-import { Button } from "@/components/ui/Button";
+import { Button, ThemeToggle } from "@/components/ui";
 
 interface MobileMenuProps {
   open: boolean;
@@ -49,16 +49,17 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
         <FocusTrap>
           <motion.div
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-50 bg-bg-primary/95 backdrop-blur-xl"
+            className="fixed inset-0 z-50 backdrop-blur-xl"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
+            style={{ backgroundColor: "var(--color-bg-overlay)" }}
           >
             <div className="mx-auto flex h-full max-w-7xl flex-col px-6 py-6">
               <div className="flex items-center justify-between">
                 <span className="text-xs uppercase tracking-[0.2em] text-accent-cyan">CRASH Lab</span>
                 <button
                   aria-label="Close menu"
-                  className="rounded-full border border-white/10 p-3 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                  className="rounded-full border border-border p-3 text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
                   onClick={onClose}
                   type="button"
                 >
@@ -68,7 +69,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
               <nav className="mt-16 flex flex-1 flex-col gap-4">
                 {navLinks.map((link) => (
                   <Link
-                    className="rounded-2xl border border-white/8 bg-white/[0.03] px-5 py-4 text-lg font-medium text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                    className="rounded-2xl border border-border bg-bg-surface px-5 py-4 text-lg font-medium text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
                     href={link.href}
                     key={link.href}
                     onClick={onClose}
@@ -77,7 +78,16 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
                   </Link>
                 ))}
               </nav>
-              <Button href="/join" onClick={onClose} size="lg">
+              <div className="mt-2 flex items-center justify-between border-t border-border py-3">
+                <span className="text-sm text-text-secondary">Appearance</span>
+                <ThemeToggle />
+              </div>
+              <Button
+                className="w-full justify-center"
+                href="/join"
+                onClick={onClose}
+                size="lg"
+              >
                 Join the Lab
               </Button>
             </div>

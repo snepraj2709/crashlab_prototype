@@ -30,13 +30,13 @@ export type ButtonProps = NativeButtonProps;
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent-cyan text-slate-950 shadow-glow hover:bg-cyan-300 focus-visible:ring-accent-cyan",
+    "bg-accent-cyan text-[var(--color-text-inverse)] shadow-[var(--shadow-glow)] hover:opacity-90 focus-visible:ring-accent-cyan",
   secondary:
     "border border-border bg-bg-surface text-text-primary hover:border-accent-cyan hover:text-accent-cyan focus-visible:ring-accent-cyan",
   ghost:
-    "text-text-primary hover:bg-white/5 hover:text-accent-cyan focus-visible:ring-accent-cyan",
+    "text-text-primary hover:bg-bg-elevated hover:text-accent-cyan focus-visible:ring-accent-cyan",
   outline:
-    "border border-white/20 bg-transparent text-white hover:border-accent-cyan hover:text-accent-cyan focus-visible:ring-accent-cyan",
+    "border border-border bg-transparent text-text-primary hover:border-accent-cyan hover:text-accent-cyan focus-visible:ring-accent-cyan",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

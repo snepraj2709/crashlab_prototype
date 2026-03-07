@@ -18,8 +18,8 @@ export function ProofChip({
         "inline-flex items-center rounded-full border font-medium backdrop-blur-sm",
         size === "sm" ? "px-3 py-1.5 text-xs" : "px-4 py-2 text-sm",
         variant === "filled"
-          ? "border-accent-cyan bg-accent-cyan text-slate-950"
-          : "border-white/15 bg-white/5 text-text-primary"
+          ? "border-accent-cyan bg-accent-cyan text-[var(--color-text-inverse)]"
+          : "border-border bg-bg-elevated text-text-primary",
       )}
     >
       {label}

@@ -74,8 +74,8 @@ export function PartnerInterestForm(): React.ReactElement {
   }
 
   return (
-    <Card className="border-white/12">
-      <h3 className="font-display text-3xl text-white">Partner interest form</h3>
+    <Card className="border-border">
+      <h3 className="font-display text-3xl text-text-primary">Partner interest form</h3>
       <p className="mt-3 text-text-secondary">
         Describe the clinical or commercial problem you need solved and how you want to work with
         the lab.
@@ -83,20 +83,20 @@ export function PartnerInterestForm(): React.ReactElement {
       <form action="/api/partner" className="mt-8 grid gap-5 md:grid-cols-2" method="post" onSubmit={handleSubmit}>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Name</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="name" required />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="name" required />
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Email</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="email" required type="email" />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="email" required type="email" />
           {errors.email ? <span className="mt-2 block text-sm text-red-300">{errors.email}</span> : null}
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Company</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="company" required />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="company" required />
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Company size</span>
-          <select className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" defaultValue="startup" name="companySize">
+          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="startup" name="companySize">
             {companySizes.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -106,14 +106,14 @@ export function PartnerInterestForm(): React.ReactElement {
         </label>
         <label className="md:col-span-2">
           <span className="mb-2 block text-sm text-text-secondary">Problem description</span>
-          <textarea className="min-h-40 w-full rounded-3xl border border-white/10 bg-bg-primary px-4 py-4 text-white" name="problemDescription" required />
+          <textarea className="min-h-40 w-full rounded-3xl border border-border bg-bg-primary px-4 py-4 text-text-primary" name="problemDescription" required />
           {errors.problemDescription ? (
             <span className="mt-2 block text-sm text-red-300">{errors.problemDescription}</span>
           ) : null}
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Engagement type</span>
-          <select className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" defaultValue="research-license" name="engagementType">
+          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="research-license" name="engagementType">
             {engagementOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -123,7 +123,7 @@ export function PartnerInterestForm(): React.ReactElement {
         </label>
         <label>
           <span className="mb-2 block text-sm text-text-secondary">Timeline</span>
-          <select className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" defaultValue="exploring" name="timeline">
+          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="exploring" name="timeline">
             {timelines.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -133,14 +133,14 @@ export function PartnerInterestForm(): React.ReactElement {
         </label>
         <label className="md:col-span-2">
           <span className="mb-2 block text-sm text-text-secondary">Budget range</span>
-          <input className="w-full rounded-2xl border border-white/10 bg-bg-primary px-4 py-3 text-white" name="budget" />
+          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="budget" />
         </label>
         <input autoComplete="off" className="hidden" name="honeypot" tabIndex={-1} />
         {errors.form ? <p className="md:col-span-2 text-sm text-red-300">{errors.form}</p> : null}
         {successMessage ? (
           <div className="md:col-span-2 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-5">
             <p className="text-sm text-emerald-300">{successMessage}</p>
-            {referenceId ? <p className="mt-2 font-mono text-white">{referenceId}</p> : null}
+            {referenceId ? <p className="mt-2 font-mono text-text-primary">{referenceId}</p> : null}
           </div>
         ) : null}
         <div className="md:col-span-2">

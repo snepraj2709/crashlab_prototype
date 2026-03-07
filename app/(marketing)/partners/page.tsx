@@ -26,7 +26,7 @@ export default function PartnersPage(): React.ReactElement {
     <section className="pt-32 pb-24 lg:pb-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="01" text="Partners" />
-        <h1 className="mt-6 max-w-4xl font-display text-5xl text-white lg:text-6xl">
+        <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
           Your AI needs to work in real clinical settings. Ours already does.
         </h1>
         <p className="mt-6 max-w-3xl text-lg text-text-secondary">
@@ -36,17 +36,17 @@ export default function PartnersPage(): React.ReactElement {
 
         <div className="mt-16 grid gap-6 lg:grid-cols-3">
           {models.map((model) => (
-            <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-8" key={model.title}>
+            <div className="rounded-[28px] border border-border bg-bg-surface p-8" key={model.title}>
               <model.icon className="size-10 text-accent-cyan" />
-              <h2 className="mt-8 text-3xl font-semibold text-white">{model.title}</h2>
+              <h2 className="mt-8 text-3xl font-semibold text-text-primary">{model.title}</h2>
               <p className="mt-4 text-text-secondary">{model.body}</p>
             </div>
           ))}
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
-          <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-8">
-            <h2 className="font-display text-4xl text-white">Why partner with us</h2>
+          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
+            <h2 className="font-display text-4xl text-text-primary">Why partner with us</h2>
             <div className="mt-6 space-y-5 text-text-secondary">
               <p>
                 Dr. Datta brings a dual identity most AI teams cannot offer: clinician and
@@ -60,7 +60,7 @@ export default function PartnersPage(): React.ReactElement {
             <div className="mt-8 flex flex-wrap gap-3">
               {["AIIMS New Delhi", "Harvard Medical School", "JIPMER", "IIT Collaborators"].map(
                 (item) => (
-                  <span className="rounded-full border border-white/10 px-4 py-2 text-sm text-white" key={item}>
+                  <span className="rounded-full border border-border px-4 py-2 text-sm text-text-primary" key={item}>
                     {item}
                   </span>
                 )
@@ -70,11 +70,11 @@ export default function PartnersPage(): React.ReactElement {
           <PartnerInterestForm />
         </div>
 
-        <div className="mt-16 rounded-[28px] border border-white/10 bg-white/[0.03] p-8">
+        <div className="mt-16 rounded-[28px] border border-border bg-bg-surface p-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Collaboration network</p>
           <div className="mt-6 flex flex-wrap gap-3">
             {["Ashoka University", "AIIMS", "Harvard", "JIPMER", "IIT ecosystem"].map((institution) => (
-              <span className="rounded-full border border-white/10 px-4 py-2 text-sm text-text-secondary" key={institution}>
+              <span className="rounded-full border border-border px-4 py-2 text-sm text-text-secondary" key={institution}>
                 {institution}
               </span>
             ))}

@@ -40,7 +40,7 @@ export function PublicationList({
         <SectionLabel number="07" text="Publications" />
         <div className="mt-8 flex flex-wrap gap-4">
           <select
-            className="rounded-full border border-white/10 bg-bg-surface px-4 py-3 text-sm text-white"
+            className="rounded-full border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary"
             onChange={(event) => setYear(event.target.value)}
             value={year}
           >
@@ -51,7 +51,7 @@ export function PublicationList({
             ))}
           </select>
           <select
-            className="rounded-full border border-white/10 bg-bg-surface px-4 py-3 text-sm text-white"
+            className="rounded-full border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary"
             onChange={(event) => setVenue(event.target.value)}
             value={venue}
           >
@@ -73,13 +73,13 @@ export function PublicationList({
                 </p>
               </div>
               <div>
-                <h3 className="text-2xl font-semibold text-white">{publication.title}</h3>
+                <h3 className="text-2xl font-semibold text-text-primary">{publication.title}</h3>
                 <p className="mt-3 max-w-3xl text-text-secondary">{publication.summary}</p>
               </div>
               <div className="lg:text-right">
                 {publication.link ? (
                   <a
-                    className="text-sm font-medium text-white transition hover:text-accent-cyan"
+                    className="text-sm font-medium text-text-primary transition hover:text-accent-cyan"
                     href={publication.link}
                     rel="noreferrer"
                     target="_blank"

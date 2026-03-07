@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -97,13 +98,25 @@ export default function RootLayout({
   children
 }: Readonly<{ children: React.ReactNode }>): React.ReactElement {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${sans.variable} ${mono.variable}`}>
-        <JsonLd data={organizationSchema} />
-        <JsonLd data={websiteSchema} />
-        {children}
-        <Analytics />
-        <SpeedInsights />
+        <ThemeProvider
+          attribute="data-theme"
+          defaultTheme="system"
+          disableTransitionOnChange={false}
+          enableSystem
+          themes={["dark", "light"]}
+        >
+          {/* Persistence: next-themes writes to localStorage["theme"].
+              First visit follows the OS color scheme.
+              If that cannot be resolved, the CSS fallback is light.
+              After a user toggle, the explicit choice is persisted. */}
+          <JsonLd data={organizationSchema} />
+          <JsonLd data={websiteSchema} />
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );

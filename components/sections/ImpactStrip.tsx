@@ -23,8 +23,9 @@ export function ImpactStrip(): React.ReactElement {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="03" text="Research Impact" />
         <div className="mt-6 flex items-end justify-between gap-8">
-          <h2 className="max-w-3xl font-display text-4xl text-white lg:text-5xl">
-            Velocity that looks like a startup. Standards that look like science.
+          <h2 className="max-w-3xl font-display text-4xl text-text-primary lg:text-5xl">
+            Velocity that looks like a startup. Standards that look like
+            science.
           </h2>
         </div>
         <div className="mt-12 overflow-x-auto pb-2" ref={ref}>

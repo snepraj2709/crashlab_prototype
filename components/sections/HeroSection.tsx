@@ -25,12 +25,16 @@ export function HeroSection({ metrics }: HeroSectionProps): React.ReactElement {
   return (
     <section className="relative min-h-screen overflow-hidden bg-bg-primary">
       <div className="pointer-events-none absolute inset-0 bg-hero-grid" />
-      <div className="hero-mesh pointer-events-none absolute inset-0 opacity-60" />
+      <div
+        aria-hidden="true"
+        className="hero-mesh pointer-events-none absolute inset-0"
+        style={{ opacity: "var(--mesh-opacity)" }}
+      />
 
       <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-14 px-6 pb-20 pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
         <div>
           <SectionLabel number="01" text="CRASH LAB — ASHOKA UNIVERSITY" />
-          <h1 className="mt-6 font-display text-6xl leading-[0.92] text-white lg:text-7xl">
+          <h1 className="mt-6 font-display text-6xl leading-[0.92] text-text-primary lg:text-7xl">
             Responsible AI,
             <br />
             built for Healthcare.
@@ -79,7 +83,7 @@ export function HeroSection({ metrics }: HeroSectionProps): React.ReactElement {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity }}
         >
-          <ChevronDown className="size-8 text-white/60" />
+          <ChevronDown className="size-8 text-text-tertiary" />
         </motion.div>
       </div>
     </section>

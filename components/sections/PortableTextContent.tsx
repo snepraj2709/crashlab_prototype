@@ -19,14 +19,16 @@ export function PortableTextContent({
   const headingMap = new Map(headings.map((entry) => [entry.text, entry.id]));
 
   return (
-    <div className={cn("prose prose-invert max-w-none prose-p:text-text-secondary", className)}>
+    <div
+      className={cn("prose max-w-none prose-p:text-text-secondary", className)}
+    >
       {blocks.map((block) => {
         const text = block.children.map((child) => child.text).join("");
 
         if (block.style === "h2") {
           return (
             <h2
-              className="mt-12 scroll-mt-32 font-display text-3xl text-white"
+              className="mt-12 scroll-mt-32 font-display text-3xl text-text-primary"
               id={headingMap.get(text)}
               key={block._key}
             >
@@ -38,7 +40,7 @@ export function PortableTextContent({
         if (block.style === "h3") {
           return (
             <h3
-              className="mt-8 scroll-mt-32 text-2xl font-semibold text-white"
+              className="mt-8 scroll-mt-32 text-2xl font-semibold text-text-primary"
               id={headingMap.get(text)}
               key={block._key}
             >
@@ -50,7 +52,7 @@ export function PortableTextContent({
         if (block.style === "blockquote") {
           return (
             <blockquote
-              className="border-l-2 border-accent-cyan pl-4 text-xl text-white/90"
+              className="border-l-2 border-accent-cyan pl-4 text-xl text-text-primary"
               key={block._key}
             >
               {text}

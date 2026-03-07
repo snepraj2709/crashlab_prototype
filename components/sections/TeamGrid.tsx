@@ -17,7 +17,7 @@ export function TeamGrid({ people }: TeamGridProps): React.ReactElement {
         <SectionLabel number="01" text="People" />
         {pi ? (
           <Card className="mt-8 grid gap-8 lg:grid-cols-[280px_1fr] lg:p-10">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] border border-white/10">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] border border-border">
               <Image
                 alt={pi.photo?.alt || pi.name}
                 className="object-cover"
@@ -29,7 +29,7 @@ export function TeamGrid({ people }: TeamGridProps): React.ReactElement {
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Principal Investigator</p>
-              <h2 className="mt-4 font-display text-4xl text-white">{pi.name}</h2>
+              <h2 className="mt-4 font-display text-4xl text-text-primary">{pi.name}</h2>
               <p className="mt-4 max-w-3xl text-base leading-8 text-text-secondary lg:text-lg">
                 {pi.shortBio}
               </p>
@@ -40,7 +40,7 @@ export function TeamGrid({ people }: TeamGridProps): React.ReactElement {
               </div>
               <div className="mt-8">
                 <Link
-                  className="text-sm font-medium text-white transition hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                  className="text-sm font-medium text-text-primary transition hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
                   href={`/people/${pi.slug}`}
                 >
                   Read full profile →
@@ -55,7 +55,7 @@ export function TeamGrid({ people }: TeamGridProps): React.ReactElement {
             {team.map((person) => (
               <Link href={`/people/${person.slug}`} key={person.slug}>
                 <Card className="h-full transition hover:border-accent-cyan">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] border border-white/10">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] border border-border">
                     <Image
                       alt={person.photo?.alt || person.name}
                       className="object-cover"
@@ -64,7 +64,7 @@ export function TeamGrid({ people }: TeamGridProps): React.ReactElement {
                       src={person.photo?.url || "/og/default.svg"}
                     />
                   </div>
-                  <h3 className="mt-6 text-2xl font-semibold text-white">{person.name}</h3>
+                  <h3 className="mt-6 text-2xl font-semibold text-text-primary">{person.name}</h3>
                   <p className="mt-2 text-sm uppercase tracking-[0.18em] text-accent-cyan">
                     {person.role}
                   </p>

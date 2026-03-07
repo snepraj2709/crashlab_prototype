@@ -73,7 +73,7 @@ export default async function ResearchProjectPage({
       <section className="pt-32 pb-24 lg:pb-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Research Project</p>
-          <h1 className="mt-6 max-w-5xl font-display text-5xl text-white lg:text-6xl">
+          <h1 className="mt-6 max-w-5xl font-display text-5xl text-text-primary lg:text-6xl">
             {project.problemStatement}
           </h1>
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -98,7 +98,7 @@ export default async function ResearchProjectPage({
             <div className="mt-8 flex flex-wrap gap-3">
               {team.map((person) => (
                 <Link
-                  className="rounded-full border border-white/10 px-4 py-2 text-sm text-white transition hover:border-accent-cyan hover:text-accent-cyan"
+                  className="rounded-full border border-border px-4 py-2 text-sm text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
                   href={`/people/${person.slug}`}
                   key={person.slug}
                 >
@@ -110,7 +110,7 @@ export default async function ResearchProjectPage({
 
           <div className="mt-6 flex flex-wrap gap-3">
             {project.tags.map((tag) => (
-              <span className="rounded-full border border-white/10 px-4 py-2 text-sm text-text-secondary" key={tag}>
+              <span className="rounded-full border border-border px-4 py-2 text-sm text-text-secondary" key={tag}>
                 {tag}
               </span>
             ))}
@@ -130,11 +130,11 @@ export default async function ResearchProjectPage({
 
             <aside className="space-y-8">
               {project.metrics?.length ? <RadleWidget metrics={project.metrics} variant="feature" /> : null}
-              <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6">
+              <div className="rounded-[28px] border border-border bg-bg-surface p-6">
                 <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
                   Collaboration
                 </p>
-                <h2 className="mt-4 text-2xl font-semibold text-white">
+                <h2 className="mt-4 text-2xl font-semibold text-text-primary">
                   Interested in collaborating on this research?
                 </h2>
                 <p className="mt-3 text-text-secondary">
@@ -151,7 +151,7 @@ export default async function ResearchProjectPage({
 
           {relatedProjects.length ? (
             <div className="mt-20">
-              <h2 className="font-display text-4xl text-white">Related projects</h2>
+              <h2 className="font-display text-4xl text-text-primary">Related projects</h2>
               <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {relatedProjects.map((relatedProject) => (
                   <ProjectCard key={relatedProject.slug} project={relatedProject} showMetadata />

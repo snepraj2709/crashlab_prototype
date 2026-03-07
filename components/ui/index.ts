@@ -6,3 +6,4 @@ export * from "@/components/ui/MetricTile";
 export * from "@/components/ui/ProofChip";
 export * from "@/components/ui/SectionLabel";
 export * from "@/components/ui/Skeleton";
+export * from "@/components/ui/ThemeToggle";
