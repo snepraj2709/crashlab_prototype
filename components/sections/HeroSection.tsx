@@ -54,8 +54,8 @@ export function HeroSection({ metrics }: HeroSectionProps): React.ReactElement {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <Button href="/research" size="lg">
-              Explore Open Research <ArrowRight className="size-4" />
+            <Button href="/join" size="lg">
+              Explore Open Projects <ArrowRight className="size-4" />
             </Button>
             <Button href="/people" size="lg" variant="outline">
               Meet the Team
