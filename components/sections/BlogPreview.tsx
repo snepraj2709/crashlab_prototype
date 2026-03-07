@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button, Card, SectionLabel } from "@/components/ui";
+import type { SitePost } from "@/lib/content/site";
 import { formatDate } from "@/lib/utils/formatDate";
-import type { PostDocument } from "@/types/sanity";
 
 interface BlogPreviewProps {
-  posts: PostDocument[];
+  posts: SitePost[];
 }
 
 export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
@@ -29,7 +29,7 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
-            <Link href={`/blog/${post.slug.current}`} key={post._id}>
+            <Link href={`/blog/${post.slug}`} key={post._id}>
               <Card className="h-full transition hover:border-accent-cyan">
                 <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] border border-white/10">
                   <Image

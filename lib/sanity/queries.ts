@@ -1,6 +1,6 @@
 import groq from "groq";
 
-export const projectFields = groq`
+export const projectFields = `
   _id,
   _type,
   slug,
@@ -54,7 +54,7 @@ export const projectFields = groq`
   }
 `;
 
-export const personFields = groq`
+export const personFields = `
   _id,
   _type,
   slug,
@@ -74,7 +74,7 @@ export const personFields = groq`
   position
 `;
 
-export const postFields = groq`
+export const postFields = `
   _id,
   _type,
   slug,

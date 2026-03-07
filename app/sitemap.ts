@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const postEntries = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug.current}`,
+    url: `${baseUrl}/blog/${post.slug}`,
     changeFrequency: "daily" as const,
     priority: 0.7
   }));

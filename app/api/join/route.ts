@@ -8,7 +8,6 @@ import { flattenZodErrors, parseRequestBody } from "@/lib/utils/api";
 import { createReferenceId } from "@/lib/utils/referenceId";
 import { getClientIp, isRateLimited } from "@/lib/utils/rateLimit";
 import type { ApiResponse, JoinFormValues } from "@/types/forms";
-import type { ApplicationDocument } from "@/types/sanity";
 
 async function getNextJoinReferenceId(): Promise<string> {
   const year = new Date().getUTCFullYear();
@@ -38,7 +37,7 @@ async function persistApplication(payload: JoinFormValues, referenceId: string):
     return;
   }
 
-  const document: ApplicationDocument = {
+  const document = {
     _type: "application",
     referenceId,
     name: payload.name,

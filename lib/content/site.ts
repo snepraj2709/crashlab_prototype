@@ -13,58 +13,166 @@ import {
 } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
 import type { PublicationEntry, ProjectSeed } from "@/types/research";
-import type { PersonDocument, PostDocument, ResearchDocument } from "@/types/sanity";
+import type {
+  AllPeopleQueryResult,
+  AllPostsQueryResult,
+  AllProjectsQueryResult,
+  PersonBySlugQueryResult,
+  PostBySlugQueryResult,
+  ProjectBySlugQueryResult
+} from "@/types/sanity";
 import type { PersonSeed } from "@/types/team";
 
-function normalizeProject(project: ResearchDocument): ProjectSeed {
+type SanityProject = NonNullable<ProjectBySlugQueryResult>;
+type SanityPerson = NonNullable<PersonBySlugQueryResult>;
+type SanityPost = NonNullable<PostBySlugQueryResult>;
+type PortableTextSource = SanityProject["body"] | SanityPerson["fullBio"] | SanityPost["body"];
+
+export interface SitePostAuthor {
+  _id: string;
+  slug: string;
+  name: string;
+  shortBio: string;
+}
+
+export interface SitePost {
+  _id: string;
+  _type: "post";
+  slug: string;
+  title: string;
+  excerpt: string;
+  body?: ProjectSeed["body"];
+  coverImage?: {
+    url: string;
+    alt: string;
+  } | null;
+  publishedAt?: string;
+  category?: NonNullable<SanityPost["category"]>;
+  tags: string[];
+  seoTitle?: string;
+  seoDescription?: string;
+  featured: boolean;
+  author?: SitePostAuthor;
+}
+
+function normalizePortableText(blocks: PortableTextSource): ProjectSeed["body"] | undefined {
+  if (!blocks?.length) {
+    return undefined;
+  }
+
+  return blocks.flatMap((block) => {
+    if (block._type !== "block") {
+      return [];
+    }
+
+    return [
+      {
+        _key: block._key,
+        _type: "block" as const,
+        style:
+          block.style === "h2" || block.style === "h3" || block.style === "blockquote"
+            ? block.style
+            : "normal",
+        children: (block.children ?? []).map((child) => ({
+          _type: "span" as const,
+          text: child.text ?? ""
+        }))
+      }
+    ];
+  });
+}
+
+function normalizeProject(project: SanityProject): ProjectSeed {
   return {
-    slug: project.slug.current,
-    title: project.title,
-    problemStatement: project.problemStatement,
-    summary: project.summary,
-    body: project.body,
-    status: project.status,
-    venue: project.venue,
-    publishedAt: project.publishedAt,
-    paperUrl: project.paperUrl,
+    slug: project.slug?.current ?? "",
+    title: project.title ?? "",
+    problemStatement: project.problemStatement ?? "",
+    summary: project.summary ?? "",
+    body: (project.body as ProjectSeed["body"]) ?? undefined,
+    status: (project.status ?? "active") as ProjectSeed["status"],
+    venue: project.venue ?? undefined,
+    publishedAt: project.publishedAt ?? undefined,
+    paperUrl: project.paperUrl ?? undefined,
     heroImage: project.heroImage
       ? {
           url: urlFor(project.heroImage),
-          alt: project.problemStatement
+          alt: project.problemStatement ?? project.title ?? "CRASH Lab research project"
         }
       : null,
-    tags: project.tags,
-    audience: project.audience,
-    lead: project.lead?.slug.current,
-    team: project.team?.map((member) => member.slug.current),
+    tags: project.tags ?? [],
+    audience: (project.audience ?? []) as ProjectSeed["audience"],
+    lead: project.lead?.slug?.current ?? undefined,
+    team:
+      project.team
+        ?.map((member) => member.slug?.current)
+        .filter((memberSlug): memberSlug is string => Boolean(memberSlug)) ?? [],
     featured: Boolean(project.featured),
     seekingCollaborators: Boolean(project.seekingCollaborators),
-    metrics: project.metrics
+    metrics: (project.metrics as ProjectSeed["metrics"]) ?? undefined
   };
 }
 
-function normalizePerson(person: PersonDocument): PersonSeed {
+function normalizePerson(person: SanityPerson): PersonSeed {
   return {
-    slug: person.slug.current,
-    name: person.name,
-    role: person.role,
-    title: person.title,
+    slug: person.slug?.current ?? "",
+    name: person.name ?? "",
+    role: person.role ?? "",
+    title: person.title ?? "",
     photo: person.photo
       ? {
           url: urlFor(person.photo),
-          alt: `${person.name} portrait`
+          alt: `${person.name ?? "CRASH Lab team member"} portrait`
         }
       : null,
-    shortBio: person.shortBio,
-    fullBio: person.fullBio,
-    email: person.email,
+    shortBio: person.shortBio ?? "",
+    fullBio: (person.fullBio as PersonSeed["fullBio"]) ?? undefined,
+    email: person.email ?? undefined,
     credentials: person.credentials ?? [],
     researchFocus: person.researchFocus ?? [],
-    socialLinks: person.socialLinks,
+    socialLinks: person.socialLinks ?? undefined,
     isPrincipalInvestigator: Boolean(person.isPrincipalInvestigator),
     isActive: Boolean(person.isActive),
-    joinedAt: person.joinedAt,
+    joinedAt: person.joinedAt ?? undefined,
     position: person.position ?? 999
+  };
+}
+
+function normalizePostAuthor(author: SanityPost["author"]): SitePostAuthor | undefined {
+  if (!author) {
+    return undefined;
+  }
+
+  return {
+    _id: author._id,
+    slug: author.slug?.current ?? "",
+    name: author.name ?? "CRASH Lab",
+    shortBio:
+      author.shortBio ??
+      "CRASH Lab is an interdisciplinary research group building responsible healthcare AI from Ashoka University."
+  };
+}
+
+function normalizePost(post: SanityPost): SitePost {
+  return {
+    _id: post._id,
+    _type: "post",
+    slug: post.slug?.current ?? "",
+    title: post.title ?? "",
+    excerpt: post.excerpt ?? "",
+    body: normalizePortableText(post.body),
+    coverImage: post.coverImage
+      ? {
+          url: urlFor(post.coverImage),
+          alt: post.title ?? "CRASH Lab blog post"
+        }
+      : null,
+    publishedAt: post.publishedAt ?? undefined,
+    category: post.category ?? undefined,
+    tags: post.tags ?? [],
+    seoTitle: post.seoTitle ?? undefined,
+    seoDescription: post.seoDescription ?? undefined,
+    featured: Boolean(post.featured),
+    author: normalizePostAuthor(post.author)
   };
 }
 
@@ -88,47 +196,51 @@ export function getSeedPublications(): PublicationEntry[] {
   return publicationsSeed as PublicationEntry[];
 }
 
-export function getSeedPosts(): PostDocument[] {
-  return (blogSeed as Array<
-    Omit<PostDocument, "author"> & {
-      authorSlug?: string;
+export function getSeedPosts(): SitePost[] {
+  return (
+    blogSeed as Array<{
+      _id: string;
+      _type: "post";
+      slug: { current?: string };
+      title?: string;
+      excerpt?: string;
+      body?: ProjectSeed["body"];
       coverImage?: { url: string; alt: string };
-    }
-  >).map((post) => ({
-    ...post,
+      publishedAt?: string;
+      category?: SitePost["category"];
+      tags?: string[];
+      seoTitle?: string;
+      seoDescription?: string;
+      featured?: boolean;
+      authorSlug?: string;
+    }>
+  ).map((post) => ({
+    _id: post._id,
+    _type: "post",
+    slug: post.slug.current ?? "",
+    title: post.title ?? "",
+    excerpt: post.excerpt ?? "",
+    body: post.body,
+    coverImage: post.coverImage ?? null,
+    publishedAt: post.publishedAt,
+    category: post.category,
+    tags: post.tags ?? [],
+    seoTitle: post.seoTitle,
+    seoDescription: post.seoDescription,
+    featured: Boolean(post.featured),
     author: resolveAuthor(post.authorSlug)
       ? {
           _id: `seed-${post.authorSlug}`,
-          _type: "person",
-          slug: { current: post.authorSlug ?? "" },
+          slug: post.authorSlug ?? "",
           name: resolveAuthor(post.authorSlug)?.name ?? "CRASH Lab",
-          role: resolveAuthor(post.authorSlug)?.role ?? "Author",
-          title: resolveAuthor(post.authorSlug)?.title ?? "Dr.",
-          photo: undefined,
-          shortBio: resolveAuthor(post.authorSlug)?.shortBio ?? "",
-          credentials: resolveAuthor(post.authorSlug)?.credentials,
-          researchFocus: resolveAuthor(post.authorSlug)?.researchFocus,
-          socialLinks: resolveAuthor(post.authorSlug)?.socialLinks,
-          isPrincipalInvestigator: resolveAuthor(post.authorSlug)?.isPrincipalInvestigator,
-          isActive: true,
-          joinedAt: resolveAuthor(post.authorSlug)?.joinedAt,
-          position: resolveAuthor(post.authorSlug)?.position
-        }
-      : undefined,
-    coverImage: post.coverImage
-      ? {
-          asset: {
-            _ref: post.coverImage.url,
-            _type: "reference"
-          },
-          alt: post.coverImage.alt
+          shortBio: resolveAuthor(post.authorSlug)?.shortBio ?? ""
         }
       : undefined
-  })) as PostDocument[];
+  }));
 }
 
 export async function getProjects(): Promise<ProjectSeed[]> {
-  const projects = await safeFetch<ResearchDocument[]>(allProjectsQuery);
+  const projects = await safeFetch<AllProjectsQueryResult>(allProjectsQuery);
   if (!projects?.length) {
     console.warn("[CRASH Lab] Using seed project data because Sanity is unavailable.");
     return getSeedProjects();
@@ -138,7 +250,7 @@ export async function getProjects(): Promise<ProjectSeed[]> {
 }
 
 export async function getProjectBySlug(slug: string): Promise<ProjectSeed | null> {
-  const project = await safeFetch<ResearchDocument>(projectBySlugQuery, { slug });
+  const project = await safeFetch<ProjectBySlugQueryResult>(projectBySlugQuery, { slug });
   if (!project) {
     return getSeedProjects().find((entry) => entry.slug === slug) ?? null;
   }
@@ -147,7 +259,7 @@ export async function getProjectBySlug(slug: string): Promise<ProjectSeed | null
 }
 
 export async function getPeople(): Promise<PersonSeed[]> {
-  const people = await safeFetch<PersonDocument[]>(allPeopleQuery);
+  const people = await safeFetch<AllPeopleQueryResult>(allPeopleQuery);
   if (!people?.length) {
     console.warn("[CRASH Lab] Using seed team data because Sanity is unavailable.");
     return getSeedPeople();
@@ -157,7 +269,7 @@ export async function getPeople(): Promise<PersonSeed[]> {
 }
 
 export async function getPersonBySlug(slug: string): Promise<PersonSeed | null> {
-  const person = await safeFetch<PersonDocument>(personBySlugQuery, { slug });
+  const person = await safeFetch<PersonBySlugQueryResult>(personBySlugQuery, { slug });
   if (!person) {
     return getSeedPeople().find((entry) => entry.slug === slug) ?? null;
   }
@@ -170,23 +282,23 @@ export async function getPersonBySlug(slug: string): Promise<PersonSeed | null> 
   };
 }
 
-export async function getPosts(): Promise<PostDocument[]> {
-  const posts = await safeFetch<PostDocument[]>(allPostsQuery);
+export async function getPosts(): Promise<SitePost[]> {
+  const posts = await safeFetch<AllPostsQueryResult>(allPostsQuery);
   if (!posts?.length) {
     console.warn("[CRASH Lab] Using seed blog data because Sanity is unavailable.");
     return getSeedPosts();
   }
 
-  return posts;
+  return posts.map(normalizePost);
 }
 
-export async function getPostBySlug(slug: string): Promise<PostDocument | null> {
-  const post = await safeFetch<PostDocument>(postBySlugQuery, { slug });
+export async function getPostBySlug(slug: string): Promise<SitePost | null> {
+  const post = await safeFetch<PostBySlugQueryResult>(postBySlugQuery, { slug });
   if (!post) {
-    return getSeedPosts().find((entry) => entry.slug.current === slug) ?? null;
+    return getSeedPosts().find((entry) => entry.slug === slug) ?? null;
   }
 
-  return post;
+  return normalizePost(post);
 }
 
 export async function getFeaturedProject(): Promise<ProjectSeed | null> {

@@ -1,4 +1,4 @@
-import type { PostDocument } from "@/types/sanity";
+import type { SitePost } from "@/lib/content/site";
 import type { ProjectSeed, ProjectStatus } from "@/types/research";
 
 export function fuzzyIncludes(haystack: string, needle: string): boolean {
@@ -35,7 +35,7 @@ export function filterProjects(
   });
 }
 
-export function filterPosts(posts: PostDocument[], category?: string): PostDocument[] {
+export function filterPosts(posts: SitePost[], category?: string): SitePost[] {
   if (!category || category === "all") {
     return posts;
   }

@@ -54,7 +54,7 @@ export default async function BlogPage({
         </div>
 
         {featured ? (
-          <Link className="mt-12 block" href={`/blog/${featured.slug.current}`}>
+          <Link className="mt-12 block" href={`/blog/${featured.slug}`}>
             <div className="grid gap-8 rounded-[32px] border border-white/10 bg-white/[0.03] p-8 lg:grid-cols-[1.1fr_0.9fr]">
               <div>
                 <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
@@ -87,7 +87,7 @@ export default async function BlogPage({
         {rest.length ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {rest.map((post) => (
-              <Link href={`/blog/${post.slug.current}`} key={post._id}>
+              <Link href={`/blog/${post.slug}`} key={post._id}>
                 <div className="h-full rounded-[28px] border border-white/10 bg-white/[0.03] p-6 transition hover:border-accent-cyan">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-[22px] border border-white/10">
                     <Image

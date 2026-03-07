@@ -12,7 +12,7 @@ export const revalidate = 60;
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const posts = await getPosts();
-  return posts.map((post) => ({ slug: post.slug.current }));
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -48,10 +48,10 @@ export default async function BlogPostPage({
 
   const allPosts = await getPosts();
   const relatedPosts = allPosts
-    .filter((entry) => entry.slug.current !== post.slug.current)
+    .filter((entry) => entry.slug !== post.slug)
     .map((entry) => ({
       entry,
-      score: entry.tags?.filter((tag) => post.tags?.includes(tag)).length ?? 0
+      score: entry.tags.filter((tag) => post.tags.includes(tag)).length
     }))
     .sort((left, right) => right.score - left.score)
     .slice(0, 3)
@@ -59,7 +59,7 @@ export default async function BlogPostPage({
 
   const readingTime = calculateReadingTime(post.body);
   const headings = extractHeadings(post.body);
-  const pageUrl = `https://crashlab.in/blog/${post.slug.current}`;
+  const pageUrl = `https://crashlab.in/blog/${post.slug}`;
 
   return (
     <>
@@ -156,7 +156,7 @@ export default async function BlogPostPage({
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Related posts</p>
                   <div className="mt-5 space-y-4">
                     {relatedPosts.map((related) => (
-                      <Link className="block text-white transition hover:text-accent-cyan" href={`/blog/${related.slug.current}`} key={related._id}>
+                      <Link className="block text-white transition hover:text-accent-cyan" href={`/blog/${related.slug}`} key={related._id}>
                         {related.title}
                       </Link>
                     ))}
