@@ -9,7 +9,7 @@ const metrics = [
   { value: "15+", label: "Papers accepted at top conferences" },
   { value: "6", label: "RSNA 2025 accepted abstracts" },
   { value: "#1", label: "Indian lab by AI abstracts at RSNA 2025" },
-  { value: "Apr 2025", label: "Lab founded — fastest ramp in Indian health AI" },
+  { value: "< 8mo", label: "From zero to 15 papers — founded April 2025" },
   { value: "4", label: "Research pillars: Data, Benchmarks, Design, Models" },
   { value: "3", label: "International institutional collaborations" }
 ];
