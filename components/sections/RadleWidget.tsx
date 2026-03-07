@@ -1,8 +1,10 @@
 "use client";
 
+import projectsSeed from "@/content/seed/projects.json";
 import { motion } from "framer-motion";
 
 import { Card } from "@/components/ui/Card";
+import { formatMonthYear } from "@/lib/utils/formatDate";
 import { cn } from "@/lib/utils/cn";
 import type { ProjectMetric } from "@/types/research";
 
@@ -18,12 +20,23 @@ const accentByType = {
   gap: "bg-white/40"
 } satisfies Record<ProjectMetric["type"], string>;
 
+interface SeedProjectWithBenchmarkUpdate {
+  slug: string;
+  benchmarkUpdatedAt?: string;
+}
+
 export function RadleWidget({
   compact = false,
   metrics,
   variant = "hero"
 }: RadleWidgetProps): React.ReactElement {
+  const benchmarkUpdatedAt = (projectsSeed as SeedProjectWithBenchmarkUpdate[]).find(
+    (project) => project.slug === "radle-benchmark"
+  )?.benchmarkUpdatedAt;
   const displayedMetrics = compact ? metrics.filter((metric) => metric.type !== "gap") : metrics;
+  const subtitle = benchmarkUpdatedAt
+    ? `Updated ${formatMonthYear(benchmarkUpdatedAt)}`
+    : "Updated November 2025";
   const maxValue = Math.max(
     ...displayedMetrics.map(
       (metric) => Number.parseInt(metric.value.replace(/[^\d]/g, ""), 10) || 0
@@ -47,7 +60,7 @@ export function RadleWidget({
             </h3>
           </div>
           <span className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-text-secondary">
-            Updated from seed data
+            {subtitle}
           </span>
         </div>
       )}
