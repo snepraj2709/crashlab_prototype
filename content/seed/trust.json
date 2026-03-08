@@ -1,0 +1,124 @@
+{
+  "eyebrow": "Affiliated with",
+  "title": "Built on institutional trust and clinical credibility.",
+  "description": "CRASH Lab's work is grounded in partnerships with leading academic, clinical, and research institutions — and validated at the world's premier radiology conference.",
+  "logos": [
+    {
+      "id": "ashoka-university",
+      "name": "Ashoka University",
+      "href": "https://www.ashoka.edu.in",
+      "category": "academic",
+      "position": 1,
+      "logo": {
+        "url": "/logos/ashoka-university.svg",
+        "alt": "Ashoka University",
+        "width": 160,
+        "height": 40
+      }
+    },
+    {
+      "id": "koita-foundation",
+      "name": "Koita Foundation",
+      "href": "https://koitafoundation.org",
+      "category": "foundation",
+      "position": 2,
+      "logo": {
+        "url": "/logos/koita-foundation.svg",
+        "alt": "Koita Foundation",
+        "width": 160,
+        "height": 40
+      }
+    },
+    {
+      "id": "aiims-new-delhi",
+      "name": "AIIMS New Delhi",
+      "href": "https://www.aiims.edu",
+      "category": "clinical",
+      "position": 3,
+      "logo": {
+        "url": "/logos/aiims-new-delhi.svg",
+        "alt": "All India Institute of Medical Sciences, New Delhi",
+        "width": 160,
+        "height": 40
+      }
+    },
+    {
+      "id": "harvard-medical-school",
+      "name": "Harvard Medical School",
+      "href": "https://hms.harvard.edu",
+      "category": "academic",
+      "position": 4,
+      "logo": {
+        "url": "/logos/harvard-medical-school.svg",
+        "alt": "Harvard Medical School",
+        "width": 160,
+        "height": 40
+      }
+    },
+    {
+      "id": "jipmer",
+      "name": "JIPMER Puducherry",
+      "href": "https://jipmer.edu.in",
+      "category": "academic",
+      "position": 5,
+      "logo": {
+        "url": "/logos/jipmer-puducherry.svg",
+        "alt": "JIPMER Puducherry",
+        "width": 160,
+        "height": 40
+      }
+    },
+    {
+      "id": "rsna",
+      "name": "RSNA",
+      "href": "https://www.rsna.org",
+      "category": "association",
+      "position": 6,
+      "logo": {
+        "url": "/logos/rsna.svg",
+        "alt": "Radiological Society of North America",
+        "width": 120,
+        "height": 40
+      }
+    }
+  ],
+  "credentials": [
+    {
+      "id": "rsna-trainee-prize",
+      "label": "RSNA Trainee Research Prize 2023",
+      "supportingText": "Awarded to Dr. Suvrankar Datta — the highest honour for radiology research residents globally.",
+      "href": "https://pubs.rsna.org/doi/full/10.1148/radiol.249005",
+      "kind": "award",
+      "position": 1
+    },
+    {
+      "id": "rsna-2025-cutting-edge",
+      "label": "RSNA 2025 — Cutting Edge Oral Presentation",
+      "supportingText": "RadLE selected for RSNA's most competitive research track — one of fewer than 20 presentations worldwide.",
+      "kind": "publication",
+      "position": 2
+    },
+    {
+      "id": "koita-support",
+      "label": "Supported by the Koita Foundation",
+      "supportingText": "Koita Centre for Digital Health, Ashoka University — dedicated infrastructure for responsible health AI.",
+      "href": "https://koitafoundation.org",
+      "kind": "funding",
+      "position": 3
+    },
+    {
+      "id": "publication-velocity",
+      "label": "15 papers in under 8 months",
+      "supportingText": "6 accepted abstracts at RSNA 2025 — the highest number from any Indian research lab.",
+      "kind": "milestone",
+      "position": 4
+    },
+    {
+      "id": "harvard-collaboration",
+      "label": "Harvard Medical School Collaboration",
+      "supportingText": "Dr. Datta holds a Visiting Researcher position at Harvard, bridging US and Indian clinical AI research.",
+      "kind": "affiliation",
+      "position": 5
+    }
+  ]
+}

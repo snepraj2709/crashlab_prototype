@@ -7,10 +7,11 @@ import {
   HeroSection,
   ImpactStrip,
   ProblemCards,
+  TrustSignalsSection,
   ThreeWayCTA
 } from "@/components/sections";
 import { Skeleton } from "@/components/ui";
-import { getFeaturedProject, getPosts, getProjects } from "@/lib/content/site";
+import { getFeaturedProject, getPosts, getProjects, getTrustSection } from "@/lib/content/site";
 
 export const revalidate = 300;
 
@@ -20,11 +21,15 @@ export default async function HomePage(): Promise<React.ReactElement> {
     getFeaturedProject(),
     getPosts()
   ]);
+  const trustSection = getTrustSection();
 
   return (
     <>
       <SectionErrorBoundary fallbackTitle="Hero unavailable">
         <HeroSection metrics={featuredProject?.metrics ?? []} />
+      </SectionErrorBoundary>
+      <SectionErrorBoundary fallbackTitle="Trust signals unavailable">
+        <TrustSignalsSection section={trustSection} variant="featured" />
       </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="Research overview unavailable">
         <ProblemCards projects={projects} />

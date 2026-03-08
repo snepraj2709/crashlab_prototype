@@ -1,7 +1,8 @@
 import { Building2, DatabaseZap, FileSearch } from "lucide-react";
 
-import { PartnerInterestForm } from "@/components/sections";
+import { PartnerInterestForm, TrustSignalsSection } from "@/components/sections";
 import { SectionLabel } from "@/components/ui";
+import { getTrustSection } from "@/lib/content/site";
 
 const models = [
   {
@@ -22,6 +23,8 @@ const models = [
 ];
 
 export default function PartnersPage(): React.ReactElement {
+  const trustSection = getTrustSection();
+
   return (
     <section className="pt-32 pb-24 lg:pb-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -42,6 +45,10 @@ export default function PartnersPage(): React.ReactElement {
               <p className="mt-4 text-text-secondary">{model.body}</p>
             </div>
           ))}
+        </div>
+
+        <div className="mt-16">
+          <TrustSignalsSection section={trustSection} variant="compact" />
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_1.1fr]">

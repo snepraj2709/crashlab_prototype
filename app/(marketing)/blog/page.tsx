@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { TrustSignalsSection } from "@/components/sections/TrustSignalsSection";
 import { EmptyState, SectionLabel } from "@/components/ui";
-import { getPosts } from "@/lib/content/site";
+import { getPosts, getTrustSection } from "@/lib/content/site";
 import { filterPosts } from "@/lib/utils/filtering";
 import { formatDate } from "@/lib/utils/formatDate";
 
@@ -46,6 +47,7 @@ export default async function BlogPage({
   searchParams: Record<string, string | string[] | undefined>;
 }): Promise<React.ReactElement> {
   const posts = await getPosts();
+  const trustSection = getTrustSection();
   const category =
     typeof searchParams.category === "string" ? searchParams.category : "all";
   const filtered = filterPosts(posts, category);
@@ -121,6 +123,10 @@ export default async function BlogPage({
             />
           </div>
         )}
+
+        <div className="mt-12">
+          <TrustSignalsSection section={trustSection} variant="compact" />
+        </div>
 
         {rest.length ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">

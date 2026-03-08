@@ -1,9 +1,10 @@
 import Link from "next/link";
 
 import { SectionErrorBoundary } from "@/components/layout/SectionErrorBoundary";
+import { TrustSignalsSection } from "@/components/sections/TrustSignalsSection";
 import { ProjectCard } from "@/components/sections/ProjectCard";
 import { EmptyState, SectionLabel } from "@/components/ui";
-import { getProjects } from "@/lib/content/site";
+import { getProjects, getTrustSection } from "@/lib/content/site";
 import { filterProjects } from "@/lib/utils/filtering";
 import type { ProjectStatus } from "@/types/research";
 
@@ -48,6 +49,7 @@ export default async function ResearchPage({
     tags: activeTags
   });
   const tags = Array.from(new Set(projects.flatMap((project) => project.tags))).sort();
+  const trustSection = getTrustSection();
 
   return (
     <SectionErrorBoundary fallbackTitle="Research page unavailable">
@@ -125,8 +127,10 @@ export default async function ResearchPage({
           </div>
 
           <div className="mt-12">
+            <TrustSignalsSection section={trustSection} variant="compact" />
+
             {filtered.length ? (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {filtered.map((project) => (
                   <ProjectCard key={project.slug} project={project} showMetadata />
                 ))}

@@ -13,3 +13,4 @@ export * from "@/components/sections/RadleWidget";
 export * from "@/components/sections/TeamGrid";
 export * from "@/components/sections/ThreeWayCTA";
 export * from "@/components/sections/TimelineSection";
+export { TrustSignalsSection } from "./TrustSignalsSection";

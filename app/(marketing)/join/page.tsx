@@ -1,9 +1,10 @@
 import { SectionLabel } from "@/components/ui";
-import { JoinInterestForm, ProjectCard } from "@/components/sections";
-import { getProjects } from "@/lib/content/site";
+import { JoinInterestForm, ProjectCard, TrustSignalsSection } from "@/components/sections";
+import { getProjects, getTrustSection } from "@/lib/content/site";
 
 export default async function JoinPage(): Promise<React.ReactElement> {
   const projects = await getProjects();
+  const trustSection = getTrustSection();
   const activeProjects = projects.filter((project) => project.seekingCollaborators).slice(0, 3);
   const interests = Array.from(new Set(projects.flatMap((project) => project.tags)));
 
@@ -66,6 +67,10 @@ export default async function JoinPage(): Promise<React.ReactElement> {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mt-16">
+          <TrustSignalsSection section={trustSection} variant="compact" />
         </div>
 
         <div className="mt-16">

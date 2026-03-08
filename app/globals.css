@@ -55,6 +55,10 @@
 
   --mesh-opacity: 0.15;
   --toggle-icon: "sun";
+  --logo-filter: invert(1) brightness(0.75);
+  --logo-filter-hover: invert(1) brightness(1);
+  --logo-opacity: 0.7;
+  --logo-opacity-hover: 1;
 
   color-scheme: dark;
 }
@@ -113,6 +117,10 @@
 
   --mesh-opacity: 0.06;
   --toggle-icon: "moon";
+  --logo-filter: none;
+  --logo-filter-hover: none;
+  --logo-opacity: 0.65;
+  --logo-opacity-hover: 1;
 
   color-scheme: light;
 }
@@ -192,6 +200,26 @@
 .no-theme-transition,
 .no-theme-transition * {
   transition: none !important;
+}
+
+.logo-image {
+  filter: var(--logo-filter);
+  opacity: var(--logo-opacity);
+  transition:
+    filter 200ms ease,
+    opacity 200ms ease;
+}
+
+.logo-item:hover .logo-image,
+.logo-item:focus-within .logo-image {
+  filter: var(--logo-filter-hover);
+  opacity: var(--logo-opacity-hover);
+}
+
+.logo-item a:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 @keyframes meshFloat {

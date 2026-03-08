@@ -2,6 +2,7 @@ import blogSeed from "@/content/seed/blog.json";
 import projectsSeed from "@/content/seed/projects.json";
 import publicationsSeed from "@/content/seed/publications.json";
 import teamSeed from "@/content/seed/team.json";
+import trustSeed from "@/content/seed/trust.json";
 import { safeFetch } from "@/lib/sanity/client";
 import {
   allPeopleQuery,
@@ -22,6 +23,7 @@ import type {
   ProjectBySlugQueryResult
 } from "@/types/sanity";
 import type { PersonSeed } from "@/types/team";
+import type { TrustSectionSeed } from "@/types/trust";
 
 type SanityProject = NonNullable<ProjectBySlugQueryResult>;
 type SanityPerson = NonNullable<PersonBySlugQueryResult>;
@@ -237,6 +239,16 @@ export function getSeedPosts(): SitePost[] {
         }
       : undefined
   }));
+}
+
+export function getTrustSection(): TrustSectionSeed {
+  const data = trustSeed as TrustSectionSeed;
+
+  return {
+    ...data,
+    logos: [...data.logos].sort((left, right) => left.position - right.position),
+    credentials: [...data.credentials].sort((left, right) => left.position - right.position)
+  };
 }
 
 export async function getProjects(): Promise<ProjectSeed[]> {

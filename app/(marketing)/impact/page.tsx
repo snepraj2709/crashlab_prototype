@@ -1,6 +1,6 @@
-import { ContactFormSection, PublicationList, TimelineSection } from "@/components/sections";
+import { ContactFormSection, PublicationList, TimelineSection, TrustSignalsSection } from "@/components/sections";
 import { MetricTile, ProofChip, SectionLabel } from "@/components/ui";
-import { getPersonBySlug, getSeedPublications } from "@/lib/content/site";
+import { getPersonBySlug, getSeedPublications, getTrustSection } from "@/lib/content/site";
 
 const impactMetrics = [
   { value: "15+", label: "Papers accepted at top conferences" },
@@ -16,6 +16,7 @@ export default async function ImpactPage(): Promise<React.ReactElement> {
     getPersonBySlug("suvrankar-datta"),
     Promise.resolve(getSeedPublications())
   ]);
+  const trustSection = getTrustSection();
 
   return (
     <>
@@ -41,6 +42,7 @@ export default async function ImpactPage(): Promise<React.ReactElement> {
 
       <TimelineSection />
       <PublicationList publications={publications} />
+      <TrustSignalsSection section={trustSection} variant="compact" />
 
       <section className="py-24 lg:py-32">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
