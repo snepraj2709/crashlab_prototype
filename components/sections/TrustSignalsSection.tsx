@@ -61,35 +61,39 @@ function LogoMarkup({
   logo: TrustLogoSeed;
   maxHeightClassName: string;
 }): React.ReactElement {
-  const imageClassName = cn("logo-image h-auto w-auto object-contain", maxHeightClassName);
+  const imageClassName = cn("h-auto w-auto max-w-full object-contain", maxHeightClassName);
+  const logoTileClassName =
+    "inline-flex items-center justify-center rounded-[20px] border border-border-subtle bg-white px-4 py-3 shadow-[0_10px_24px_rgba(15,23,42,0.06)]";
 
   if (logo.href) {
     return (
-      <div className="logo-item inline-flex items-center" key={logo.id}>
-        <a
-          aria-label={`Visit ${logo.name} (opens in new tab)`}
-          className="inline-flex items-center"
-          href={logo.href}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            alt={logo.logo.alt}
-            className={imageClassName}
-            height={logo.logo.height}
-            loading="lazy"
-            src={logo.logo.url}
-            style={{ maxWidth: `${logo.logo.width}px` }}
-            width={logo.logo.width}
-          />
-        </a>
-      </div>
+      <a
+        aria-label={`Visit ${logo.name} (opens in new tab)`}
+        className={cn(
+          logoTileClassName,
+          "transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-surface"
+        )}
+        href={logo.href}
+        key={logo.id}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt={logo.logo.alt}
+          className={imageClassName}
+          height={logo.logo.height}
+          loading="lazy"
+          src={logo.logo.url}
+          style={{ maxWidth: `${logo.logo.width}px` }}
+          width={logo.logo.width}
+        />
+      </a>
     );
   }
 
   return (
-    <div aria-label={logo.logo.alt} className="logo-item inline-flex items-center" key={logo.id} role="img">
+    <div aria-label={logo.logo.alt} className={logoTileClassName} key={logo.id} role="img">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt={logo.logo.alt}
@@ -233,35 +237,38 @@ export function TrustSignalsSection({
   return (
     <section
       aria-label="Institutional affiliations and credentials"
-      className="border-y border-border bg-bg-surface py-10"
+      className="py-10"
     >
-      <div
-        className={cn(
-          "mx-auto grid max-w-7xl items-center gap-8 px-6 lg:px-8",
-          compactGridClassName,
-          "lg:gap-12"
-        )}
-      >
-        <div className={cn(!section.logos.length && "sr-only")}>
-          <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
-          <h2 className="sr-only">{section.title}</h2>
-          <p className="sr-only">{section.description}</p>
-          {section.logos.length ? (
-            <div className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-4">
-              {section.logos.map((logo) => (
-                <LogoMarkup key={logo.id} logo={logo} maxHeightClassName="max-h-8" />
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div
+          className={cn(
+            "grid items-center gap-8 rounded-[28px] border border-border bg-bg-surface p-6 shadow-[var(--shadow-card)] lg:p-10",
+            compactGridClassName,
+            section.logos.length && visibleCredentials.length && "lg:grid-cols-[0.95fr_1.05fr]",
+            !section.logos.length && "max-w-4xl"
+          )}
+        >
+          <div className={cn("flex flex-col justify-center", !section.logos.length && "sr-only")}>
+            <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
+            <h2 className="sr-only">{section.title}</h2>
+            <p className="sr-only">{section.description}</p>
+            {section.logos.length ? (
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 lg:justify-start">
+                {section.logos.map((logo) => (
+                  <LogoMarkup key={logo.id} logo={logo} maxHeightClassName="max-h-8" />
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          {visibleCredentials.length ? (
+            <div className="space-y-0">
+              {visibleCredentials.map((credential) => (
+                <CompactCredentialRow credential={credential} key={credential.id} />
               ))}
             </div>
           ) : null}
         </div>
-
-        {visibleCredentials.length ? (
-          <div className="space-y-0">
-            {visibleCredentials.map((credential) => (
-              <CompactCredentialRow credential={credential} key={credential.id} />
-            ))}
-          </div>
-        ) : null}
       </div>
     </section>
   );
