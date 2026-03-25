@@ -9,7 +9,8 @@ interface BadgeProps {
 const styles: Record<ProjectStatus, string> = {
   published: "border border-emerald-400/30 bg-emerald-500/10 text-emerald-300",
   active: "border border-cyan-400/30 bg-cyan-400/10 text-cyan-300",
-  "seeking-collaborators": "border border-amber-400/30 bg-amber-400/10 text-amber-300",
+  "seeking-collaborators":
+    "border bg-[var(--color-accent-yellow-muted)] text-accent-yellow [border-color:var(--color-accent-yellow-border)]",
   completed: "border border-slate-500/30 bg-slate-500/10 text-slate-300"
 };
 

@@ -29,6 +29,7 @@
   --color-accent-green-muted: rgba(16, 185, 129, 0.12);
   --color-accent-yellow: #f59e0b;
   --color-accent-yellow-muted: rgba(245, 158, 11, 0.12);
+  --color-accent-yellow-border: rgba(245, 158, 11, 0.3);
 
   /* RadLE Widget - semantic bar colors */
   --radle-human-primary: #38bdf8;
@@ -89,8 +90,9 @@
   --color-accent-orange-muted: rgba(234, 88, 12, 0.08);
   --color-accent-green: #059669;
   --color-accent-green-muted: rgba(5, 150, 105, 0.08);
-  --color-accent-yellow: #d97706;
-  --color-accent-yellow-muted: rgba(217, 119, 6, 0.08);
+  --color-accent-yellow: #b45309;
+  --color-accent-yellow-muted: rgba(180, 83, 9, 0.1);
+  --color-accent-yellow-border: rgba(180, 83, 9, 0.18);
 
   /* RadLE Widget - semantic bar colors */
   --radle-human-primary: #0284c7;
