@@ -26,7 +26,7 @@ export default async function HomePage(): Promise<React.ReactElement> {
   return (
     <>
       <SectionErrorBoundary fallbackTitle="Hero unavailable">
-        <HeroSection metrics={featuredProject?.metrics ?? []} />
+        <HeroSection />
       </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="Trust signals unavailable">
         <TrustSignalsSection section={trustSection} variant="featured" />

@@ -1,4 +1,5 @@
-import { RadleWidget } from "@/components/sections/RadleWidget";
+import Image from "next/image";
+
 import { Button, SectionLabel } from "@/components/ui";
 import type { ProjectSeed } from "@/types/research";
 
@@ -79,7 +80,16 @@ export function FeaturedProject({
             Presentation | Ashoka University
           </p>
         </div>
-        <RadleWidget compact metrics={project.metrics ?? []} />
+        <div className="overflow-hidden rounded-[2rem] border border-border bg-bg-surface shadow-[var(--shadow-elevated)]">
+          <Image
+            alt="RadLE benchmark comparison visualization"
+            className="h-auto w-full object-cover"
+            height={1358}
+            priority
+            src="/radle-image.png"
+            width={2000}
+          />
+        </div>
       </div>
     </section>
   );

@@ -1,15 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
 
-import { RadleWidget } from "@/components/sections/RadleWidget";
 import { Button, ProofChip, SectionLabel } from "@/components/ui";
-import type { ProjectMetric } from "@/types/research";
-
-interface HeroSectionProps {
-  metrics: ProjectMetric[];
-}
 
 const proofChips = [
   {
@@ -21,7 +16,7 @@ const proofChips = [
   { label: "Harvard × AIIMS × Ashoka", variant: "outline" as const },
 ];
 
-export function HeroSection({ metrics }: HeroSectionProps): React.ReactElement {
+export function HeroSection(): React.ReactElement {
   return (
     <section className="relative min-h-screen overflow-hidden bg-bg-primary">
       <div className="pointer-events-none absolute inset-0 bg-hero-grid" />
@@ -74,7 +69,16 @@ export function HeroSection({ metrics }: HeroSectionProps): React.ReactElement {
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <RadleWidget metrics={metrics} variant="hero" />
+          <div className="overflow-hidden rounded-[2rem] border border-border bg-bg-surface shadow-[var(--shadow-elevated)]">
+            <Image
+              alt="RadLE benchmark comparison visualization"
+              className="h-auto w-full object-cover"
+              height={1358}
+              priority
+              src="/radle-image.png"
+              width={2000}
+            />
+          </div>
         </motion.div>
       </div>
 
