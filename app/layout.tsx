@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { DM_Sans, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "@/app/globals.css";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { CustomCursor } from "@/components/ui/CustomCursor";
 
-const display = Playfair_Display({
+const display = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap"
 });
 
-const sans = DM_Sans({
+const sans = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap"
@@ -114,6 +115,7 @@ export default function RootLayout({
           <JsonLd data={organizationSchema} />
           <JsonLd data={websiteSchema} />
           {children}
+          <CustomCursor />
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>

@@ -30,6 +30,11 @@
   --color-accent-yellow: #f59e0b;
   --color-accent-yellow-muted: rgba(245, 158, 11, 0.12);
   --color-accent-yellow-border: rgba(245, 158, 11, 0.3);
+  --color-cursor-fill: rgba(248, 250, 252, 0.14);
+  --color-cursor-border: rgba(255, 255, 255, 0.78);
+  --color-cursor-perimeter: rgba(15, 23, 42, 0.4);
+  --shadow-cursor:
+    0 0 0 1px var(--color-cursor-perimeter), 0 18px 40px rgba(0, 0, 0, 0.24);
 
   /* RadLE Widget - semantic bar colors */
   --radle-human-primary: #38bdf8;
@@ -93,6 +98,11 @@
   --color-accent-yellow: #b45309;
   --color-accent-yellow-muted: rgba(180, 83, 9, 0.1);
   --color-accent-yellow-border: rgba(180, 83, 9, 0.18);
+  --color-cursor-fill: rgba(15, 23, 42, 0.1);
+  --color-cursor-border: rgba(255, 255, 255, 0.9);
+  --color-cursor-perimeter: rgba(15, 23, 42, 0.18);
+  --shadow-cursor:
+    0 0 0 1px var(--color-cursor-perimeter), 0 18px 40px rgba(15, 23, 42, 0.1);
 
   /* RadLE Widget - semantic bar colors */
   --radle-human-primary: #0284c7;
@@ -222,6 +232,48 @@
   outline: 2px solid var(--color-accent-cyan);
   outline-offset: 4px;
   border-radius: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+
+  html.has-custom-cursor [data-cursor="native"],
+  html.has-custom-cursor [data-cursor="native"] * {
+    cursor: auto !important;
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  pointer-events: none;
+  opacity: 0;
+  background-color: var(--color-cursor-fill);
+  border: 2px solid var(--color-cursor-border);
+  box-shadow: var(--shadow-cursor);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transform: translate3d(-100px, -100px, 0);
+  transition:
+    opacity 160ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+  will-change: transform, opacity;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
 }
 
 @keyframes meshFloat {
