@@ -15,7 +15,7 @@ const audienceOptions: AudienceType[] = ["researcher", "industry", "investor", "
 
 export function ContactFormSection({
   audienceType = "other",
-  title = "Want to fund this work?",
+  title = "Want to fund our work?",
   intro = "Send a note and the lab will reply within 48 hours."
 }: ContactFormSectionProps): React.ReactElement {
   const [errors, setErrors] = useState<Record<string, string>>({});

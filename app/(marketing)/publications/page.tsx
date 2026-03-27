@@ -79,7 +79,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
       <ContactFormSection
         audienceType="investor"
         intro="If you fund responsible health AI infrastructure, CRASH Lab is built to convert that support into benchmarks, policy relevance, and deployable systems."
-        title="Want to fund this work?"
+        title="Want to fund our work?"
       />
     </div>
   );
