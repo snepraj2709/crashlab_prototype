@@ -244,6 +244,17 @@
   html.has-custom-cursor [data-cursor="native"] * {
     cursor: auto !important;
   }
+
+  html.has-custom-cursor [data-cursor="native"] a,
+  html.has-custom-cursor [data-cursor="native"] a *,
+  html.has-custom-cursor [data-cursor="native"] button,
+  html.has-custom-cursor [data-cursor="native"] button *,
+  html.has-custom-cursor [data-cursor="native"] summary,
+  html.has-custom-cursor [data-cursor="native"] summary *,
+  html.has-custom-cursor [data-cursor="native"] [role="button"],
+  html.has-custom-cursor [data-cursor="native"] [role="button"] * {
+    cursor: pointer !important;
+  }
 }
 
 .custom-cursor {
