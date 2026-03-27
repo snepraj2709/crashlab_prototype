@@ -23,7 +23,7 @@ export function FeaturedProject({
       : undefined);
 
   return (
-    <section className="py-24 lg:py-32">
+    <section className="py-8 lg:py-16">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div>
           <SectionLabel number="04" text="Featured Research" />
