@@ -63,8 +63,9 @@ export default async function PersonPage({
           url: `https://crashlab.in/people/${person.slug}`
         }}
       />
-      <section className="pt-32 py-8 lg:py-16">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+      <div className="pt-32">
+        <section className="py-8 lg:py-16">
+          <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">People</p>
           <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">{person.name}</h1>
           {"headline" in person && person.headline ? (
@@ -163,8 +164,9 @@ export default async function PersonPage({
               </Card>
             </div>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
     </>
   );
 }

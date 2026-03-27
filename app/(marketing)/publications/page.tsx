@@ -19,8 +19,8 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
   const trustSection = getTrustSection();
 
   return (
-    <>
-      <section className="py-8 lg:py-16">
+    <div className="pt-32">
+      <section className="py-8 lg:py-16 ">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionLabel number="01" text="Publications" />
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
@@ -81,6 +81,6 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
         intro="If you fund responsible health AI infrastructure, CRASH Lab is built to convert that support into benchmarks, policy relevance, and deployable systems."
         title="Want to fund this work?"
       />
-    </>
+    </div>
   );
 }

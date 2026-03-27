@@ -82,8 +82,9 @@ export default async function NewsPostPage({
         }}
       />
 
-      <article className="pt-32 py-8 lg:py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="pt-32">
+        <article className="py-8 lg:py-16">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
             {post.category?.replace(/-/g, " ") || "Article"}
           </p>
@@ -165,8 +166,9 @@ export default async function NewsPostPage({
               ) : null}
             </aside>
           </div>
-        </div>
-      </article>
+          </div>
+        </article>
+      </div>
     </>
   );
 }

@@ -54,8 +54,9 @@ export default async function NewsPage({
   const [featured, ...rest] = filtered;
 
   return (
-    <section className="py-8 lg:py-16">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <div className="pt-32">
+      <section className="py-8 lg:py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="01" text="News" />
         <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
           News from the lab.
@@ -156,7 +157,8 @@ export default async function NewsPage({
             ))}
           </div>
         ) : null}
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }

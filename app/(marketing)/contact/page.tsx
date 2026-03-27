@@ -3,8 +3,9 @@ import { SectionLabel } from "@/components/ui";
 
 export default function ContactPage(): React.ReactElement {
   return (
-    <section className="pb-16 pt-32 lg:pb-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <div className="pt-32">
+      <section className="pb-16 pt-8 lg:pb-24 lg:pt-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-16">
           <div className="max-w-2xl pt-2">
             <SectionLabel number="01" text="Contact" />
@@ -40,7 +41,8 @@ export default function ContactPage(): React.ReactElement {
             <ContactPageForm />
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }

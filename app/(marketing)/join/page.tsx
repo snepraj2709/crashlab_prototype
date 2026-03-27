@@ -17,8 +17,9 @@ export default async function JoinPage(): Promise<React.ReactElement> {
   const roles = ["Intern", "RA", "PhD", "Postdoc", "Clinician-Researcher"];
 
   return (
-    <section className="pt-32 py-8 lg:py-16">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <div className="pt-32">
+      <section className="py-8 lg:py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="01" text="Join" />
         <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
           Work on problems that matter. In a lab that ships.
@@ -72,7 +73,8 @@ export default async function JoinPage(): Promise<React.ReactElement> {
         <div className="mt-16">
           <JoinInterestForm interests={interests} />
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   );
 }
