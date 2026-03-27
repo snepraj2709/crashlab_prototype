@@ -22,13 +22,13 @@ const models = [
   }
 ];
 
-export default function PartnersPage(): React.ReactElement {
+export default function CollaboratePage(): React.ReactElement {
   const trustSection = getTrustSection();
 
   return (
     <section className="pt-32 pb-24 lg:pb-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="01" text="Partners" />
+        <SectionLabel number="01" text="Collaborate" />
         <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
           Your AI needs to work in real clinical settings. Ours already does.
         </h1>
@@ -47,13 +47,9 @@ export default function PartnersPage(): React.ReactElement {
           ))}
         </div>
 
-        <div className="mt-16">
-          <TrustSignalsSection section={trustSection} variant="compact" />
-        </div>
-
         <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
           <div className="rounded-[28px] border border-border bg-bg-surface p-8">
-            <h2 className="font-display text-4xl text-text-primary">Why partner with us</h2>
+            <h2 className="font-display text-4xl text-text-primary">Why collaborate with us</h2>
             <div className="mt-6 space-y-5 text-text-secondary">
               <p>
                 Dr. Datta brings a dual identity most AI teams cannot offer: clinician and

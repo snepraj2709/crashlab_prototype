@@ -36,7 +36,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({
+export default async function NewsPostPage({
   params
 }: {
   params: { slug: string };
@@ -59,7 +59,7 @@ export default async function BlogPostPage({
 
   const readingTime = calculateReadingTime(post.body);
   const headings = extractHeadings(post.body);
-  const pageUrl = `https://crashlab.in/blog/${post.slug}`;
+  const pageUrl = `https://crashlab.in/news/${post.slug}`;
 
   return (
     <>
@@ -153,10 +153,10 @@ export default async function BlogPostPage({
 
               {relatedPosts.length ? (
                 <div className="rounded-[28px] border border-border bg-bg-surface p-6">
-                  <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Related posts</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Related news</p>
                   <div className="mt-5 space-y-4">
                     {relatedPosts.map((related) => (
-                      <Link className="block text-text-primary transition hover:text-accent-cyan" href={`/blog/${related.slug}`} key={related._id}>
+                      <Link className="block text-text-primary transition hover:text-accent-cyan" href={`/news/${related.slug}`} key={related._id}>
                         {related.title}
                       </Link>
                     ))}

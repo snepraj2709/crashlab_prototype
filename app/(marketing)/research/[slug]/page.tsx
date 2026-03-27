@@ -53,7 +53,7 @@ export default async function ResearchProjectPage({
     getRelatedProjects(project.slug, project.tags)
   ]);
   const team = people.filter((person) => project.team?.includes(person.slug));
-  const collaborationHref = project.audience.includes("industry") ? "/partners" : "/join";
+  const collaborationHref = project.audience.includes("industry") ? "/collaborate" : "/join";
 
   return (
     <>

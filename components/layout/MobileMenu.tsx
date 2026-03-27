@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
 
-import { Button, ThemeToggle } from "@/components/ui";
+import { ThemeToggle } from "@/components/ui";
 
 interface MobileMenuProps {
   open: boolean;
@@ -15,11 +15,12 @@ interface MobileMenuProps {
 
 const navLinks = [
   { href: "/research", label: "Research" },
+  { href: "/publications", label: "Publications" },
   { href: "/people", label: "People" },
+  { href: "/collaborate", label: "Collaborate" },
   { href: "/join", label: "Join" },
-  { href: "/partners", label: "Partners" },
-  { href: "/impact", label: "Impact" },
-  { href: "/blog", label: "Blog" }
+  { href: "/news", label: "News" },
+  { href: "/contact", label: "Contact" }
 ];
 
 export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactElement {
@@ -82,14 +83,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
                 <span className="text-sm text-text-secondary">Appearance</span>
                 <ThemeToggle />
               </div>
-              <Button
-                className="w-full justify-center"
-                href="/join"
-                onClick={onClose}
-                size="lg"
-              >
-                Join the Lab
-              </Button>
             </div>
           </motion.div>
         </FocusTrap>

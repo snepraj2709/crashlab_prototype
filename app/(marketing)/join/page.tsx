@@ -70,10 +70,6 @@ export default async function JoinPage(): Promise<React.ReactElement> {
         </div>
 
         <div className="mt-16">
-          <TrustSignalsSection section={trustSection} variant="compact" />
-        </div>
-
-        <div className="mt-16">
           <JoinInterestForm interests={interests} />
         </div>
       </div>

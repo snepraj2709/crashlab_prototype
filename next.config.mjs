@@ -1,5 +1,29 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/partners",
+        destination: "/collaborate",
+        permanent: true
+      },
+      {
+        source: "/impact",
+        destination: "/publications",
+        permanent: true
+      },
+      {
+        source: "/blog/:slug*",
+        destination: "/news/:slug*",
+        permanent: true
+      },
+      {
+        source: "/blog",
+        destination: "/news",
+        permanent: true
+      }
+    ];
+  },
   images: {
     remotePatterns: [
       {

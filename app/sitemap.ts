@@ -10,11 +10,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${baseUrl}/research`, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/publications`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/people`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/collaborate`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/join`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/partners`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/impact`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/blog`, changeFrequency: "daily", priority: 0.7 }
+    { url: `${baseUrl}/news`, changeFrequency: "daily", priority: 0.7 },
+    { url: `${baseUrl}/contact`, changeFrequency: "weekly", priority: 0.7 }
   ];
 
   const projectEntries = projects.map((project) => ({
@@ -30,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const postEntries = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+    url: `${baseUrl}/news/${post.slug}`,
     changeFrequency: "daily" as const,
     priority: 0.7
   }));

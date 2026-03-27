@@ -36,7 +36,7 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
-            <SectionLabel number="06" text="From the Lab" />
+            <SectionLabel number="06" text="News" />
             <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
               Research updates. Benchmark changes. What we&apos;re learning in
               the field.
@@ -47,15 +47,15 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
             </p>
           </div>
           <div>
-            <Button href="/blog" variant="secondary">
-              All Posts
+            <Button href="/news" variant="secondary">
+              All News
             </Button>
           </div>
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
-            <Link href={`/blog/${post.slug}`} key={post._id}>
+            <Link href={`/news/${post.slug}`} key={post._id}>
               <Card className="h-full transition hover:border-accent-cyan">
                 <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] border border-border">
                   <Image

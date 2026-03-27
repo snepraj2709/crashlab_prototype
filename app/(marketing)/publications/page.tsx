@@ -11,7 +11,7 @@ const impactMetrics = [
   { value: "3", label: "International institutional collaborations" }
 ];
 
-export default async function ImpactPage(): Promise<React.ReactElement> {
+export default async function PublicationsPage(): Promise<React.ReactElement> {
   const [lead, publications] = await Promise.all([
     getPersonBySlug("suvrankar-datta"),
     Promise.resolve(getSeedPublications())
@@ -22,9 +22,9 @@ export default async function ImpactPage(): Promise<React.ReactElement> {
     <>
       <section className="pt-32 pb-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel number="01" text="Impact" />
+          <SectionLabel number="01" text="Publications" />
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
-            15 papers in 8 months. From a lab that didn&apos;t exist a year ago.
+            Publications and research momentum from a lab that didn&apos;t exist a year ago.
           </h1>
           <p className="mt-6 max-w-3xl text-lg text-text-secondary">
             CRASH Lab has moved with unusual speed because it was designed around a narrow,

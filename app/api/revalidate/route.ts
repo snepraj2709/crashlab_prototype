@@ -40,10 +40,11 @@ export async function POST(req: Request): Promise<Response> {
         revalidatePath("/");
         break;
       case "post":
-        revalidatePath("/blog");
+        revalidatePath("/news");
         if (body.slug?.current) {
-          revalidatePath(`/blog/${body.slug.current}`);
+          revalidatePath(`/news/${body.slug.current}`);
         }
+        revalidatePath("/");
         break;
       case "person":
         revalidatePath("/people");

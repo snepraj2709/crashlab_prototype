@@ -3,11 +3,12 @@ import { Linkedin, Twitter } from "lucide-react";
 
 const footerLinks = [
   { href: "/research", label: "Research" },
+  { href: "/publications", label: "Publications" },
   { href: "/people", label: "People" },
+  { href: "/collaborate", label: "Collaborate" },
   { href: "/join", label: "Join" },
-  { href: "/partners", label: "Partners" },
-  { href: "/impact", label: "Impact" },
-  { href: "/blog", label: "Blog" },
+  { href: "/news", label: "News" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Footer(): React.ReactElement {

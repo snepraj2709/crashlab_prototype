@@ -18,8 +18,8 @@ const cards = [
     headline:
       "License research. Validate your AI. Commission India-specific studies.",
     body: "We offer Research Licensing, Commissioned Studies, and Joint Grant programs — backed by clinical-grade data and expert radiologists.",
-    href: "/partners",
-    cta: "Partner With Us",
+    href: "/collaborate",
+    cta: "Collaborate With Us",
     className: "border-cyan-400/25",
   },
   {
@@ -27,8 +27,8 @@ const cards = [
     eyebrow: "For Investors",
     headline: "Fund India's most credible responsible health AI lab.",
     body: "#1 Indian lab by AI abstracts at RSNA 2025. 15 papers in under 8 months. Led by an AIIMS-trained, Harvard-affiliated radiologist with national healthcare policy influence.",
-    href: "/impact",
-    cta: "Our Impact",
+    href: "/publications",
+    cta: "View Publications",
     className: "border-cyan-400/25",
   },
 ];

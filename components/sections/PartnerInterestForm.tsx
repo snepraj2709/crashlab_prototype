@@ -75,10 +75,10 @@ export function PartnerInterestForm(): React.ReactElement {
 
   return (
     <Card className="border-border">
-      <h3 className="font-display text-3xl text-text-primary">Partner interest form</h3>
+      <h3 className="font-display text-3xl text-text-primary">Collaboration interest form</h3>
       <p className="mt-3 text-text-secondary">
-        Describe the clinical or commercial problem you need solved and how you want to work with
-        the lab.
+        Describe the clinical or commercial problem you need solved and how you want to
+        collaborate with the lab.
       </p>
       <form action="/api/partner" className="mt-8 grid gap-5 md:grid-cols-2" method="post" onSubmit={handleSubmit}>
         <label>

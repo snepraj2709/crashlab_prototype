@@ -6,17 +6,18 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 import { MobileMenu } from "@/components/layout/MobileMenu";
-import { Button, ThemeToggle } from "@/components/ui";
+import { ThemeToggle } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
 const navLinks = [
   { href: "/research", label: "Research" },
+  { href: "/publications", label: "Publications" },
   { href: "/people", label: "People" },
+  { href: "/collaborate", label: "Collaborate" },
   { href: "/join", label: "Join" },
-  { href: "/partners", label: "Partners" },
-  { href: "/impact", label: "Impact" },
-  { href: "/blog", label: "Blog" }
+  { href: "/news", label: "News" },
+  { href: "/contact", label: "Contact" }
 ];
 
 function isNavLinkActive(pathname: string, href: string): boolean {
@@ -79,9 +80,6 @@ export function Navbar(): React.ReactElement {
               })}
             </nav>
             <ThemeToggle />
-            <Button href="/join" size="sm" variant="primary">
-              Join the Lab
-            </Button>
           </div>
 
           <button

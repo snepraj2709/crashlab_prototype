@@ -41,7 +41,7 @@ function getCoverSrc(
   );
 }
 
-export default async function BlogPage({
+export default async function NewsPage({
   searchParams,
 }: {
   searchParams: Record<string, string | string[] | undefined>;
@@ -56,9 +56,9 @@ export default async function BlogPage({
   return (
     <section className="pb-24 pt-32 lg:pb-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="01" text="Blog" />
+        <SectionLabel number="01" text="News" />
         <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
-          From the lab.
+          News from the lab.
         </h1>
         <p className="mt-6 max-w-3xl text-lg text-text-secondary">
           Writing for researchers, industry teams, and funders who need the
@@ -75,8 +75,8 @@ export default async function BlogPage({
               }`}
               href={
                 entry.value === "all"
-                  ? "/blog"
-                  : `/blog?category=${entry.value}`
+                  ? "/news"
+                  : `/news?category=${entry.value}`
               }
               key={entry.value}
             >
@@ -86,7 +86,7 @@ export default async function BlogPage({
         </div>
 
         {featured ? (
-          <Link className="mt-12 block" href={`/blog/${featured.slug}`}>
+          <Link className="mt-12 block" href={`/news/${featured.slug}`}>
             <div className="grid gap-8 rounded-[32px] border border-border bg-bg-surface p-8 lg:grid-cols-[1.1fr_0.9fr]">
               <div>
                 <span className="border-accent-cyan/30 bg-accent-cyan/10 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
@@ -124,14 +124,10 @@ export default async function BlogPage({
           </div>
         )}
 
-        <div className="mt-12">
-          <TrustSignalsSection section={trustSection} variant="compact" />
-        </div>
-
         {rest.length ? (
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {rest.map((post) => (
-              <Link href={`/blog/${post.slug}`} key={post._id}>
+              <Link href={`/news/${post.slug}`} key={post._id}>
                 <div className="h-full rounded-[28px] border border-border bg-bg-surface p-6 transition hover:border-accent-cyan">
                   <div className="relative aspect-[16/10] overflow-hidden rounded-[22px] border border-border">
                     <Image
