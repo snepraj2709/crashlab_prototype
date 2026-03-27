@@ -12,6 +12,12 @@ interface ContactPageFormState {
   form?: string;
 }
 
+const fieldClassName =
+  "h-16 w-full rounded-[24px] border border-slate-300 bg-slate-50 px-5 text-lg text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100";
+
+const textareaClassName =
+  "min-h-60 w-full resize-y rounded-[28px] border border-slate-300 bg-slate-50 px-5 py-4 text-lg text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-100";
+
 export function ContactPageForm(): React.ReactElement {
   const [errors, setErrors] = useState<ContactPageFormState>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -90,70 +96,70 @@ export function ContactPageForm(): React.ReactElement {
   return (
     <form
       action="/api/contact"
-      className="mt-12 grid gap-8"
+      className="grid gap-8 rounded-[36px] border border-slate-200 bg-white p-8 md:p-10 lg:p-12"
       data-cursor="native"
       method="post"
       onSubmit={handleSubmit}
     >
       <div className="grid gap-6 md:grid-cols-2">
         <label className="block">
-          <span className="mb-3 block text-base font-medium text-text-primary">
-            First Name <span className="text-text-secondary">(required)</span>
+          <span className="mb-3 block text-base font-medium text-slate-700">
+            First Name <span className="text-slate-500">(required)</span>
           </span>
           <input
-            className="h-16 w-full border border-border bg-bg-surface px-5 text-lg text-text-primary outline-none focus:border-accent-cyan"
+            className={fieldClassName}
             name="firstName"
             required
           />
-          {errors.firstName ? <span className="mt-2 block text-sm text-red-300">{errors.firstName}</span> : null}
+          {errors.firstName ? <span className="mt-2 block text-sm text-red-600">{errors.firstName}</span> : null}
         </label>
 
         <label className="block">
-          <span className="mb-3 block text-base font-medium text-text-primary">
-            Last Name <span className="text-text-secondary">(required)</span>
+          <span className="mb-3 block text-base font-medium text-slate-700">
+            Last Name <span className="text-slate-500">(required)</span>
           </span>
           <input
-            className="h-16 w-full border border-border bg-bg-surface px-5 text-lg text-text-primary outline-none focus:border-accent-cyan"
+            className={fieldClassName}
             name="lastName"
             required
           />
-          {errors.lastName ? <span className="mt-2 block text-sm text-red-300">{errors.lastName}</span> : null}
+          {errors.lastName ? <span className="mt-2 block text-sm text-red-600">{errors.lastName}</span> : null}
         </label>
       </div>
 
       <label className="block">
-        <span className="mb-3 block text-base font-medium text-text-primary">
-          Email <span className="text-text-secondary">(required)</span>
+        <span className="mb-3 block text-base font-medium text-slate-700">
+          Email <span className="text-slate-500">(required)</span>
         </span>
         <input
-          className="h-16 w-full border border-border bg-bg-surface px-5 text-lg text-text-primary outline-none focus:border-accent-cyan"
+          className={fieldClassName}
           name="email"
           required
           type="email"
         />
-        {errors.email ? <span className="mt-2 block text-sm text-red-300">{errors.email}</span> : null}
+        {errors.email ? <span className="mt-2 block text-sm text-red-600">{errors.email}</span> : null}
       </label>
 
       <label className="block">
-        <span className="mb-3 block text-base font-medium text-text-primary">
-          Message <span className="text-text-secondary">(required)</span>
+        <span className="mb-3 block text-base font-medium text-slate-700">
+          Message <span className="text-slate-500">(required)</span>
         </span>
         <textarea
-          className="min-h-60 w-full resize-y border border-border bg-bg-surface px-5 py-4 text-lg text-text-primary outline-none focus:border-accent-cyan"
+          className={textareaClassName}
           name="message"
           required
         />
-        {errors.message ? <span className="mt-2 block text-sm text-red-300">{errors.message}</span> : null}
+        {errors.message ? <span className="mt-2 block text-sm text-red-600">{errors.message}</span> : null}
       </label>
 
       <input autoComplete="off" className="hidden" name="honeypot" tabIndex={-1} />
 
-      {errors.form ? <p className="text-sm text-red-300">{errors.form}</p> : null}
-      {submitted ? <p className="text-sm text-emerald-300">{submitted}</p> : null}
+      {errors.form ? <p className="text-sm text-red-600">{errors.form}</p> : null}
+      {submitted ? <p className="text-sm text-emerald-600">{submitted}</p> : null}
 
       <div>
         <button
-          className="inline-flex rounded-2xl border border-border bg-bg-surface px-7 py-4 text-2xl text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex rounded-[24px] bg-sky-600 px-8 py-4 text-xl font-medium text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:bg-sky-400"
           disabled={isSubmitting}
           type="submit"
         >

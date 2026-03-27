@@ -48,14 +48,14 @@ export default function CollaboratePage(): React.ReactElement {
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
-          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
-            <h2 className="font-display text-4xl text-text-primary">Why collaborate with us</h2>
+          <div className="rounded-[28px] p-8">
+            <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">Why collaborate with us</h1>
             <div className="mt-6 space-y-5 text-text-secondary">
-              <p>
+              <p className="mt-6 text-xl leading-9 text-text-secondary">
                 Dr. Datta brings a dual identity most AI teams cannot offer: clinician and
                 researcher, with AIIMS training, Harvard affiliation, and RSNA credibility.
               </p>
-              <p>
+              <p className="mt-6 text-xl leading-9 text-text-secondary">
                 The lab is built to answer the questions companies struggle to validate honestly:
                 does the model work on Indian data, in real workflows, and under clinical scrutiny?
               </p>
