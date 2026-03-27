@@ -234,6 +234,23 @@
   border-radius: 4px;
 }
 
+.brand-mark__logo {
+  position: absolute;
+  inset: 0;
+}
+
+.brand-mark__logo--dark {
+  display: none;
+}
+
+[data-theme="dark"] .brand-mark__logo--light {
+  display: none;
+}
+
+[data-theme="dark"] .brand-mark__logo--dark {
+  display: block;
+}
+
 @media (hover: hover) and (pointer: fine) {
   html.has-custom-cursor,
   html.has-custom-cursor * {

@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect } from "react";
 
+import { BrandMark } from "@/components/layout/BrandMark";
 import { ThemeToggle } from "@/components/ui";
 
 interface MobileMenuProps {
@@ -57,7 +58,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
           >
             <div className="mx-auto flex h-full max-w-7xl flex-col px-6 py-6">
               <div className="flex items-center justify-between">
-                <span className="text-xs uppercase tracking-[0.2em] text-accent-cyan">CRASH Lab</span>
+                <BrandMark compact onClick={onClose} />
                 <button
                   aria-label="Close menu"
                   className="rounded-full border border-border p-3 text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"

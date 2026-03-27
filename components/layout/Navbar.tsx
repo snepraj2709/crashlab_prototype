@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 
+import { BrandMark } from "@/components/layout/BrandMark";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { ThemeToggle } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
@@ -47,15 +48,7 @@ export function Navbar(): React.ReactElement {
         data-cursor="native"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-          <Link
-            className="flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-            href="/"
-          >
-            <span className="text-xs uppercase tracking-[0.22em] text-accent-cyan">
-              CRASH Lab
-            </span>
-            <span className="text-sm text-text-secondary">Ashoka University</span>
-          </Link>
+          <BrandMark />
 
           <div className="hidden items-center gap-3 lg:flex">
             <nav className="flex items-center gap-2">
