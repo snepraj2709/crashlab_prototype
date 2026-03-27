@@ -1,4 +1,5 @@
 import blogSeed from "@/content/seed/blog.json";
+import { labMemberGroups, labMembers } from "@/content/seed/labMembers";
 import projectsSeed from "@/content/seed/projects.json";
 import publicationsSeed from "@/content/seed/publications.json";
 import teamSeed from "@/content/seed/team.json";
@@ -22,7 +23,7 @@ import type {
   PostBySlugQueryResult,
   ProjectBySlugQueryResult
 } from "@/types/sanity";
-import type { PersonSeed } from "@/types/team";
+import type { PersonSeed, TeamDirectoryGroup, TeamDirectoryMember } from "@/types/team";
 import type { TrustSectionSeed } from "@/types/trust";
 
 type SanityProject = NonNullable<ProjectBySlugQueryResult>;
@@ -192,6 +193,27 @@ export function getSeedProjects(): ProjectSeed[] {
 
 export function getSeedPeople(): PersonSeed[] {
   return teamSeed as PersonSeed[];
+}
+
+export function getLabMemberGroups(): TeamDirectoryGroup[] {
+  return [...labMemberGroups].sort((left, right) => left.order - right.order);
+}
+
+export function getLabMembers(): TeamDirectoryMember[] {
+  return [...labMembers].sort((left, right) => {
+    if (left.groupId === right.groupId) {
+      return left.position - right.position;
+    }
+
+    const leftGroup = labMemberGroups.find((group) => group.id === left.groupId)?.order ?? 999;
+    const rightGroup = labMemberGroups.find((group) => group.id === right.groupId)?.order ?? 999;
+
+    return leftGroup - rightGroup;
+  });
+}
+
+export function getProjectLabMembers(projectSlug: string): TeamDirectoryMember[] {
+  return getLabMembers().filter((member) => member.isActive && member.projectSlugs.includes(projectSlug));
 }
 
 export function getSeedPublications(): PublicationEntry[] {

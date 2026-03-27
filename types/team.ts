@@ -28,3 +28,29 @@ export interface PersonSeed {
   originStory?: PortableTextBlock[];
   collaborations?: string[];
 }
+
+export type TeamDirectoryBadgeTone = "amber" | "blue" | "emerald" | "rose" | "slate";
+
+export interface TeamDirectoryHighlight {
+  label: string;
+  tone?: TeamDirectoryBadgeTone;
+}
+
+export interface TeamDirectoryGroup {
+  id: string;
+  label: string;
+  order: number;
+}
+
+export interface TeamDirectoryMember {
+  id: string;
+  name: string;
+  tenure: string;
+  affiliation: string;
+  groupId: string;
+  isActive: boolean;
+  position: number;
+  projectSlugs: string[];
+  profileSlug?: string;
+  highlights?: TeamDirectoryHighlight[];
+}

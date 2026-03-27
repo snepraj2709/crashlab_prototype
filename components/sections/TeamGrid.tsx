@@ -1,7 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-
-import { Card, ProofChip, SectionLabel } from "@/components/ui";
+import { LabMembersList } from "@/components/sections/LabMembersList";
+import { SectionLabel } from "@/components/ui";
+import { getLabMemberGroups, getLabMembers } from "@/lib/content/site";
 import type { PersonSeed } from "@/types/team";
 
 interface TeamGridProps {
@@ -9,71 +8,43 @@ interface TeamGridProps {
 }
 
 export function TeamGrid({ people }: TeamGridProps): React.ReactElement {
-  const [pi, ...team] = people.sort((left, right) => left.position - right.position);
+  const members = getLabMembers();
+  const groups = getLabMemberGroups();
+  const activeCount = members.filter((member) => member.isActive).length;
+  const alumniCount = members.filter((member) => !member.isActive).length;
+  const linkedSlugs = people.map((person) => person.slug);
 
   return (
     <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="01" text="People" />
-        {pi ? (
-          <Card className="mt-8 grid gap-8 lg:grid-cols-[280px_1fr] lg:p-10">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] border border-border">
-              <Image
-                alt={pi.photo?.alt || pi.name}
-                className="object-cover"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 280px"
-                src={pi.photo?.url || "/og/default.svg"}
-              />
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Principal Investigator</p>
-              <h2 className="mt-4 font-display text-4xl text-text-primary">{pi.name}</h2>
-              <p className="mt-4 max-w-3xl text-base leading-8 text-text-secondary lg:text-lg">
-                {pi.shortBio}
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                {pi.credentials.slice(0, 4).map((credential) => (
-                  <ProofChip key={credential} label={credential} size="sm" />
-                ))}
-              </div>
-              <div className="mt-8">
-                <Link
-                  className="text-sm font-medium text-text-primary transition hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-                  href={`/people/${pi.slug}`}
-                >
-                  Read full profile →
-                </Link>
-              </div>
-            </div>
-          </Card>
-        ) : null}
-
-        {team.length ? (
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {team.map((person) => (
-              <Link href={`/people/${person.slug}`} key={person.slug}>
-                <Card className="h-full transition hover:border-accent-cyan">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-[24px] border border-border">
-                    <Image
-                      alt={person.photo?.alt || person.name}
-                      className="object-cover"
-                      fill
-                      sizes="(max-width: 1280px) 50vw, 33vw"
-                      src={person.photo?.url || "/og/default.svg"}
-                    />
-                  </div>
-                  <h3 className="mt-6 text-2xl font-semibold text-text-primary">{person.name}</h3>
-                  <p className="mt-2 text-sm uppercase tracking-[0.18em] text-accent-cyan">
-                    {person.role}
-                  </p>
-                  <p className="mt-4 line-clamp-3 text-text-secondary">{person.shortBio}</p>
-                </Card>
-              </Link>
-            ))}
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <h1 className="font-display text-5xl text-text-primary lg:text-6xl">Lab Members</h1>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-text-secondary">
+              The CRASH Lab team spans clinicians, engineers, data researchers, and governance
+              collaborators. This directory view uses seeded dummy member data to show the fuller
+              shape of the lab beyond the currently published profile pages.
+            </p>
           </div>
-        ) : null}
+          <div className="flex flex-wrap gap-3">
+            <span className="rounded-full border border-border px-4 py-2 text-sm text-text-primary">
+              {activeCount} active members
+            </span>
+            <span className="rounded-full border border-border px-4 py-2 text-sm text-text-primary">
+              {alumniCount} alumni
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-12">
+          <LabMembersList
+            groups={groups}
+            linkedSlugs={linkedSlugs}
+            members={members}
+            variant="page"
+          />
+        </div>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ export * from "@/components/sections/FeaturedProject";
 export * from "@/components/sections/HeroSection";
 export * from "@/components/sections/ImpactStrip";
 export * from "@/components/sections/JoinInterestForm";
+export * from "@/components/sections/LabMembersList";
 export * from "@/components/sections/PartnerInterestForm";
 export * from "@/components/sections/PortableTextContent";
 export * from "@/components/sections/ProblemCards";

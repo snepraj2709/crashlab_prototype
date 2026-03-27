@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
-import { PortableTextContent, ProjectCard, RadleWidget } from "@/components/sections";
+import { LabMembersList, PortableTextContent, ProjectCard, RadleWidget } from "@/components/sections";
 import { Badge, Button } from "@/components/ui";
-import { getPeople, getProjectBySlug, getProjects, getRelatedProjects } from "@/lib/content/site";
+import {
+  getLabMemberGroups,
+  getPeople,
+  getProjectBySlug,
+  getProjectLabMembers,
+  getProjects,
+  getRelatedProjects
+} from "@/lib/content/site";
 import { formatDate } from "@/lib/utils/formatDate";
 
 export const revalidate = 3600;
@@ -52,7 +58,9 @@ export default async function ResearchProjectPage({
     getPeople(),
     getRelatedProjects(project.slug, project.tags)
   ]);
-  const team = people.filter((person) => project.team?.includes(person.slug));
+  const linkedSlugs = people.map((person) => person.slug);
+  const projectMembers = getProjectLabMembers(project.slug);
+  const memberGroups = getLabMemberGroups();
   const collaborationHref = project.audience.includes("industry") ? "/collaborate" : "/join";
 
   return (
@@ -94,20 +102,6 @@ export default async function ResearchProjectPage({
             ) : null}
           </div>
 
-          {team.length ? (
-            <div className="mt-8 flex flex-wrap gap-3">
-              {team.map((person) => (
-                <Link
-                  className="rounded-full border border-border px-4 py-2 text-sm text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
-                  href={`/people/${person.slug}`}
-                  key={person.slug}
-                >
-                  {person.name}
-                </Link>
-              ))}
-            </div>
-          ) : null}
-
           <div className="mt-6 flex flex-wrap gap-3">
             {project.tags.map((tag) => (
               <span className="rounded-full border border-border px-4 py-2 text-sm text-text-secondary" key={tag}>
@@ -115,6 +109,19 @@ export default async function ResearchProjectPage({
               </span>
             ))}
           </div>
+
+          {projectMembers.length ? (
+            <div className="mt-14">
+              <LabMembersList
+                groups={memberGroups}
+                intro="People actively contributing to this project right now, across research, clinical review, and systems support."
+                linkedSlugs={linkedSlugs}
+                members={projectMembers}
+                title="Active Team Members"
+                variant="project"
+              />
+            </div>
+          ) : null}
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
