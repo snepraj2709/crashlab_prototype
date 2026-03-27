@@ -12,7 +12,7 @@ export default async function JoinPage(): Promise<React.ReactElement> {
     "Publication Venues: RSNA / MICCAI / NeurIPS",
     "Clinical Data Access",
     "Mentorship Network",
-    "Ashoka Stipends"
+    "Ashoka Affiliation"
   ];
   const roles = ["Intern", "RA", "PhD", "Postdoc", "Clinician-Researcher"];
 
