@@ -10,7 +10,7 @@ export function ProblemCards({
   projects,
 }: ProblemCardsProps): React.ReactElement {
   return (
-    <section className="py-24 lg:py-32">
+    <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="02" text="The Problems We Work On" />
         <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">

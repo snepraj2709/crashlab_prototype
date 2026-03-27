@@ -20,7 +20,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
 
   return (
     <>
-      <section className="pt-32 pb-24">
+      <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionLabel number="01" text="Publications" />
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
@@ -42,9 +42,8 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
 
       <TimelineSection />
       <PublicationList publications={publications} />
-      <TrustSignalsSection section={trustSection} variant="compact" />
 
-      <section className="py-24 lg:py-32">
+      <section className="py-8 lg:py-16">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div className="rounded-[28px] border border-border bg-bg-surface p-8">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Upcoming</p>

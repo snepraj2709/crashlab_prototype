@@ -58,7 +58,7 @@ export function ContactFormSection({
   }
 
   return (
-    <section className="py-24 lg:py-32">
+    <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
         <Card className="border-border">
           <SectionLabel number="08" text="Contact" />

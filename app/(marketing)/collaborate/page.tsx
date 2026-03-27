@@ -26,7 +26,7 @@ export default function CollaboratePage(): React.ReactElement {
   const trustSection = getTrustSection();
 
   return (
-    <section className="pt-32 pb-24 lg:pb-32">
+    <section className="pt-32 py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="01" text="Collaborate" />
         <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">

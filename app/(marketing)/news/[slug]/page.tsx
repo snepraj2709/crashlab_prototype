@@ -82,7 +82,7 @@ export default async function NewsPostPage({
         }}
       />
 
-      <article className="pt-32 pb-24 lg:pb-32">
+      <article className="pt-32 py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
             {post.category?.replace(/-/g, " ") || "Article"}

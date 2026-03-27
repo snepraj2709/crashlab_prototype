@@ -46,7 +46,7 @@ export default async function HomePage(): Promise<React.ReactElement> {
         <ThreeWayCTA />
       </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="News preview unavailable">
-        <Suspense fallback={<div className="px-6 py-24 lg:px-8"><Skeleton className="mx-auto h-72 max-w-7xl" /></div>}>
+        <Suspense fallback={<div className="px-6 py-8 lg:px-8"><Skeleton className="mx-auto h-72 max-w-7xl" /></div>}>
           <BlogPreview posts={posts} />
         </Suspense>
       </SectionErrorBoundary>

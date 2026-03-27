@@ -35,7 +35,7 @@ const cards = [
 
 export function ThreeWayCTA(): React.ReactElement {
   return (
-    <section className="py-24 lg:py-32">
+    <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="05" text="Choose Your Entry Point" />
         <div className="mt-12 grid gap-6 xl:grid-cols-3">

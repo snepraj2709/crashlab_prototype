@@ -35,7 +35,7 @@ export function PublicationList({
   );
 
   return (
-    <section className="py-24 lg:py-32">
+    <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionLabel number="07" text="Publications" />
         <div className="mt-8 flex flex-wrap gap-4">

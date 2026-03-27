@@ -53,7 +53,7 @@ export default async function ResearchPage({
 
   return (
     <SectionErrorBoundary fallbackTitle="Research page unavailable">
-      <section className="pt-32 pb-24 lg:pb-32">
+      <section className="pt-32 py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionLabel number="01" text="Research" />
           <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
@@ -127,7 +127,6 @@ export default async function ResearchPage({
           </div>
 
           <div className="mt-12">
-            <TrustSignalsSection section={trustSection} variant="compact" />
 
             {filtered.length ? (
               <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
