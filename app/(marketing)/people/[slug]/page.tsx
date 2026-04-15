@@ -85,16 +85,8 @@ export default async function PersonPage({
                   sizes="(min-width: 1024px) 22rem, 90vw"
                 />
 
-                {(person.role || person.affiliation || hasSocialLinks || person.email) && (
+                {( person.affiliation || hasSocialLinks || person.email) && (
                   <div className="space-y-6 px-1">
-                    {person.role ? (
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan">
-                          Role
-                        </p>
-                        <p className="mt-2 text-lg font-medium text-text-primary">{person.role}</p>
-                      </div>
-                    ) : null}
 
                     {person.affiliation ? (
                       <div>

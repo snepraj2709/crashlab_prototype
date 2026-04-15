@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { Linkedin, Twitter } from "lucide-react";
+import { Linkedin } from "lucide-react";
+
+import { XIcon } from "@/components/ui/XIcon";
 
 const footerLinks = [
   { href: "/research", label: "Research" },
@@ -65,11 +67,11 @@ export function Footer(): React.ReactElement {
           <a
             aria-label="CRASH Lab on X (Twitter)"
             className="text-[var(--color-text-tertiary)] transition-colors duration-200 hover:text-[var(--color-accent-cyan)]"
-            href="https://twitter.com/DrDatta_AIIMS"
+            href="https://x.com/DrDatta_AIIMS"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Twitter size={18} />
+            <XIcon className="h-[18px] w-[18px]" />
           </a>
           <a
             aria-label="CRASH Lab on LinkedIn"
