@@ -109,7 +109,7 @@ export const postFields = `
 
 export const allProjectsQuery = groq`*[_type == "research"] | order(featured desc, publishedAt desc, title asc) { ${projectFields} }`;
 export const projectBySlugQuery = groq`*[_type == "research" && slug.current == $slug][0] { ${projectFields} }`;
-export const allPeopleQuery = groq`*[_type == "person" && isActive == true] | order(isPrincipalInvestigator desc, position asc, name asc) { ${personFields} }`;
+export const allPeopleQuery = groq`*[_type == "person"] | order(isActive desc, isPrincipalInvestigator desc, position asc, name asc) { ${personFields} }`;
 export const personBySlugQuery = groq`*[_type == "person" && slug.current == $slug][0] { ${personFields} }`;
 export const allPostsQuery = groq`*[_type == "post"] | order(featured desc, publishedAt desc) { ${postFields} }`;
 export const postBySlugQuery = groq`*[_type == "post" && slug.current == $slug][0] { ${postFields} }`;

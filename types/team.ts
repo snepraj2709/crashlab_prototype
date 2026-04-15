@@ -29,6 +29,16 @@ export interface PersonSeed {
   collaborations?: string[];
 }
 
+export interface TeamMemberProfile extends PersonSeed {
+  id: string;
+  profileSlug?: string;
+  affiliation?: string;
+  tenure?: string;
+  groupId?: string;
+  groupLabel?: string;
+  highlights?: TeamDirectoryHighlight[];
+}
+
 export type TeamDirectoryBadgeTone = "amber" | "blue" | "emerald" | "rose" | "slate";
 
 export interface TeamDirectoryHighlight {

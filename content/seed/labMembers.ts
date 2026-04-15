@@ -1,5 +1,14 @@
 import type { TeamDirectoryGroup, TeamDirectoryMember } from "@/types/team";
 
+export interface LabMemberVisualSeed {
+  id: string;
+  name: string;
+  role: string;
+  initials: string;
+  image: string;
+  isLead: boolean;
+}
+
 export const labMemberGroups: TeamDirectoryGroup[] = [
   {
     id: "leadership-core",
@@ -23,8 +32,9 @@ export const labMemberGroups: TeamDirectoryGroup[] = [
   }
 ];
 
-const teamMembers = [
+export const labMemberVisuals: LabMemberVisualSeed[] = [
   {
+    id: "suvrankar-datta",
     name: "Dr. Suvrankar Datta",
     role: "Group Lead",
     initials: "SD",
@@ -32,6 +42,7 @@ const teamMembers = [
     isLead: true
   },
   {
+    id: "hakikat-bir-singh-bhatti",
     name: "Dr. Hakikat Bir Singh Bhatti",
     role: "Researcher",
     initials: "HB",
@@ -39,6 +50,7 @@ const teamMembers = [
     isLead: false
   },
   {
+    id: "mrudula-bhalke",
     name: "Dr. Mrudula Bhalke",
     role: "Researcher",
     initials: "MB",
@@ -46,13 +58,15 @@ const teamMembers = [
     isLead: false
   },
   {
-    name:"Dr. Nishtha Mahajan",
-    role:"Researcher",
-    initials:"NM",
-    image:"/team/nishtha-mahajan.jpeg",
-    isLead:false
+    id: "nishtha-mahajan",
+    name: "Dr. Nishtha Mahajan",
+    role: "Researcher",
+    initials: "NM",
+    image: "/team/nishtha-mahajan.jpeg",
+    isLead: false
   },
   {
+    id: "lakshmi-vennela-chowdary-kaza",
     name: "Dr. Lakshmi Vennela Chowdary Kaza",
     role: "Researcher",
     initials: "LK",
@@ -60,27 +74,31 @@ const teamMembers = [
     isLead: false
   },
   {
+    id: "shreyas-reddy-k",
     name: "Dr. Shreyas Reddy K",
     role: "Researcher",
     initials: "SR",
     image: "/team/shreyas-reddy.jpeg",
     isLead: false
   },
-   {
-    name:"Dr. Bhavya Ratan Maroo",
-    role:"Researcher",
-    initials:"BR",
-    image:"/team/bhavya-ratan.jpeg",
-    isLead:false
+  {
+    id: "bhavya-ratan-maroo",
+    name: "Dr. Bhavya Ratan Maroo",
+    role: "Researcher",
+    initials: "BR",
+    image: "/team/bhavya-ratan.jpeg",
+    isLead: false
   },
   {
-    name:"Dr. Divya Buchireddygari",
-    role:"Researcher",
-    initials:"DB",
-    image:"/team/divya-buchireddygari.jpeg",
-    isLead:false
+    id: "divya-buchireddygari",
+    name: "Dr. Divya Buchireddygari",
+    role: "Researcher",
+    initials: "DB",
+    image: "/team/divya-buchireddygari.jpeg",
+    isLead: false
   },
   {
+    id: "kautik-singh",
     name: "Kautik Singh",
     role: "Researcher",
     initials: "KS",
@@ -88,6 +106,7 @@ const teamMembers = [
     isLead: false
   },
   {
+    id: "siddharth-reddy-anthireddy",
     name: "Siddharth Reddy Anthireddy",
     role: "Researcher",
     initials: "SA",
@@ -95,43 +114,47 @@ const teamMembers = [
     isLead: false
   },
   {
+    id: "upasana-karnwal",
     name: "Upasana Karnwal",
     role: "Researcher",
     initials: "UK",
     isLead: false,
-    image:"/team/upasana-karnwal.jpeg"
+    image: "/team/upasana-karnwal.jpeg"
   },
   {
-    name:"Haritha R",
-    role:"Researcher",
-    initials:"HR",
-    image:"/team/haritha.jpeg",
-    isLead:false
+    id: "haritha-r",
+    name: "Haritha R",
+    role: "Researcher",
+    initials: "HR",
+    image: "/team/haritha.jpeg",
+    isLead: false
   },
   {
-    name:"Gadha Lekshmi P",
-    role:"Researcher",
-    initials:"LP",
-    image:"/team/gadha-lekshmi.jpeg",
-    isLead:false
+    id: "gadha-lekshmi-p",
+    name: "Gadha Lekshmi P",
+    role: "Researcher",
+    initials: "LP",
+    image: "/team/gadha-lekshmi.jpeg",
+    isLead: false
   },
   {
-    name:"Swarna Radhakrishnan",
-    role:"Researcher",
-    initials:"SR",
-    image:"/team/swarna-radhakrishnan.jpeg",
-    isLead:false
+    id: "swarna-radhakrishnan",
+    name: "Swarna Radhakrishnan",
+    role: "Researcher",
+    initials: "SR",
+    image: "/team/swarna-radhakrishnan.jpeg",
+    isLead: false
   }
 ];
 
-function getTeamMemberName(index: number): string {
-  return teamMembers[index]?.name ?? `Team Member ${index + 1}`;
+function getTeamMemberName(id: string): string {
+  return labMemberVisuals.find((member) => member.id === id)?.name ?? "Team Member";
 }
 
 export const labMembers: TeamDirectoryMember[] = [
   {
     id: "suvrankar-datta",
-    name: getTeamMemberName(0),
+    name: getTeamMemberName("suvrankar-datta"),
     profileSlug: "suvrankar-datta",
     tenure: "2025-Present",
     affiliation: "Group Lead @ Ashoka University",
@@ -153,7 +176,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "hakikat-bir-singh-bhatti",
-    name: getTeamMemberName(1),
+    name: getTeamMemberName("hakikat-bir-singh-bhatti"),
     tenure: "2025-Present",
     affiliation: "Research Engineer @ Ashoka",
     groupId: "research-students",
@@ -167,7 +190,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "mrudula-bhalke",
-    name: getTeamMemberName(2),
+    name: getTeamMemberName("mrudula-bhalke"),
     tenure: "2025-Present",
     affiliation: "MS by Research @ Ashoka",
     groupId: "research-students",
@@ -178,7 +201,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "nishtha-mahajan",
-    name: getTeamMemberName(3),
+    name: getTeamMemberName("nishtha-mahajan"),
     tenure: "2025-Present",
     affiliation: "Data Systems Fellow @ CRASH Lab",
     groupId: "research-students",
@@ -189,7 +212,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "lakshmi-vennela-chowdary-kaza",
-    name: getTeamMemberName(4),
+    name: getTeamMemberName("lakshmi-vennela-chowdary-kaza"),
     tenure: "2025-Present",
     affiliation: "Senior Radiology Resident @ AIIMS",
     groupId: "clinical-collaborators",
@@ -200,7 +223,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "shreyas-reddy-k",
-    name: getTeamMemberName(5),
+    name: getTeamMemberName("shreyas-reddy-k"),
     tenure: "2025-Present",
     affiliation: "Clinician Research Fellow @ CRASH Lab",
     groupId: "clinical-collaborators",
@@ -211,7 +234,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "bhavya-ratan-maroo",
-    name: getTeamMemberName(6),
+    name: getTeamMemberName("bhavya-ratan-maroo"),
     tenure: "2025-Present",
     affiliation: "Policy & Ethics Fellow @ Ashoka",
     groupId: "clinical-collaborators",
@@ -222,7 +245,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "divya-buchireddygari",
-    name: getTeamMemberName(7),
+    name: getTeamMemberName("divya-buchireddygari"),
     tenure: "2024-2025",
     affiliation: "Research Intern @ Ashoka",
     groupId: "alumni",
@@ -233,7 +256,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "kautik-singh",
-    name: getTeamMemberName(8),
+    name: getTeamMemberName("kautik-singh"),
     tenure: "2024-2025",
     affiliation: "Systems Engineer @ CRASH Lab",
     groupId: "alumni",
@@ -247,7 +270,7 @@ export const labMembers: TeamDirectoryMember[] = [
   },
   {
     id: "siddharth-reddy-anthireddy",
-    name: getTeamMemberName(9),
+    name: getTeamMemberName("siddharth-reddy-anthireddy"),
     tenure: "2024-2025",
     affiliation: "Design Research Associate @ Ashoka",
     groupId: "alumni",

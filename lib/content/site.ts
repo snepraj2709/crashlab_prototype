@@ -1,5 +1,5 @@
 import blogSeed from "@/content/seed/blog.json";
-import { labMemberGroups, labMembers } from "@/content/seed/labMembers";
+import { labMemberGroups, labMemberVisuals, labMembers } from "@/content/seed/labMembers";
 import projectsSeed from "@/content/seed/projects.json";
 import publicationsSeed from "@/content/seed/publications.json";
 import teamSeed from "@/content/seed/team.json";
@@ -23,13 +23,23 @@ import type {
   PostBySlugQueryResult,
   ProjectBySlugQueryResult
 } from "@/types/sanity";
-import type { PersonSeed, TeamDirectoryGroup, TeamDirectoryMember } from "@/types/team";
+import type {
+  PersonSeed,
+  TeamDirectoryGroup,
+  TeamDirectoryMember,
+  TeamMemberProfile
+} from "@/types/team";
 import type { TrustSectionSeed } from "@/types/trust";
 
 type SanityProject = NonNullable<ProjectBySlugQueryResult>;
 type SanityPerson = NonNullable<PersonBySlugQueryResult>;
 type SanityPost = NonNullable<PostBySlugQueryResult>;
 type PortableTextSource = SanityProject["body"] | SanityPerson["fullBio"] | SanityPost["body"];
+
+const groupOrderMap = new Map(labMemberGroups.map((group) => [group.id, group.order]));
+const groupLabelMap = new Map(labMemberGroups.map((group) => [group.id, group.label]));
+const labMemberVisualMap = new Map(labMemberVisuals.map((member) => [member.id, member]));
+const defaultPhotoUrls = new Set(["/og/default.svg"]);
 
 export interface SitePostAuthor {
   _id: string;
@@ -140,6 +150,84 @@ function normalizePerson(person: SanityPerson): PersonSeed {
   };
 }
 
+function buildFallbackTeamBio(member: TeamDirectoryMember): string {
+  const projectCount = member.projectSlugs.length;
+  const projectLabel = `${projectCount} ${projectCount === 1 ? "active project" : "active projects"}`;
+  const contributionWindow = member.isActive ? "current work" : "past work";
+
+  return `${member.name} contributes to CRASH Lab as ${member.affiliation}, with ${contributionWindow} spanning ${projectLabel}.`;
+}
+
+function buildPhotoFromSeed(memberId: string, memberName: string): PersonSeed["photo"] {
+  const visual = labMemberVisualMap.get(memberId);
+
+  if (!visual) {
+    return null;
+  }
+
+  return {
+    url: visual.image,
+    alt: `${memberName} portrait`
+  };
+}
+
+function resolvePreferredPhoto(
+  personPhoto: PersonSeed["photo"] | undefined,
+  memberId: string,
+  memberName: string
+): PersonSeed["photo"] {
+  if (personPhoto?.url && !defaultPhotoUrls.has(personPhoto.url)) {
+    return personPhoto;
+  }
+
+  return buildPhotoFromSeed(memberId, memberName) ?? personPhoto ?? null;
+}
+
+function sortDirectoryMembers(left: TeamDirectoryMember, right: TeamDirectoryMember): number {
+  if (left.groupId === right.groupId) {
+    return left.position - right.position;
+  }
+
+  return (groupOrderMap.get(left.groupId) ?? 999) - (groupOrderMap.get(right.groupId) ?? 999);
+}
+
+function mergeTeamMemberProfile(
+  member: TeamDirectoryMember,
+  peopleBySlug: Map<string, PersonSeed>
+): TeamMemberProfile {
+  const person =
+    (member.profileSlug ? peopleBySlug.get(member.profileSlug) : undefined) ?? peopleBySlug.get(member.id);
+  const visual = labMemberVisualMap.get(member.id);
+
+  return {
+    slug: member.id,
+    id: member.id,
+    profileSlug: person?.slug ?? member.profileSlug,
+    name: person?.name ?? member.name,
+    role: person?.role ?? visual?.role ?? member.affiliation,
+    title: person?.title ?? "",
+    photo: resolvePreferredPhoto(person?.photo, member.id, member.name),
+    shortBio: person?.shortBio || buildFallbackTeamBio(member),
+    fullBio: person?.fullBio,
+    email: person?.email,
+    credentials: person?.credentials ?? [],
+    researchFocus: person?.researchFocus ?? [],
+    socialLinks: person?.socialLinks,
+    isPrincipalInvestigator: person?.isPrincipalInvestigator ?? Boolean(visual?.isLead),
+    isActive: person?.isActive ?? member.isActive,
+    joinedAt: person?.joinedAt,
+    position: person?.position ?? member.position,
+    headline: person?.headline,
+    originStory: person?.originStory,
+    collaborations: person?.collaborations,
+    affiliation: member.affiliation,
+    tenure: member.tenure,
+    groupId: member.groupId,
+    groupLabel: groupLabelMap.get(member.groupId),
+    highlights: member.highlights
+  };
+}
+
 function normalizePostAuthor(author: SanityPost["author"]): SitePostAuthor | undefined {
   if (!author) {
     return undefined;
@@ -200,16 +288,7 @@ export function getLabMemberGroups(): TeamDirectoryGroup[] {
 }
 
 export function getLabMembers(): TeamDirectoryMember[] {
-  return [...labMembers].sort((left, right) => {
-    if (left.groupId === right.groupId) {
-      return left.position - right.position;
-    }
-
-    const leftGroup = labMemberGroups.find((group) => group.id === left.groupId)?.order ?? 999;
-    const rightGroup = labMemberGroups.find((group) => group.id === right.groupId)?.order ?? 999;
-
-    return leftGroup - rightGroup;
-  });
+  return [...labMembers].sort(sortDirectoryMembers);
 }
 
 export function getProjectLabMembers(projectSlug: string): TeamDirectoryMember[] {
@@ -314,6 +393,51 @@ export async function getPersonBySlug(slug: string): Promise<PersonSeed | null> 
     ...seedPerson,
     ...normalizePerson(person)
   };
+}
+
+export async function getTeamProfiles(): Promise<TeamMemberProfile[]> {
+  const people = await getPeople();
+  const peopleBySlug = new Map(people.map((person) => [person.slug, person]));
+  const usedProfileSlugs = new Set<string>();
+
+  const rosterProfiles = getLabMembers().map((member) => {
+    const profile = mergeTeamMemberProfile(member, peopleBySlug);
+
+    if (profile.profileSlug) {
+      usedProfileSlugs.add(profile.profileSlug);
+    }
+
+    return profile;
+  });
+
+  const extraProfiles = people
+    .filter((person) => !usedProfileSlugs.has(person.slug))
+    .map<TeamMemberProfile>((person) => ({
+      ...person,
+      id: person.slug,
+      profileSlug: person.slug,
+      photo: resolvePreferredPhoto(person.photo, person.slug, person.name),
+      groupId: person.isActive ? "active-profiles" : "archived-profiles",
+      groupLabel: person.isActive ? "Active Profiles" : "Archived Profiles"
+    }))
+    .sort((left, right) => {
+      if (left.isPrincipalInvestigator !== right.isPrincipalInvestigator) {
+        return left.isPrincipalInvestigator ? -1 : 1;
+      }
+
+      if (left.position !== right.position) {
+        return left.position - right.position;
+      }
+
+      return left.name.localeCompare(right.name);
+    });
+
+  return [...rosterProfiles, ...extraProfiles];
+}
+
+export async function getTeamProfileById(memberId: string): Promise<TeamMemberProfile | null> {
+  const profiles = await getTeamProfiles();
+  return profiles.find((profile) => profile.id === memberId) ?? null;
 }
 
 export async function getPosts(): Promise<SitePost[]> {

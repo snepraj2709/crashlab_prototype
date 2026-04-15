@@ -53,11 +53,7 @@ export default function CollaboratePage(): React.ReactElement {
             <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">Why collaborate with us</h1>
             <div className="mt-6 space-y-5 text-text-secondary">
               <p className="mt-6 text-xl leading-9 text-text-secondary">
-                Dr. Datta brings a dual identity most AI teams cannot offer: clinician and
-                researcher, with AIIMS training, Harvard affiliation, and RSNA credibility.
-              </p>
-              <p className="mt-6 text-xl leading-9 text-text-secondary">
-                The lab is built to answer the questions companies struggle to validate honestly:
+                Crashlab is built to answer the questions companies struggle to validate honestly:
                 does the model work on Indian data, in real workflows, and under clinical scrutiny?
               </p>
             </div>
@@ -72,17 +68,6 @@ export default function CollaboratePage(): React.ReactElement {
             </div>
           </div>
           <PartnerInterestForm />
-        </div>
-
-        <div className="mt-16 rounded-[28px] border border-border bg-bg-surface p-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Collaboration network</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {["Ashoka University", "AIIMS", "Harvard", "JIPMER", "IIT ecosystem"].map((institution) => (
-              <span className="rounded-full border border-border px-4 py-2 text-sm text-text-secondary" key={institution}>
-                {institution}
-              </span>
-            ))}
-          </div>
         </div>
         </div>
       </section>

@@ -1,16 +1,16 @@
 import { TeamGrid, TrustSignalsSection } from "@/components/sections";
-import { getPeople, getTrustSection } from "@/lib/content/site";
+import { getTeamProfiles, getTrustSection } from "@/lib/content/site";
 
 export const revalidate = 86400;
 
 export default async function PeoplePage(): Promise<React.ReactElement> {
-  const people = await getPeople();
+  const profiles = await getTeamProfiles();
   const trustSection = getTrustSection();
 
   return (
     <>
       <section className="pt-32">
-        <TeamGrid people={people} />
+        <TeamGrid profiles={profiles} />
       </section>
       <TrustSignalsSection section={trustSection} variant="compact" />
     </>

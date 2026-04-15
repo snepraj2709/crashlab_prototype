@@ -6,7 +6,6 @@ import { LabMembersList, PortableTextContent, ProjectCard, RadleWidget } from "@
 import { Badge, Button } from "@/components/ui";
 import {
   getLabMemberGroups,
-  getPeople,
   getProjectBySlug,
   getProjectLabMembers,
   getProjects,
@@ -54,11 +53,7 @@ export default async function ResearchProjectPage({
     notFound();
   }
 
-  const [people, relatedProjects] = await Promise.all([
-    getPeople(),
-    getRelatedProjects(project.slug, project.tags)
-  ]);
-  const linkedSlugs = people.map((person) => person.slug);
+  const relatedProjects = await getRelatedProjects(project.slug, project.tags);
   const projectMembers = getProjectLabMembers(project.slug);
   const memberGroups = getLabMemberGroups();
   const collaborationHref = project.audience.includes("industry") ? "/collaborate" : "/join";
@@ -116,7 +111,6 @@ export default async function ResearchProjectPage({
               <LabMembersList
                 groups={memberGroups}
                 intro="People actively contributing to this project right now, across research, clinical review, and systems support."
-                linkedSlugs={linkedSlugs}
                 members={projectMembers}
                 title="Active Team Members"
                 variant="project"

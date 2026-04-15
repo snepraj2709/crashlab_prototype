@@ -1,11 +1,15 @@
 import type { MetadataRoute } from "next";
 
-import { getPeople, getPosts, getProjects } from "@/lib/content/site";
+import { getPosts, getProjects, getTeamProfiles } from "@/lib/content/site";
 
 const baseUrl = "https://crashlab.in";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [projects, people, posts] = await Promise.all([getProjects(), getPeople(), getPosts()]);
+  const [projects, people, posts] = await Promise.all([
+    getProjects(),
+    getTeamProfiles(),
+    getPosts()
+  ]);
 
   const staticEntries: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, changeFrequency: "weekly", priority: 1 },
@@ -25,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const peopleEntries = people.map((person) => ({
-    url: `${baseUrl}/people/${person.slug}`,
+    url: `${baseUrl}/people/${person.id}`,
     changeFrequency: "weekly" as const,
     priority: 0.7
   }));

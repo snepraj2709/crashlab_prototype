@@ -5,7 +5,6 @@ import type { TeamDirectoryBadgeTone, TeamDirectoryGroup, TeamDirectoryMember } 
 
 interface LabMembersListProps {
   groups: TeamDirectoryGroup[];
-  linkedSlugs?: string[];
   members: TeamDirectoryMember[];
   title?: string;
   intro?: string;
@@ -22,13 +21,11 @@ const badgeToneStyles: Record<TeamDirectoryBadgeTone, string> = {
 
 export function LabMembersList({
   groups,
-  linkedSlugs = [],
   members,
   title,
   intro,
   variant = "page"
 }: LabMembersListProps): React.ReactElement | null {
-  const linkedSlugSet = new Set(linkedSlugs);
   const visibleGroups = groups
     .map((group) => ({
       ...group,
@@ -69,24 +66,18 @@ export function LabMembersList({
 
             <div>
               {group.members.map((member) => {
-                const canLink = member.profileSlug && linkedSlugSet.has(member.profileSlug);
-
                 return (
                   <div
                     className="flex flex-col gap-3 border-b border-border/50 py-5 md:flex-row md:items-center md:justify-between"
                     key={member.id}
                   >
                     <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
-                      {canLink ? (
-                        <Link
-                          className="text-2xl font-medium text-text-primary transition hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-                          href={`/people/${member.profileSlug}`}
-                        >
-                          {member.name}
-                        </Link>
-                      ) : (
-                        <span className="text-2xl font-medium text-text-primary">{member.name}</span>
-                      )}
+                      <Link
+                        className="text-2xl font-medium text-text-primary transition hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                        href={`/people/${member.id}`}
+                      >
+                        {member.name}
+                      </Link>
                       <p className="text-xl italic text-text-tertiary">
                         {member.tenure} · {member.affiliation}
                       </p>

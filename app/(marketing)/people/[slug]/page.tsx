@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft, Mail } from "lucide-react";
 
 import { JsonLd } from "@/components/seo/JsonLd";
-import { PortableTextContent } from "@/components/sections";
-import { Card, ProofChip } from "@/components/ui";
-import { getPersonBySlug, getPeople, getSeedPublications } from "@/lib/content/site";
+import { PortableTextContent, TeamMemberPortrait, TeamSocialLinks } from "@/components/sections";
+import { getTeamProfileById, getTeamProfiles } from "@/lib/content/site";
 
 export const revalidate = 86400;
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  const people = await getPeople();
-  return people.map((person) => ({ slug: person.slug }));
+  const profiles = await getTeamProfiles();
+  return profiles.map((profile) => ({ slug: profile.id }));
 }
 
 export async function generateMetadata({
@@ -19,7 +19,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const person = await getPersonBySlug(params.slug);
+  const person = await getTeamProfileById(params.slug);
   if (!person) {
     return {};
   }
@@ -40,12 +40,14 @@ export default async function PersonPage({
 }: {
   params: { slug: string };
 }): Promise<React.ReactElement> {
-  const person = await getPersonBySlug(params.slug);
+  const person = await getTeamProfileById(params.slug);
   if (!person) {
     notFound();
   }
 
-  const publications = getSeedPublications();
+  const visibleCredentials = person.credentials.slice(0, 4);
+  const visibleResearchFocus = person.researchFocus.slice(0, 5);
+  const hasSocialLinks = Object.values(person.socialLinks ?? {}).some(Boolean);
 
   return (
     <>
@@ -60,110 +62,142 @@ export default async function PersonPage({
             "@type": "Organization",
             name: "CRASH Lab, Ashoka University"
           },
-          url: `https://crashlab.in/people/${person.slug}`
+          url: `https://crashlab.in/people/${person.id}`
         }}
       />
       <div className="pt-32">
         <section className="py-8 lg:py-16">
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">People</p>
-          <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">{person.name}</h1>
-          {"headline" in person && person.headline ? (
-            <div className="mt-6 space-y-2 text-lg text-text-secondary">
-              {person.headline.map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-4 text-lg text-text-secondary">{person.role}</p>
-          )}
+            <Link
+              className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan transition hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+              href="/people"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              All People
+            </Link>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            {person.credentials.map((credential) => (
-              <ProofChip key={credential} label={credential} />
-            ))}
-          </div>
+            <div className="mt-8 grid gap-10 lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start">
+              <aside className="space-y-6">
+                <TeamMemberPortrait
+                  className="aspect-[4/5] w-full"
+                  member={person}
+                  priority
+                  sizes="(min-width: 1024px) 22rem, 90vw"
+                />
 
-          <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="space-y-10">
-              <Card>
-                <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Biography</p>
-                <div className="mt-6">
-                  <PortableTextContent blocks={person.fullBio} />
-                </div>
-              </Card>
+                {(person.role || person.affiliation || hasSocialLinks || person.email) && (
+                  <div className="space-y-6 px-1">
+                    {person.role ? (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan">
+                          Role
+                        </p>
+                        <p className="mt-2 text-lg font-medium text-text-primary">{person.role}</p>
+                      </div>
+                    ) : null}
 
-              {"originStory" in person && person.originStory ? (
-                <Card>
-                  <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
-                    CRASH Lab started with a question...
-                  </p>
-                  <div className="mt-6">
-                    <PortableTextContent blocks={person.originStory} />
+                    {person.affiliation ? (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan">
+                          Affiliation
+                        </p>
+                        <p className="mt-2 text-sm leading-7 text-text-secondary">
+                          {person.affiliation}
+                        </p>
+                      </div>
+                    ) : null}
+
+                    {hasSocialLinks ? (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan">
+                          Connect
+                        </p>
+                        <div className="mt-3">
+                          <TeamSocialLinks name={person.name} socialLinks={person.socialLinks} />
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {person.email ? (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan">
+                          Email
+                        </p>
+                        <a
+                          className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-text-primary transition hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                          href={`mailto:${person.email}`}
+                        >
+                          <Mail className="h-4 w-4" />
+                          {person.email}
+                        </a>
+                      </div>
+                    ) : null}
                   </div>
-                </Card>
-              ) : null}
+                )}
+              </aside>
 
-              <Card>
-                <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Publications</p>
-                <div className="mt-6 space-y-4">
-                  {publications.map((publication) => (
-                    <div className="border-b border-border pb-4 last:border-b-0 last:pb-0" key={publication.id}>
-                      <p className="text-lg font-medium text-text-primary">{publication.title}</p>
-                      <p className="mt-2 text-sm text-text-secondary">
-                        {publication.venue} · {publication.year}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-
-            <div className="space-y-8">
-              <Card>
-                <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Research areas</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  {person.researchFocus.map((focus) => (
-                    <span className="rounded-full border border-border px-4 py-2 text-sm text-text-secondary" key={focus}>
-                      {focus}
+              <div>
+                {person.isPrincipalInvestigator ? (
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full border border-accent-cyan/20 bg-accent-cyan-muted px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-accent-cyan">
+                      Principal Investigator
                     </span>
-                  ))}
-                </div>
-              </Card>
-
-              {"collaborations" in person && person.collaborations?.length ? (
-                <Card>
-                  <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Collaborations</p>
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    {person.collaborations.map((collaboration) => (
-                      <span className="rounded-full border border-border px-4 py-2 text-sm text-text-primary" key={collaboration}>
-                        {collaboration}
-                      </span>
-                    ))}
                   </div>
-                </Card>
-              ) : null}
+                ) : null}
 
-              <Card>
-                <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Social links</p>
-                <div className="mt-6 space-y-3">
-                  {Object.entries(person.socialLinks ?? {}).map(([key, value]) =>
-                    value ? (
-                      <Link
-                        className="block text-text-primary transition hover:text-accent-cyan"
-                        href={value}
-                        key={key}
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        {key}
-                      </Link>
-                    ) : null
-                  )}
+                <h1 className="mt-5 font-display text-5xl text-text-primary lg:text-6xl">
+                  {person.name}
+                </h1>
+                <p className="mt-4 text-xl text-text-secondary">{person.role}</p>
+                <p className="mt-6 max-w-3xl text-lg leading-8 text-text-secondary">
+                  {person.shortBio}
+                </p>
+
+                <div className="mt-12 space-y-12">
+                  {person.fullBio?.length ? (
+                    <section>
+                      <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
+                        About
+                      </p>
+                      <div className="mt-4 max-w-3xl text-base leading-8 text-text-secondary">
+                        <PortableTextContent blocks={person.fullBio} />
+                      </div>
+                    </section>
+                  ) : null}
+
+                  {visibleResearchFocus.length ? (
+                    <section>
+                      <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
+                        Research Focus
+                      </p>
+                      <div className="mt-4 flex max-w-3xl flex-wrap gap-3">
+                        {visibleResearchFocus.map((focus) => (
+                          <span
+                            className="rounded-full border border-border px-4 py-2 text-sm font-medium text-text-secondary"
+                            key={focus}
+                          >
+                            {focus}
+                          </span>
+                        ))}
+                      </div>
+                    </section>
+                  ) : null}
+
+                  {visibleCredentials.length ? (
+                    <section>
+                      <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
+                        Credentials
+                      </p>
+                      <ul className="mt-4 max-w-3xl space-y-4 text-base leading-8 text-text-secondary">
+                        {visibleCredentials.map((credential) => (
+                          <li key={credential}>{credential}</li>
+                        ))}
+                      </ul>
+                    </section>
+                  ) : null}
                 </div>
-              </Card>
+              </div>
             </div>
-          </div>
           </div>
         </section>
       </div>

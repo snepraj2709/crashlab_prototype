@@ -5,8 +5,8 @@
     "role": "Group Lead",
     "title": "Dr.",
     "photo": {
-      "url": "/og/default.svg",
-      "alt": "Portrait placeholder for Dr. Suvrankar Datta"
+      "url": "/team/suvrankar-datta.jpeg",
+      "alt": "Portrait of Dr. Suvrankar Datta"
     },
     "shortBio": "Dr. Suvrankar Datta is a radiologist and AI researcher who trained at AIIMS Delhi and JIPMER, now leading CRASH Lab at Ashoka University. He created Radiology's Last Exam (RadLE), the benchmark that revealed a 53-point gap between frontier AI and expert radiologists at RSNA 2025.",
     "fullBio": [
