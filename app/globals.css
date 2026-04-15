@@ -251,6 +251,56 @@
   display: block;
 }
 
+.trust-logo-slideshow {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.trust-logo-slideshow__viewport {
+  position: relative;
+  overflow: hidden;
+}
+
+.trust-logo-slideshow__track {
+  display: flex;
+  width: max-content;
+  animation: trustLogoMarquee 28s linear infinite;
+  will-change: transform;
+}
+
+.trust-logo-slideshow:hover .trust-logo-slideshow__track,
+.trust-logo-slideshow:focus-within .trust-logo-slideshow__track {
+  animation-play-state: paused;
+}
+
+.trust-logo-slideshow__edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: clamp(2rem, 5vw, 4.5rem);
+  pointer-events: none;
+}
+
+.trust-logo-slideshow__edge--left {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-surface) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.trust-logo-slideshow__edge--right {
+  right: 0;
+  background: linear-gradient(
+    270deg,
+    var(--color-bg-surface) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
 @media (hover: hover) and (pointer: fine) {
   html.has-custom-cursor,
   html.has-custom-cursor * {
@@ -310,5 +360,20 @@
   }
   100% {
     transform: scale(1.05) translate3d(0, 16px, 0);
+  }
+}
+
+@keyframes trustLogoMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-logo-slideshow__track {
+    animation: none;
   }
 }

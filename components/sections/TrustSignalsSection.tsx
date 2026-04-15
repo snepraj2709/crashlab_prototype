@@ -11,7 +11,7 @@ import type {
 
 interface TrustSignalsSectionProps {
   section: TrustSectionSeed;
-  variant?: "featured" | "compact";
+  variant?: "featured" | "compact" | "slideshow";
 }
 
 const credentialKindMeta: Record<
@@ -56,19 +56,28 @@ const credentialKindMeta: Record<
 
 function LogoMarkup({
   logo,
-  maxHeightClassName
+  maxHeightClassName,
+  tileClassName,
+  ariaHidden = false,
+  tabIndex
 }: {
   logo: TrustLogoSeed;
   maxHeightClassName: string;
+  tileClassName?: string;
+  ariaHidden?: boolean;
+  tabIndex?: number;
 }): React.ReactElement {
   const imageClassName = cn("h-auto w-auto max-w-full object-contain", maxHeightClassName);
-  const logoTileClassName =
-    "inline-flex items-center justify-center rounded-[20px] border border-border-subtle bg-white px-4 py-3 shadow-[0_10px_24px_rgba(15,23,42,0.06)]";
+  const logoTileClassName = cn(
+    "inline-flex items-center justify-center rounded-[20px] border border-border-subtle bg-white px-4 py-3 shadow-[0_10px_24px_rgba(15,23,42,0.06)]",
+    tileClassName
+  );
 
   if (logo.href) {
     return (
       <a
-        aria-label={`Visit ${logo.name} (opens in new tab)`}
+        aria-hidden={ariaHidden || undefined}
+        aria-label={ariaHidden ? undefined : `Visit ${logo.name} (opens in new tab)`}
         className={cn(
           logoTileClassName,
           "transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-surface"
@@ -76,6 +85,7 @@ function LogoMarkup({
         href={logo.href}
         key={logo.id}
         rel="noopener noreferrer"
+        tabIndex={tabIndex}
         target="_blank"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,11 +103,17 @@ function LogoMarkup({
   }
 
   return (
-    <div aria-label={logo.logo.alt} className={logoTileClassName} key={logo.id} role="img">
+    <div
+      aria-hidden={ariaHidden || undefined}
+      aria-label={ariaHidden ? undefined : logo.logo.alt}
+      className={logoTileClassName}
+      key={logo.id}
+      role={ariaHidden ? undefined : "img"}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         alt={logo.logo.alt}
-        aria-hidden="true"
+        aria-hidden={ariaHidden ? "true" : undefined}
         className={imageClassName}
         height={logo.logo.height}
         loading="lazy"
@@ -191,6 +207,63 @@ export function TrustSignalsSection({
 }: TrustSignalsSectionProps): React.ReactElement | null {
   if (!section.logos.length && !section.credentials.length) {
     return null;
+  }
+
+  if (variant === "slideshow" && section.logos.length) {
+    const repeatedLogos = [...section.logos, ...section.logos];
+
+    return (
+      <section aria-label="Institutional affiliations and credentials" className="py-10 lg:py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="trust-logo-slideshow rounded-[36px] border border-border bg-bg-surface px-6 py-8 shadow-[var(--shadow-card)] sm:px-8 lg:px-10 lg:py-10">
+            <div aria-hidden="true" className="hero-mesh absolute inset-0 opacity-60" />
+            <div className="relative">
+              <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
+              <h2 className="mt-3 max-w-4xl font-display text-3xl text-text-primary sm:text-4xl lg:text-5xl">
+                {section.title}
+              </h2>
+              <p className="mt-4 max-w-3xl text-base text-text-secondary sm:text-lg">
+                {section.description}
+              </p>
+
+              <div className="mt-10 sm:mt-12">
+                <div className="sr-only">
+                  <ul>
+                    {section.logos.map((logo) => (
+                      <li key={logo.id}>{logo.name}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="trust-logo-slideshow__viewport">
+                  <div
+                    aria-hidden="true"
+                    className="trust-logo-slideshow__edge trust-logo-slideshow__edge--left"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="trust-logo-slideshow__edge trust-logo-slideshow__edge--right"
+                  />
+
+                  <div className="trust-logo-slideshow__track gap-4 sm:gap-6 lg:gap-8">
+                    {repeatedLogos.map((logo, index) => (
+                      <LogoMarkup
+                        ariaHidden={index >= section.logos.length}
+                        key={`${logo.id}-${index}`}
+                        logo={logo}
+                        maxHeightClassName="max-h-10 sm:max-h-12"
+                        tabIndex={index >= section.logos.length ? -1 : undefined}
+                        tileClassName="h-[92px] min-w-[180px] px-6 sm:h-[104px] sm:min-w-[220px] lg:min-w-[250px] lg:px-8"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   const isFeatured = variant === "featured";

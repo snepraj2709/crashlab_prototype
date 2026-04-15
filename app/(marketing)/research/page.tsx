@@ -1,7 +1,5 @@
 import Link from "next/link";
-
 import { SectionErrorBoundary } from "@/components/layout/SectionErrorBoundary";
-import { TrustSignalsSection } from "@/components/sections/TrustSignalsSection";
 import { ProjectCard } from "@/components/sections/ProjectCard";
 import { EmptyState, SectionLabel } from "@/components/ui";
 import { getProjects, getTrustSection } from "@/lib/content/site";

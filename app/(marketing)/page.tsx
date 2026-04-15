@@ -29,7 +29,7 @@ export default async function HomePage(): Promise<React.ReactElement> {
         <HeroSection />
       </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="Trust signals unavailable">
-        <TrustSignalsSection section={trustSection} variant="featured" />
+        <TrustSignalsSection section={trustSection} variant="slideshow" />
       </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="Research overview unavailable">
         <ProblemCards projects={projects} />

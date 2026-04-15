@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-
-import { TrustSignalsSection } from "@/components/sections/TrustSignalsSection";
 import { EmptyState, SectionLabel } from "@/components/ui";
 import { getPosts, getTrustSection } from "@/lib/content/site";
 import { filterPosts } from "@/lib/utils/filtering";

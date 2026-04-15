@@ -1,5 +1,5 @@
 import { SectionLabel } from "@/components/ui";
-import { JoinInterestForm, ProjectCard, TrustSignalsSection } from "@/components/sections";
+import { JoinInterestForm, ProjectCard } from "@/components/sections";
 import { getProjects, getTrustSection } from "@/lib/content/site";
 
 export default async function JoinPage(): Promise<React.ReactElement> {

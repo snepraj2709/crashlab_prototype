@@ -1,6 +1,6 @@
 import { Building2, DatabaseZap, FileSearch } from "lucide-react";
 
-import { PartnerInterestForm, TrustSignalsSection } from "@/components/sections";
+import { PartnerInterestForm } from "@/components/sections";
 import { SectionLabel } from "@/components/ui";
 import { getTrustSection } from "@/lib/content/site";
 
