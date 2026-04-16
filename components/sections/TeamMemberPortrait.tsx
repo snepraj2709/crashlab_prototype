@@ -21,7 +21,7 @@ export function TeamMemberPortrait({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-[28px] border border-border bg-bg-elevated",
+        "relative overflow-hidden rounded-token-md border border-border-default bg-bg-elevated",
         className
       )}
     >

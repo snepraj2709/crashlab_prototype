@@ -61,7 +61,7 @@ export function FeaturedProject({
               >
                 Read the Paper
                 {paperStatus === "preprint" ? (
-                  <span className="ml-2 rounded-full border border-border bg-bg-elevated px-2 py-0.5 text-[10px] uppercase tracking-[0.16em] text-text-secondary">
+                  <span className="ml-2 rounded-token-pill border border-border-default bg-bg-elevated px-2 py-0.5 text-[10px] uppercase tracking-[0.16em] text-text-muted">
                     arXiv
                   </span>
                 ) : null}
@@ -80,7 +80,7 @@ export function FeaturedProject({
             Presentation | Ashoka University
           </p>
         </div>
-        <div className="overflow-hidden rounded-[2rem] border border-border bg-bg-surface shadow-[var(--shadow-elevated)]">
+        <div className="overflow-hidden rounded-token-md border border-border-default bg-surface-panel shadow-panel">
           <Image
             alt="RadLE benchmark comparison visualization"
             className="h-auto w-full object-cover"

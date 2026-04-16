@@ -88,7 +88,7 @@ export function RadleWidget({
   return (
     <Card
       className={cn(
-        "overflow-hidden border-border bg-bg-surface shadow-[var(--shadow-elevated)]",
+        "overflow-hidden border-border-default bg-surface-panel shadow-panel",
         compact ? "p-4" : variant === "hero" ? "p-5 md:p-6" : "p-6 md:p-8",
       )}
     >

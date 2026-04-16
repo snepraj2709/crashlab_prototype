@@ -41,7 +41,7 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
               Research updates. Benchmark changes. What we&apos;re learning in
               the field.
             </h2>
-            <p className="mt-4 text-[var(--color-text-secondary)]">
+            <p className="mt-4 text-text-muted">
               Written by the researchers and clinicians at CRASH Lab — for
               anyone making decisions about healthcare AI.
             </p>
@@ -55,9 +55,9 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
-            <Link href={`/news/${post.slug}`} key={post._id}>
-              <Card className="h-full transition hover:border-accent-cyan">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] border border-border">
+            <Link className="ui-focus-ring rounded-token-md" href={`/news/${post.slug}`} key={post._id}>
+              <Card className="h-full transition hover:border-border-focus">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border-default">
                   <Image
                     alt={`Cover image for ${post.title}`}
                     className="object-cover"
@@ -67,17 +67,17 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
                   />
                 </div>
                 <div className="mt-6 flex items-center justify-between gap-3">
-                  <span className="border-accent-cyan/30 bg-accent-cyan/10 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
+                  <span className="ui-status-badge border-status-info-border bg-status-info-surface text-status-info-text">
                     {post.category?.replace(/-/g, " ") || "Update"}
                   </span>
                   <span className="text-sm text-text-tertiary">
                     {formatDate(post.publishedAt)}
                   </span>
                 </div>
-                <h3 className="mt-4 line-clamp-2 text-2xl font-semibold text-text-primary">
+                <h3 className="mt-4 line-clamp-2 text-2xl font-semibold text-text-default">
                   {post.title}
                 </h3>
-                <p className="mt-3 line-clamp-2 text-text-secondary">
+                <p className="mt-3 line-clamp-2 text-text-muted">
                   {post.excerpt}
                 </p>
                 <p className="mt-5 text-sm text-text-tertiary">

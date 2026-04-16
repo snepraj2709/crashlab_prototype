@@ -54,14 +54,14 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
             className="fixed inset-0 z-50 backdrop-blur-xl"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
-            style={{ backgroundColor: "var(--color-bg-overlay)" }}
+            style={{ backgroundColor: "var(--color-overlay-scrim)" }}
           >
             <div className="mx-auto flex h-full max-w-7xl flex-col px-6 py-6">
               <div className="flex items-center justify-between">
                 <BrandMark compact onClick={onClose} />
                 <button
                   aria-label="Close menu"
-                  className="rounded-full border border-border p-3 text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                  className="ui-focus-ring inline-flex h-11 w-11 items-center justify-center rounded-token-pill border border-border-default bg-surface-panel text-text-default"
                   onClick={onClose}
                   type="button"
                 >
@@ -71,7 +71,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
               <nav className="mt-16 flex flex-1 flex-col gap-4">
                 {navLinks.map((link) => (
                   <Link
-                    className="rounded-2xl border border-border bg-bg-surface px-5 py-4 text-lg font-medium text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                    className="ui-focus-ring rounded-token-sm border border-border-default bg-surface-panel px-5 py-4 text-lg font-medium text-text-default"
                     href={link.href}
                     key={link.href}
                     onClick={onClose}
@@ -80,8 +80,8 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
                   </Link>
                 ))}
               </nav>
-              <div className="mt-2 flex items-center justify-between border-t border-border py-3">
-                <span className="text-sm text-text-secondary">Appearance</span>
+              <div className="mt-2 flex items-center justify-between border-t border-border-default py-3">
+                <span className="text-sm text-text-muted">Appearance</span>
                 <ThemeToggle />
               </div>
             </div>

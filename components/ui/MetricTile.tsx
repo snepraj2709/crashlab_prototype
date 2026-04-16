@@ -10,14 +10,14 @@ export function MetricTile({ value, label, className }: MetricTileProps): React.
   return (
     <div
       className={cn(
-        "rounded-[24px] border border-border bg-bg-surface p-6",
+        "rounded-token-sm border border-border-default bg-surface-panel p-6 shadow-soft",
         className,
       )}
     >
-      <p className="font-mono text-3xl text-text-primary md:text-4xl">
+      <p className="font-mono text-3xl text-text-default md:text-4xl">
         {value}
       </p>
-      <p className="mt-3 text-sm leading-6 text-text-secondary">{label}</p>
+      <p className="mt-3 text-sm leading-6 text-text-muted">{label}</p>
     </div>
   );
 }

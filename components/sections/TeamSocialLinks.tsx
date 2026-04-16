@@ -68,7 +68,7 @@ export function TeamSocialLinks({
         return (
           <a
             aria-label={`${name} on ${link.label}`}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-bg-primary text-text-secondary transition hover:border-accent-cyan/30 hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-surface"
+            className="ui-focus-ring-panel inline-flex h-11 w-11 items-center justify-center rounded-token-pill border border-border-default bg-surface-panel text-text-muted transition hover:border-border-focus hover:text-border-focus"
             href={link.href}
             key={link.key}
             rel="noreferrer"

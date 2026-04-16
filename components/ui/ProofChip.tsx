@@ -15,11 +15,11 @@ export function ProofChip({
     <span
       aria-label={label}
       className={cn(
-        "inline-flex items-center rounded-full border font-medium backdrop-blur-sm",
+        "inline-flex items-center rounded-token-pill border font-medium backdrop-blur-sm",
         size === "sm" ? "px-3 py-1.5 text-xs" : "px-4 py-2 text-sm",
         variant === "filled"
-          ? "border-accent-cyan bg-accent-cyan text-[var(--color-text-inverse)]"
-          : "border-border bg-bg-elevated text-text-primary",
+          ? "border-surface-strong bg-surface-strong text-text-on-strong"
+          : "border-border-default bg-surface-panel text-text-default",
       )}
     >
       {label}

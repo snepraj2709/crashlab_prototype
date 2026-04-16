@@ -85,23 +85,53 @@ export function PartnerInterestForm(): React.ReactElement {
         Describe the clinical or commercial problem you need solved and how you want to
         collaborate with the lab.
       </p>
-      <form action="/api/partner" className="mt-8 grid gap-5 md:grid-cols-2" method="post" onSubmit={handleSubmit}>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Name</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="name" required />
+      <form
+        action="/api/partner"
+        aria-busy={isSubmitting}
+        className="mt-8 grid gap-5 md:grid-cols-2"
+        method="post"
+        onSubmit={handleSubmit}
+      >
+        <label htmlFor="partner-name">
+          <span className="ui-field-label">Name</span>
+          <input
+            aria-describedby={errors.name ? "partner-name-error" : undefined}
+            aria-invalid={Boolean(errors.name)}
+            className="ui-field"
+            id="partner-name"
+            name="name"
+            required
+          />
+          {errors.name ? <span className="ui-field-error" id="partner-name-error">{errors.name}</span> : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Email</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="email" required type="email" />
-          {errors.email ? <span className="mt-2 block text-sm text-red-300">{errors.email}</span> : null}
+        <label htmlFor="partner-email">
+          <span className="ui-field-label">Email</span>
+          <input
+            aria-describedby={errors.email ? "partner-email-error" : undefined}
+            aria-invalid={Boolean(errors.email)}
+            className="ui-field"
+            id="partner-email"
+            name="email"
+            required
+            type="email"
+          />
+          {errors.email ? <span className="ui-field-error" id="partner-email-error">{errors.email}</span> : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Company</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="company" required />
+        <label htmlFor="partner-company">
+          <span className="ui-field-label">Company</span>
+          <input
+            aria-describedby={errors.company ? "partner-company-error" : undefined}
+            aria-invalid={Boolean(errors.company)}
+            className="ui-field"
+            id="partner-company"
+            name="company"
+            required
+          />
+          {errors.company ? <span className="ui-field-error" id="partner-company-error">{errors.company}</span> : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Company size</span>
-          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="startup" name="companySize">
+        <label htmlFor="partner-company-size">
+          <span className="ui-field-label">Company size</span>
+          <select className="ui-select" defaultValue="startup" id="partner-company-size" name="companySize">
             {companySizes.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -109,16 +139,23 @@ export function PartnerInterestForm(): React.ReactElement {
             ))}
           </select>
         </label>
-        <label className="md:col-span-2">
-          <span className="mb-2 block text-sm text-text-secondary">Problem description</span>
-          <textarea className="min-h-40 w-full rounded-3xl border border-border bg-bg-primary px-4 py-4 text-text-primary" name="problemDescription" required />
+        <label className="md:col-span-2" htmlFor="partner-problem-description">
+          <span className="ui-field-label">Problem description</span>
+          <textarea
+            aria-describedby={errors.problemDescription ? "partner-problem-description-error" : undefined}
+            aria-invalid={Boolean(errors.problemDescription)}
+            className="ui-textarea"
+            id="partner-problem-description"
+            name="problemDescription"
+            required
+          />
           {errors.problemDescription ? (
-            <span className="mt-2 block text-sm text-red-300">{errors.problemDescription}</span>
+            <span className="ui-field-error" id="partner-problem-description-error">{errors.problemDescription}</span>
           ) : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Engagement type</span>
-          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="research-license" name="engagementType">
+        <label htmlFor="partner-engagement-type">
+          <span className="ui-field-label">Engagement type</span>
+          <select className="ui-select" defaultValue="research-license" id="partner-engagement-type" name="engagementType">
             {engagementOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -126,9 +163,9 @@ export function PartnerInterestForm(): React.ReactElement {
             ))}
           </select>
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Timeline</span>
-          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="exploring" name="timeline">
+        <label htmlFor="partner-timeline">
+          <span className="ui-field-label">Timeline</span>
+          <select className="ui-select" defaultValue="exploring" id="partner-timeline" name="timeline">
             {timelines.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -136,20 +173,24 @@ export function PartnerInterestForm(): React.ReactElement {
             ))}
           </select>
         </label>
-        <label className="md:col-span-2">
-          <span className="mb-2 block text-sm text-text-secondary">Budget range</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="budget" />
+        <label className="md:col-span-2" htmlFor="partner-budget">
+          <span className="ui-field-label">Budget range</span>
+          <input className="ui-field" id="partner-budget" name="budget" />
         </label>
         <input autoComplete="off" className="hidden" name="honeypot" tabIndex={-1} />
-        {errors.form ? <p className="md:col-span-2 text-sm text-red-300">{errors.form}</p> : null}
+        {errors.form ? (
+          <div className="ui-feedback ui-feedback--error md:col-span-2" role="alert">
+            <p className="text-sm text-status-error-text">{errors.form}</p>
+          </div>
+        ) : null}
         {successMessage ? (
-          <div className="md:col-span-2 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-5">
-            <p className="text-sm text-emerald-300">{successMessage}</p>
+          <div className="ui-feedback ui-feedback--success md:col-span-2" role="status">
+            <p className="text-sm text-status-success-text">{successMessage}</p>
             {referenceId ? <p className="mt-2 font-mono text-text-primary">{referenceId}</p> : null}
           </div>
         ) : null}
         <div className="md:col-span-2">
-          <Button disabled={isSubmitting} type="submit">
+          <Button aria-busy={isSubmitting} disabled={isSubmitting} type="submit">
             {isSubmitting ? "Submitting..." : "Start the Conversation"}
           </Button>
         </div>

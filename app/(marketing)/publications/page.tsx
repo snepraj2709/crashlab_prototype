@@ -45,7 +45,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
 
       <section className="py-8 lg:py-16">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
+          <div className="rounded-token-md border border-border bg-bg-surface p-8">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Upcoming</p>
             <h2 className="mt-4 font-display text-4xl text-text-primary">
               Scale Data Commons to 50+ hospitals by 2027
@@ -55,7 +55,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
               AI research faster, more accountable, and more representative across India.
             </p>
           </div>
-          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
+          <div className="rounded-token-md border border-border bg-bg-surface p-8">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Lead PI credibility</p>
             <h2 className="mt-4 font-display text-4xl text-text-primary">{lead?.name}</h2>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -64,7 +64,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
               ))}
             </div>
             <p className="mt-6 text-text-secondary">{lead?.shortBio}</p>
-            <div className="mt-8 rounded-[24px] border border-border bg-bg-surface p-6">
+            <div className="mt-8 rounded-token-sm border border-border bg-bg-surface p-6">
               <p className="text-sm uppercase tracking-[0.16em] text-text-tertiary">Funding</p>
               <p className="mt-3 text-xl text-text-primary">Supported by Koita Foundation</p>
               <p className="mt-3 text-text-secondary">

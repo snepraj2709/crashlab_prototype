@@ -5,5 +5,5 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ className }: SkeletonProps): React.ReactElement {
-  return <div className={cn("animate-pulse rounded-3xl bg-bg-elevated", className)} />;
+  return <div className={cn("animate-pulse rounded-token-md bg-bg-elevated", className)} />;
 }

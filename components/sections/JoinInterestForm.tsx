@@ -80,20 +80,49 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
         Tell the lab what you work on, why this research agenda matters to you, and how soon you
         could start.
       </p>
-      <form action="/api/join" className="mt-8 grid gap-5 md:grid-cols-2" method="post" onSubmit={handleSubmit}>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Name</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="name" required />
-          {errors.name ? <span className="mt-2 block text-sm text-red-300">{errors.name}</span> : null}
+      <form
+        action="/api/join"
+        aria-busy={isSubmitting}
+        className="mt-8 grid gap-5 md:grid-cols-2"
+        method="post"
+        onSubmit={handleSubmit}
+      >
+        <label htmlFor="join-name">
+          <span className="ui-field-label">Name</span>
+          <input
+            aria-describedby={errors.name ? "join-name-error" : undefined}
+            aria-invalid={Boolean(errors.name)}
+            className="ui-field"
+            id="join-name"
+            name="name"
+            required
+          />
+          {errors.name ? <span className="ui-field-error" id="join-name-error">{errors.name}</span> : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Email</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="email" required type="email" />
-          {errors.email ? <span className="mt-2 block text-sm text-red-300">{errors.email}</span> : null}
+        <label htmlFor="join-email">
+          <span className="ui-field-label">Email</span>
+          <input
+            aria-describedby={errors.email ? "join-email-error" : undefined}
+            aria-invalid={Boolean(errors.email)}
+            className="ui-field"
+            id="join-email"
+            name="email"
+            required
+            type="email"
+          />
+          {errors.email ? <span className="ui-field-error" id="join-email-error">{errors.email}</span> : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Current Role</span>
-          <select className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" defaultValue="" name="currentRole" required>
+        <label htmlFor="join-current-role">
+          <span className="ui-field-label">Current Role</span>
+          <select
+            aria-describedby={errors.currentRole ? "join-current-role-error" : undefined}
+            aria-invalid={Boolean(errors.currentRole)}
+            className="ui-select"
+            defaultValue=""
+            id="join-current-role"
+            name="currentRole"
+            required
+          >
             <option disabled value="">
               Select one
             </option>
@@ -103,67 +132,129 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
               </option>
             ))}
           </select>
+          {errors.currentRole ? (
+            <span className="ui-field-error" id="join-current-role-error">{errors.currentRole}</span>
+          ) : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Institution</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="institution" required />
+        <label htmlFor="join-institution">
+          <span className="ui-field-label">Institution</span>
+          <input
+            aria-describedby={errors.institution ? "join-institution-error" : undefined}
+            aria-invalid={Boolean(errors.institution)}
+            className="ui-field"
+            id="join-institution"
+            name="institution"
+            required
+          />
+          {errors.institution ? (
+            <span className="ui-field-error" id="join-institution-error">{errors.institution}</span>
+          ) : null}
         </label>
-        <fieldset className="md:col-span-2">
-          <legend className="mb-3 text-sm text-text-secondary">Research interests</legend>
+        <fieldset
+          aria-describedby={errors.researchInterests ? "join-research-interests-error" : undefined}
+          className="md:col-span-2"
+        >
+          <legend className="ui-field-label mb-3">Research interests</legend>
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {sortedInterests.map((interest) => (
-              <label className="flex items-center gap-3 rounded-2xl border border-border px-4 py-3 text-sm text-text-secondary" key={interest}>
-                <input className="rounded border-border bg-bg-primary text-accent-cyan" name="researchInterests" type="checkbox" value={interest} />
+              <label className="ui-choice-card" key={interest}>
+                <input
+                  aria-invalid={Boolean(errors.researchInterests)}
+                  className="ui-choice-control"
+                  name="researchInterests"
+                  type="checkbox"
+                  value={interest}
+                />
                 {interest}
               </label>
             ))}
           </div>
           {errors.researchInterests ? (
-            <span className="mt-2 block text-sm text-red-300">{errors.researchInterests}</span>
+            <span className="ui-field-error" id="join-research-interests-error">{errors.researchInterests}</span>
           ) : null}
         </fieldset>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">Portfolio / GitHub URL</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="portfolioUrl" type="url" />
+        <label htmlFor="join-portfolio-url">
+          <span className="ui-field-label">Portfolio / GitHub URL</span>
+          <input
+            aria-describedby={errors.portfolioUrl ? "join-portfolio-url-error" : undefined}
+            aria-invalid={Boolean(errors.portfolioUrl)}
+            className="ui-field"
+            id="join-portfolio-url"
+            name="portfolioUrl"
+            type="url"
+          />
+          {errors.portfolioUrl ? (
+            <span className="ui-field-error" id="join-portfolio-url-error">{errors.portfolioUrl}</span>
+          ) : null}
         </label>
-        <label>
-          <span className="mb-2 block text-sm text-text-secondary">CV URL</span>
-          <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="cvUrl" type="url" />
+        <label htmlFor="join-cv-url">
+          <span className="ui-field-label">CV URL</span>
+          <input
+            aria-describedby={errors.cvUrl ? "join-cv-url-error" : undefined}
+            aria-invalid={Boolean(errors.cvUrl)}
+            className="ui-field"
+            id="join-cv-url"
+            name="cvUrl"
+            type="url"
+          />
+          {errors.cvUrl ? <span className="ui-field-error" id="join-cv-url-error">{errors.cvUrl}</span> : null}
         </label>
-        <label className="md:col-span-2">
-          <span className="mb-2 block text-sm text-text-secondary">Motivation</span>
+        <label className="md:col-span-2" htmlFor="join-motivation">
+          <span className="ui-field-label">Motivation</span>
           <textarea
-            className="min-h-40 w-full rounded-3xl border border-border bg-bg-primary px-4 py-4 text-text-primary"
+            aria-describedby={[
+              errors.motivation ? "join-motivation-error" : null,
+              "join-motivation-count"
+            ].filter(Boolean).join(" ")}
+            aria-invalid={Boolean(errors.motivation)}
+            className="ui-textarea"
+            id="join-motivation"
             name="motivation"
             onChange={(event) => setMotivationLength(event.target.value.length)}
             required
           />
           <div className="mt-2 flex items-center justify-between">
-            {errors.motivation ? <span className="text-sm text-red-300">{errors.motivation}</span> : <span />}
-            <span className="text-sm text-text-tertiary">{motivationLength} / 1000</span>
+            {errors.motivation ? <span className="ui-field-error mt-0" id="join-motivation-error">{errors.motivation}</span> : <span />}
+            <span className="text-sm text-text-tertiary" id="join-motivation-count">{motivationLength} / 1000</span>
           </div>
         </label>
-        <fieldset className="md:col-span-2">
-          <legend className="mb-3 text-sm text-text-secondary">Availability</legend>
+        <fieldset
+          aria-describedby={errors.availability ? "join-availability-error" : undefined}
+          className="md:col-span-2"
+        >
+          <legend className="ui-field-label mb-3">Availability</legend>
           <div className="flex flex-wrap gap-3">
             {availabilityOptions.map((option) => (
-              <label className="flex items-center gap-3 rounded-full border border-border px-4 py-3 text-sm text-text-secondary" key={option}>
-                <input className="rounded border-border bg-bg-primary text-accent-cyan" defaultChecked={option === "exploring"} name="availability" type="radio" value={option} />
+              <label className="ui-choice-pill" key={option}>
+                <input
+                  className="ui-choice-control"
+                  defaultChecked={option === "exploring"}
+                  name="availability"
+                  type="radio"
+                  value={option}
+                />
                 {option}
               </label>
             ))}
           </div>
+          {errors.availability ? (
+            <span className="ui-field-error" id="join-availability-error">{errors.availability}</span>
+          ) : null}
         </fieldset>
         <input autoComplete="off" className="hidden" name="honeypot" tabIndex={-1} />
-        {errors.form ? <p className="md:col-span-2 text-sm text-red-300">{errors.form}</p> : null}
+        {errors.form ? (
+          <div className="ui-feedback ui-feedback--error md:col-span-2" role="alert">
+            <p className="text-sm text-status-error-text">{errors.form}</p>
+          </div>
+        ) : null}
         {successMessage ? (
-          <div className="md:col-span-2 rounded-3xl border border-emerald-400/20 bg-emerald-500/10 p-5">
-            <p className="text-sm text-emerald-300">{successMessage}</p>
+          <div className="ui-feedback ui-feedback--success md:col-span-2" role="status">
+            <p className="text-sm text-status-success-text">{successMessage}</p>
             {referenceId ? <p className="mt-2 font-mono text-text-primary">{referenceId}</p> : null}
           </div>
         ) : null}
         <div className="md:col-span-2">
-          <Button disabled={isSubmitting} type="submit">
+          <Button aria-busy={isSubmitting} disabled={isSubmitting} type="submit">
             {isSubmitting ? "Submitting..." : "Submit Interest"}
           </Button>
         </div>

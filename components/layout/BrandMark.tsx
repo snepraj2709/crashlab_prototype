@@ -17,7 +17,7 @@ export function BrandMark({
   return (
     <Link
       className={cn(
-        "inline-flex items-center gap-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+        "ui-focus-ring inline-flex items-center gap-3.5 rounded-token-sm",
         compact ? "gap-3" : "gap-3.5",
         className
       )}
@@ -45,7 +45,7 @@ export function BrandMark({
 
       <span
         className={cn(
-          "font-semibold uppercase leading-none tracking-[-0.04em] text-text-primary",
+          "font-semibold uppercase leading-none tracking-[-0.04em] text-text-default",
           compact ? "text-xl" : "text-[2rem]"
         )}
       >

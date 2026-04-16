@@ -62,9 +62,9 @@ export default async function ResearchPage({
             Navigate by clinical problem, not by paper title.
           </p>
 
-          <form action="/research" className="mt-10 grid gap-4 rounded-[28px] border border-border bg-bg-surface p-6 lg:grid-cols-[1fr_auto]" method="get">
+          <form action="/research" className="ui-panel mt-10 grid gap-4 p-6 lg:grid-cols-[1fr_auto]" method="get">
             <input
-              className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary"
+              className="ui-field"
               defaultValue={activeQuery}
               name="q"
               placeholder="Search problems, methods, or clinical domains"
@@ -72,7 +72,7 @@ export default async function ResearchPage({
             <input name="tags" type="hidden" value={activeTags.join(",")} />
             <input name="status" type="hidden" value={activeStatus} />
             <button
-              className="rounded-full bg-accent-cyan px-5 py-3 font-medium text-[var(--color-text-inverse)]"
+              className="ui-focus-ring inline-flex h-11 items-center justify-center rounded-token-pill border border-surface-strong bg-surface-strong px-5 py-3 font-medium text-text-on-strong transition hover:border-border-focus hover:bg-surface-shell"
               type="submit"
             >
               Search
@@ -84,8 +84,8 @@ export default async function ResearchPage({
               <Link
                 className={`rounded-full border px-4 py-2 text-sm transition ${
                   activeStatus === tab.value
-                    ? "border-accent-cyan bg-accent-cyan/10 text-accent-cyan"
-                    : "border-border text-text-secondary hover:border-accent-cyan hover:text-accent-cyan"
+                    ? "border-border-focus bg-status-info-surface text-border-focus"
+                    : "border-border-default text-text-muted hover:border-border-focus hover:text-border-focus"
                 }`}
                 href={`/research${buildQuery({
                   q: activeQuery || undefined,
@@ -109,8 +109,8 @@ export default async function ResearchPage({
                 <Link
                   className={`rounded-full border px-4 py-2 text-sm transition ${
                     activeTags.includes(tag)
-                      ? "border-accent-cyan bg-accent-cyan/10 text-accent-cyan"
-                      : "border-border text-text-secondary hover:border-accent-cyan hover:text-accent-cyan"
+                      ? "border-border-focus bg-status-info-surface text-border-focus"
+                      : "border-border-default text-text-muted hover:border-border-focus hover:text-border-focus"
                   }`}
                   href={`/research${buildQuery({
                     q: activeQuery || undefined,

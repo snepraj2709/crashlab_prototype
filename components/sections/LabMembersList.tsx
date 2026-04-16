@@ -12,11 +12,11 @@ interface LabMembersListProps {
 }
 
 const badgeToneStyles: Record<TeamDirectoryBadgeTone, string> = {
-  amber: "border-orange-200 bg-orange-50 text-orange-700",
-  blue: "border-sky-200 bg-sky-50 text-sky-700",
-  emerald: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  rose: "border-rose-200 bg-rose-50 text-rose-700",
-  slate: "border-slate-200 bg-slate-50 text-slate-700"
+  amber: "border-status-warning-border bg-status-warning-surface text-status-warning-text",
+  blue: "border-status-info-border bg-status-info-surface text-status-info-text",
+  emerald: "border-status-success-border bg-status-success-surface text-status-success-text",
+  rose: "border-status-error-border bg-status-error-surface text-status-error-text",
+  slate: "border-status-neutral-border bg-status-neutral-surface text-status-neutral-text"
 };
 
 export function LabMembersList({
@@ -73,12 +73,12 @@ export function LabMembersList({
                   >
                     <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
                       <Link
-                        className="text-2xl font-medium text-text-primary transition hover:text-accent-cyan focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                        className="ui-focus-ring text-2xl font-medium text-text-default transition hover:text-border-focus"
                         href={`/people/${member.id}`}
                       >
                         {member.name}
                       </Link>
-                      <p className="text-xl italic text-text-tertiary">
+                      <p className="text-xl italic text-text-muted">
                         {member.tenure} · {member.affiliation}
                       </p>
                     </div>
@@ -88,7 +88,7 @@ export function LabMembersList({
                         {member.highlights.map((highlight) => (
                           <span
                             className={cn(
-                              "inline-flex items-center rounded-md border px-3 py-1 text-sm font-semibold uppercase tracking-[0.08em]",
+                              "ui-status-badge rounded-token-sm text-sm tracking-[0.08em]",
                               badgeToneStyles[highlight.tone ?? "slate"]
                             )}
                             key={highlight.label}

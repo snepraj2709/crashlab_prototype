@@ -30,17 +30,17 @@ export type ButtonProps = NativeButtonProps;
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent-cyan text-[var(--color-text-inverse)] shadow-[var(--shadow-glow)] hover:opacity-90 focus-visible:ring-accent-cyan",
+    "border border-surface-strong bg-surface-strong text-text-on-strong shadow-soft hover:border-border-focus hover:bg-surface-shell active:translate-y-px",
   secondary:
-    "border border-border bg-bg-surface text-text-primary hover:border-accent-cyan hover:text-accent-cyan focus-visible:ring-accent-cyan",
+    "border border-border-default bg-surface-panel text-text-default hover:border-border-focus hover:text-border-focus active:bg-surface-canvas",
   ghost:
-    "text-text-primary hover:bg-bg-elevated hover:text-accent-cyan focus-visible:ring-accent-cyan",
+    "border border-transparent bg-transparent text-text-default hover:bg-surface-panel hover:text-border-focus active:bg-surface-canvas",
   outline:
-    "border border-border bg-transparent text-text-primary hover:border-accent-cyan hover:text-accent-cyan focus-visible:ring-accent-cyan",
+    "border border-border-default bg-transparent text-text-default hover:border-border-focus hover:text-border-focus active:bg-surface-canvas",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "h-10 px-4 text-sm",
+  sm: "h-11 px-4 text-sm",
   md: "h-11 px-5 text-sm md:text-base",
   lg: "h-12 px-6 text-base",
 };
@@ -51,9 +51,8 @@ function getClasses(
   className?: string,
 ): string {
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-full font-medium transition duration-200",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
-    "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40",
+    "ui-focus-ring inline-flex items-center justify-center gap-2 rounded-token-pill font-medium transition duration-200",
+    "disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-border disabled:bg-bg-elevated disabled:text-text-tertiary disabled:shadow-none disabled:opacity-60",
     variantClasses[variant],
     sizeClasses[size],
     className,

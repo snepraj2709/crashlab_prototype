@@ -7,11 +7,11 @@ interface BadgeProps {
 }
 
 const styles: Record<ProjectStatus, string> = {
-  published: "border border-emerald-400/30 bg-emerald-500/10 text-emerald-300",
-  active: "border border-cyan-400/30 bg-cyan-400/10 text-cyan-300",
+  published: "border-status-success-border bg-status-success-surface text-status-success-text",
+  active: "border-status-info-border bg-status-info-surface text-status-info-text",
   "seeking-collaborators":
-    "border bg-[var(--color-accent-yellow-muted)] text-accent-yellow [border-color:var(--color-accent-yellow-border)]",
-  completed: "border border-slate-500/30 bg-slate-500/10 text-slate-300"
+    "border-status-warning-border bg-status-warning-surface text-status-warning-text",
+  completed: "border-status-neutral-border bg-status-neutral-surface text-status-neutral-text"
 };
 
 const labels: Record<ProjectStatus, string> = {
@@ -25,7 +25,7 @@ export function Badge({ status, className }: BadgeProps): React.ReactElement {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+        "ui-status-badge",
         styles[status],
         className
       )}

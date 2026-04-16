@@ -39,7 +39,7 @@ export default async function JoinPage(): Promise<React.ReactElement> {
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
+          <div className="rounded-token-md border border-border bg-bg-surface p-8">
             <h2 className="font-display text-4xl text-text-primary">Who thrives here</h2>
             <p className="mt-6 text-lg leading-8 text-text-secondary">
               You&apos;re comfortable with ambiguity. You&apos;ve seen a clinical setting or desperately
@@ -47,11 +47,11 @@ export default async function JoinPage(): Promise<React.ReactElement> {
               research to be used, not just cited. You read arXiv and NEJM in the same week.
             </p>
           </div>
-          <div className="rounded-[28px] border border-border bg-bg-surface p-8">
+          <div className="rounded-token-md border border-border bg-bg-surface p-8">
             <h2 className="font-display text-4xl text-text-primary">What you&apos;ll get</h2>
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {benefits.map((benefit) => (
-                <div className="rounded-[24px] border border-border bg-bg-surface p-5" key={benefit}>
+                <div className="rounded-token-sm border border-border bg-bg-surface p-5" key={benefit}>
                   <p className="text-base text-text-primary">{benefit}</p>
                 </div>
               ))}
@@ -59,7 +59,7 @@ export default async function JoinPage(): Promise<React.ReactElement> {
           </div>
         </div>
 
-        <div className="mt-16 rounded-[28px] border border-border bg-bg-surface p-8">
+        <div className="mt-16 rounded-token-md border border-border bg-bg-surface p-8">
           <h2 className="font-display text-4xl text-text-primary">Open roles</h2>
           <div className="mt-8 flex flex-wrap gap-4">
             {roles.map((role) => (

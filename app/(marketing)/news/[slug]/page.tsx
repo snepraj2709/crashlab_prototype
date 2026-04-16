@@ -101,7 +101,7 @@ export default async function NewsPostPage({
             <div>
               <PortableTextContent blocks={post.body} />
 
-              <div className="mt-12 rounded-[28px] border border-border bg-bg-surface p-6">
+              <div className="mt-12 rounded-token-md border border-border bg-bg-surface p-6">
                 <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">About the author</p>
                 <h2 className="mt-4 text-2xl font-semibold text-text-primary">
                   {post.author?.name || "CRASH Lab"}
@@ -134,7 +134,7 @@ export default async function NewsPostPage({
 
             <aside className="space-y-6">
               {headings.length ? (
-                <div className="rounded-[28px] border border-border bg-bg-surface p-6">
+                <div className="rounded-token-md border border-border bg-bg-surface p-6">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
                     Table of contents
                   </p>
@@ -153,7 +153,7 @@ export default async function NewsPostPage({
               ) : null}
 
               {relatedPosts.length ? (
-                <div className="rounded-[28px] border border-border bg-bg-surface p-6">
+                <div className="rounded-token-md border border-border bg-bg-surface p-6">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Related news</p>
                   <div className="mt-5 space-y-4">
                     {relatedPosts.map((related) => (

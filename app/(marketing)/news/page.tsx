@@ -86,7 +86,7 @@ export default async function NewsPage({
 
         {featured ? (
           <Link className="mt-12 block" href={`/news/${featured.slug}`}>
-            <div className="grid gap-8 rounded-[32px] border border-border bg-bg-surface p-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="grid gap-8 rounded-token-md border border-border bg-bg-surface p-8 lg:grid-cols-[1.1fr_0.9fr]">
               <div>
                 <span className="border-accent-cyan/30 bg-accent-cyan/10 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
                   Featured
@@ -102,7 +102,7 @@ export default async function NewsPage({
                   {formatDate(featured.publishedAt)}
                 </p>
               </div>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] border border-border">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border">
                 <Image
                   alt={`Cover image for ${featured.title}`}
                   className="object-cover"
@@ -127,8 +127,8 @@ export default async function NewsPage({
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {rest.map((post) => (
               <Link href={`/news/${post.slug}`} key={post._id}>
-                <div className="h-full rounded-[28px] border border-border bg-bg-surface p-6 transition hover:border-accent-cyan">
-                  <div className="relative aspect-[16/10] overflow-hidden rounded-[22px] border border-border">
+                <div className="h-full rounded-token-md border border-border bg-bg-surface p-6 transition hover:border-accent-cyan">
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border">
                     <Image
                       alt={`Cover image for ${post.title}`}
                       className="object-cover"

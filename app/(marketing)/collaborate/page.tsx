@@ -40,7 +40,7 @@ export default function CollaboratePage(): React.ReactElement {
 
         <div className="mt-16 grid gap-6 lg:grid-cols-3">
           {models.map((model) => (
-            <div className="rounded-[28px] border border-border bg-bg-surface p-8" key={model.title}>
+            <div className="rounded-token-md border border-border bg-bg-surface p-8" key={model.title}>
               <model.icon className="size-10 text-accent-cyan" />
               <h2 className="mt-8 text-3xl font-semibold text-text-primary">{model.title}</h2>
               <p className="mt-4 text-text-secondary">{model.body}</p>
@@ -49,7 +49,7 @@ export default function CollaboratePage(): React.ReactElement {
         </div>
 
         <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
-          <div className="rounded-[28px] p-8">
+          <div className="rounded-token-md p-8">
             <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">Why collaborate with us</h1>
             <div className="mt-6 space-y-5 text-text-secondary">
               <p className="mt-6 text-xl leading-9 text-text-secondary">

@@ -69,7 +69,7 @@ export function HeroSection(): React.ReactElement {
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <div className="overflow-hidden rounded-[2rem] border border-border bg-bg-surface shadow-[var(--shadow-elevated)]">
+          <div className="overflow-hidden rounded-token-md border border-border-default bg-surface-panel shadow-panel">
             <Image
               alt="RadLE benchmark comparison visualization"
               className="h-auto w-full object-cover"

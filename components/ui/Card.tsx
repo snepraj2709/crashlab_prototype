@@ -9,7 +9,7 @@ export function Card({ children, className, ...props }: CardProps): React.ReactE
     <div
       {...props}
       className={cn(
-        "rounded-[28px] border border-border bg-bg-surface p-6 shadow-[var(--shadow-card)]",
+        "ui-panel p-6",
         className
       )}
     >

@@ -132,7 +132,7 @@ export default async function ResearchProjectPage({
 
             <aside className="space-y-8">
               {project.metrics?.length ? <RadleWidget metrics={project.metrics} variant="feature" /> : null}
-              <div className="rounded-[28px] border border-border bg-bg-surface p-6">
+              <div className="rounded-token-md border border-border bg-bg-surface p-6">
                 <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
                   Collaboration
                 </p>

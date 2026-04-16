@@ -24,33 +24,28 @@ const credentialKindMeta: Record<
 > = {
   award: {
     label: "Award",
-    badgeClassName:
-      "border border-border bg-[var(--color-accent-green-muted)] text-[var(--color-accent-green)]",
-    dotClassName: "bg-[var(--color-accent-green)]"
+    badgeClassName: "border-status-success-border bg-status-success-surface text-status-success-text",
+    dotClassName: "bg-status-success-text"
   },
   affiliation: {
     label: "Affiliation",
-    badgeClassName:
-      "border border-border bg-[var(--color-accent-cyan-muted)] text-[var(--color-accent-cyan)]",
-    dotClassName: "bg-[var(--color-accent-cyan)]"
+    badgeClassName: "border-status-info-border bg-status-info-surface text-status-info-text",
+    dotClassName: "bg-status-info-text"
   },
   funding: {
     label: "Funding",
-    badgeClassName:
-      "border border-border bg-[var(--color-accent-orange-muted)] text-[var(--color-accent-orange)]",
-    dotClassName: "bg-[var(--color-accent-orange)]"
+    badgeClassName: "border-status-warning-border bg-status-warning-surface text-status-warning-text",
+    dotClassName: "bg-status-warning-text"
   },
   milestone: {
     label: "Milestone",
-    badgeClassName:
-      "border border-border bg-[var(--color-accent-yellow-muted)] text-[var(--color-accent-yellow)]",
-    dotClassName: "bg-[var(--color-accent-yellow)]"
+    badgeClassName: "border-status-warning-border bg-status-warning-surface text-status-warning-text",
+    dotClassName: "bg-status-warning-text"
   },
   publication: {
     label: "Publication",
-    badgeClassName:
-      "border border-border bg-[var(--color-accent-cyan-muted)] text-[var(--color-accent-cyan)]",
-    dotClassName: "bg-[var(--color-accent-cyan)]"
+    badgeClassName: "border-status-info-border bg-status-info-surface text-status-info-text",
+    dotClassName: "bg-status-info-text"
   }
 };
 
@@ -69,7 +64,7 @@ function LogoMarkup({
 }): React.ReactElement {
   const imageClassName = cn("h-auto w-auto max-w-full object-contain", maxHeightClassName);
   const logoTileClassName = cn(
-    "inline-flex items-center justify-center rounded-[20px] border border-border-subtle bg-white px-4 py-3 shadow-[0_10px_24px_rgba(15,23,42,0.06)]",
+    "inline-flex items-center justify-center rounded-token-sm border border-border-subtle bg-surface-panel px-4 py-3 shadow-soft",
     tileClassName
   );
 
@@ -80,7 +75,7 @@ function LogoMarkup({
         aria-label={ariaHidden ? undefined : `Visit ${logo.name} (opens in new tab)`}
         className={cn(
           logoTileClassName,
-          "transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-surface"
+          "ui-focus-ring-panel transition-transform duration-200 hover:-translate-y-0.5 hover:border-border-focus"
         )}
         href={logo.href}
         key={logo.id}
@@ -133,7 +128,7 @@ function CredentialLabel({
   if (credential.href) {
     return (
       <a
-        className={cn(className, "transition-colors hover:text-[var(--color-accent-cyan)]")}
+        className={cn(className, "transition-colors hover:text-border-focus")}
         href={credential.href}
         rel="noopener noreferrer"
         target="_blank"
@@ -154,10 +149,10 @@ function FeaturedCredentialCard({
   const meta = credentialKindMeta[credential.kind];
 
   return (
-    <div className="rounded-xl border border-border bg-bg-elevated p-5 transition-colors duration-200 hover:border-accent-cyan">
+    <div className="rounded-token-sm border border-border-default bg-bg-elevated p-5 transition-colors duration-200 hover:border-border-focus">
       <span
         className={cn(
-          "inline-flex items-center rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]",
+          "ui-status-badge",
           meta.badgeClassName
         )}
       >
@@ -213,7 +208,7 @@ export function TrustSignalsSection({
     return (
       <section aria-label="Institutional affiliations and credentials" className="py-10 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="trust-logo-slideshow rounded-[36px] border border-border bg-bg-surface px-6 py-8 shadow-[var(--shadow-card)] sm:px-8 lg:px-10 lg:py-10">
+          <div className="trust-logo-slideshow rounded-token-md border border-border-default bg-surface-panel px-6 py-8 shadow-panel sm:px-8 lg:px-10 lg:py-10">
             <div aria-hidden="true" className="hero-mesh absolute inset-0 opacity-60" />
             <div className="relative">
               <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
@@ -313,7 +308,7 @@ export function TrustSignalsSection({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
           className={cn(
-            "grid items-center gap-8 rounded-[28px] border border-border bg-bg-surface p-6 shadow-[var(--shadow-card)] lg:p-10",
+            "grid items-center gap-8 rounded-token-md border border-border-default bg-surface-panel p-6 shadow-panel lg:p-10",
             compactGridClassName,
             section.logos.length && visibleCredentials.length && "lg:grid-cols-[0.95fr_1.05fr]",
             !section.logos.length && "max-w-4xl"

@@ -31,12 +31,12 @@ export function ProblemCards({
           ))}
         </div>
 
-        <div className="mt-10 rounded-[28px] border border-border bg-bg-surface p-8 lg:flex lg:items-center lg:justify-between">
+        <div className="ui-panel mt-10 p-8 lg:flex lg:items-center lg:justify-between">
           <div>
-            <p className="text-lg font-medium text-[var(--color-text-primary)]">
+            <p className="text-lg font-medium text-text-default">
               Building healthcare AI for Indian clinical settings?
             </p>
-            <p className="mt-2 max-w-2xl text-[var(--color-text-secondary)]">
+            <p className="mt-2 max-w-2xl text-text-muted">
               Our benchmarks, data access, and validation frameworks were built
               for exactly this problem. We work with startups and enterprises —
               from commissioned studies to joint grants.

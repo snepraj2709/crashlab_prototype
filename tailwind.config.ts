@@ -20,18 +20,56 @@ const config: Config = {
         },
         border: {
           DEFAULT: "var(--color-border)",
-          subtle: "var(--color-border-subtle)"
+          subtle: "var(--color-border-subtle)",
+          default: "var(--color-border-default)",
+          focus: "var(--color-border-focus)"
+        },
+        surface: {
+          canvas: "var(--color-surface-canvas)",
+          panel: "var(--color-surface-panel)",
+          shell: "var(--color-surface-shell)",
+          strong: "var(--color-surface-strong)"
         },
         text: {
           primary: "var(--color-text-primary)",
           secondary: "var(--color-text-secondary)",
-          tertiary: "var(--color-text-tertiary)"
+          tertiary: "var(--color-text-tertiary)",
+          default: "var(--color-text-default)",
+          muted: "var(--color-text-muted)",
+          "on-strong": "var(--color-text-on-strong)"
         },
         accent: {
           cyan: "var(--color-accent-cyan)",
           orange: "var(--color-accent-orange)",
           green: "var(--color-accent-green)",
           yellow: "var(--color-accent-yellow)"
+        },
+        status: {
+          neutral: {
+            surface: "var(--color-status-neutral-surface)",
+            border: "var(--color-status-neutral-border)",
+            text: "var(--color-status-neutral-text)"
+          },
+          info: {
+            surface: "var(--color-status-info-surface)",
+            border: "var(--color-status-info-border)",
+            text: "var(--color-status-info-text)"
+          },
+          success: {
+            surface: "var(--color-status-success-surface)",
+            border: "var(--color-status-success-border)",
+            text: "var(--color-status-success-text)"
+          },
+          warning: {
+            surface: "var(--color-status-warning-surface)",
+            border: "var(--color-status-warning-border)",
+            text: "var(--color-status-warning-text)"
+          },
+          error: {
+            surface: "var(--color-status-error-surface)",
+            border: "var(--color-status-error-border)",
+            text: "var(--color-status-error-text)"
+          }
         }
       },
       fontFamily: {
@@ -50,8 +88,16 @@ const config: Config = {
           "monospace"
         ]
       },
+      borderRadius: {
+        "token-xs": "var(--radius-xs)",
+        "token-sm": "var(--radius-sm)",
+        "token-md": "var(--radius-md)",
+        "token-pill": "var(--radius-lg)"
+      },
       boxShadow: {
-        glow: "var(--shadow-glow)"
+        glow: "var(--shadow-glow)",
+        panel: "var(--shadow-panel)",
+        soft: "var(--shadow-soft)"
       },
       backgroundImage: {
         "hero-grid":

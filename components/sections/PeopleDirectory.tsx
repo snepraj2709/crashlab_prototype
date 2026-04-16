@@ -34,21 +34,21 @@ export function PeopleDirectory({
           return (
             <button
               aria-pressed={isSelected}
-              className="group text-left"
+              className="ui-focus-ring group rounded-token-md text-left"
               key={profile.id}
               onClick={() => setSelectedId(profile.id)}
               type="button"
             >
               <TeamMemberPortrait
                 className={cn(
-                  "aspect-[4/5] w-full transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[var(--shadow-glow)]",
-                  isSelected ? "shadow-[var(--shadow-glow)] ring-2 ring-accent-cyan/40" : ""
+                  "aspect-[4/5] w-full transition duration-300 group-hover:-translate-y-1 group-hover:shadow-glow",
+                  isSelected ? "border-border-focus shadow-glow ring-2 ring-border-focus/30" : ""
                 )}
                 member={profile}
               />
               <div className="mt-3">
-                <p className="text-lg font-semibold text-text-primary">{profile.name}</p>
-                <p className="mt-1 text-sm text-text-secondary">{profile.role}</p>
+                <p className="text-lg font-semibold text-text-default">{profile.name}</p>
+                <p className="mt-1 text-sm text-text-muted">{profile.role}</p>
               </div>
             </button>
           );
@@ -69,21 +69,18 @@ export function PeopleDirectory({
           ) : null}
         </div>
 
-        <h2 className="mt-5 font-display text-3xl text-text-primary">{selectedProfile.name}</h2>
-        <p className="mt-2 text-base text-text-secondary">{selectedProfile.role}</p>
+        <h2 className="mt-5 font-display text-3xl text-text-default">{selectedProfile.name}</h2>
+        <p className="mt-2 text-base text-text-muted">{selectedProfile.role}</p>
         {selectedProfile.affiliation ? (
           <p className="mt-1 text-sm text-text-tertiary">{selectedProfile.affiliation}</p>
         ) : null}
 
-        <p className="mt-5 text-sm leading-7 text-text-secondary">{selectedProfile.shortBio}</p>
+        <p className="mt-5 text-sm leading-7 text-text-muted">{selectedProfile.shortBio}</p>
 
         {selectedProfile.researchFocus.length ? (
           <div className="mt-5 flex flex-wrap gap-2">
             {selectedProfile.researchFocus.slice(0, 3).map((focus) => (
-              <span
-                className="rounded-full border border-border bg-bg-primary px-3 py-1 text-xs font-medium text-text-secondary"
-                key={focus}
-              >
+              <span className="ui-chip" key={focus}>
                 {focus}
               </span>
             ))}
@@ -93,7 +90,7 @@ export function PeopleDirectory({
         <div className="mt-6 flex flex-wrap items-center gap-4">
           <TeamSocialLinks name={selectedProfile.name} socialLinks={selectedProfile.socialLinks} />
           <Link
-            className="inline-flex items-center rounded-full bg-text-primary px-4 py-2 text-sm font-semibold text-[color:var(--color-text-inverse)] transition hover:opacity-85"
+            className="ui-focus-ring inline-flex items-center rounded-token-pill border border-surface-strong bg-surface-strong px-4 py-2 text-sm font-semibold text-text-on-strong transition hover:border-border-focus hover:bg-surface-shell"
             href={`/people/${selectedProfile.slug}`}
           >
             View profile

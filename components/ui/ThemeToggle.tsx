@@ -19,7 +19,7 @@ export function ThemeToggle({
   }, []);
 
   if (!mounted) {
-    return <div aria-hidden="true" className={`h-9 w-9 rounded-lg ${className}`} />;
+    return <div aria-hidden="true" className={`h-11 w-11 rounded-token-sm ${className}`} />;
   }
 
   const currentTheme = resolvedTheme ?? (theme === "system" ? "light" : theme) ?? "light";
@@ -31,12 +31,9 @@ export function ThemeToggle({
     <button
       aria-label={label}
       className={`
-        relative flex h-9 w-9 items-center justify-center rounded-lg
-        border border-[var(--color-border)] bg-[var(--color-bg-surface)]
-        text-[var(--color-text-secondary)] hover:border-[var(--color-accent-cyan)]
-        hover:text-[var(--color-accent-cyan)] focus-visible:outline-none
-        focus-visible:ring-2 focus-visible:ring-[var(--color-accent-cyan)]
-        focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)]
+        ui-focus-ring relative flex h-11 w-11 items-center justify-center rounded-token-sm
+        border border-border-default bg-surface-panel text-text-muted
+        hover:border-border-focus hover:text-border-focus
         transition-colors duration-200 ${className}
       `}
       onClick={() => setTheme(nextTheme)}

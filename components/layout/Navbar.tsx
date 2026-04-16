@@ -58,11 +58,10 @@ export function Navbar(): React.ReactElement {
                 return (
                   <Link
                     className={cn(
-                      "inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold tracking-[0.01em] transition-all duration-200",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
+                      "ui-focus-ring inline-flex items-center rounded-token-pill border px-4 py-2 text-sm font-semibold tracking-[0.01em] transition-all duration-200",
                       isActive
-                        ? "border-accent-cyan bg-accent-cyan/10 text-accent-cyan shadow-sm"
-                        : "border-transparent text-text-secondary hover:border-border hover:bg-bg-surface hover:text-text-primary hover:shadow-sm",
+                        ? "border-border-focus bg-status-info-surface text-border-focus shadow-soft"
+                        : "border-transparent text-text-muted hover:border-border-default hover:bg-surface-panel hover:text-text-default hover:shadow-soft",
                     )}
                     href={link.href}
                     key={link.href}
@@ -78,7 +77,7 @@ export function Navbar(): React.ReactElement {
           <button
             aria-expanded={menuOpen}
             aria-label="Open menu"
-            className="rounded-full border border-border p-3 text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary lg:hidden"
+            className="ui-focus-ring inline-flex h-11 w-11 items-center justify-center rounded-token-pill border border-border-default bg-surface-panel text-text-default lg:hidden"
             onClick={() => setMenuOpen(true)}
             type="button"
           >

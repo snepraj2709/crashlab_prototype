@@ -69,26 +69,48 @@ export function ContactFormSection({
           <SectionLabel number="08" text="Contact" />
           <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">{title}</h2>
           <p className="mt-4 max-w-2xl text-text-secondary">{intro}</p>
-          <form action="/api/contact" className="mt-10 grid gap-5 md:grid-cols-2" method="post" onSubmit={handleSubmit}>
-            <label className="block">
-              <span className="mb-2 block text-sm text-text-secondary">Name</span>
-              <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="name" required />
-              {errors.name ? <span className="mt-2 block text-sm text-red-300">{errors.name}</span> : null}
+          <form
+            action="/api/contact"
+            aria-busy={isSubmitting}
+            className="mt-10 grid gap-5 md:grid-cols-2"
+            method="post"
+            onSubmit={handleSubmit}
+          >
+            <label className="block" htmlFor="contact-name">
+              <span className="ui-field-label">Name</span>
+              <input
+                aria-describedby={errors.name ? "contact-name-error" : undefined}
+                aria-invalid={Boolean(errors.name)}
+                className="ui-field"
+                id="contact-name"
+                name="name"
+                required
+              />
+              {errors.name ? <span className="ui-field-error" id="contact-name-error">{errors.name}</span> : null}
             </label>
-            <label className="block">
-              <span className="mb-2 block text-sm text-text-secondary">Email</span>
-              <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="email" required type="email" />
-              {errors.email ? <span className="mt-2 block text-sm text-red-300">{errors.email}</span> : null}
+            <label className="block" htmlFor="contact-email">
+              <span className="ui-field-label">Email</span>
+              <input
+                aria-describedby={errors.email ? "contact-email-error" : undefined}
+                aria-invalid={Boolean(errors.email)}
+                className="ui-field"
+                id="contact-email"
+                name="email"
+                required
+                type="email"
+              />
+              {errors.email ? <span className="ui-field-error" id="contact-email-error">{errors.email}</span> : null}
             </label>
-            <label className="block">
-              <span className="mb-2 block text-sm text-text-secondary">Organization</span>
-              <input className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary" name="organization" />
+            <label className="block" htmlFor="contact-organization">
+              <span className="ui-field-label">Organization</span>
+              <input className="ui-field" id="contact-organization" name="organization" />
             </label>
-            <label className="block">
-              <span className="mb-2 block text-sm text-text-secondary">Audience</span>
+            <label className="block" htmlFor="contact-audience">
+              <span className="ui-field-label">Audience</span>
               <select
-                className="w-full rounded-2xl border border-border bg-bg-primary px-4 py-3 text-text-primary"
+                className="ui-select"
                 defaultValue={audienceType}
+                id="contact-audience"
                 name="audienceType"
               >
                 {audienceOptions.map((option) => (
@@ -98,16 +120,31 @@ export function ContactFormSection({
                 ))}
               </select>
             </label>
-            <label className="block md:col-span-2">
-              <span className="mb-2 block text-sm text-text-secondary">Message</span>
-              <textarea className="min-h-36 w-full rounded-3xl border border-border bg-bg-primary px-4 py-4 text-text-primary" name="message" required />
-              {errors.message ? <span className="mt-2 block text-sm text-red-300">{errors.message}</span> : null}
+            <label className="block md:col-span-2" htmlFor="contact-message">
+              <span className="ui-field-label">Message</span>
+              <textarea
+                aria-describedby={errors.message ? "contact-message-error" : undefined}
+                aria-invalid={Boolean(errors.message)}
+                className="ui-textarea"
+                id="contact-message"
+                name="message"
+                required
+              />
+              {errors.message ? <span className="ui-field-error" id="contact-message-error">{errors.message}</span> : null}
             </label>
             <input autoComplete="off" className="hidden" name="honeypot" tabIndex={-1} />
-            {errors.form ? <p className="md:col-span-2 text-sm text-red-300">{errors.form}</p> : null}
-            {submitted ? <p className="md:col-span-2 text-sm text-emerald-300">{submitted}</p> : null}
+            {errors.form ? (
+              <div className="ui-feedback ui-feedback--error md:col-span-2" role="alert">
+                <p className="text-sm text-status-error-text">{errors.form}</p>
+              </div>
+            ) : null}
+            {submitted ? (
+              <div className="ui-feedback ui-feedback--success md:col-span-2" role="status">
+                <p className="text-sm text-status-success-text">{submitted}</p>
+              </div>
+            ) : null}
             <div className="md:col-span-2">
-              <Button disabled={isSubmitting} type="submit">
+              <Button aria-busy={isSubmitting} disabled={isSubmitting} type="submit">
                 {isSubmitting ? "Sending..." : "Send Inquiry"}
               </Button>
             </div>

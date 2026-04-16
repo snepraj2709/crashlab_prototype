@@ -15,7 +15,7 @@ const footerLinks = [
 
 export function Footer(): React.ReactElement {
   return (
-    <footer className="border-t border-border bg-bg-primary">
+    <footer className="border-t border-border-default bg-surface-canvas">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr]">
           <div>
@@ -33,7 +33,7 @@ export function Footer(): React.ReactElement {
               {footerLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    className="text-text-secondary transition hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                    className="ui-focus-ring text-text-muted transition hover:text-text-default"
                     href={link.href}
                   >
                     {link.label}
@@ -47,7 +47,7 @@ export function Footer(): React.ReactElement {
             <div className="mt-4 space-y-3 text-text-secondary">
               <p>Koita Centre for Digital Health, Ashoka University</p>
               <a
-                className="block transition hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
+                className="ui-focus-ring block rounded-token-xs text-text-muted transition hover:text-text-default"
                 href="mailto:suvrankar.datta@ashoka.edu.in"
               >
                 suvrankar.datta@ashoka.edu.in
@@ -66,7 +66,7 @@ export function Footer(): React.ReactElement {
         >
           <a
             aria-label="CRASH Lab on X (Twitter)"
-            className="text-[var(--color-text-tertiary)] transition-colors duration-200 hover:text-[var(--color-accent-cyan)]"
+            className="ui-focus-ring rounded-token-pill p-1 text-text-tertiary transition-colors duration-200 hover:text-border-focus"
             href="https://x.com/DrDatta_AIIMS"
             rel="noopener noreferrer"
             target="_blank"
@@ -75,7 +75,7 @@ export function Footer(): React.ReactElement {
           </a>
           <a
             aria-label="CRASH Lab on LinkedIn"
-            className="text-[var(--color-text-tertiary)] transition-colors duration-200 hover:text-[var(--color-accent-cyan)]"
+            className="ui-focus-ring rounded-token-pill p-1 text-text-tertiary transition-colors duration-200 hover:text-border-focus"
             href="https://linkedin.com/company/crashlab-ashoka"
             rel="noopener noreferrer"
             target="_blank"
@@ -84,13 +84,13 @@ export function Footer(): React.ReactElement {
           </a>
         </nav>
 
-        <hr className="mb-6 mt-10 border-[var(--color-border)]" />
+        <hr className="mb-6 mt-10 border-border-default" />
 
-        <div className="flex flex-col items-start justify-between gap-4 text-xs text-[var(--color-text-tertiary)] sm:flex-row sm:items-center">
+        <div className="flex flex-col items-start justify-between gap-4 text-xs text-text-tertiary sm:flex-row sm:items-center">
           <p>
             Supported by the{" "}
             <a
-              className="underline underline-offset-2 hover:text-[var(--color-text-secondary)]"
+              className="ui-focus-ring rounded-token-xs underline underline-offset-2 hover:text-text-default"
               href="https://koitafoundation.org"
               rel="noopener noreferrer"
               target="_blank"
