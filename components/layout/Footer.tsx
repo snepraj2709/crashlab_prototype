@@ -57,32 +57,33 @@ export function Footer(): React.ReactElement {
                 about clinical truth.
               </p>
             </div>
+            <div className="mt-8 flex flex-col items-start gap-3">
+              <nav
+                aria-label="CRASH Lab social links"
+                className="flex items-center gap-3"
+              >
+                <a
+                  aria-label="CRASH Lab on X (Twitter)"
+                  className="ui-focus-ring inline-flex h-11 w-11 items-center justify-center rounded-token-pill border border-border-default bg-surface-panel text-text-secondary transition-colors duration-200 hover:border-border-focus hover:text-border-focus"
+                  href="https://x.com/DrDatta_AIIMS"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <XIcon className="h-5 w-5" />
+                </a>
+                <a
+                  aria-label="CRASH Lab on LinkedIn"
+                  className="ui-focus-ring inline-flex h-11 w-11 items-center justify-center rounded-token-pill border border-border-default bg-surface-panel text-text-secondary transition-colors duration-200 hover:border-border-focus hover:text-border-focus"
+                  href="https://linkedin.com/company/crashlab-ashoka"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </nav>
+            </div>
           </div>
         </div>
-
-        <nav
-          aria-label="CRASH Lab social links"
-          className="mt-8 flex items-center gap-4"
-        >
-          <a
-            aria-label="CRASH Lab on X (Twitter)"
-            className="ui-focus-ring rounded-token-pill p-1 text-text-tertiary transition-colors duration-200 hover:text-border-focus"
-            href="https://x.com/DrDatta_AIIMS"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <XIcon className="h-[18px] w-[18px]" />
-          </a>
-          <a
-            aria-label="CRASH Lab on LinkedIn"
-            className="ui-focus-ring rounded-token-pill p-1 text-text-tertiary transition-colors duration-200 hover:text-border-focus"
-            href="https://linkedin.com/company/crashlab-ashoka"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Linkedin size={18} />
-          </a>
-        </nav>
 
         <hr className="mb-6 mt-10 border-border-default" />
 
