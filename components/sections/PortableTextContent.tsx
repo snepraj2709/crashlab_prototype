@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils/cn";
 import { extractHeadings } from "@/lib/utils/portableText";
-import type { PortableTextBlock } from "@/types/research";
+import type { PortableTextBlock } from "@/types/content";
 
 interface PortableTextContentProps {
   blocks: PortableTextBlock[] | undefined;

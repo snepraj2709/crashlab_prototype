@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { flattenApiErrorDetails } from "@/lib/utils/api";
 import type { ApiResponse, ContactFormValues } from "@/types/forms";
 
 interface ContactPageFormState {
@@ -77,13 +78,13 @@ export function ContactPageForm(): React.ReactElement {
       body: JSON.stringify(payload)
     });
 
-    const result = (await response.json()) as ApiResponse;
+    const result: ApiResponse = await response.json();
 
     if (!result.success) {
+      const fieldErrors = flattenApiErrorDetails(result.details);
       setErrors({
         form: result.message ?? "Submission failed.",
-        message:
-          typeof result.details?.message === "string" ? result.details.message : undefined
+        message: fieldErrors.message
       });
     } else {
       setSubmitted(result.message ?? "We'll be in touch soon.");

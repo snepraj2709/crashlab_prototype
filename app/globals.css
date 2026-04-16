@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================================
-   DARK THEME
-   Applied when: data-theme="dark"
-   ============================================================ */
-
 [data-theme="dark"] {
   --color-bg-primary: #0a0f1e;
   --color-bg-surface: #111827;
@@ -36,7 +31,6 @@
   --shadow-cursor:
     0 0 0 1px var(--color-cursor-perimeter), 0 18px 40px rgba(0, 0, 0, 0.24);
 
-  /* RadLE Widget - semantic bar colors */
   --radle-human-primary: #38bdf8;
   --radle-human-secondary: #38bdf8;
   --radle-ai-primary: #a78bfa;
@@ -69,11 +63,6 @@
   color-scheme: dark;
 }
 
-/* ============================================================
-   LIGHT THEME (default fallback)
-   Applied when: data-theme="light" OR no data-theme attribute
-   ============================================================ */
-
 :root:not([data-theme]),
 [data-theme="light"] {
   --color-bg-primary: #f8fafc;
@@ -104,7 +93,6 @@
   --shadow-cursor:
     0 0 0 1px var(--color-cursor-perimeter), 0 18px 40px rgba(15, 23, 42, 0.1);
 
-  /* RadLE Widget - semantic bar colors */
   --radle-human-primary: #0284c7;
   --radle-human-secondary: #0284c7;
   --radle-ai-primary: #7c3aed;
@@ -191,11 +179,6 @@
     animation: meshFloat 14s ease-in-out infinite alternate;
   }
 }
-
-/* ============================================================
-   THEME TRANSITION
-   Smooth color transition when switching themes.
-   ============================================================ */
 
 *,
 *::before,

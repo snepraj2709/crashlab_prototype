@@ -1,6 +1,3 @@
-// Domain types for the Trust Signals section.
-// v1: seed-only, no Sanity document type.
-
 export type TrustLogoCategory =
   | "academic"
   | "clinical"

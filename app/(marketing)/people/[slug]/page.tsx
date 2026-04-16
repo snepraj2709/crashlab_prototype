@@ -5,13 +5,14 @@ import { ArrowLeft, Mail } from "lucide-react";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PortableTextContent, TeamMemberPortrait, TeamSocialLinks } from "@/components/sections";
-import { getTeamProfileById, getTeamProfiles } from "@/lib/content/site";
+import { PrincipalInvestigatorBadge } from "@/components/ui";
+import { getTeamProfileBySlug, getTeamProfiles } from "@/lib/content/site";
 
 export const revalidate = 86400;
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
   const profiles = await getTeamProfiles();
-  return profiles.map((profile) => ({ slug: profile.id }));
+  return profiles.map((profile) => ({ slug: profile.slug }));
 }
 
 export async function generateMetadata({
@@ -19,7 +20,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const person = await getTeamProfileById(params.slug);
+  const person = await getTeamProfileBySlug(params.slug);
   if (!person) {
     return {};
   }
@@ -40,7 +41,7 @@ export default async function PersonPage({
 }: {
   params: { slug: string };
 }): Promise<React.ReactElement> {
-  const person = await getTeamProfileById(params.slug);
+  const person = await getTeamProfileBySlug(params.slug);
   if (!person) {
     notFound();
   }
@@ -62,7 +63,7 @@ export default async function PersonPage({
             "@type": "Organization",
             name: "CRASH Lab, Ashoka University"
           },
-          url: `https://crashlab.in/people/${person.id}`
+          url: `https://crashlab.in/people/${person.slug}`
         }}
       />
       <div className="pt-32">
@@ -131,9 +132,7 @@ export default async function PersonPage({
               <div>
                 {person.isPrincipalInvestigator ? (
                   <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full border border-accent-cyan/20 bg-accent-cyan-muted px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-accent-cyan">
-                      Principal Investigator
-                    </span>
+                    <PrincipalInvestigatorBadge />
                   </div>
                 ) : null}
 

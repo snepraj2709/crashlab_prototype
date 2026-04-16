@@ -1,5 +1,7 @@
+import type { JsonValue } from "@/types/json";
+
 interface JsonLdProps {
-  data: Record<string, unknown>;
+  data: JsonValue;
 }
 
 export function JsonLd({ data }: JsonLdProps): React.ReactElement {

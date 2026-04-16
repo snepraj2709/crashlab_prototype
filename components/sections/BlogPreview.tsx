@@ -2,14 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button, Card, SectionLabel } from "@/components/ui";
-import type { SitePost } from "@/lib/content/site";
 import { formatDate } from "@/lib/utils/formatDate";
+import type { SitePost, SitePostCategory } from "@/types/site";
 
 interface BlogPreviewProps {
   posts: SitePost[];
 }
 
-const CATEGORY_COVERS: Record<string, string> = {
+const CATEGORY_COVERS: Record<SitePostCategory, string> = {
   "benchmark-update": "/og/benchmark-update.svg",
   "research-paper": "/og/research-paper.svg",
   "lab-news": "/og/lab-news.svg",

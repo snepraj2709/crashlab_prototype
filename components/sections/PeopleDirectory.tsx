@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { TeamMemberPortrait } from "@/components/sections/TeamMemberPortrait";
 import { TeamSocialLinks } from "@/components/sections/TeamSocialLinks";
-import { Card } from "@/components/ui";
+import { Card, PrincipalInvestigatorBadge } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
 import type { TeamMemberProfile } from "@/types/team";
 
@@ -65,9 +65,7 @@ export function PeopleDirectory({
 
         <div className="mt-6 flex flex-wrap gap-2">
           {selectedProfile.isPrincipalInvestigator ? (
-            <span className="rounded-full border border-accent-cyan/20 bg-accent-cyan-muted px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-accent-cyan">
-              Principal Investigator
-            </span>
+            <PrincipalInvestigatorBadge />
           ) : null}
         </div>
 
@@ -96,7 +94,7 @@ export function PeopleDirectory({
           <TeamSocialLinks name={selectedProfile.name} socialLinks={selectedProfile.socialLinks} />
           <Link
             className="inline-flex items-center rounded-full bg-text-primary px-4 py-2 text-sm font-semibold text-[color:var(--color-text-inverse)] transition hover:opacity-85"
-            href={`/people/${selectedProfile.id}`}
+            href={`/people/${selectedProfile.slug}`}
           >
             View profile
           </Link>

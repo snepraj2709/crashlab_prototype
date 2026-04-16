@@ -79,9 +79,7 @@ export function RadleWidget({
   const benchmarkUpdatedAt = (
     projectsSeed as SeedProjectWithBenchmarkUpdate[]
   ).find((project) => project.slug === "radle-benchmark")?.benchmarkUpdatedAt;
-  const displayedMetrics = (
-    compact ? metrics.filter((metric) => metric.type !== "gap") : metrics
-  ) as MetricWithOptionalId[];
+  const displayedMetrics = compact ? metrics.filter((metric) => metric.type !== "gap") : metrics;
   const subtitle = benchmarkUpdatedAt
     ? `Updated ${formatMonthYear(benchmarkUpdatedAt)}`
     : "Updated November 2025";

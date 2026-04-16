@@ -1,5 +1,5 @@
-import type { SitePost } from "@/lib/content/site";
 import type { ProjectSeed, ProjectStatus } from "@/types/research";
+import type { SitePost } from "@/types/site";
 
 export function fuzzyIncludes(haystack: string, needle: string): boolean {
   return haystack.toLowerCase().includes(needle.toLowerCase().trim());

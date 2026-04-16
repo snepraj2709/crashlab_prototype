@@ -1,4 +1,4 @@
-import type { PortableTextBlock } from "@/types/research";
+import type { PortableTextBlock } from "@/types/content";
 
 export interface HeadingEntry {
   id: string;

@@ -68,7 +68,7 @@ export default async function ResearchProjectPage({
           description: project.summary,
           author: { "@type": "Person", name: "Dr. Suvrankar Datta" },
           publisher: { "@type": "Organization", name: "CRASH Lab, Ashoka University" },
-          datePublished: project.publishedAt,
+          ...(project.publishedAt ? { datePublished: project.publishedAt } : {}),
           url: `https://crashlab.in/research/${project.slug}`
         }}
       />

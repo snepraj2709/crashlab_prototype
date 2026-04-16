@@ -14,7 +14,8 @@ import {
   projectBySlugQuery
 } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
-import type { PublicationEntry, ProjectSeed } from "@/types/research";
+import type { ProjectAudience, PublicationEntry, ProjectSeed } from "@/types/research";
+import type { SitePost, SitePostAuthor, SitePostSeed } from "@/types/site";
 import type {
   AllPeopleQueryResult,
   AllPostsQueryResult,
@@ -40,33 +41,7 @@ const groupOrderMap = new Map(labMemberGroups.map((group) => [group.id, group.or
 const groupLabelMap = new Map(labMemberGroups.map((group) => [group.id, group.label]));
 const labMemberVisualMap = new Map(labMemberVisuals.map((member) => [member.id, member]));
 const defaultPhotoUrls = new Set(["/og/default.svg"]);
-
-export interface SitePostAuthor {
-  _id: string;
-  slug: string;
-  name: string;
-  shortBio: string;
-}
-
-export interface SitePost {
-  _id: string;
-  _type: "post";
-  slug: string;
-  title: string;
-  excerpt: string;
-  body?: ProjectSeed["body"];
-  coverImage?: {
-    url: string;
-    alt: string;
-  } | null;
-  publishedAt?: string;
-  category?: NonNullable<SanityPost["category"]>;
-  tags: string[];
-  seoTitle?: string;
-  seoDescription?: string;
-  featured: boolean;
-  author?: SitePostAuthor;
-}
+const projectAudienceSet = new Set<ProjectAudience>(["researcher", "industry", "investor", "all"]);
 
 function normalizePortableText(blocks: PortableTextSource): ProjectSeed["body"] | undefined {
   if (!blocks?.length) {
@@ -101,8 +76,8 @@ function normalizeProject(project: SanityProject): ProjectSeed {
     title: project.title ?? "",
     problemStatement: project.problemStatement ?? "",
     summary: project.summary ?? "",
-    body: (project.body as ProjectSeed["body"]) ?? undefined,
-    status: (project.status ?? "active") as ProjectSeed["status"],
+    body: normalizePortableText(project.body),
+    status: project.status ?? "active",
     venue: project.venue ?? undefined,
     publishedAt: project.publishedAt ?? undefined,
     paperUrl: project.paperUrl ?? undefined,
@@ -113,7 +88,10 @@ function normalizeProject(project: SanityProject): ProjectSeed {
         }
       : null,
     tags: project.tags ?? [],
-    audience: (project.audience ?? []) as ProjectSeed["audience"],
+    audience:
+      project.audience?.filter(
+        (audience): audience is ProjectAudience => projectAudienceSet.has(audience as ProjectAudience)
+      ) ?? [],
     lead: project.lead?.slug?.current ?? undefined,
     team:
       project.team
@@ -121,7 +99,11 @@ function normalizeProject(project: SanityProject): ProjectSeed {
         .filter((memberSlug): memberSlug is string => Boolean(memberSlug)) ?? [],
     featured: Boolean(project.featured),
     seekingCollaborators: Boolean(project.seekingCollaborators),
-    metrics: (project.metrics as ProjectSeed["metrics"]) ?? undefined
+    metrics: project.metrics?.map((metric) => ({
+      label: metric.label ?? "",
+      value: metric.value ?? "",
+      type: metric.type ?? "human"
+    }))
   };
 }
 
@@ -138,7 +120,7 @@ function normalizePerson(person: SanityPerson): PersonSeed {
         }
       : null,
     shortBio: person.shortBio ?? "",
-    fullBio: (person.fullBio as PersonSeed["fullBio"]) ?? undefined,
+    fullBio: normalizePortableText(person.fullBio),
     email: person.email ?? undefined,
     credentials: person.credentials ?? [],
     researchFocus: person.researchFocus ?? [],
@@ -195,14 +177,12 @@ function mergeTeamMemberProfile(
   member: TeamDirectoryMember,
   peopleBySlug: Map<string, PersonSeed>
 ): TeamMemberProfile {
-  const person =
-    (member.profileSlug ? peopleBySlug.get(member.profileSlug) : undefined) ?? peopleBySlug.get(member.id);
+  const person = peopleBySlug.get(member.id);
   const visual = labMemberVisualMap.get(member.id);
 
   return {
     slug: member.id,
     id: member.id,
-    profileSlug: person?.slug ?? member.profileSlug,
     name: person?.name ?? member.name,
     role: person?.role ?? visual?.role ?? member.affiliation,
     title: person?.title ?? "",
@@ -300,24 +280,7 @@ export function getSeedPublications(): PublicationEntry[] {
 }
 
 export function getSeedPosts(): SitePost[] {
-  return (
-    blogSeed as Array<{
-      _id: string;
-      _type: "post";
-      slug: { current?: string };
-      title?: string;
-      excerpt?: string;
-      body?: ProjectSeed["body"];
-      coverImage?: { url: string; alt: string };
-      publishedAt?: string;
-      category?: SitePost["category"];
-      tags?: string[];
-      seoTitle?: string;
-      seoDescription?: string;
-      featured?: boolean;
-      authorSlug?: string;
-    }>
-  ).map((post) => ({
+  return (blogSeed as SitePostSeed[]).map((post) => ({
     _id: post._id,
     _type: "post",
     slug: post.slug.current ?? "",
@@ -331,14 +294,20 @@ export function getSeedPosts(): SitePost[] {
     seoTitle: post.seoTitle,
     seoDescription: post.seoDescription,
     featured: Boolean(post.featured),
-    author: resolveAuthor(post.authorSlug)
-      ? {
-          _id: `seed-${post.authorSlug}`,
-          slug: post.authorSlug ?? "",
-          name: resolveAuthor(post.authorSlug)?.name ?? "CRASH Lab",
-          shortBio: resolveAuthor(post.authorSlug)?.shortBio ?? ""
-        }
-      : undefined
+    author: (() => {
+      const author = resolveAuthor(post.authorSlug);
+
+      if (!author || !post.authorSlug) {
+        return undefined;
+      }
+
+      return {
+        _id: `seed-${post.authorSlug}`,
+        slug: post.authorSlug,
+        name: author.name,
+        shortBio: author.shortBio
+      };
+    })()
   }));
 }
 
@@ -398,24 +367,21 @@ export async function getPersonBySlug(slug: string): Promise<PersonSeed | null> 
 export async function getTeamProfiles(): Promise<TeamMemberProfile[]> {
   const people = await getPeople();
   const peopleBySlug = new Map(people.map((person) => [person.slug, person]));
-  const usedProfileSlugs = new Set<string>();
+  const usedSlugs = new Set<string>();
 
   const rosterProfiles = getLabMembers().map((member) => {
     const profile = mergeTeamMemberProfile(member, peopleBySlug);
 
-    if (profile.profileSlug) {
-      usedProfileSlugs.add(profile.profileSlug);
-    }
+    usedSlugs.add(profile.slug);
 
     return profile;
   });
 
   const extraProfiles = people
-    .filter((person) => !usedProfileSlugs.has(person.slug))
+    .filter((person) => !usedSlugs.has(person.slug))
     .map<TeamMemberProfile>((person) => ({
       ...person,
       id: person.slug,
-      profileSlug: person.slug,
       photo: resolvePreferredPhoto(person.photo, person.slug, person.name),
       groupId: person.isActive ? "active-profiles" : "archived-profiles",
       groupLabel: person.isActive ? "Active Profiles" : "Archived Profiles"
@@ -435,9 +401,9 @@ export async function getTeamProfiles(): Promise<TeamMemberProfile[]> {
   return [...rosterProfiles, ...extraProfiles];
 }
 
-export async function getTeamProfileById(memberId: string): Promise<TeamMemberProfile | null> {
+export async function getTeamProfileBySlug(slug: string): Promise<TeamMemberProfile | null> {
   const profiles = await getTeamProfiles();
-  return profiles.find((profile) => profile.id === memberId) ?? null;
+  return profiles.find((profile) => profile.slug === slug) ?? null;
 }
 
 export async function getPosts(): Promise<SitePost[]> {

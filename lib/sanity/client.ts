@@ -1,5 +1,6 @@
 import { createClient } from "@sanity/client";
 import * as Sentry from "@sentry/nextjs";
+import type { QueryParams } from "@sanity/client";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
@@ -24,7 +25,7 @@ export const writeClient = process.env.SANITY_API_TOKEN
 
 export async function safeFetch<T>(
   query: string,
-  params?: Record<string, unknown>
+  params?: QueryParams
 ): Promise<T | null> {
   if (!projectId) {
     return null;

@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 
 import { Button, Card } from "@/components/ui";
+import { flattenApiErrorDetails } from "@/lib/utils/api";
+import { coerceFormOption } from "@/lib/utils/forms";
 import type { ApiResponse, JoinFormValues } from "@/types/forms";
 
 interface JoinInterestFormProps {
@@ -43,7 +45,7 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
       portfolioUrl: String(formData.get("portfolioUrl") ?? ""),
       cvUrl: String(formData.get("cvUrl") ?? ""),
       motivation: String(formData.get("motivation") ?? ""),
-      availability: String(formData.get("availability") ?? "exploring") as JoinFormValues["availability"],
+      availability: coerceFormOption(formData.get("availability"), availabilityOptions, "exploring"),
       honeypot: String(formData.get("honeypot") ?? "")
     };
 
@@ -55,9 +57,12 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
       body: JSON.stringify(payload)
     });
 
-    const result = (await response.json()) as ApiResponse<{ referenceId: string }>;
+    const result: ApiResponse<{ referenceId: string }> = await response.json();
     if (!result.success) {
-      setErrors((result.details as Record<string, string>) ?? { form: result.message ?? "Failed." });
+      const fieldErrors = flattenApiErrorDetails(result.details);
+      setErrors(
+        Object.keys(fieldErrors).length ? fieldErrors : { form: result.message ?? "Failed." }
+      );
     } else {
       setSuccessMessage(result.message ?? "Application received.");
       setReferenceId(result.data?.referenceId ?? null);

@@ -5,9 +5,18 @@ import { client, writeClient } from "@/lib/sanity/client";
 import { createEmailTemplate, sendEmail } from "@/lib/resend/client";
 import { joinSchema } from "@/lib/validations/join";
 import { flattenZodErrors, parseRequestBody } from "@/lib/utils/api";
+import {
+  internalErrorResponse,
+  invalidJsonResponse,
+  rateLimitedResponse,
+  sendFailedResponse,
+  submittedResponse,
+  successResponse,
+  validationErrorResponse
+} from "@/lib/utils/apiResponses";
 import { createReferenceId } from "@/lib/utils/referenceId";
 import { getClientIp, isRateLimited } from "@/lib/utils/rateLimit";
-import type { ApiResponse, JoinFormValues } from "@/types/forms";
+import type { JoinFormValues } from "@/types/forms";
 
 async function getNextJoinReferenceId(): Promise<string> {
   const year = new Date().getUTCFullYear();
@@ -59,9 +68,7 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body = await parseRequestBody(req);
     if (!body) {
-      return Response.json({ success: false, error: "INVALID_JSON" } satisfies ApiResponse, {
-        status: 400
-      });
+      return invalidJsonResponse();
     }
 
     const normalizedBody = {
@@ -75,32 +82,16 @@ export async function POST(req: Request): Promise<Response> {
 
     const result = joinSchema.safeParse(normalizedBody);
     if (!result.success) {
-      return Response.json(
-        {
-          success: false,
-          error: "VALIDATION_ERROR",
-          details: flattenZodErrors(result.error)
-        } satisfies ApiResponse,
-        { status: 400 }
-      );
+      return validationErrorResponse(flattenZodErrors(result.error));
     }
 
     if (result.data.honeypot) {
-      return Response.json({ success: true, message: "Submitted." } satisfies ApiResponse, {
-        status: 200
-      });
+      return submittedResponse();
     }
 
     const ip = getClientIp(req);
     if (isRateLimited(`join:${ip}`, 3)) {
-      return Response.json(
-        {
-          success: false,
-          error: "RATE_LIMITED",
-          message: "Too many requests. Please try again later."
-        } satisfies ApiResponse,
-        { status: 429 }
-      );
+      return rateLimitedResponse();
     }
 
     const referenceId = await getNextJoinReferenceId();
@@ -148,14 +139,7 @@ export async function POST(req: Request): Promise<Response> {
     } catch (error) {
       console.error("[API /api/join] send failed", error);
       Sentry.captureException(error);
-      return Response.json(
-        {
-          success: false,
-          error: "SEND_FAILED",
-          message: "Submission failed. Please email us directly."
-        } satisfies ApiResponse,
-        { status: 500 }
-      );
+      return sendFailedResponse();
     }
 
     try {
@@ -165,27 +149,17 @@ export async function POST(req: Request): Promise<Response> {
       Sentry.captureException(error);
     }
 
-    return Response.json(
-      {
-        success: true,
-        message:
-          "Thank you. Dr. Datta's team reviews applications every two weeks. You'll hear from us.",
-        data: {
-          referenceId
-        }
-      } satisfies ApiResponse<{ referenceId: string }>,
-      { status: 200 }
-    );
+    return successResponse({
+      success: true,
+      message:
+        "Thank you. Dr. Datta's team reviews applications every two weeks. You'll hear from us.",
+      data: {
+        referenceId
+      }
+    });
   } catch (error) {
     console.error("[API /api/join]", error);
     Sentry.captureException(error);
-    return Response.json(
-      {
-        success: false,
-        error: "INTERNAL_ERROR",
-        message: "Submission failed. Please email us directly."
-      } satisfies ApiResponse,
-      { status: 500 }
-    );
+    return internalErrorResponse();
   }
 }

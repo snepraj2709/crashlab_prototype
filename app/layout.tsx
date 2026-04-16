@@ -108,10 +108,6 @@ export default function RootLayout({
           enableSystem
           themes={["dark", "light"]}
         >
-          {/* Persistence: next-themes writes to localStorage["theme"].
-              First visit follows the OS color scheme.
-              If that cannot be resolved, the CSS fallback is light.
-              After a user toggle, the explicit choice is persisted. */}
           <JsonLd data={organizationSchema} />
           <JsonLd data={websiteSchema} />
           {children}

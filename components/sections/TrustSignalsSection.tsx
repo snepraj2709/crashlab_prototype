@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import React from "react";
+import Image from "next/image";
 
 import { cn } from "@/lib/utils/cn";
 import type {
@@ -88,8 +88,7 @@ function LogoMarkup({
         tabIndex={tabIndex}
         target="_blank"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           alt={logo.logo.alt}
           className={imageClassName}
           height={logo.logo.height}
@@ -110,8 +109,7 @@ function LogoMarkup({
       key={logo.id}
       role={ariaHidden ? undefined : "img"}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         alt={logo.logo.alt}
         aria-hidden={ariaHidden ? "true" : undefined}
         className={imageClassName}

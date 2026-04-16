@@ -17,7 +17,5 @@ export function isRateLimited(key: string, maxRequests: number): boolean {
   recent.push(now);
   requestStore.set(key, recent);
 
-  // v1 caveat: this in-memory limiter resets on cold starts and should be
-  // replaced with Vercel KV or another shared store in production.
   return recent.length > maxRequests;
 }

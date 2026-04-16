@@ -1,4 +1,4 @@
-import type { ImageAsset, PortableTextBlock } from "@/types/research";
+import type { ImageAsset, PortableTextBlock } from "@/types/content";
 
 export interface SocialLinks {
   twitter?: string;
@@ -31,7 +31,6 @@ export interface PersonSeed {
 
 export interface TeamMemberProfile extends PersonSeed {
   id: string;
-  profileSlug?: string;
   affiliation?: string;
   tenure?: string;
   groupId?: string;
@@ -52,6 +51,15 @@ export interface TeamDirectoryGroup {
   order: number;
 }
 
+export interface LabMemberVisualSeed {
+  id: string;
+  name: string;
+  role: string;
+  initials: string;
+  image: string;
+  isLead: boolean;
+}
+
 export interface TeamDirectoryMember {
   id: string;
   name: string;
@@ -61,6 +69,5 @@ export interface TeamDirectoryMember {
   isActive: boolean;
   position: number;
   projectSlugs: string[];
-  profileSlug?: string;
   highlights?: TeamDirectoryHighlight[];
 }

@@ -3,6 +3,8 @@
 import { useState } from "react";
 
 import { Button, Card } from "@/components/ui";
+import { flattenApiErrorDetails } from "@/lib/utils/api";
+import { coerceFormOption } from "@/lib/utils/forms";
 import type { ApiResponse, PartnerFormValues } from "@/types/forms";
 
 const engagementOptions: PartnerFormValues["engagementType"][] = [
@@ -45,10 +47,10 @@ export function PartnerInterestForm(): React.ReactElement {
       name: String(formData.get("name") ?? ""),
       email: String(formData.get("email") ?? ""),
       company: String(formData.get("company") ?? ""),
-      companySize: String(formData.get("companySize") ?? "startup") as PartnerFormValues["companySize"],
+      companySize: coerceFormOption(formData.get("companySize"), companySizes, "startup"),
       problemDescription: String(formData.get("problemDescription") ?? ""),
-      engagementType: String(formData.get("engagementType") ?? "other") as PartnerFormValues["engagementType"],
-      timeline: String(formData.get("timeline") ?? "exploring") as PartnerFormValues["timeline"],
+      engagementType: coerceFormOption(formData.get("engagementType"), engagementOptions, "other"),
+      timeline: coerceFormOption(formData.get("timeline"), timelines, "exploring"),
       budget: String(formData.get("budget") ?? ""),
       honeypot: String(formData.get("honeypot") ?? "")
     };
@@ -61,9 +63,12 @@ export function PartnerInterestForm(): React.ReactElement {
       body: JSON.stringify(payload)
     });
 
-    const result = (await response.json()) as ApiResponse<{ referenceId: string }>;
+    const result: ApiResponse<{ referenceId: string }> = await response.json();
     if (!result.success) {
-      setErrors((result.details as Record<string, string>) ?? { form: result.message ?? "Failed." });
+      const fieldErrors = flattenApiErrorDetails(result.details);
+      setErrors(
+        Object.keys(fieldErrors).length ? fieldErrors : { form: result.message ?? "Failed." }
+      );
     } else {
       setSuccessMessage(result.message ?? "Inquiry received.");
       setReferenceId(result.data?.referenceId ?? null);

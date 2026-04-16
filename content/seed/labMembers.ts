@@ -1,13 +1,8 @@
-import type { TeamDirectoryGroup, TeamDirectoryMember } from "@/types/team";
-
-export interface LabMemberVisualSeed {
-  id: string;
-  name: string;
-  role: string;
-  initials: string;
-  image: string;
-  isLead: boolean;
-}
+import type {
+  LabMemberVisualSeed,
+  TeamDirectoryGroup,
+  TeamDirectoryMember
+} from "@/types/team";
 
 export const labMemberGroups: TeamDirectoryGroup[] = [
   {
@@ -155,7 +150,6 @@ export const labMembers: TeamDirectoryMember[] = [
   {
     id: "suvrankar-datta",
     name: getTeamMemberName("suvrankar-datta"),
-    profileSlug: "suvrankar-datta",
     tenure: "2025-Present",
     affiliation: "Group Lead @ Ashoka University",
     groupId: "leadership-core",

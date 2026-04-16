@@ -77,7 +77,7 @@ export default async function NewsPostPage({
             "@type": "Organization",
             name: "CRASH Lab, Ashoka University"
           },
-          datePublished: post.publishedAt,
+          ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
           url: pageUrl
         }}
       />

@@ -3,47 +3,37 @@ import * as Sentry from "@sentry/nextjs";
 import { createEmailTemplate, sendEmail } from "@/lib/resend/client";
 import { partnerSchema } from "@/lib/validations/partner";
 import { flattenZodErrors, parseRequestBody } from "@/lib/utils/api";
+import {
+  internalErrorResponse,
+  invalidJsonResponse,
+  rateLimitedResponse,
+  sendFailedResponse,
+  submittedResponse,
+  validationErrorResponse,
+  successResponse
+} from "@/lib/utils/apiResponses";
 import { createReferenceId } from "@/lib/utils/referenceId";
 import { getClientIp, isRateLimited } from "@/lib/utils/rateLimit";
-import type { ApiResponse } from "@/types/forms";
 
 export async function POST(req: Request): Promise<Response> {
   try {
     const body = await parseRequestBody(req);
     if (!body) {
-      return Response.json({ success: false, error: "INVALID_JSON" } satisfies ApiResponse, {
-        status: 400
-      });
+      return invalidJsonResponse();
     }
 
     const result = partnerSchema.safeParse(body);
     if (!result.success) {
-      return Response.json(
-        {
-          success: false,
-          error: "VALIDATION_ERROR",
-          details: flattenZodErrors(result.error)
-        } satisfies ApiResponse,
-        { status: 400 }
-      );
+      return validationErrorResponse(flattenZodErrors(result.error));
     }
 
     if (result.data.honeypot) {
-      return Response.json({ success: true, message: "Submitted." } satisfies ApiResponse, {
-        status: 200
-      });
+      return submittedResponse();
     }
 
     const ip = getClientIp(req);
     if (isRateLimited(`partner:${ip}`, 3)) {
-      return Response.json(
-        {
-          success: false,
-          error: "RATE_LIMITED",
-          message: "Too many requests. Please try again later."
-        } satisfies ApiResponse,
-        { status: 429 }
-      );
+      return rateLimitedResponse();
     }
 
     const referenceId = createReferenceId("CP");
@@ -72,34 +62,17 @@ export async function POST(req: Request): Promise<Response> {
     } catch (error) {
       console.error("[API /api/partner] send failed", error);
       Sentry.captureException(error);
-      return Response.json(
-        {
-          success: false,
-          error: "SEND_FAILED",
-          message: "Submission failed. Please email us directly."
-        } satisfies ApiResponse,
-        { status: 500 }
-      );
+      return sendFailedResponse();
     }
 
-    return Response.json(
-      {
-        success: true,
-        message: "A CRASH Lab team member will reach out within 5 business days.",
-        data: { referenceId }
-      } satisfies ApiResponse<{ referenceId: string }>,
-      { status: 200 }
-    );
+    return successResponse({
+      success: true,
+      message: "A CRASH Lab team member will reach out within 5 business days.",
+      data: { referenceId }
+    });
   } catch (error) {
     console.error("[API /api/partner]", error);
     Sentry.captureException(error);
-    return Response.json(
-      {
-        success: false,
-        error: "INTERNAL_ERROR",
-        message: "Submission failed. Please email us directly."
-      } satisfies ApiResponse,
-      { status: 500 }
-    );
+    return internalErrorResponse();
   }
 }

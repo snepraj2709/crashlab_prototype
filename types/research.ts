@@ -1,3 +1,5 @@
+import type { ImageAsset, PortableTextBlock } from "@/types/content";
+
 export type ProjectStatus =
   | "active"
   | "published"
@@ -10,27 +12,10 @@ export type ProjectMetricType = "human" | "ai" | "gap";
 
 export type PaperStatus = "preprint" | "coming-soon" | "published";
 
-export interface PortableTextSpan {
-  _type: "span";
-  text: string;
-}
-
-export interface PortableTextBlock {
-  _key: string;
-  _type: "block";
-  style?: "normal" | "h2" | "h3" | "blockquote";
-  children: PortableTextSpan[];
-}
-
 export interface ProjectMetric {
   label: string;
   value: string;
   type: ProjectMetricType;
-}
-
-export interface ImageAsset {
-  url: string;
-  alt: string;
 }
 
 export interface ProjectSeed {

@@ -3,6 +3,8 @@
 import { useState } from "react";
 
 import { Button, Card, SectionLabel } from "@/components/ui";
+import { flattenApiErrorDetails } from "@/lib/utils/api";
+import { coerceFormOption } from "@/lib/utils/forms";
 import type { ApiResponse, AudienceType, ContactFormValues } from "@/types/forms";
 
 interface ContactFormSectionProps {
@@ -33,7 +35,7 @@ export function ContactFormSection({
       name: String(formData.get("name") ?? ""),
       email: String(formData.get("email") ?? ""),
       organization: String(formData.get("organization") ?? ""),
-      audienceType: String(formData.get("audienceType") ?? audienceType) as AudienceType,
+      audienceType: coerceFormOption(formData.get("audienceType"), audienceOptions, audienceType),
       message: String(formData.get("message") ?? ""),
       honeypot: String(formData.get("honeypot") ?? "")
     };
@@ -45,10 +47,13 @@ export function ContactFormSection({
       },
       body: JSON.stringify(payload)
     });
-    const result = (await response.json()) as ApiResponse;
+    const result: ApiResponse = await response.json();
 
     if (!result.success) {
-      setErrors((result.details as Record<string, string>) ?? { form: result.message ?? "Failed." });
+      const fieldErrors = flattenApiErrorDetails(result.details);
+      setErrors(
+        Object.keys(fieldErrors).length ? fieldErrors : { form: result.message ?? "Failed." }
+      );
     } else {
       setSubmitted(result.message ?? "We'll be in touch soon.");
       event.currentTarget.reset();

@@ -1,11 +1,48 @@
 import * as Sentry from "@sentry/nextjs";
 import { revalidatePath } from "next/cache";
 
-import type { ApiResponse } from "@/types/forms";
+import {
+  internalErrorResponse,
+  invalidJsonResponse,
+  invalidPayloadResponse,
+  successResponse,
+  unauthorizedResponse
+} from "@/lib/utils/apiResponses";
 
 interface RevalidatePayload {
   _type: "research" | "person" | "post";
   slug?: { current: string };
+}
+
+function getRevalidateSlug(value: object): { current?: string } | undefined {
+  const current = Reflect.get(value, "current");
+  if (current === undefined || typeof current === "string") {
+    return { current };
+  }
+
+  return undefined;
+}
+
+function isRevalidatePayload(body: unknown): body is RevalidatePayload {
+  if (typeof body !== "object" || body === null) {
+    return false;
+  }
+
+  const type = Reflect.get(body, "_type");
+  if (type !== "research" && type !== "person" && type !== "post") {
+    return false;
+  }
+
+  const slug = Reflect.get(body, "slug");
+  if (slug === undefined) {
+    return true;
+  }
+
+  if (typeof slug !== "object" || slug === null) {
+    return false;
+  }
+
+  return getRevalidateSlug(slug) !== undefined;
 }
 
 export async function POST(req: Request): Promise<Response> {
@@ -14,21 +51,16 @@ export async function POST(req: Request): Promise<Response> {
     const secret = process.env.SANITY_REVALIDATE_SECRET;
 
     if (!secret || authHeader !== `Bearer ${secret}`) {
-      return Response.json(
-        {
-          success: false,
-          error: "UNAUTHORIZED",
-          message: "Unauthorized."
-        } satisfies ApiResponse,
-        { status: 401 }
-      );
+      return unauthorizedResponse();
     }
 
-    const body = (await req.json().catch(() => null)) as RevalidatePayload | null;
-    if (!body) {
-      return Response.json({ success: false, error: "INVALID_JSON" } satisfies ApiResponse, {
-        status: 400
-      });
+    const body: unknown = await req.json().catch(() => null);
+    if (body === null) {
+      return invalidJsonResponse();
+    }
+
+    if (!isRevalidatePayload(body)) {
+      return invalidPayloadResponse();
     }
 
     switch (body._type) {
@@ -56,23 +88,10 @@ export async function POST(req: Request): Promise<Response> {
         break;
     }
 
-    return Response.json(
-      {
-        success: true,
-        message: "Revalidation triggered."
-      } satisfies ApiResponse,
-      { status: 200 }
-    );
+    return successResponse({ success: true, message: "Revalidation triggered." });
   } catch (error) {
     console.error("[API /api/revalidate]", error);
     Sentry.captureException(error);
-    return Response.json(
-      {
-        success: false,
-        error: "INTERNAL_ERROR",
-        message: "Revalidation failed."
-      } satisfies ApiResponse,
-      { status: 500 }
-    );
+    return internalErrorResponse("Revalidation failed.");
   }
 }
