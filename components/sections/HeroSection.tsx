@@ -1,85 +1,48 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
-import { Button, ProofChip, SectionLabel } from "@/components/ui";
-
-const proofChips = [
-  {
-    label: "RadLE Benchmark — RSNA 2025 Cutting Edge",
-    variant: "filled" as const,
-  },
-  { label: "RSNA Trainee Research Prize 2023", variant: "outline" as const },
-  { label: "15 Papers — Founded April 2025", variant: "outline" as const },
-  { label: "Harvard × AIIMS × Ashoka", variant: "outline" as const },
-];
+import { Button } from "@/components/ui";
 
 export function HeroSection(): React.ReactElement {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-bg-primary">
-      <div className="pointer-events-none absolute inset-0 bg-hero-grid" />
+    <section
+      id="top"
+      className="relative overflow-hidden bg-bg-primary pb-24 pt-36"
+    >
       <div
-        aria-hidden="true"
-        className="hero-mesh pointer-events-none absolute inset-0"
-        style={{ opacity: "var(--mesh-opacity)" }}
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          opacity: 0.05,
+          backgroundImage:
+            "radial-gradient(circle at 18% 28%, rgba(35,76,106,.6) 0, transparent 22%), radial-gradient(circle at 86% 18%, rgba(234,88,12,.5) 0, transparent 16%), radial-gradient(circle at 55% 78%, rgba(35,76,106,.4) 0, transparent 20%)",
+        }}
       />
 
-      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-14 px-6 pb-20 pt-32 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
-        <div>
-          <SectionLabel number="01" text="CRASH LAB — ASHOKA UNIVERSITY" />
-          <h1 className="mt-6 font-display text-6xl leading-[0.92] text-text-primary lg:text-7xl">
-            Responsible AI,
-            <br />
-            built for Healthcare.
-          </h1>
-          <p className="mt-8 max-w-2xl text-base leading-8 text-text-secondary lg:text-lg">
-            CRASH Lab is an interdisciplinary research group at the intersection
-            of clinical practice and frontier AI — building benchmarks that hold
-            AI accountable, tools clinicians trust, and infrastructure for
-            India&apos;s healthcare future.
-          </p>
+      <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
+        <h1 className="font-display font-semibold leading-[0.92] tracking-[-0.035em] text-text-primary text-[clamp(2.75rem,7vw,4.75rem)]">
+          Responsible AI,
+          <br />
+          built for Healthcare.
+        </h1>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            {proofChips.map((chip, index) => (
-              <motion.div
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 10 }}
-                key={chip.label}
-                transition={{ delay: 0.2 + index * 0.1, duration: 0.4 }}
-              >
-                <ProofChip label={chip.label} variant={chip.variant} />
-              </motion.div>
-            ))}
-          </div>
+        <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-text-secondary lg:text-lg">
+          CRASH Lab is an interdisciplinary research group at the intersection
+          of clinical practice and frontier AI — building benchmarks that hold
+          AI accountable, tools clinicians trust, and infrastructure for
+          India&apos;s healthcare future.
+        </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Button href="/join" size="lg">
-              Explore Open Projects <ArrowRight className="size-4" />
-            </Button>
-            <Button href="/people" size="lg" variant="outline">
-              Meet the Team
-            </Button>
-          </div>
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <Button href="/join" size="lg">
+            Join the Team <ArrowRight className="size-4" />
+          </Button>
+          <Button href="/collaborate" size="lg" variant="outline">
+            Collaborate with Us
+          </Button>
         </div>
-
-        <motion.div
-          animate={{ opacity: 1, y: 0 }}
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <div className="overflow-hidden rounded-token-md border border-border-default bg-surface-panel shadow-panel">
-            <Image
-              alt="RadLE benchmark comparison visualization"
-              className="h-auto w-full object-cover"
-              height={1358}
-              priority
-              src="/radle-image.png"
-              width={2000}
-            />
-          </div>
-        </motion.div>
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
