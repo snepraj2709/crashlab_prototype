@@ -26,14 +26,14 @@ export default async function HomePage(): Promise<React.ReactElement> {
       <SectionErrorBoundary fallbackTitle="Problem strip unavailable">
         <ProblemStrip />
       </SectionErrorBoundary>
+      <SectionErrorBoundary fallbackTitle="Capabilities unavailable">
+        <CapabilitiesSection />
+      </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="RadLE benchmark unavailable">
         <RadLESection />
       </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="Proof of work unavailable">
         <ProofSection />
-      </SectionErrorBoundary>
-      <SectionErrorBoundary fallbackTitle="Capabilities unavailable">
-        <CapabilitiesSection />
       </SectionErrorBoundary>
       <SectionErrorBoundary fallbackTitle="Collaborate unavailable">
         <CollaborateSection />

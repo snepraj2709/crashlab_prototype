@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
-import { TimelineSection } from "@/components/sections";
+import { PillarsSection, TimelineSection } from "@/components/sections";
 import { MetricTile, SectionLabel } from "@/components/ui";
 import { aboutContent } from "@/lib/content/about";
 
@@ -21,7 +21,7 @@ const impactMetrics = [
 ];
 
 export default function AboutPage(): React.ReactElement {
-  const { hero, origin, mission, vision, pillars, cta } = aboutContent;
+  const { hero, origin, mission, vision, cta } = aboutContent;
 
   return (
     <div className="pt-32">
@@ -77,26 +77,10 @@ export default function AboutPage(): React.ReactElement {
         </div>
       </section>
 
-      {/* Research Pillars */}
-      <section className="py-8 lg:py-16">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel number="04" text="Research Pillars" />
-          <h2 className="mt-6 font-display text-4xl text-text-primary">
-            Four pillars. One thesis.
-          </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {pillars.map((pillar) => (
-              <div
-                className="rounded-token-md border border-border bg-bg-surface p-6"
-                key={pillar.label}
-              >
-                <p className="font-display text-2xl text-text-primary">{pillar.label}</p>
-                <p className="mt-4 text-text-secondary">{pillar.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PillarsSection
+        id="research-pillars"
+        variant="interactive"
+      />
 
       {/* Impact Numbers */}
       <section className="py-8 lg:py-16">

@@ -68,7 +68,7 @@ export function CollaborateSection(): React.ReactElement {
                 href="mailto:suvrankar.datta@ashoka.edu.in"
                 className="inline-flex h-[52px] items-center gap-2 rounded-full border border-white/28 bg-transparent px-6 text-[15px] font-medium text-white transition-colors hover:border-white/50"
               >
-                Email the lab
+                Collaborate with the lab
               </a>
             </div>
           </div>

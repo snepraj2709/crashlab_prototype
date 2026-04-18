@@ -13,6 +13,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        navy: {
+          800: "#111d33",
+          900: "#0c1527"
+        },
+        steel: {
+          50: "#f3f7fb",
+          100: "#e2ebf3",
+          200: "#c0cfde",
+          300: "#a8b9ca",
+          400: "#7f97ae",
+          500: "#61758f",
+          600: "#4a5f77",
+          700: "#33465d"
+        },
+        brand: {
+          blue: "#2f5f8d"
+        },
         bg: {
           primary: "var(--color-bg-primary)",
           surface: "var(--color-bg-surface)",
