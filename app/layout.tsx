@@ -71,15 +71,42 @@ export const metadata: Metadata = {
 
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "CRASH Lab, Ashoka University",
+  "@type": "ResearchOrganization",
+  name: "CRASH Lab",
   alternateName: "Centre for Responsible Autonomous Systems in Healthcare",
   url: "https://crashlab.in",
-  logo: "https://crashlab.in/og/default.svg",
-  email: "suvrankar.datta@ashoka.edu.in",
+  logo: "https://crashlab.in/logo.svg",
+  description:
+    "Interdisciplinary research lab at Ashoka University building benchmarks and evaluation infrastructure for responsible healthcare AI, with a focus on radiology and Indian clinical settings.",
+  foundingDate: "2025-04",
   parentOrganization: {
-    "@type": "CollegeOrUniversity",
-    name: "Ashoka University"
+    "@type": "EducationalOrganization",
+    name: "Ashoka University",
+    url: "https://ashoka.edu.in"
+  },
+  member: {
+    "@type": "Person",
+    name: "Dr. Suvrankar Datta",
+    jobTitle: "Group Lead",
+    url: "https://crashlab.in/people/suvrankar-datta"
+  },
+  knowsAbout: [
+    "Radiology AI",
+    "Healthcare AI Benchmarks",
+    "Clinical AI Validation",
+    "Medical Imaging AI",
+    "Responsible AI in Healthcare",
+    "AI Governance in Medicine"
+  ],
+  location: {
+    "@type": "Place",
+    name: "Koita Centre for Digital Health, Ashoka University",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Sonipat",
+      addressRegion: "Haryana",
+      addressCountry: "IN"
+    }
   }
 };
 
@@ -101,6 +128,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+        <JsonLd data={organizationSchema} />
         <ThemeProvider
           attribute="data-theme"
           defaultTheme="system"
@@ -108,7 +136,6 @@ export default function RootLayout({
           enableSystem
           themes={["dark", "light"]}
         >
-          <JsonLd data={organizationSchema} />
           <JsonLd data={websiteSchema} />
           {children}
           <CustomCursor />

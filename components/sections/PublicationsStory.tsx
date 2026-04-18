@@ -23,10 +23,16 @@ interface PublicationsStoryProps {
 }
 
 export function PublicationsStory({ publications }: PublicationsStoryProps): React.ReactElement {
-  const grouped = TYPE_ORDER.reduce<Record<string, PublicationEntry[]>>((acc, type) => {
-    acc[type] = publications.filter((p) => p.type === type);
-    return acc;
-  }, {});
+  const grouped: Record<PublicationEntry["type"], PublicationEntry[]> = {
+    benchmark: [],
+    paper: [],
+    abstract: [],
+    talk: []
+  };
+
+  publications.forEach((publication) => {
+    grouped[publication.type].push(publication);
+  });
 
   return (
     <div className="space-y-20">
