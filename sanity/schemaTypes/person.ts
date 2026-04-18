@@ -49,7 +49,19 @@ export default defineType({
     defineField({ name: "isPrincipalInvestigator", type: "boolean" }),
     defineField({ name: "isActive", type: "boolean" }),
     defineField({ name: "joinedAt", type: "date" }),
-    defineField({ name: "position", type: "number" })
+    defineField({ name: "position", type: "number" }),
+    defineField({
+      name: "alumniYear",
+      title: "Alumni year",
+      type: "number",
+      description: "Year this person left the lab. Only fill in when isActive is false."
+    }),
+    defineField({
+      name: "currentInstitution",
+      title: "Current institution",
+      type: "string",
+      description: "Where this person is now. Only fill in when isActive is false."
+    })
   ],
   preview: {
     select: {

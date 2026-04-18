@@ -632,7 +632,7 @@ export type ProjectBySlugQueryResult = {
   }> | null;
 } | null;
 // Variable: allPeopleQuery
-// Query: *[_type == "person" && isActive == true] | order(isPrincipalInvestigator desc, position asc, name asc) {   _id,  _type,  slug,  name,  role,  title,  photo,  shortBio,  fullBio,  email,  credentials,  researchFocus,  socialLinks,  isPrincipalInvestigator,  isActive,  joinedAt,  position }
+// Query: *[_type == "person"] | order(isActive desc, isPrincipalInvestigator desc, position asc, name asc) {   _id,  _type,  slug,  name,  role,  title,  photo,  shortBio,  fullBio,  email,  credentials,  researchFocus,  socialLinks,  isPrincipalInvestigator,  isActive,  joinedAt,  position,  alumniYear,  currentInstitution }
 export type AllPeopleQueryResult = Array<{
   _id: string;
   _type: "person";
@@ -682,12 +682,14 @@ export type AllPeopleQueryResult = Array<{
     researchgate?: string;
   } | null;
   isPrincipalInvestigator: boolean | null;
-  isActive: true;
+  isActive: boolean | null;
   joinedAt: string | null;
   position: number | null;
+  alumniYear: null;
+  currentInstitution: null;
 }>;
 // Variable: personBySlugQuery
-// Query: *[_type == "person" && slug.current == $slug][0] {   _id,  _type,  slug,  name,  role,  title,  photo,  shortBio,  fullBio,  email,  credentials,  researchFocus,  socialLinks,  isPrincipalInvestigator,  isActive,  joinedAt,  position }
+// Query: *[_type == "person" && slug.current == $slug][0] {    _id,  _type,  slug,  name,  role,  title,  photo,  shortBio,  fullBio,  email,  credentials,  researchFocus,  socialLinks,  isPrincipalInvestigator,  isActive,  joinedAt,  position,  alumniYear,  currentInstitution,  "authoredPosts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {    _id,    "slug": slug.current,    title,    excerpt,    publishedAt,    category,    postType  }[0..4]}
 export type PersonBySlugQueryResult = {
   _id: string;
   _type: "person";
@@ -740,9 +742,26 @@ export type PersonBySlugQueryResult = {
   isActive: boolean | null;
   joinedAt: string | null;
   position: number | null;
+  alumniYear: null;
+  currentInstitution: null;
+  authoredPosts: Array<{
+    _id: string;
+    slug: string | null;
+    title: string | null;
+    excerpt: string | null;
+    publishedAt: string | null;
+    category:
+      | "benchmark-update"
+      | "industry-insight"
+      | "lab-news"
+      | "policy"
+      | "research-paper"
+      | null;
+    postType: null;
+  }>;
 } | null;
 // Variable: allPostsQuery
-// Query: *[_type == "post"] | order(featured desc, publishedAt desc) {   _id,  _type,  slug,  title,  excerpt,  body,  coverImage,  publishedAt,  category,  tags,  seoTitle,  seoDescription,  featured,  author->{    _id,    _type,    slug,    name,    role,    title,    photo,    shortBio,    credentials,    researchFocus,    socialLinks,    isPrincipalInvestigator,    isActive,    joinedAt,    position  } }
+// Query: *[_type == "post"] | order(featured desc, publishedAt desc) {   _id,  _type,  slug,  title,  excerpt,  body,  coverImage,  publishedAt,  category,  tags,  seoTitle,  seoDescription,  featured,  author->{    _id,    _type,    slug,    name,    role,    title,    photo,    shortBio,    credentials,    researchFocus,    socialLinks,    isPrincipalInvestigator,    isActive,    joinedAt,    position  }, postType }
 export type AllPostsQueryResult = Array<{
   _id: string;
   _type: "post";
@@ -851,9 +870,125 @@ export type AllPostsQueryResult = Array<{
     joinedAt: string | null;
     position: number | null;
   } | null;
+  postType: null;
 }>;
+// Variable: newsPostsQuery
+// Query: *[_type == "post" && (postType == "news" || !defined(postType))] | order(featured desc, publishedAt desc) {   _id,  _type,  slug,  title,  excerpt,  body,  coverImage,  publishedAt,  category,  tags,  seoTitle,  seoDescription,  featured,  author->{    _id,    _type,    slug,    name,    role,    title,    photo,    shortBio,    credentials,    researchFocus,    socialLinks,    isPrincipalInvestigator,    isActive,    joinedAt,    position  }, postType }
+export type NewsPostsQueryResult = Array<{
+  _id: string;
+  _type: "post";
+  slug: Slug | null;
+  title: string | null;
+  excerpt: string | null;
+  body: Array<
+    | ({
+        _key: string;
+      } & Code)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          | "blockquote"
+          | "h1"
+          | "h2"
+          | "h3"
+          | "h4"
+          | "h5"
+          | "h6"
+          | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+  coverImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  publishedAt: string | null;
+  category:
+    | "benchmark-update"
+    | "industry-insight"
+    | "lab-news"
+    | "policy"
+    | "research-paper"
+    | null;
+  tags: Array<string> | null;
+  seoTitle: string | null;
+  seoDescription: string | null;
+  featured: boolean | null;
+  author: {
+    _id: string;
+    _type: "person";
+    slug: Slug | null;
+    name: string | null;
+    role: string | null;
+    title: string | null;
+    photo: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    shortBio: string | null;
+    credentials: Array<string> | null;
+    researchFocus: Array<string> | null;
+    socialLinks: {
+      twitter?: string;
+      googleScholar?: string;
+      linkedin?: string;
+      personalWebsite?: string;
+      researchgate?: string;
+    } | null;
+    isPrincipalInvestigator: boolean | null;
+    isActive: boolean | null;
+    joinedAt: string | null;
+    position: number | null;
+  } | null;
+  postType: null;
+}>;
+// Variable: blogPostsQuery
+// Query: *[_type == "post" && postType == "blog"] | order(featured desc, publishedAt desc) {   _id,  _type,  slug,  title,  excerpt,  body,  coverImage,  publishedAt,  category,  tags,  seoTitle,  seoDescription,  featured,  author->{    _id,    _type,    slug,    name,    role,    title,    photo,    shortBio,    credentials,    researchFocus,    socialLinks,    isPrincipalInvestigator,    isActive,    joinedAt,    position  }, postType }
+export type BlogPostsQueryResult = Array<never>;
 // Variable: postBySlugQuery
-// Query: *[_type == "post" && slug.current == $slug][0] {   _id,  _type,  slug,  title,  excerpt,  body,  coverImage,  publishedAt,  category,  tags,  seoTitle,  seoDescription,  featured,  author->{    _id,    _type,    slug,    name,    role,    title,    photo,    shortBio,    credentials,    researchFocus,    socialLinks,    isPrincipalInvestigator,    isActive,    joinedAt,    position  } }
+// Query: *[_type == "post" && slug.current == $slug][0] {   _id,  _type,  slug,  title,  excerpt,  body,  coverImage,  publishedAt,  category,  tags,  seoTitle,  seoDescription,  featured,  author->{    _id,    _type,    slug,    name,    role,    title,    photo,    shortBio,    credentials,    researchFocus,    socialLinks,    isPrincipalInvestigator,    isActive,    joinedAt,    position  }, postType }
 export type PostBySlugQueryResult = {
   _id: string;
   _type: "post";
@@ -962,7 +1097,14 @@ export type PostBySlugQueryResult = {
     joinedAt: string | null;
     position: number | null;
   } | null;
+  postType: null;
 } | null;
+// Variable: activeAnnouncementQuery
+// Query: *[_type == "announcement" && isActive == true] | order(_createdAt desc)[0] { _id, message, ctaText, ctaUrl, type }
+export type ActiveAnnouncementQueryResult = null;
+// Variable: allEventsQuery
+// Query: *[_type == "event"] | order(date asc) { _id, title, date, location, description, eventUrl, type }
+export type AllEventsQueryResult = Array<never>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -970,9 +1112,13 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "research"] | order(featured desc, publishedAt desc, title asc) { \n  _id,\n  _type,\n  slug,\n  title,\n  problemStatement,\n  summary,\n  body,\n  status,\n  venue,\n  publishedAt,\n  paperUrl,\n  heroImage,\n  tags,\n  audience,\n  featured,\n  seekingCollaborators,\n  metrics,\n  lead->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  },\n  team[]->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n }': AllProjectsQueryResult;
     '*[_type == "research" && slug.current == $slug][0] { \n  _id,\n  _type,\n  slug,\n  title,\n  problemStatement,\n  summary,\n  body,\n  status,\n  venue,\n  publishedAt,\n  paperUrl,\n  heroImage,\n  tags,\n  audience,\n  featured,\n  seekingCollaborators,\n  metrics,\n  lead->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  },\n  team[]->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n }': ProjectBySlugQueryResult;
-    '*[_type == "person" && isActive == true] | order(isPrincipalInvestigator desc, position asc, name asc) { \n  _id,\n  _type,\n  slug,\n  name,\n  role,\n  title,\n  photo,\n  shortBio,\n  fullBio,\n  email,\n  credentials,\n  researchFocus,\n  socialLinks,\n  isPrincipalInvestigator,\n  isActive,\n  joinedAt,\n  position\n }': AllPeopleQueryResult;
-    '*[_type == "person" && slug.current == $slug][0] { \n  _id,\n  _type,\n  slug,\n  name,\n  role,\n  title,\n  photo,\n  shortBio,\n  fullBio,\n  email,\n  credentials,\n  researchFocus,\n  socialLinks,\n  isPrincipalInvestigator,\n  isActive,\n  joinedAt,\n  position\n }': PersonBySlugQueryResult;
-    '*[_type == "post"] | order(featured desc, publishedAt desc) { \n  _id,\n  _type,\n  slug,\n  title,\n  excerpt,\n  body,\n  coverImage,\n  publishedAt,\n  category,\n  tags,\n  seoTitle,\n  seoDescription,\n  featured,\n  author->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n }': AllPostsQueryResult;
-    '*[_type == "post" && slug.current == $slug][0] { \n  _id,\n  _type,\n  slug,\n  title,\n  excerpt,\n  body,\n  coverImage,\n  publishedAt,\n  category,\n  tags,\n  seoTitle,\n  seoDescription,\n  featured,\n  author->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n }': PostBySlugQueryResult;
+    '*[_type == "person"] | order(isActive desc, isPrincipalInvestigator desc, position asc, name asc) { \n  _id,\n  _type,\n  slug,\n  name,\n  role,\n  title,\n  photo,\n  shortBio,\n  fullBio,\n  email,\n  credentials,\n  researchFocus,\n  socialLinks,\n  isPrincipalInvestigator,\n  isActive,\n  joinedAt,\n  position,\n  alumniYear,\n  currentInstitution\n }': AllPeopleQueryResult;
+    '*[_type == "person" && slug.current == $slug][0] {\n  \n  _id,\n  _type,\n  slug,\n  name,\n  role,\n  title,\n  photo,\n  shortBio,\n  fullBio,\n  email,\n  credentials,\n  researchFocus,\n  socialLinks,\n  isPrincipalInvestigator,\n  isActive,\n  joinedAt,\n  position,\n  alumniYear,\n  currentInstitution\n,\n  "authoredPosts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {\n    _id,\n    "slug": slug.current,\n    title,\n    excerpt,\n    publishedAt,\n    category,\n    postType\n  }[0..4]\n}': PersonBySlugQueryResult;
+    '*[_type == "post"] | order(featured desc, publishedAt desc) { \n  _id,\n  _type,\n  slug,\n  title,\n  excerpt,\n  body,\n  coverImage,\n  publishedAt,\n  category,\n  tags,\n  seoTitle,\n  seoDescription,\n  featured,\n  author->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n, postType }': AllPostsQueryResult;
+    '*[_type == "post" && (postType == "news" || !defined(postType))] | order(featured desc, publishedAt desc) { \n  _id,\n  _type,\n  slug,\n  title,\n  excerpt,\n  body,\n  coverImage,\n  publishedAt,\n  category,\n  tags,\n  seoTitle,\n  seoDescription,\n  featured,\n  author->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n, postType }': NewsPostsQueryResult;
+    '*[_type == "post" && postType == "blog"] | order(featured desc, publishedAt desc) { \n  _id,\n  _type,\n  slug,\n  title,\n  excerpt,\n  body,\n  coverImage,\n  publishedAt,\n  category,\n  tags,\n  seoTitle,\n  seoDescription,\n  featured,\n  author->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n, postType }': BlogPostsQueryResult;
+    '*[_type == "post" && slug.current == $slug][0] { \n  _id,\n  _type,\n  slug,\n  title,\n  excerpt,\n  body,\n  coverImage,\n  publishedAt,\n  category,\n  tags,\n  seoTitle,\n  seoDescription,\n  featured,\n  author->{\n    _id,\n    _type,\n    slug,\n    name,\n    role,\n    title,\n    photo,\n    shortBio,\n    credentials,\n    researchFocus,\n    socialLinks,\n    isPrincipalInvestigator,\n    isActive,\n    joinedAt,\n    position\n  }\n, postType }': PostBySlugQueryResult;
+    '*[_type == "announcement" && isActive == true] | order(_createdAt desc)[0] { _id, message, ctaText, ctaUrl, type }': ActiveAnnouncementQueryResult;
+    '*[_type == "event"] | order(date asc) { _id, title, date, location, description, eventUrl, type }': AllEventsQueryResult;
   }
 }

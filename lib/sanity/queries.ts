@@ -71,7 +71,9 @@ export const personFields = `
   isPrincipalInvestigator,
   isActive,
   joinedAt,
-  position
+  position,
+  alumniYear,
+  currentInstitution
 `;
 
 export const postFields = `
@@ -110,7 +112,18 @@ export const postFields = `
 export const allProjectsQuery = groq`*[_type == "research"] | order(featured desc, publishedAt desc, title asc) { ${projectFields} }`;
 export const projectBySlugQuery = groq`*[_type == "research" && slug.current == $slug][0] { ${projectFields} }`;
 export const allPeopleQuery = groq`*[_type == "person"] | order(isActive desc, isPrincipalInvestigator desc, position asc, name asc) { ${personFields} }`;
-export const personBySlugQuery = groq`*[_type == "person" && slug.current == $slug][0] { ${personFields} }`;
+export const personBySlugQuery = groq`*[_type == "person" && slug.current == $slug][0] {
+  ${personFields},
+  "authoredPosts": *[_type == "post" && references(^._id)] | order(publishedAt desc) {
+    _id,
+    "slug": slug.current,
+    title,
+    excerpt,
+    publishedAt,
+    category,
+    postType
+  }[0..4]
+}`;
 export const allPostsQuery = groq`*[_type == "post"] | order(featured desc, publishedAt desc) { ${postFields}, postType }`;
 export const newsPostsQuery = groq`*[_type == "post" && (postType == "news" || !defined(postType))] | order(featured desc, publishedAt desc) { ${postFields}, postType }`;
 export const blogPostsQuery = groq`*[_type == "post" && postType == "blog"] | order(featured desc, publishedAt desc) { ${postFields}, postType }`;
