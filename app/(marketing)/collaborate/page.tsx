@@ -1,8 +1,14 @@
 import { Building2, DatabaseZap, FileSearch } from "lucide-react";
+import type { Metadata } from "next";
 
-import { PartnerInterestForm } from "@/components/sections";
+import { ContactPageForm, PartnerInterestForm } from "@/components/sections";
 import { SectionLabel } from "@/components/ui";
-import { getTrustSection } from "@/lib/content/site";
+
+export const metadata: Metadata = {
+  title: "Collaborate & Contact — CRASH Lab",
+  description:
+    "Partner with CRASH Lab on clinical AI evaluation, joint grants, or commissioned studies. Get in touch with the lab directly."
+};
 
 const models = [
   {
@@ -23,52 +29,73 @@ const models = [
 ];
 
 export default function CollaboratePage(): React.ReactElement {
-  const trustSection = getTrustSection();
-
   return (
     <div className="pt-32">
+      {/* Partner collaboration */}
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="01" text="Collaborate" />
-        <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
-          Your AI needs to work in real clinical settings. Ours already does.
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg text-text-secondary">
-          CRASH Lab partners with healthcare companies, institutions, and funders that need
-          clinically credible evaluation and India-specific deployment research.
-        </p>
+          <SectionLabel number="01" text="Collaborate" />
+          <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
+            Your AI needs to work in real clinical settings. Ours already does.
+          </h1>
+          <p className="mt-6 max-w-3xl text-lg text-text-secondary">
+            CRASH Lab partners with healthcare companies, institutions, and funders that need
+            clinically credible evaluation and India-specific deployment research.
+          </p>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-3">
-          {models.map((model) => (
-            <div className="rounded-token-md border border-border bg-bg-surface p-8" key={model.title}>
-              <model.icon className="size-10 text-accent-cyan" />
-              <h2 className="mt-8 text-3xl font-semibold text-text-primary">{model.title}</h2>
-              <p className="mt-4 text-text-secondary">{model.body}</p>
-            </div>
-          ))}
+          <div className="mt-16 grid gap-6 lg:grid-cols-3">
+            {models.map((model) => (
+              <div className="rounded-token-md border border-border bg-bg-surface p-8" key={model.title}>
+                <model.icon className="size-10 text-accent-cyan" />
+                <h2 className="mt-8 text-3xl font-semibold text-text-primary">{model.title}</h2>
+                <p className="mt-4 text-text-secondary">{model.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_1.1fr]">
-          <div className="rounded-token-md p-8">
-            <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">Why collaborate with us</h1>
-            <div className="mt-6 space-y-5 text-text-secondary">
+      {/* Divider */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <hr className="border-border-default" />
+      </div>
+
+      {/* General Contact */}
+      <section className="py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-16">
+            <div className="max-w-2xl pt-2">
+              <SectionLabel number="02" text="Contact" />
+              <h2 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
+                Get Involved
+              </h2>
               <p className="mt-6 text-xl leading-9 text-text-secondary">
-                Crashlab is built to answer the questions companies struggle to validate honestly:
-                does the model work on Indian data, in real workflows, and under clinical scrutiny?
+                Whether you&apos;re building healthcare AI products or looking for a serious research
+                environment, this is the fastest way to start a conversation with the lab.
               </p>
+
+              <div className="mt-10 space-y-8">
+                <div>
+                  <h3 className="text-xl font-semibold text-text-primary">For Industry Partners</h3>
+                  <p className="mt-3 text-lg leading-8 text-text-secondary">
+                    Reach out if you need India-specific validation, clinician-grounded evaluation,
+                    benchmark design, or a research partner who understands deployment constraints in
+                    real hospital settings.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-text-primary">For Future Team Members</h3>
+                  <p className="mt-3 text-lg leading-8 text-text-secondary">
+                    Send a quick note if you want to work on ambitious projects with real clinical
+                    context, strong publication intent, and a lab culture that values rigor over hype.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {["AIIMS New Delhi", "Harvard Medical School", "JIPMER", "IIT Collaborators"].map(
-                (item) => (
-                  <span className="rounded-full border border-border px-4 py-2 text-sm text-text-primary" key={item}>
-                    {item}
-                  </span>
-                )
-              )}
+            <div className="lg:pl-4">
+              <ContactPageForm />
             </div>
           </div>
-          <PartnerInterestForm />
-        </div>
         </div>
       </section>
     </div>

@@ -3,37 +3,30 @@
 import FocusTrap from "focus-trap-react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
-import { useEffect } from "react";
+import { ChevronDown, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { BrandMark } from "@/components/layout/BrandMark";
+import { navItems } from "@/components/layout/Navbar";
 import { ThemeToggle } from "@/components/ui";
+import { cn } from "@/lib/utils/cn";
 
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
 }
 
-const navLinks = [
-  { href: "/research", label: "Research" },
-  { href: "/publications", label: "Publications" },
-  { href: "/people", label: "People" },
-  { href: "/collaborate", label: "Collaborate" },
-  { href: "/join", label: "Join" },
-  { href: "/news", label: "News" },
-  { href: "/contact", label: "Contact" }
-];
-
 export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactElement {
+  const [expanded, setExpanded] = useState<string | null>(null);
+
   useEffect(() => {
     if (!open) {
+      setExpanded(null);
       return;
     }
 
     function handleEscape(event: KeyboardEvent): void {
-      if (event.key === "Escape") {
-        onClose();
-      }
+      if (event.key === "Escape") onClose();
     }
 
     document.body.style.overflow = "hidden";
@@ -68,18 +61,64 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
                   <X className="size-5" />
                 </button>
               </div>
-              <nav className="mt-16 flex flex-1 flex-col gap-4">
-                {navLinks.map((link) => (
-                  <Link
-                    className="ui-focus-ring rounded-token-sm border border-border-default bg-surface-panel px-5 py-4 text-lg font-medium text-text-default"
-                    href={link.href}
-                    key={link.href}
-                    onClick={onClose}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+
+              <nav className="mt-16 flex flex-1 flex-col gap-2 overflow-y-auto">
+                {navItems.map((item) => {
+                  const hasChildren = Boolean(item.children?.length);
+                  const isExpanded = expanded === item.label;
+
+                  return (
+                    <div key={item.href}>
+                      <div className="flex items-stretch">
+                        <Link
+                          className="ui-focus-ring flex-1 rounded-l-token-sm border border-r-0 border-border-default bg-surface-panel px-5 py-4 text-lg font-medium text-text-default"
+                          href={item.href}
+                          onClick={onClose}
+                        >
+                          {item.label}
+                        </Link>
+                        {hasChildren ? (
+                          <button
+                            aria-expanded={isExpanded}
+                            aria-label={`Toggle ${item.label} submenu`}
+                            className="flex items-center rounded-r-token-sm border border-border-default bg-surface-panel px-4 text-text-muted transition-colors hover:text-text-default"
+                            onClick={() => setExpanded(isExpanded ? null : item.label)}
+                            type="button"
+                          >
+                            <ChevronDown
+                              className={cn("size-4 transition-transform duration-150", isExpanded ? "rotate-180" : "")}
+                            />
+                          </button>
+                        ) : null}
+                      </div>
+
+                      {hasChildren && isExpanded ? (
+                        <div className="ml-4 mt-1 flex flex-col gap-1 border-l-2 border-border-focus pl-4">
+                          {item.children!.map((child) => (
+                            <Link
+                              className="ui-focus-ring block rounded-token-xs border border-border-default bg-surface-canvas px-4 py-3 text-base text-text-secondary transition-colors hover:text-text-default"
+                              href={child.href}
+                              key={child.href}
+                              onClick={onClose}
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+
+                <Link
+                  className="ui-focus-ring mt-2 rounded-token-sm border border-border-focus bg-status-info-surface px-5 py-4 text-center text-lg font-semibold text-border-focus"
+                  href="/join"
+                  onClick={onClose}
+                >
+                  Apply to Join →
+                </Link>
               </nav>
+
               <div className="mt-2 flex items-center justify-between border-t border-border-default py-3">
                 <span className="text-sm text-text-muted">Appearance</span>
                 <ThemeToggle />

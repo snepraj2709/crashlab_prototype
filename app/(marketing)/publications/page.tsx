@@ -1,6 +1,14 @@
-import { ContactFormSection, PublicationList, TimelineSection, TrustSignalsSection } from "@/components/sections";
+import type { Metadata } from "next";
+
+import { PublicationsStory, TimelineSection } from "@/components/sections";
 import { MetricTile, ProofChip, SectionLabel } from "@/components/ui";
-import { getPersonBySlug, getSeedPublications, getTrustSection } from "@/lib/content/site";
+import { getPersonBySlug, getSeedPublications } from "@/lib/content/site";
+
+export const metadata: Metadata = {
+  title: "Publications — CRASH Lab",
+  description:
+    "Research output, benchmarks, and accepted papers from CRASH Lab — the fastest-ramping clinical AI lab in India."
+};
 
 const impactMetrics = [
   { value: "15+", label: "Papers accepted at top conferences" },
@@ -16,33 +24,32 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
     getPersonBySlug("suvrankar-datta"),
     Promise.resolve(getSeedPublications())
   ]);
-  const trustSection = getTrustSection();
 
   return (
     <div className="pt-32">
-      <section className="py-8 lg:py-16 ">
+      {/* Hero */}
+      <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionLabel number="01" text="Publications" />
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
-            Publications and research momentum from a lab that didn&apos;t exist a year ago.
+            Publications.
           </h1>
           <p className="mt-6 max-w-3xl text-lg text-text-secondary">
-            CRASH Lab has moved with unusual speed because it was designed around a narrow,
-            defensible thesis: healthcare AI should be evaluated under clinical reality, not
+            CRASH Lab has been moving at a pace unusual in academia. 
+            It is designed around the thesis: healthcare AI should be evaluated under clinical reality, not
             presentation-friendly benchmarks.
           </p>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {impactMetrics.map((metric) => (
-              <MetricTile key={metric.label} label={metric.label} value={metric.value} />
-            ))}
-          </div>
         </div>
       </section>
 
-      <TimelineSection />
-      <PublicationList publications={publications} />
+      {/* Publications grouped by type */}
+      <section className="py-8 lg:py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <PublicationsStory publications={publications} />
+        </div>
+      </section>
 
+      {/* PI credibility + funding */}
       <section className="py-8 lg:py-16">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div className="rounded-token-md border border-border bg-bg-surface p-8">
@@ -56,7 +63,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
             </p>
           </div>
           <div className="rounded-token-md border border-border bg-bg-surface p-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Lead PI credibility</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Lead PI</p>
             <h2 className="mt-4 font-display text-4xl text-text-primary">{lead?.name}</h2>
             <div className="mt-6 flex flex-wrap gap-3">
               {lead?.credentials.slice(0, 5).map((credential) => (
@@ -75,12 +82,6 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
           </div>
         </div>
       </section>
-
-      <ContactFormSection
-        audienceType="investor"
-        intro="If you fund responsible health AI infrastructure, CRASH Lab is built to convert that support into benchmarks, policy relevance, and deployable systems."
-        title="Want to fund our work?"
-      />
     </div>
   );
 }

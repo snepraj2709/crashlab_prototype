@@ -48,7 +48,19 @@ export default defineType({
     }),
     defineField({ name: "seoTitle", type: "string" }),
     defineField({ name: "seoDescription", type: "text" }),
-    defineField({ name: "featured", type: "boolean" })
+    defineField({ name: "featured", type: "boolean" }),
+    defineField({
+      name: "postType",
+      type: "string",
+      title: "Post Type",
+      initialValue: "news",
+      options: {
+        list: [
+          { title: "News", value: "news" },
+          { title: "Blog", value: "blog" }
+        ]
+      }
+    })
   ],
   preview: {
     select: {

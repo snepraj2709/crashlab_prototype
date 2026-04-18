@@ -111,5 +111,9 @@ export const allProjectsQuery = groq`*[_type == "research"] | order(featured des
 export const projectBySlugQuery = groq`*[_type == "research" && slug.current == $slug][0] { ${projectFields} }`;
 export const allPeopleQuery = groq`*[_type == "person"] | order(isActive desc, isPrincipalInvestigator desc, position asc, name asc) { ${personFields} }`;
 export const personBySlugQuery = groq`*[_type == "person" && slug.current == $slug][0] { ${personFields} }`;
-export const allPostsQuery = groq`*[_type == "post"] | order(featured desc, publishedAt desc) { ${postFields} }`;
-export const postBySlugQuery = groq`*[_type == "post" && slug.current == $slug][0] { ${postFields} }`;
+export const allPostsQuery = groq`*[_type == "post"] | order(featured desc, publishedAt desc) { ${postFields}, postType }`;
+export const newsPostsQuery = groq`*[_type == "post" && (postType == "news" || !defined(postType))] | order(featured desc, publishedAt desc) { ${postFields}, postType }`;
+export const blogPostsQuery = groq`*[_type == "post" && postType == "blog"] | order(featured desc, publishedAt desc) { ${postFields}, postType }`;
+export const postBySlugQuery = groq`*[_type == "post" && slug.current == $slug][0] { ${postFields}, postType }`;
+export const activeAnnouncementQuery = groq`*[_type == "announcement" && isActive == true] | order(_createdAt desc)[0] { _id, message, ctaText, ctaUrl, type }`;
+export const allEventsQuery = groq`*[_type == "event"] | order(date asc) { _id, title, date, location, description, eventUrl, type }`;

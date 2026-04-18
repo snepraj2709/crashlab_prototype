@@ -1,0 +1,10 @@
+[
+  {
+    "_id": "announcement-1",
+    "message": "CRASH Lab's RadLE benchmark accepted at RSNA 2024 — our largest clinical AI evaluation to date.",
+    "ctaText": "Read the paper",
+    "ctaUrl": "/research?status=published",
+    "type": "paper",
+    "isActive": true
+  }
+]

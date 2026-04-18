@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "event-1",
+    "title": "RSNA 2024 — Radiology Society of North America Annual Meeting",
+    "date": "2024-12-01T09:00:00Z",
+    "location": "Chicago, IL, USA",
+    "description": "CRASH Lab will present the RadLE benchmark at the largest radiology conference in the world. Dr. Suvrankar Datta will be presenting findings on large language model performance in radiology report generation.",
+    "eventUrl": "https://www.rsna.org/annual-meeting",
+    "type": "conference"
+  },
+  {
+    "_id": "event-2",
+    "title": "AI in Healthcare Seminar — Ashoka University",
+    "date": "2025-03-15T14:00:00Z",
+    "location": "Ashoka University, Sonipat",
+    "description": "An internal seminar series on responsible deployment of AI in Indian hospital systems. Open to Ashoka students and faculty.",
+    "eventUrl": null,
+    "type": "seminar"
+  },
+  {
+    "_id": "event-3",
+    "title": "MICCAI 2025 Workshop on Clinical NLP",
+    "date": "2025-10-10T10:00:00Z",
+    "location": "Marrakech, Morocco",
+    "description": "CRASH Lab will participate in the workshop on clinical natural language processing, presenting work on radiology report evaluation.",
+    "eventUrl": "https://www.miccai2025.org",
+    "type": "conference"
+  }
+]

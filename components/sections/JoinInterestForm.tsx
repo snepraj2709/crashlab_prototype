@@ -75,11 +75,6 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
 
   return (
     <Card className="border-border">
-      <h3 className="font-display text-3xl text-text-primary">Interest Form</h3>
-      <p className="mt-3 max-w-2xl text-text-secondary">
-        Tell the lab what you work on, why this research agenda matters to you, and how soon you
-        could start.
-      </p>
       <form
         action="/api/join"
         aria-busy={isSubmitting}

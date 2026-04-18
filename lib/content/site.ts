@@ -1,4 +1,6 @@
+import announcementsSeed from "@/content/seed/announcements.json";
 import blogSeed from "@/content/seed/blog.json";
+import eventsSeed from "@/content/seed/events.json";
 import { labMemberGroups, labMemberVisuals, labMembers } from "@/content/seed/labMembers";
 import projectsSeed from "@/content/seed/projects.json";
 import publicationsSeed from "@/content/seed/publications.json";
@@ -6,8 +8,12 @@ import teamSeed from "@/content/seed/team.json";
 import trustSeed from "@/content/seed/trust.json";
 import { safeFetch } from "@/lib/sanity/client";
 import {
+  activeAnnouncementQuery,
+  allEventsQuery,
   allPeopleQuery,
   allPostsQuery,
+  blogPostsQuery,
+  newsPostsQuery,
   allProjectsQuery,
   personBySlugQuery,
   postBySlugQuery,
@@ -441,4 +447,50 @@ export async function getRelatedProjects(currentSlug: string, tags: string[]): P
     .sort((left, right) => right.score - left.score)
     .slice(0, 3)
     .map(({ project }) => project);
+}
+
+export interface AnnouncementSeed {
+  _id: string;
+  message: string;
+  ctaText?: string | null;
+  ctaUrl?: string | null;
+  type?: "grant" | "paper" | "event" | "general" | null;
+  isActive?: boolean;
+}
+
+export interface LabEvent {
+  _id: string;
+  title: string;
+  date: string;
+  location?: string | null;
+  description?: string | null;
+  eventUrl?: string | null;
+  type?: "conference" | "seminar" | "workshop" | "lab-event" | null;
+}
+
+export async function getActiveAnnouncement(): Promise<AnnouncementSeed | null> {
+  const result = await safeFetch<AnnouncementSeed | null>(activeAnnouncementQuery);
+  if (result) return result;
+  const active = (announcementsSeed as AnnouncementSeed[]).find((a) => a.isActive);
+  return active ?? null;
+}
+
+export async function getEvents(): Promise<LabEvent[]> {
+  const result = await safeFetch<LabEvent[]>(allEventsQuery);
+  if (result?.length) return result;
+  return eventsSeed as LabEvent[];
+}
+
+export async function getNewsPosts(): Promise<SitePost[]> {
+  const posts = await safeFetch<AllPostsQueryResult>(newsPostsQuery);
+  if (!posts?.length) {
+    return getSeedPosts().filter((p) => !("postType" in p) || (p as SitePost & { postType?: string }).postType !== "blog");
+  }
+  return posts.map(normalizePost);
+}
+
+export async function getBlogPosts(): Promise<SitePost[]> {
+  const posts = await safeFetch<AllPostsQueryResult>(blogPostsQuery);
+  if (!posts?.length) return [];
+  return posts.map(normalizePost);
 }
