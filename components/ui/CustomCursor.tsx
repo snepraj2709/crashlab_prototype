@@ -49,7 +49,8 @@ export function CustomCursor(): React.ReactElement {
 
       cursor.style.transform =
         `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%) scale(${getScale()})`;
-      cursor.style.opacity = isVisible ? "1" : "0";
+      cursor.style.opacity = isVisible && !isInteractive ? "1" : "0";
+      root.classList.toggle("cursor-on-interactive", isInteractive);
 
       animationFrame = window.requestAnimationFrame(render);
     };

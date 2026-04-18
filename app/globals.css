@@ -507,6 +507,23 @@
   html.has-custom-cursor [data-cursor="native"] [role="button"] * {
     cursor: pointer !important;
   }
+
+  html.has-custom-cursor.cursor-on-interactive a,
+  html.has-custom-cursor.cursor-on-interactive a *,
+  html.has-custom-cursor.cursor-on-interactive button,
+  html.has-custom-cursor.cursor-on-interactive button *,
+  html.has-custom-cursor.cursor-on-interactive input,
+  html.has-custom-cursor.cursor-on-interactive textarea,
+  html.has-custom-cursor.cursor-on-interactive select,
+  html.has-custom-cursor.cursor-on-interactive summary,
+  html.has-custom-cursor.cursor-on-interactive summary *,
+  html.has-custom-cursor.cursor-on-interactive label,
+  html.has-custom-cursor.cursor-on-interactive [role="button"],
+  html.has-custom-cursor.cursor-on-interactive [role="button"] *,
+  html.has-custom-cursor.cursor-on-interactive [data-cursor="interactive"],
+  html.has-custom-cursor.cursor-on-interactive [data-cursor="interactive"] * {
+    cursor: pointer !important;
+  }
 }
 
 .custom-cursor {
