@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { BrandMark } from "@/components/layout/BrandMark";
 import { MobileMenu } from "@/components/layout/MobileMenu";
-import { ThemeToggle } from "@/components/ui";
+import { Button, ThemeToggle } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
@@ -159,12 +159,9 @@ export function Navbar({ hasBanner }: NavbarProps): React.ReactElement {
               })}
             </nav>
 
-            <Link
-              className="ui-focus-ring inline-flex items-center rounded-token-pill border border-border-focus bg-status-info-surface px-4 py-2 text-sm font-semibold text-border-focus shadow-soft transition-all duration-200 hover:bg-border-focus hover:text-white"
-              href="/join"
-            >
+            <Button href="/join" size="lg">
               Join Us →
-            </Link>
+            </Button>
 
             <ThemeToggle />
           </div>

@@ -2,21 +2,39 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-import { EmptyState, SectionLabel } from "@/components/ui";
-import { getBlogPosts, getNewsPosts } from "@/lib/content/site";
-import { formatDate } from "@/lib/utils/formatDate";
-
-export const revalidate = 60;
+import { SectionLabel } from "@/components/ui";
+import { blogPosts } from "@/lib/data/blogPosts";
 
 export const metadata: Metadata = {
-  title: "Blog — CRASH Lab",
-  description:
-    "Long-form writing from CRASH Lab on clinical AI, benchmarking, healthcare systems, and responsible deployment."
+  title: "Blog | CRASH Lab",
+  description: "Research updates, benchmark findings, and clinical AI insights from CRASH Lab."
 };
 
-export default async function BlogPage(): Promise<React.ReactElement> {
-  const posts = await getBlogPosts();
-  const [featured, ...rest] = posts;
+function InitialsCircle({ initials, size = 36 }: { initials: string; size?: number }): React.ReactElement {
+  const cls = size === 28
+    ? "flex size-7 items-center justify-center rounded-full border border-border bg-bg-surface text-xs font-medium text-text-secondary"
+    : "flex items-center justify-center rounded-full border border-border bg-bg-surface text-sm font-medium text-text-secondary";
+  return (
+    <span className={cls} style={size !== 28 ? { width: size, height: size } : undefined}>
+      {initials}
+    </span>
+  );
+}
+
+function CategoryBadge({ category }: { category: string }): React.ReactElement {
+  return (
+    <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
+      {category}
+    </span>
+  );
+}
+
+export default function BlogPage(): React.ReactElement {
+  const postsWithContent = blogPosts.filter((p) => p.content.length > 0);
+  const papersOnly = blogPosts.filter((p) => p.content.length === 0 && p.link);
+
+  const featuredPost = postsWithContent[0];
+  const remainingPosts = postsWithContent.slice(1);
 
   return (
     <div className="pt-32">
@@ -31,64 +49,140 @@ export default async function BlogPage(): Promise<React.ReactElement> {
             what responsible deployment actually looks like.
           </p>
 
-          {featured ? (
-            <Link className="mt-12 block" href={`/blog/${featured.slug}`}>
-              <div className="grid gap-8 rounded-token-md border border-border bg-bg-surface p-8 lg:grid-cols-[1.1fr_0.9fr]">
-                <div>
-                  <span className="border-accent-cyan/30 bg-accent-cyan/10 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
-                    Featured
-                  </span>
-                  <h2 className="mt-6 font-display text-4xl text-text-primary">{featured.title}</h2>
-                  <p className="mt-4 max-w-3xl text-text-secondary">{featured.excerpt}</p>
-                  <p className="mt-6 text-sm text-text-tertiary">
-                    {featured.author?.name || "CRASH Lab"} · {formatDate(featured.publishedAt)}
-                  </p>
+          {/* Featured post */}
+          {featuredPost ? (
+            <div className="mt-12 overflow-hidden rounded-token-md border border-border transition hover:border-accent-cyan/50">
+              <div className="flex flex-col lg:flex-row">
+                {/* Image side */}
+                <div className="relative aspect-video lg:aspect-auto lg:h-auto lg:w-[45%]">
+                  {featuredPost.featuredImage ? (
+                    <Image
+                      alt={featuredPost.imageAlt ?? featuredPost.title}
+                      className="object-cover"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 45vw"
+                      src={featuredPost.featuredImage}
+                    />
+                  ) : (
+                    <div className="flex h-full min-h-48 items-center justify-center bg-bg-surface">
+                      <span className="text-xs uppercase tracking-[0.18em] text-text-tertiary">
+                        {featuredPost.category}
+                      </span>
+                    </div>
+                  )}
+                  {featuredPost.imageOverlay ? (
+                    <div className="absolute bottom-4 left-4">
+                      {featuredPost.imageOverlay.badge ? (
+                        <span className="rounded-full bg-bg-primary/80 px-2 py-1 text-xs text-text-primary">
+                          {featuredPost.imageOverlay.badge}
+                        </span>
+                      ) : null}
+                      {featuredPost.imageOverlay.stat ? (
+                        <div className="mt-2 rounded-token-sm bg-bg-primary/80 px-3 py-2">
+                          <p className="text-xs text-text-tertiary">{featuredPost.imageOverlay.stat.label}</p>
+                          <p className="text-2xl font-semibold text-text-primary">{featuredPost.imageOverlay.stat.value}</p>
+                          <p className="text-xs text-text-tertiary">{featuredPost.imageOverlay.stat.sublabel}</p>
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
-                <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border">
-                  <Image
-                    alt={`Cover for ${featured.title}`}
-                    className="object-cover"
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                    src={featured.coverImage?.url || "/og/default.svg"}
-                  />
+
+                {/* Content side */}
+                <div className="flex flex-col justify-center p-8 lg:w-[55%]">
+                  <CategoryBadge category={featuredPost.category} />
+                  <h2 className="mt-4 font-display text-2xl leading-snug text-text-primary lg:text-3xl">
+                    {featuredPost.title}
+                  </h2>
+                  {featuredPost.tldr ? (
+                    <p className="mt-3 line-clamp-3 text-sm text-text-secondary">
+                      {featuredPost.tldr}
+                    </p>
+                  ) : null}
+
+                  <div className="mt-6 flex flex-wrap items-center gap-3">
+                    <InitialsCircle initials={featuredPost.author.initials} size={36} />
+                    <span className="text-sm text-text-primary">{featuredPost.author.name}</span>
+                    <span className="text-text-tertiary">·</span>
+                    <span className="text-sm text-text-tertiary">{featuredPost.date}</span>
+                    <span className="text-text-tertiary">·</span>
+                    <span className="text-sm text-text-tertiary">{featuredPost.readTime}</span>
+                  </div>
+
+                  <Link
+                    className="mt-6 text-sm text-accent-cyan transition hover:opacity-75"
+                    href={`/blog/${featuredPost.id}`}
+                  >
+                    Read post →
+                  </Link>
                 </div>
               </div>
-            </Link>
-          ) : (
-            <div className="mt-12">
-              <EmptyState
-                body="Blog posts with postType='blog' will appear here. Add them in Sanity Studio."
-                title="No blog posts yet."
-              />
             </div>
-          )}
+          ) : null}
 
-          {rest.length ? (
-            <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {rest.map((post) => (
-                <Link href={`/blog/${post.slug}`} key={post._id}>
-                  <div className="h-full rounded-token-md border border-border bg-bg-surface p-6 transition hover:border-accent-cyan">
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border">
-                      <Image
-                        alt={`Cover for ${post.title}`}
-                        className="object-cover"
-                        fill
-                        sizes="(max-width: 1280px) 50vw, 33vw"
-                        src={post.coverImage?.url || "/og/default.svg"}
-                      />
-                    </div>
-                    <h3 className="mt-5 line-clamp-2 text-2xl font-semibold text-text-primary">
+          {/* Remaining posts grid */}
+          {remainingPosts.length > 0 ? (
+            <div className="mt-16">
+              <SectionLabel number="02" text="More posts" />
+              <div className="mt-6 grid gap-6 md:grid-cols-2">
+                {remainingPosts.map((post) => (
+                  <Link
+                    className="block rounded-token-md border border-border p-5 transition hover:border-accent-cyan/50"
+                    href={`/blog/${post.id}`}
+                    key={post.id}
+                  >
+                    <CategoryBadge category={post.category} />
+                    <h3 className="mt-2 line-clamp-2 text-base font-medium leading-snug text-text-primary">
                       {post.title}
                     </h3>
-                    <p className="mt-3 line-clamp-3 text-text-secondary">{post.excerpt}</p>
-                    <p className="mt-5 text-sm text-text-tertiary">
-                      {post.author?.name || "CRASH Lab"} · {formatDate(post.publishedAt)}
-                    </p>
+                    {(post.description ?? post.tldr) ? (
+                      <p className="mt-2 line-clamp-2 text-sm text-text-secondary">
+                        {post.description ?? post.tldr}
+                      </p>
+                    ) : null}
+                    <div className="mt-4 flex items-center gap-2 border-t border-border pt-4">
+                      <InitialsCircle initials={post.author.initials} size={28} />
+                      <span className="text-xs text-text-tertiary">
+                        {post.author.name} · {post.date} · {post.readTime}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {/* Papers & Abstracts */}
+          {papersOnly.length > 0 ? (
+            <div className="mt-16">
+              <SectionLabel number="03" text="Papers & Abstracts" />
+              <div className="mt-6">
+                {papersOnly.map((post) => (
+                  <div
+                    className="flex items-start justify-between gap-6 border-b border-border py-4"
+                    key={post.id}
+                  >
+                    <div>
+                      <CategoryBadge category={post.category} />
+                      <p className="mt-1 text-sm font-medium text-text-primary">{post.title}</p>
+                      {post.venue ? (
+                        <p className="mt-0.5 text-xs text-text-tertiary">{post.venue}</p>
+                      ) : null}
+                    </div>
+                    {post.link ? (
+                      <a
+                        className="shrink-0 text-xs text-accent-cyan transition hover:opacity-75"
+                        href={post.link}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        Read paper ↗
+                      </a>
+                    ) : null}
                   </div>
-                </Link>
-              ))}
+                ))}
+              </div>
             </div>
           ) : null}
         </div>

@@ -12,16 +12,6 @@ const nextConfig = {
         destination: "/publications",
         permanent: true
       },
-      {
-        source: "/blog/:slug*",
-        destination: "/news/:slug*",
-        permanent: true
-      },
-      {
-        source: "/blog",
-        destination: "/news",
-        permanent: true
-      }
     ];
   },
   images: {

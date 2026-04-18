@@ -3,215 +3,284 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { JsonLd } from "@/components/seo/JsonLd";
-import { PortableTextContent } from "@/components/sections";
-import { getBlogPosts, getPostBySlug } from "@/lib/content/site";
-import { formatDate } from "@/lib/utils/formatDate";
-import { calculateReadingTime, extractHeadings } from "@/lib/utils/portableText";
+import BlogContent from "@/components/blog/BlogContent";
+import { blogPosts } from "@/lib/data/blogPosts";
+import type { ContentSection } from "@/lib/data/blogTypes";
 
-export const revalidate = 60;
-
-export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  const posts = await getBlogPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+function slugify(text: string): string {
+  return text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "");
 }
 
-export async function generateMetadata({
-  params
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
-  if (!post) return {};
+function CategoryBadge({ category }: { category: string }): React.ReactElement {
+  return (
+    <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
+      {category}
+    </span>
+  );
+}
 
+function InitialsCircle({
+  initials,
+  size = 40,
+  title
+}: {
+  initials: string;
+  size?: number;
+  title?: string;
+}): React.ReactElement {
+  return (
+    <span
+      className="flex shrink-0 items-center justify-center rounded-full border border-border bg-bg-surface font-medium text-text-secondary"
+      style={{ width: size, height: size, fontSize: size <= 28 ? 11 : 14 }}
+      title={title}
+    >
+      {initials}
+    </span>
+  );
+}
+
+export function generateStaticParams(): Array<{ slug: string }> {
+  return blogPosts
+    .filter((p) => p.content.length > 0)
+    .map((p) => ({ slug: p.id }));
+}
+
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const post = blogPosts.find((p) => p.id === params.slug);
+  if (!post) return {};
   return {
-    title: post.seoTitle || post.title,
-    description: post.seoDescription || post.excerpt,
+    title: `${post.title} | CRASH Lab`,
+    description: post.tldr ?? post.description ?? "",
     openGraph: {
-      title: post.seoTitle || post.title,
-      description: post.seoDescription || post.excerpt,
-      images: ["/og/default.svg"]
+      title: post.title,
+      description: post.tldr ?? post.description ?? ""
     }
   };
 }
 
-export default async function BlogPostPage({
+export default function BlogPostPage({
   params
 }: {
   params: { slug: string };
-}): Promise<React.ReactElement> {
-  const post = await getPostBySlug(params.slug);
-  if (!post) notFound();
+}): React.ReactElement {
+  const post = blogPosts.find((p) => p.id === params.slug);
+  if (!post || post.content.length === 0) notFound();
 
-  const allPosts = await getBlogPosts();
-  const relatedPosts = allPosts
-    .filter((entry) => entry.slug !== post.slug)
-    .map((entry) => ({
-      entry,
-      score: entry.tags.filter((tag) => post.tags.includes(tag)).length
-    }))
-    .sort((left, right) => right.score - left.score)
-    .slice(0, 3)
-    .map(({ entry }) => entry);
+  const readablePosts = blogPosts.filter((p) => p.content.length > 0);
+  const currentIndex = readablePosts.findIndex((p) => p.id === params.slug);
+  const prevPost = currentIndex > 0 ? readablePosts[currentIndex - 1] : null;
+  const nextPost =
+    currentIndex < readablePosts.length - 1 ? readablePosts[currentIndex + 1] : null;
 
-  const readingTime = calculateReadingTime(post.body);
-  const headings = extractHeadings(post.body);
-  const pageUrl = `https://crashlab.in/blog/${post.slug}`;
+  const headings = post.content.filter(
+    (s): s is ContentSection & { content: string } =>
+      s.type === "heading" && typeof s.content === "string"
+  );
+
+  const hasMultipleAuthors = post.authors && post.authors.length > 1;
 
   return (
-    <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: post.title,
-          description: post.seoDescription || post.excerpt,
-          author: {
-            "@type": "Person",
-            name: post.author?.name || "CRASH Lab"
-          },
-          publisher: {
-            "@type": "Organization",
-            name: "CRASH Lab, Ashoka University"
-          },
-          ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
-          url: pageUrl
-        }}
-      />
+    <div className="pt-32">
+      <article className="py-8 lg:py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <Link
+            className="text-sm text-text-muted transition hover:text-text-default"
+            href="/blog"
+          >
+            ← Back to Blog
+          </Link>
 
-      <div className="pt-32">
-        <article className="py-8 lg:py-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <Link
-              className="text-sm text-text-muted transition hover:text-text-default"
-              href="/blog"
-            >
-              ← Back to Blog
-            </Link>
-            <p className="mt-6 text-xs uppercase tracking-[0.2em] text-accent-cyan">Blog</p>
-            <h1 className="mt-6 max-w-5xl font-display text-5xl text-text-primary lg:text-6xl">
-              {post.title}
-            </h1>
-            <div className="mt-6 flex flex-wrap gap-4 text-sm text-text-tertiary">
-              <span>{post.author?.name || "CRASH Lab"}</span>
-              <span>{formatDate(post.publishedAt)}</span>
-              <span>{readingTime} min read</span>
-            </div>
+          <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_300px]">
+            {/* LEFT — main article */}
+            <div>
+              <div className="flex flex-wrap items-center gap-3 text-xs text-text-tertiary">
+                <CategoryBadge category={post.category} />
+                <span>·</span>
+                <span>{post.date}</span>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </div>
 
-            <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_300px]">
-              <div>
-                <PortableTextContent blocks={post.body} />
+              <h1 className="mt-4 max-w-3xl font-display text-4xl leading-tight text-text-primary lg:text-5xl">
+                {post.title}
+              </h1>
 
-                <div className="mt-12 rounded-token-md border border-border bg-bg-surface p-6">
-                  <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">About the author</p>
-                  <div className="mt-4 flex items-center gap-4">
-                    {post.author?.photo?.url ? (
-                      <Image
-                        alt={post.author.photo.alt}
-                        className="size-12 shrink-0 rounded-full object-cover"
-                        height={48}
-                        src={post.author.photo.url}
-                        width={48}
-                      />
+              {post.subtitle ? (
+                <p className="mt-3 text-xl text-text-secondary">{post.subtitle}</p>
+              ) : null}
+
+              {/* Author block */}
+              <div className="mt-6">
+                <div className="flex items-center gap-3">
+                  <InitialsCircle initials={post.author.initials} size={40} />
+                  <div>
+                    <p className="text-sm font-medium text-text-primary">{post.author.name}</p>
+                    {post.author.role ? (
+                      <p className="text-xs text-text-tertiary">{post.author.role}</p>
                     ) : null}
-                    <div>
-                      <h2 className="text-2xl font-semibold text-text-primary">
-                        {post.author?.name || "CRASH Lab"}
-                      </h2>
-                      {post.author?.credentials?.[0] ? (
-                        <p className="mt-1 text-xs text-text-tertiary">{post.author.credentials[0]}</p>
-                      ) : null}
+                  </div>
+                </div>
+                {hasMultipleAuthors ? (
+                  <div className="mt-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Authors</p>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {post.authors!.map((author) => (
+                        <InitialsCircle
+                          initials={author.initials}
+                          key={author.name}
+                          size={28}
+                          title={author.name}
+                        />
+                      ))}
                     </div>
                   </div>
-                  <p className="mt-4 text-text-secondary">
-                    {post.author?.shortBio ||
-                      "CRASH Lab is an interdisciplinary research group building responsible healthcare AI from Ashoka University."}
-                  </p>
-                  {(post.author?.slug || post.author?.socialLinks?.googleScholar) ? (
-                    <div className="mt-4 flex flex-wrap gap-4">
-                      {post.author?.slug ? (
-                        <Link
-                          className="text-sm text-accent-cyan transition hover:underline"
-                          href={`/people/${post.author.slug}`}
-                        >
-                          View profile →
-                        </Link>
+                ) : null}
+              </div>
+
+              {/* TL;DR */}
+              {post.tldr ? (
+                <div className="mt-8 rounded-r-token-md border-l-2 border-accent-cyan bg-bg-surface py-3 pl-4 pr-4">
+                  <p className="mb-2 text-xs uppercase tracking-[0.2em] text-accent-cyan">TL;DR</p>
+                  <p className="text-sm leading-relaxed text-text-secondary">{post.tldr}</p>
+                </div>
+              ) : null}
+
+              {/* Featured image */}
+              {post.featuredImage ? (
+                <div className="relative mt-8 aspect-video w-full overflow-hidden rounded-token-md">
+                  <Image
+                    alt={post.imageAlt ?? post.title}
+                    className="object-cover"
+                    fill
+                    sizes="(min-width: 1024px) 65vw, 100vw"
+                    src={post.featuredImage}
+                  />
+                  {post.imageOverlay ? (
+                    <div className="absolute bottom-4 left-4">
+                      {post.imageOverlay.badge ? (
+                        <span className="rounded-full bg-bg-primary/80 px-2 py-1 text-xs text-text-primary">
+                          {post.imageOverlay.badge}
+                        </span>
                       ) : null}
-                      {post.author?.socialLinks?.googleScholar ? (
-                        <a
-                          className="text-sm text-accent-cyan transition hover:underline"
-                          href={post.author.socialLinks.googleScholar}
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          Google Scholar ↗
-                        </a>
+                      {post.imageOverlay.stat ? (
+                        <div className="mt-2 rounded-token-sm bg-bg-primary/80 px-3 py-2">
+                          <p className="text-xs text-text-tertiary">
+                            {post.imageOverlay.stat.label}
+                          </p>
+                          <p className="text-2xl font-semibold text-text-primary">
+                            {post.imageOverlay.stat.value}
+                          </p>
+                          <p className="text-xs text-text-tertiary">
+                            {post.imageOverlay.stat.sublabel}
+                          </p>
+                        </div>
                       ) : null}
                     </div>
                   ) : null}
                 </div>
+              ) : null}
 
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <Link
-                    className="rounded-full border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
-                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.title)}`}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Share on Twitter
-                  </Link>
-                  <Link
-                    className="rounded-full border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    Share on LinkedIn
-                  </Link>
-                </div>
+              {/* Article body */}
+              <div className="mt-10">
+                <BlogContent content={post.content} />
               </div>
 
-              <aside className="space-y-6">
-                {headings.length ? (
-                  <div className="rounded-token-md border border-border bg-bg-surface p-6">
-                    <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
-                      Table of contents
-                    </p>
-                    <div className="mt-5 space-y-3">
-                      {headings.map((heading) => (
-                        <a
-                          className={`block text-sm ${heading.level === 3 ? "pl-4 text-text-tertiary" : "text-text-primary"}`}
-                          href={`#${heading.id}`}
-                          key={heading.id}
-                        >
-                          {heading.text}
-                        </a>
-                      ))}
-                    </div>
+              {/* Prev / Next */}
+              {prevPost ?? nextPost ? (
+                <div className="mt-16">
+                  <p className="mb-6 text-xs uppercase tracking-[0.2em] text-text-tertiary">
+                    Continue reading
+                  </p>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    {prevPost ? (
+                      <Link
+                        className="rounded-token-md border border-border p-4 transition hover:border-accent-cyan/50"
+                        href={`/blog/${prevPost.id}`}
+                      >
+                        <p className="text-xs text-text-tertiary">← Previous</p>
+                        <div className="mt-2">
+                          <CategoryBadge category={prevPost.category} />
+                        </div>
+                        <p className="mt-1 line-clamp-2 text-sm font-medium text-text-primary">
+                          {prevPost.title}
+                        </p>
+                        <p className="mt-2 text-xs text-text-tertiary">{prevPost.date}</p>
+                      </Link>
+                    ) : (
+                      <div />
+                    )}
+                    {nextPost ? (
+                      <Link
+                        className="rounded-token-md border border-border p-4 text-right transition hover:border-accent-cyan/50"
+                        href={`/blog/${nextPost.id}`}
+                      >
+                        <p className="text-xs text-text-tertiary">Next →</p>
+                        <div className="mt-2 flex justify-end">
+                          <CategoryBadge category={nextPost.category} />
+                        </div>
+                        <p className="mt-1 line-clamp-2 text-sm font-medium text-text-primary">
+                          {nextPost.title}
+                        </p>
+                        <p className="mt-2 text-xs text-text-tertiary">{nextPost.date}</p>
+                      </Link>
+                    ) : null}
                   </div>
-                ) : null}
-
-                {relatedPosts.length ? (
-                  <div className="rounded-token-md border border-border bg-bg-surface p-6">
-                    <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Related posts</p>
-                    <div className="mt-5 space-y-4">
-                      {relatedPosts.map((related) => (
-                        <Link
-                          className="block text-text-primary transition hover:text-accent-cyan"
-                          href={`/blog/${related.slug}`}
-                          key={related._id}
-                        >
-                          {related.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-              </aside>
+                </div>
+              ) : null}
             </div>
+
+            {/* RIGHT — sidebar */}
+            <aside className="sticky top-8 space-y-4 self-start">
+              {/* Table of contents */}
+              {headings.length > 0 ? (
+                <div className="rounded-token-md border border-border p-5">
+                  <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">In this post</p>
+                  <div className="mt-4 space-y-3">
+                    {headings.map((s) => (
+                      <a
+                        className="block text-sm text-text-secondary transition hover:text-text-primary"
+                        href={`#${slugify(s.content)}`}
+                        key={s.content}
+                      >
+                        {s.content}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {/* Multiple authors list */}
+              {hasMultipleAuthors ? (
+                <div className="rounded-token-md border border-border p-5">
+                  <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Authors</p>
+                  <div className="mt-4 space-y-3">
+                    {post.authors!.map((author) => (
+                      <div className="flex items-center gap-2" key={author.name}>
+                        <InitialsCircle initials={author.initials} size={32} />
+                        <span className="text-sm text-text-secondary">{author.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {/* CTA */}
+              <div className="rounded-token-md border border-border p-5">
+                <p className="text-sm font-medium text-text-primary">Join CRASH Lab</p>
+                <p className="mt-2 text-xs leading-relaxed text-text-secondary">
+                  We have open positions for researchers and clinical collaborators.
+                </p>
+                <Link
+                  className="mt-4 inline-block rounded-token-pill border border-border px-4 py-2 text-xs font-semibold text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
+                  href="/join"
+                >
+                  View open roles →
+                </Link>
+              </div>
+            </aside>
           </div>
-        </article>
-      </div>
-    </>
+        </div>
+      </article>
+    </div>
   );
 }
