@@ -113,7 +113,7 @@ function normalizeProject(project: SanityProject): ProjectSeed {
   };
 }
 
-function normalizePerson(person: SanityPerson): PersonSeed {
+function normalizePerson(person: AllPeopleQueryResult[number]): PersonSeed {
   return {
     slug: person.slug?.current ?? "",
     name: person.name ?? "",
@@ -225,7 +225,10 @@ function normalizePostAuthor(author: SanityPost["author"]): SitePostAuthor | und
     name: author.name ?? "CRASH Lab",
     shortBio:
       author.shortBio ??
-      "CRASH Lab is an interdisciplinary research group building responsible healthcare AI from Ashoka University."
+      "CRASH Lab is an interdisciplinary research group building responsible healthcare AI from Ashoka University.",
+    photo: author.photo ? { url: urlFor(author.photo), alt: `${author.name ?? "Author"} photo` } : null,
+    credentials: author.credentials ?? undefined,
+    socialLinks: author.socialLinks ?? undefined
   };
 }
 

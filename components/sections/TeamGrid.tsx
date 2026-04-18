@@ -1,4 +1,4 @@
-import { PeopleDirectory } from "@/components/sections/PeopleDirectory";
+import { TeamFilterTabs } from "@/components/sections/TeamFilterTabs";
 import { SectionLabel } from "@/components/ui";
 import type { TeamMemberProfile } from "@/types/team";
 
@@ -20,7 +20,7 @@ export function TeamGrid({ profiles }: TeamGridProps): React.ReactElement {
           </div>
         </div>
 
-        <PeopleDirectory profiles={profiles} />
+        <TeamFilterTabs profiles={profiles} />
       </div>
     </section>
   );

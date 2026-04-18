@@ -12,6 +12,15 @@ export interface SitePostAuthor {
   slug: string;
   name: string;
   shortBio: string;
+  photo?: { url: string; alt: string } | null;
+  credentials?: string[];
+  socialLinks?: {
+    googleScholar?: string;
+    linkedin?: string;
+    twitter?: string;
+    personalWebsite?: string;
+    researchgate?: string;
+  };
 }
 
 export interface SitePost {

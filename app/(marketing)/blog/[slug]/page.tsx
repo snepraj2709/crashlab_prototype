@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -103,13 +104,51 @@ export default async function BlogPostPage({
 
                 <div className="mt-12 rounded-token-md border border-border bg-bg-surface p-6">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">About the author</p>
-                  <h2 className="mt-4 text-2xl font-semibold text-text-primary">
-                    {post.author?.name || "CRASH Lab"}
-                  </h2>
+                  <div className="mt-4 flex items-center gap-4">
+                    {post.author?.photo?.url ? (
+                      <Image
+                        alt={post.author.photo.alt}
+                        className="size-12 shrink-0 rounded-full object-cover"
+                        height={48}
+                        src={post.author.photo.url}
+                        width={48}
+                      />
+                    ) : null}
+                    <div>
+                      <h2 className="text-2xl font-semibold text-text-primary">
+                        {post.author?.name || "CRASH Lab"}
+                      </h2>
+                      {post.author?.credentials?.[0] ? (
+                        <p className="mt-1 text-xs text-text-tertiary">{post.author.credentials[0]}</p>
+                      ) : null}
+                    </div>
+                  </div>
                   <p className="mt-4 text-text-secondary">
                     {post.author?.shortBio ||
                       "CRASH Lab is an interdisciplinary research group building responsible healthcare AI from Ashoka University."}
                   </p>
+                  {(post.author?.slug || post.author?.socialLinks?.googleScholar) ? (
+                    <div className="mt-4 flex flex-wrap gap-4">
+                      {post.author?.slug ? (
+                        <Link
+                          className="text-sm text-accent-cyan transition hover:underline"
+                          href={`/people/${post.author.slug}`}
+                        >
+                          View profile →
+                        </Link>
+                      ) : null}
+                      {post.author?.socialLinks?.googleScholar ? (
+                        <a
+                          className="text-sm text-accent-cyan transition hover:underline"
+                          href={post.author.socialLinks.googleScholar}
+                          rel="noreferrer"
+                          target="_blank"
+                        >
+                          Google Scholar ↗
+                        </a>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-4">
