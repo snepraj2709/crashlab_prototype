@@ -1,0 +1,61 @@
+# CRASH Lab
+
+> Centre for Responsible Autonomous Systems in Healthcare
+> Ashoka University, Sonipat, Haryana, India
+
+CRASH Lab is an interdisciplinary research lab at Ashoka University working
+at the intersection of clinical medicine, frontier AI, and evaluation science.
+Founded in April 2025 by Dr. Suvrankar Datta, the lab focuses on benchmarking,
+clinical AI validation, and healthcare data infrastructure for Indian settings.
+
+## What We Do
+
+CRASH Lab builds rigorous evaluation frameworks for AI systems operating in
+healthcare — specifically radiology and diagnostic imaging. Our flagship benchmark,
+Radiology's Last Exam (RadLE), revealed a 53-point performance gap between
+frontier multimodal AI models and expert radiologists at RSNA 2025.
+
+## Research Areas
+
+- Radiology AI Benchmarks
+- Clinical AI Validation (India-specific)
+- Autonomous Radiology Report Generation
+- Healthcare Data Infrastructure (federated, privacy-preserving)
+- Healthcare AI Governance and Accountability
+
+## Key Results
+
+- RadLE: Expert radiologists 83%, best AI 57%, trainees 45%, GPT-5 Thinking 30%
+- #1 Indian lab by AI abstracts at RSNA 2025
+- 15+ papers in under 8 months from founding (April 2025)
+
+## Affiliations
+
+- Ashoka University (host institution)
+- Koita Foundation (primary funder — Koita Centre for Digital Health)
+- AIIMS New Delhi
+- Harvard Medical School (Dr. Datta: Visiting Researcher)
+- JIPMER Puducherry
+- RSNA (Radiological Society of North America)
+
+## Key People
+
+- Dr. Suvrankar Datta — Group Lead. Radiologist trained at AIIMS and JIPMER.
+  RSNA Trainee Research Prize 2023. Harvard Medical School Visiting Researcher.
+  Creator of the RadLE benchmark.
+
+## Key Pages
+
+- Home: https://crashlab.in/
+- Research: https://crashlab.in/research
+- Publications: https://crashlab.in/publications
+- People: https://crashlab.in/people
+- News: https://crashlab.in/news
+- Blog: https://crashlab.in/blog
+- Collaborate: https://crashlab.in/collaborate
+- Join: https://crashlab.in/join
+
+## Contact
+
+suvrankar.datta@ashoka.edu.in
+Koita Centre for Digital Health, Ashoka University, Sonipat, Haryana 131029, India
