@@ -3,7 +3,6 @@
 import projectsSeed from "@/content/seed/projects.json";
 import { motion } from "framer-motion";
 
-import { Card } from "@/components/ui/Card";
 import { formatMonthYear } from "@/lib/utils/formatDate";
 import { cn } from "@/lib/utils/cn";
 import type { ProjectMetric } from "@/types/research";
@@ -86,11 +85,8 @@ export function RadleWidget({
   const barHeightClass = compact ? "h-1.5" : "h-2";
 
   return (
-    <Card
-      className={cn(
-        "overflow-hidden border-border-default bg-surface-panel shadow-panel",
-        compact ? "p-4" : variant === "hero" ? "p-5 md:p-6" : "p-6 md:p-8",
-      )}
+    <div
+      className={cn(compact ? "py-2" : variant === "hero" ? "py-4" : "py-6")}
     >
       {compact ? null : (
         <>
@@ -103,7 +99,7 @@ export function RadleWidget({
                 How far is AI from expert radiologists?
               </h3>
             </div>
-            <span className="rounded-full border border-border px-3 py-1 text-xs uppercase tracking-[0.18em] text-text-secondary">
+            <span className="text-xs uppercase tracking-[0.18em] text-text-secondary">
               {subtitle}
             </span>
           </div>
@@ -196,6 +192,6 @@ export function RadleWidget({
           );
         })}
       </div>
-    </Card>
+    </div>
   );
 }

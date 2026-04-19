@@ -32,9 +32,9 @@ export default async function HomePage(): Promise<React.ReactElement> {
       <SectionErrorBoundary fallbackTitle="RadLE benchmark unavailable">
         <RadLESection />
       </SectionErrorBoundary>
-      <SectionErrorBoundary fallbackTitle="Proof of work unavailable">
+      {/* <SectionErrorBoundary fallbackTitle="Proof of work unavailable">
         <ProofSection />
-      </SectionErrorBoundary>
+      </SectionErrorBoundary> */}
       <SectionErrorBoundary fallbackTitle="Collaborate unavailable">
         <CollaborateSection />
       </SectionErrorBoundary>

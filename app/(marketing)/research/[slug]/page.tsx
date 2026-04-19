@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
-import { LabMembersList, PortableTextContent, ProjectCard, RadleWidget } from "@/components/sections";
-import { Badge, Button } from "@/components/ui";
+import { PortableTextContent, ProjectCard } from "@/components/sections";
+import { Badge } from "@/components/ui";
 import {
-  getLabMemberGroups,
   getProjectBySlug,
   getProjectLabMembers,
   getProjects,
@@ -55,8 +55,16 @@ export default async function ResearchProjectPage({
 
   const relatedProjects = await getRelatedProjects(project.slug, project.tags);
   const projectMembers = getProjectLabMembers(project.slug);
-  const memberGroups = getLabMemberGroups();
   const collaborationHref = project.audience.includes("industry") ? "/collaborate" : "/join";
+
+  function getInitials(name: string): string {
+    return name
+      .split(" ")
+      .map((part) => part[0] ?? "")
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+  }
 
   return (
     <>
@@ -106,16 +114,38 @@ export default async function ResearchProjectPage({
             ))}
           </div>
 
-          {projectMembers.length ? (
-            <div className="mt-14">
-              <LabMembersList
-                groups={memberGroups}
-                intro="People actively contributing to this project right now, across research, clinical review, and systems support."
-                members={projectMembers}
-                title="Active Team Members"
-                variant="project"
-              />
+          {project.metrics?.length ? (
+            <div className="mt-12 border-y border-border py-5">
+              <div className="grid gap-6 md:grid-cols-3 md:divide-x md:divide-border">
+                {project.metrics.map((metric) => (
+                  <div className="md:px-6 md:first:pl-0 md:last:pr-0" key={metric.label}>
+                    <p className="font-mono text-3xl text-text-primary">{metric.value}</p>
+                    <p className="mt-2 text-sm text-text-secondary">{metric.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+          ) : null}
+
+          {projectMembers.length ? (
+            <section className="mt-14 border-t border-border pt-8">
+              <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Project Team</p>
+              <div className="mt-6 space-y-4">
+                {projectMembers.map((member) => (
+                  <div className="flex items-center gap-4" key={member.id}>
+                    <span className="flex size-10 items-center justify-center rounded-full border border-border-default text-xs text-text-secondary">
+                      {getInitials(member.name)}
+                    </span>
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">{member.name}</p>
+                      <p className="text-xs text-text-tertiary">
+                        {member.tenure} · {member.affiliation}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           ) : null}
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -123,29 +153,34 @@ export default async function ResearchProjectPage({
               <PortableTextContent blocks={project.body} />
               {project.paperUrl ? (
                 <div className="mt-10">
-                  <Button href={project.paperUrl} rel="noreferrer" target="_blank">
-                    Read the Paper
-                  </Button>
+                  <a
+                    className="text-sm text-accent-cyan transition hover:opacity-75"
+                    href={project.paperUrl}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    Read the paper ↗
+                  </a>
                 </div>
               ) : null}
             </div>
 
             <aside className="space-y-8">
-              {project.metrics?.length ? <RadleWidget metrics={project.metrics} variant="feature" /> : null}
-              <div className="rounded-token-md border border-border bg-bg-surface p-6">
-                <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
-                  Collaboration
-                </p>
-                <h2 className="mt-4 text-2xl font-semibold text-text-primary">
+              <div className="border-t border-border pt-5">
+                <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Collaboration</p>
+                <h2 className="mt-4 text-2xl font-medium text-text-primary">
                   Interested in collaborating on this research?
                 </h2>
-                <p className="mt-3 text-text-secondary">
+                <p className="mt-3 text-sm leading-8 text-text-secondary">
                   Reach the lab through the track best suited to this project&apos;s audience and stage.
                 </p>
-                <div className="mt-6">
-                  <Button href={collaborationHref} variant="secondary">
-                    Start the conversation
-                  </Button>
+                <div className="mt-5">
+                  <Link
+                    className="text-sm text-accent-cyan transition hover:opacity-75"
+                    href={collaborationHref}
+                  >
+                    Start the conversation →
+                  </Link>
                 </div>
               </div>
             </aside>
@@ -154,7 +189,7 @@ export default async function ResearchProjectPage({
           {relatedProjects.length ? (
             <div className="mt-20">
               <h2 className="font-display text-4xl text-text-primary">Related projects</h2>
-              <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-8">
                 {relatedProjects.map((relatedProject) => (
                   <ProjectCard key={relatedProject.slug} project={relatedProject} showMetadata />
                 ))}

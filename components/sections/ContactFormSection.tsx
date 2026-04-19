@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Button, Card, SectionLabel } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { flattenApiErrorDetails } from "@/lib/utils/api";
 import { coerceFormOption } from "@/lib/utils/forms";
 import type { ApiResponse, AudienceType, ContactFormValues } from "@/types/forms";
@@ -64,9 +64,8 @@ export function ContactFormSection({
 
   return (
     <section className="py-8 lg:py-16">
-      <div className="mx-auto max-w-4xl px-6 lg:px-8">
-        <Card className="border-border">
-          <SectionLabel number="08" text="Contact" />
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div>
           <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">{title}</h2>
           <p className="mt-4 max-w-2xl text-text-secondary">{intro}</p>
           <form
@@ -149,7 +148,7 @@ export function ContactFormSection({
               </Button>
             </div>
           </form>
-        </Card>
+        </div>
       </div>
     </section>
   );

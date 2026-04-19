@@ -9,7 +9,7 @@ export function Card({ children, className, ...props }: CardProps): React.ReactE
     <div
       {...props}
       className={cn(
-        "ui-panel p-6",
+        "p-6",
         className
       )}
     >

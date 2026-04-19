@@ -96,7 +96,7 @@ export function ContactPageForm(): React.ReactElement {
     <form
       action="/api/contact"
       aria-busy={isSubmitting}
-      className="ui-panel grid gap-8 p-8 md:p-10 lg:p-12"
+      className="grid gap-8"
       data-cursor="native"
       method="post"
       onSubmit={handleSubmit}

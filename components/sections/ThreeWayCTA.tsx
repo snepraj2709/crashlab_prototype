@@ -1,6 +1,6 @@
 import { Building2, Microscope, TrendingUp } from "lucide-react";
 
-import { Button, Card, SectionLabel } from "@/components/ui";
+import { Button, Card } from "@/components/ui";
 
 const cards = [
   {
@@ -37,7 +37,6 @@ export function ThreeWayCTA(): React.ReactElement {
   return (
     <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="05" text="Choose Your Entry Point" />
         <div className="mt-12 grid gap-6 xl:grid-cols-3">
           {cards.map((card) => (
             <Card className={card.className} key={card.eyebrow}>

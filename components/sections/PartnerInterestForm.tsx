@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Button, Card } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { flattenApiErrorDetails } from "@/lib/utils/api";
 import { coerceFormOption } from "@/lib/utils/forms";
 import type { ApiResponse, PartnerFormValues } from "@/types/forms";
@@ -79,7 +79,7 @@ export function PartnerInterestForm(): React.ReactElement {
   }
 
   return (
-    <Card className="border-border">
+    <div>
       <h3 className="font-display text-3xl text-text-primary">Collaboration interest form</h3>
       <p className="mt-3 text-text-secondary">
         Describe the clinical or commercial problem you need solved and how you want to
@@ -195,6 +195,6 @@ export function PartnerInterestForm(): React.ReactElement {
           </Button>
         </div>
       </form>
-    </Card>
+    </div>
   );
 }

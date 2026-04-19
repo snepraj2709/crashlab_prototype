@@ -44,7 +44,7 @@ export function EventsList({ events }: EventsListProps): React.ReactElement {
       {upcoming.length ? (
         <div>
           <h2 className="font-display text-2xl text-text-primary">Upcoming</h2>
-          <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-6">
             {upcoming.map((event) => (
               <EventCard event={event} key={event._id} />
             ))}
@@ -55,7 +55,7 @@ export function EventsList({ events }: EventsListProps): React.ReactElement {
       {past.length ? (
         <div>
           <h2 className="font-display text-2xl text-text-muted">Past Events</h2>
-          <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3 opacity-60">
+          <div className="mt-6 opacity-60">
             {past.map((event) => (
               <EventCard event={event} key={event._id} />
             ))}
@@ -70,7 +70,7 @@ function EventCard({ event }: { event: LabEvent }): React.ReactElement {
   const typeLabel = event.type ? (TYPE_LABELS[event.type] ?? event.type) : null;
 
   return (
-    <div className="rounded-token-md border border-border bg-bg-surface p-6 transition hover:border-accent-cyan">
+    <div className="border-b border-border py-6">
       {typeLabel ? (
         <p className="text-xs uppercase tracking-[0.18em] text-accent-cyan">{typeLabel}</p>
       ) : null}

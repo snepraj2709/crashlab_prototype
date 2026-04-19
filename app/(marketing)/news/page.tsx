@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { EmptyState, SectionLabel } from "@/components/ui";
+import { EmptyState } from "@/components/ui";
 import { EventsList } from "@/components/sections/EventsList";
 import { getEvents, getNewsPosts } from "@/lib/content/site";
 import { filterPosts } from "@/lib/utils/filtering";
@@ -55,7 +55,6 @@ export default async function NewsPage({
     <div className="pt-32">
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel number="01" text="News & Events" />
           <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
             News & Events from the lab.
           </h1>
@@ -64,13 +63,13 @@ export default async function NewsPage({
             signal behind the metrics.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
             {categories.map((entry) => (
               <Link
-                className={`rounded-full border px-4 py-2 text-sm transition ${
+                className={`text-sm transition ${
                   category === entry.value
-                    ? "bg-accent-cyan/10 border-accent-cyan text-accent-cyan"
-                    : "border-border text-text-secondary hover:border-accent-cyan hover:text-accent-cyan"
+                    ? "text-accent-cyan underline underline-offset-4"
+                    : "text-text-tertiary hover:text-accent-cyan hover:underline"
                 }`}
                 href={
                   entry.value === "all"
@@ -89,10 +88,10 @@ export default async function NewsPage({
           ) : (
             <>
               {featured ? (
-                <Link className="mt-12 block" href={`/news/${featured.slug}`}>
-                  <div className="grid gap-8 rounded-token-md border border-border bg-bg-surface p-8 lg:grid-cols-[1.1fr_0.9fr]">
+                <Link className="mt-12 block border-b border-border pb-12" href={`/news/${featured.slug}`}>
+                  <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
                     <div>
-                      <span className="border-accent-cyan/30 bg-accent-cyan/10 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
+                      <span className="text-xs uppercase tracking-[0.18em] text-accent-cyan">
                         Featured
                       </span>
                       <h2 className="mt-6 font-display text-4xl text-text-primary">
@@ -103,7 +102,7 @@ export default async function NewsPage({
                         {featured.author?.name || "CRASH Lab"} · {formatDate(featured.publishedAt)}
                       </p>
                     </div>
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border">
+                    <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm">
                       <Image
                         alt={`Cover image for ${featured.title}`}
                         className="object-cover"
@@ -125,30 +124,19 @@ export default async function NewsPage({
               )}
 
               {rest.length ? (
-                <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <div className="mt-12">
                   {rest.map((post) => (
-                    <Link href={`/news/${post.slug}`} key={post._id}>
-                      <div className="h-full rounded-token-md border border-border bg-bg-surface p-6 transition hover:border-accent-cyan">
-                        <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border">
-                          <Image
-                            alt={`Cover image for ${post.title}`}
-                            className="object-cover"
-                            fill
-                            sizes="(max-width: 1280px) 50vw, 33vw"
-                            src={getCoverSrc(post)}
-                          />
-                        </div>
-                        <p className="mt-5 text-xs uppercase tracking-[0.18em] text-accent-cyan">
-                          {post.category?.replace(/-/g, " ")}
-                        </p>
-                        <h3 className="mt-3 line-clamp-2 text-2xl font-semibold text-text-primary">
-                          {post.title}
-                        </h3>
-                        <p className="mt-3 line-clamp-3 text-text-secondary">{post.excerpt}</p>
-                        <p className="mt-5 text-sm text-text-tertiary">
-                          {post.author?.name || "CRASH Lab"} · {formatDate(post.publishedAt)}
-                        </p>
-                      </div>
+                    <Link className="block border-b border-border py-6 transition hover:opacity-75" href={`/news/${post.slug}`} key={post._id}>
+                      <p className="text-xs uppercase tracking-[0.18em] text-accent-cyan">
+                        {post.category?.replace(/-/g, " ")}
+                      </p>
+                      <h3 className="mt-3 line-clamp-2 text-2xl font-medium text-text-primary">
+                        {post.title}
+                      </h3>
+                      <p className="mt-3 line-clamp-3 text-text-secondary">{post.excerpt}</p>
+                      <p className="mt-4 text-xs text-text-tertiary">
+                        {post.author?.name || "CRASH Lab"} · {formatDate(post.publishedAt)}
+                      </p>
                     </Link>
                   ))}
                 </div>

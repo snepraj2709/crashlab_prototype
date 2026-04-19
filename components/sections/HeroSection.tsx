@@ -1,15 +1,20 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-import { Button } from "@/components/ui";
+const stats = [
+  { value: "15+", label: "papers" },
+  { value: "6", label: "RSNA abstracts" },
+  { value: "3", label: "institutional collaborations" },
+];
 
 export function HeroSection(): React.ReactElement {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-bg-primary pb-24 pt-36"
+      className="relative overflow-hidden bg-bg-primary pb-20 pt-36 lg:pb-24"
     >
       <div
         aria-hidden
@@ -21,27 +26,48 @@ export function HeroSection(): React.ReactElement {
         }}
       />
 
-      <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
-        <h1 className="font-display font-semibold leading-[0.92] tracking-[-0.035em] text-text-primary text-[clamp(2.75rem,7vw,4.75rem)]">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <h1 className="mt-6 font-display font-semibold leading-[0.92] tracking-[-0.035em] text-text-primary text-[clamp(2.75rem,7vw,4.75rem)]">
           Responsible AI,
           <br />
-          built for Healthcare.
+          built for <span className="text-[#244c6a]">Healthcare.</span>
         </h1>
 
-        <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-text-secondary lg:text-lg">
+        <p className="mt-8 max-w-3xl text-base leading-8 text-text-secondary lg:text-lg">
           CRASH Lab is an interdisciplinary research group at the intersection
           of clinical practice and frontier AI — building benchmarks that hold
           AI accountable, tools clinicians trust, and infrastructure for
           India&apos;s healthcare future.
         </p>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Button href="/join" size="lg">
-            Join the Team <ArrowRight className="size-4" />
-          </Button>
-          <Button href="/collaborate" size="lg" variant="outline">
-            Collaborate with Us
-          </Button>
+        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+          <Link
+            className="text-sm text-accent-cyan transition hover:opacity-75"
+            href="/join"
+          >
+            Join the team →
+          </Link>
+          <Link
+            className="text-sm text-accent-cyan transition hover:opacity-75"
+            href="/collaborate"
+          >
+            Collaborate with the lab →
+          </Link>
+        </div>
+
+        <div className="mt-12 border-y border-border py-5">
+          <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:gap-0">
+            {stats.map((stat, index) => (
+              <div
+                className="flex items-baseline gap-3 md:pr-6 md:mr-6 md:border-r md:border-border last:md:mr-0 last:md:border-r-0 last:md:pr-0"
+                key={stat.label}
+              >
+                <span className="font-mono text-2xl text-text-primary">{stat.value}</span>
+                <span className="text-sm text-text-secondary">{stat.label}</span>
+                {index === stats.length - 1 ? null : null}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

@@ -1,8 +1,7 @@
 import { Building2, DatabaseZap, FileSearch } from "lucide-react";
 import type { Metadata } from "next";
 
-import { ContactPageForm, PartnerInterestForm } from "@/components/sections";
-import { SectionLabel } from "@/components/ui";
+import { ContactPageForm } from "@/components/sections";
 
 export const metadata: Metadata = {
   title: "Collaborate & Contact — CRASH Lab",
@@ -34,21 +33,20 @@ export default function CollaboratePage(): React.ReactElement {
       {/* Partner collaboration */}
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel number="01" text="Collaborate" />
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
             Your AI needs to work in real clinical settings. Ours already does.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg text-text-secondary">
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-text-secondary">
             CRASH Lab partners with healthcare companies, institutions, and funders that need
             clinically credible evaluation and India-specific deployment research.
           </p>
 
-          <div className="mt-16 grid gap-6 lg:grid-cols-3">
+          <div className="mt-16 grid gap-10 lg:grid-cols-3 lg:gap-12">
             {models.map((model) => (
-              <div className="rounded-token-md border border-border bg-bg-surface p-8" key={model.title}>
+              <div className="border-t border-border pt-6" key={model.title}>
                 <model.icon className="size-10 text-accent-cyan" />
-                <h2 className="mt-8 text-3xl font-semibold text-text-primary">{model.title}</h2>
-                <p className="mt-4 text-text-secondary">{model.body}</p>
+                <h2 className="mt-6 text-3xl font-medium text-text-primary">{model.title}</h2>
+                <p className="mt-4 text-sm leading-8 text-text-secondary">{model.body}</p>
               </div>
             ))}
           </div>
@@ -65,7 +63,6 @@ export default function CollaboratePage(): React.ReactElement {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-16">
             <div className="max-w-2xl pt-2">
-              <SectionLabel number="02" text="Contact" />
               <h2 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
                 Get Involved
               </h2>

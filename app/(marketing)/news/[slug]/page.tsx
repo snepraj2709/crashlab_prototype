@@ -101,7 +101,7 @@ export default async function NewsPostPage({
             <div>
               <PortableTextContent blocks={post.body} />
 
-              <div className="mt-12 rounded-token-md border border-border bg-bg-surface p-6">
+              <div className="mt-12 border-t border-border pt-8">
                 <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">About the author</p>
                 <h2 className="mt-4 text-2xl font-semibold text-text-primary">
                   {post.author?.name || "CRASH Lab"}
@@ -114,7 +114,7 @@ export default async function NewsPostPage({
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
-                  className="rounded-full border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
+                  className="text-sm text-accent-cyan transition hover:opacity-75"
                   href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(post.title)}`}
                   rel="noreferrer"
                   target="_blank"
@@ -122,7 +122,7 @@ export default async function NewsPostPage({
                   Share on Twitter
                 </Link>
                 <Link
-                  className="rounded-full border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
+                  className="text-sm text-accent-cyan transition hover:opacity-75"
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`}
                   rel="noreferrer"
                   target="_blank"
@@ -132,16 +132,16 @@ export default async function NewsPostPage({
               </div>
             </div>
 
-            <aside className="space-y-6">
+            <aside className="space-y-8">
               {headings.length ? (
-                <div className="rounded-token-md border border-border bg-bg-surface p-6">
+                <div className="border-t border-border pt-5">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">
                     Table of contents
                   </p>
                   <div className="mt-5 space-y-3">
                     {headings.map((heading) => (
                       <a
-                        className={`block text-sm ${heading.level === 3 ? "pl-4 text-text-tertiary" : "text-text-primary"}`}
+                        className={`block text-sm hover:text-accent-cyan hover:underline ${heading.level === 3 ? "pl-4 text-text-tertiary" : "text-text-primary"}`}
                         href={`#${heading.id}`}
                         key={heading.id}
                       >
@@ -153,7 +153,7 @@ export default async function NewsPostPage({
               ) : null}
 
               {relatedPosts.length ? (
-                <div className="rounded-token-md border border-border bg-bg-surface p-6">
+                <div className="border-t border-border pt-5">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Related news</p>
                   <div className="mt-5 space-y-4">
                     {relatedPosts.map((related) => (

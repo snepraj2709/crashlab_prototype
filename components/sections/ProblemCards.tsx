@@ -1,4 +1,4 @@
-import { Button, SectionLabel } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { ProjectCard } from "@/components/sections/ProjectCard";
 import type { ProjectSeed } from "@/types/research";
 
@@ -12,7 +12,6 @@ export function ProblemCards({
   return (
     <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="02" text="The Problems We Work On" />
         <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 className="font-display text-4xl text-text-primary lg:text-5xl">
@@ -31,7 +30,7 @@ export function ProblemCards({
           ))}
         </div>
 
-        <div className="ui-panel mt-10 p-8 lg:flex lg:items-center lg:justify-between">
+        <div className="mt-10 border-t border-border pt-8 lg:flex lg:items-center lg:justify-between">
           <div>
             <p className="text-lg font-medium text-text-default">
               Building healthcare AI for Indian clinical settings?

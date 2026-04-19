@@ -30,7 +30,7 @@ function InitialsCircle({
 }): React.ReactElement {
   return (
     <span
-      className="flex shrink-0 items-center justify-center rounded-full border border-border bg-bg-surface font-medium text-text-secondary"
+      className="flex shrink-0 items-center justify-center rounded-full border border-border font-medium text-text-secondary"
       style={{ width: size, height: size, fontSize: size <= 28 ? 11 : 14 }}
       title={title}
     >
@@ -84,7 +84,7 @@ export default function BlogPostPage({
       <article className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Link
-            className="text-sm text-text-muted transition hover:text-text-default"
+            className="text-sm text-accent-cyan transition hover:opacity-75"
             href="/blog"
           >
             ← Back to Blog
@@ -139,7 +139,7 @@ export default function BlogPostPage({
 
               {/* TL;DR */}
               {post.tldr ? (
-                <div className="mt-8 rounded-r-token-md border-l-2 border-accent-cyan bg-bg-surface py-3 pl-4 pr-4">
+                <div className="mt-8 border-l-2 border-accent-cyan py-1 pl-4 pr-4">
                   <p className="mb-2 text-xs uppercase tracking-[0.2em] text-accent-cyan">TL;DR</p>
                   <p className="text-sm leading-relaxed text-text-secondary">{post.tldr}</p>
                 </div>
@@ -191,17 +191,17 @@ export default function BlogPostPage({
                   <p className="mb-6 text-xs uppercase tracking-[0.2em] text-text-tertiary">
                     Continue reading
                   </p>
-                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-8 border-t border-border pt-8 md:grid-cols-2 md:divide-x md:divide-border">
                     {prevPost ? (
                       <Link
-                        className="rounded-token-md border border-border p-4 transition hover:border-accent-cyan/50"
+                        className="transition hover:opacity-75 md:pr-8"
                         href={`/blog/${prevPost.id}`}
                       >
                         <p className="text-xs text-text-tertiary">← Previous</p>
-                        <div className="mt-2">
+                        <div className="mt-3">
                           <CategoryBadge category={prevPost.category} />
                         </div>
-                        <p className="mt-1 line-clamp-2 text-sm font-medium text-text-primary">
+                        <p className="mt-2 line-clamp-2 text-lg font-medium text-text-primary">
                           {prevPost.title}
                         </p>
                         <p className="mt-2 text-xs text-text-tertiary">{prevPost.date}</p>
@@ -211,14 +211,14 @@ export default function BlogPostPage({
                     )}
                     {nextPost ? (
                       <Link
-                        className="rounded-token-md border border-border p-4 text-right transition hover:border-accent-cyan/50"
+                        className="text-left transition hover:opacity-75 md:pl-8 md:text-right"
                         href={`/blog/${nextPost.id}`}
                       >
                         <p className="text-xs text-text-tertiary">Next →</p>
-                        <div className="mt-2 flex justify-end">
+                        <div className="mt-3 flex md:justify-end">
                           <CategoryBadge category={nextPost.category} />
                         </div>
-                        <p className="mt-1 line-clamp-2 text-sm font-medium text-text-primary">
+                        <p className="mt-2 line-clamp-2 text-lg font-medium text-text-primary">
                           {nextPost.title}
                         </p>
                         <p className="mt-2 text-xs text-text-tertiary">{nextPost.date}</p>
@@ -230,15 +230,15 @@ export default function BlogPostPage({
             </div>
 
             {/* RIGHT — sidebar */}
-            <aside className="sticky top-8 space-y-4 self-start">
+            <aside className="sticky top-8 space-y-8 self-start">
               {/* Table of contents */}
               {headings.length > 0 ? (
-                <div className="rounded-token-md border border-border p-5">
+                <div className="border-t border-border pt-5">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">In this post</p>
                   <div className="mt-4 space-y-3">
                     {headings.map((s) => (
                       <a
-                        className="block text-sm text-text-secondary transition hover:text-text-primary"
+                        className="block text-sm text-text-secondary transition hover:text-accent-cyan hover:underline"
                         href={`#${slugify(s.content)}`}
                         key={s.content}
                       >
@@ -251,7 +251,7 @@ export default function BlogPostPage({
 
               {/* Multiple authors list */}
               {hasMultipleAuthors ? (
-                <div className="rounded-token-md border border-border p-5">
+                <div className="border-t border-border pt-5">
                   <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Authors</p>
                   <div className="mt-4 space-y-3">
                     {post.authors!.map((author) => (
@@ -265,13 +265,13 @@ export default function BlogPostPage({
               ) : null}
 
               {/* CTA */}
-              <div className="rounded-token-md border border-border p-5">
+              <div className="border-t border-border pt-5">
                 <p className="text-sm font-medium text-text-primary">Join CRASH Lab</p>
                 <p className="mt-2 text-xs leading-relaxed text-text-secondary">
                   We have open positions for researchers and clinical collaborators.
                 </p>
                 <Link
-                  className="mt-4 inline-block rounded-token-pill border border-border px-4 py-2 text-xs font-semibold text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
+                  className="mt-4 inline-block text-sm text-accent-cyan transition hover:opacity-75"
                   href="/join"
                 >
                   View open roles →

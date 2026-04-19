@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { Button, Card } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { flattenApiErrorDetails } from "@/lib/utils/api";
 import { coerceFormOption } from "@/lib/utils/forms";
 import type { ApiResponse, JoinFormValues } from "@/types/forms";
@@ -74,11 +74,11 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
   }
 
   return (
-    <Card className="border-border">
+    <div>
       <form
         action="/api/join"
         aria-busy={isSubmitting}
-        className="mt-8 grid gap-5 md:grid-cols-2"
+        className="grid gap-5 md:grid-cols-2"
         method="post"
         onSubmit={handleSubmit}
       >
@@ -254,6 +254,6 @@ export function JoinInterestForm({ interests }: JoinInterestFormProps): React.Re
           </Button>
         </div>
       </form>
-    </Card>
+    </div>
   );
 }

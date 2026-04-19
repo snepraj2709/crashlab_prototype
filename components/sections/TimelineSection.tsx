@@ -1,4 +1,4 @@
-import { Card, SectionLabel } from "@/components/ui";
+import { Card } from "@/components/ui";
 
 const timelineItems = [
   {
@@ -27,7 +27,6 @@ export function TimelineSection(): React.ReactElement {
   return (
     <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="06" text="Timeline" />
         <div className="mt-10 grid gap-6 lg:grid-cols-4">
           {timelineItems.map((item) => (
             <Card className="relative overflow-hidden" key={item.year}>

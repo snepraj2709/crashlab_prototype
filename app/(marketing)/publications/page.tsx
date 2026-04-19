@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { PublicationsStory, TimelineSection } from "@/components/sections";
-import { MetricTile, ProofChip, SectionLabel } from "@/components/ui";
+import { PublicationsStory } from "@/components/sections";
+import { ProofChip } from "@/components/ui";
 import { getPersonBySlug, getSeedPublications } from "@/lib/content/site";
 
 export const metadata: Metadata = {
@@ -30,15 +30,25 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
       {/* Hero */}
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel number="01" text="Publications" />
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
-            Publications.
+            Publications
           </h1>
-          <p className="mt-6 max-w-3xl text-lg text-text-secondary">
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-text-secondary">
             CRASH Lab has been moving at a pace unusual in academia. 
             It is designed around the thesis: healthcare AI should be evaluated under clinical reality, not
             presentation-friendly benchmarks.
           </p>
+
+          <div className="mt-12 border-y border-border py-5">
+            <div className="grid gap-6 md:grid-cols-3 md:divide-x md:divide-border">
+              {impactMetrics.slice(0, 3).map((metric) => (
+                <div className="md:px-6 md:first:pl-0 md:last:pr-0" key={metric.label}>
+                  <p className="font-mono text-3xl text-text-primary">{metric.value}</p>
+                  <p className="mt-2 text-sm text-text-secondary">{metric.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -51,18 +61,18 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
 
       {/* PI credibility + funding */}
       <section className="py-8 lg:py-16">
-        <div className="mx-auto grid max-w-7xl gap-6 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <div className="rounded-token-md border border-border bg-bg-surface p-8">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <div className="border-t border-border pt-6">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Upcoming</p>
             <h2 className="mt-4 font-display text-4xl text-text-primary">
               Scale Data Commons to 50+ hospitals by 2027
             </h2>
-            <p className="mt-6 text-text-secondary">
+            <p className="mt-6 text-sm leading-8 text-text-secondary">
               The next phase expands beyond benchmarks into the infrastructure that makes clinical
               AI research faster, more accountable, and more representative across India.
             </p>
           </div>
-          <div className="rounded-token-md border border-border bg-bg-surface p-8">
+          <div className="border-t border-border pt-6">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Lead PI</p>
             <h2 className="mt-4 font-display text-4xl text-text-primary">{lead?.name}</h2>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -70,13 +80,11 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                 <ProofChip key={credential} label={credential} size="sm" />
               ))}
             </div>
-            <p className="mt-6 text-text-secondary">{lead?.shortBio}</p>
-            <div className="mt-8 rounded-token-sm border border-border bg-bg-surface p-6">
-              <p className="text-sm uppercase tracking-[0.16em] text-text-tertiary">Funding</p>
+            <p className="mt-6 text-sm leading-8 text-text-secondary">{lead?.shortBio}</p>
+            <div className="mt-8 border-t border-border pt-6">
               <p className="mt-3 text-xl text-text-primary">Supported by Koita Foundation</p>
-              <p className="mt-3 text-text-secondary">
-                The lab is building a portfolio for future grants, institutional partnerships, and
-                aligned philanthropic capital.
+              <p className="mt-3 text-sm leading-8 text-text-secondary">
+                The lab is funded by Koita Foundation, Google grant, and other institutional partner and philanthropic capital.
               </p>
             </div>
           </div>

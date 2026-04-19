@@ -1,8 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-import { Card, SectionLabel } from "@/components/ui";
 import type { PublicationEntry } from "@/types/research";
 
 interface PublicationListProps {
@@ -37,7 +35,6 @@ export function PublicationList({
   return (
     <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="07" text="Publications" />
         <div className="mt-8 flex flex-wrap gap-4">
           <select
             className="rounded-full border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary"
@@ -63,9 +60,9 @@ export function PublicationList({
           </select>
         </div>
 
-        <div className="mt-8 space-y-4">
+        <div className="mt-8">
           {filtered.map((publication) => (
-            <Card className="grid gap-4 lg:grid-cols-[180px_1fr_auto]" key={publication.id}>
+            <div className="grid gap-4 border-b border-border py-6 lg:grid-cols-[180px_1fr_auto]" key={publication.id}>
               <div>
                 <p className="font-mono text-sm text-accent-cyan">{publication.year}</p>
                 <p className="mt-2 text-sm uppercase tracking-[0.16em] text-text-tertiary">
@@ -79,7 +76,7 @@ export function PublicationList({
               <div className="lg:text-right">
                 {publication.link ? (
                   <a
-                    className="text-sm font-medium text-text-primary transition hover:text-accent-cyan"
+                    className="text-sm font-medium text-accent-cyan transition hover:opacity-75"
                     href={publication.link}
                     rel="noreferrer"
                     target="_blank"
@@ -88,7 +85,7 @@ export function PublicationList({
                   </a>
                 ) : null}
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </div>

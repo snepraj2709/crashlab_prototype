@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-
 import { JoinInterestForm } from "@/components/sections";
-import { SectionLabel } from "@/components/ui";
 import { getProjects } from "@/lib/content/site";
 
 export const metadata: Metadata = {
@@ -37,7 +35,6 @@ export default async function JoinPage(): Promise<React.ReactElement> {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
 
         {/* Header */}
-        <SectionLabel number="01" text="Join" />
         <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
           Work on problems that matter. In a lab that ships.
         </h1>
@@ -47,8 +44,8 @@ export default async function JoinPage(): Promise<React.ReactElement> {
         </p>
 
         {/* Who thrives + What you'll get */}
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-token-md border border-border bg-bg-surface p-8">
+        <div className="mt-16 grid gap-10 lg:grid-cols-2 lg:gap-12">
+          <div className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-text-primary">Who thrives here</h2>
             <p className="mt-6 text-lg leading-8 text-text-secondary">
               You&apos;re comfortable with ambiguity. You&apos;ve seen a clinical setting or
@@ -58,12 +55,12 @@ export default async function JoinPage(): Promise<React.ReactElement> {
             </p>
           </div>
 
-          <div className="rounded-token-md border border-border bg-bg-surface p-8">
+          <div className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-text-primary">What you&apos;ll get</h2>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {benefits.map((benefit) => (
                 <div
-                  className="rounded-token-sm border border-border bg-bg-surface px-5 py-4 text-base text-text-primary"
+                  className="border-t border-border py-4 text-base text-text-primary"
                   key={benefit}
                 >
                   {benefit}

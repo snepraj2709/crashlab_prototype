@@ -25,7 +25,7 @@ function renderInline(text: string): ReactNode[] {
 
 function TextSection({ content }: { content: string }): React.ReactElement {
   return (
-    <p className="mt-5 text-base leading-relaxed text-text-secondary">
+    <p className="mt-5 text-base leading-8 text-text-secondary">
       {renderInline(content)}
     </p>
   );
@@ -76,7 +76,7 @@ function TableSection({ data }: { data: TableData }): React.ReactElement {
             <tr
               className={`border-b border-border last:border-0 ${
                 row.highlight
-                  ? "bg-bg-surface font-medium text-text-primary"
+                  ? "font-medium text-text-primary"
                   : "text-text-secondary"
               }`}
               key={i}
@@ -96,12 +96,12 @@ function TableSection({ data }: { data: TableData }): React.ReactElement {
 
 function CalloutSection({ data }: { data: CalloutData }): React.ReactElement {
   return (
-    <div className="mt-8 rounded-token-md border border-border bg-bg-surface p-6">
+    <div className="mt-8 border-l-2 border-accent-cyan pl-4">
       <p className="font-medium text-text-primary">{data.title}</p>
       <p className="mt-2 text-sm leading-relaxed text-text-secondary">{data.description}</p>
       {data.buttonText && data.buttonLink ? (
         <Link
-          className="mt-4 inline-block rounded-token-pill border border-border px-5 py-2.5 text-sm font-semibold text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
+          className="mt-4 inline-block text-sm text-accent-cyan transition hover:opacity-75"
           href={data.buttonLink}
         >
           {data.buttonText}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SectionErrorBoundary } from "@/components/layout/SectionErrorBoundary";
 import { ProjectCard } from "@/components/sections/ProjectCard";
-import { EmptyState, SectionLabel } from "@/components/ui";
+import { EmptyState } from "@/components/ui";
 import { getProjects, getTrustSection } from "@/lib/content/site";
 import { filterProjects } from "@/lib/utils/filtering";
 import type { ProjectStatus } from "@/types/research";
@@ -11,8 +11,7 @@ export const revalidate = 300;
 const statusTabs: Array<{ label: string; value: "all" | ProjectStatus | "seeking" }> = [
   { label: "All", value: "all" },
   { label: "Active", value: "active" },
-  { label: "Published", value: "published" },
-  { label: "Seeking Collaborators", value: "seeking" }
+  { label: "Published", value: "published" }
 ];
 
 function buildQuery(params: Record<string, string | undefined>): string {
@@ -54,15 +53,11 @@ export default async function ResearchPage({
       <SectionErrorBoundary fallbackTitle="Research page unavailable">
         <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel number="01" text="Research" />
           <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
             The problems worth solving.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg text-text-secondary">
-            Navigate by clinical problem, not by paper title.
-          </p>
 
-          <form action="/research" className="ui-panel mt-10 grid gap-4 p-6 lg:grid-cols-[1fr_auto]" method="get">
+          <form action="/research" className="mt-10 grid gap-4 lg:grid-cols-[1fr_auto]" method="get">
             <input
               className="ui-field"
               defaultValue={activeQuery}
@@ -72,20 +67,20 @@ export default async function ResearchPage({
             <input name="tags" type="hidden" value={activeTags.join(",")} />
             <input name="status" type="hidden" value={activeStatus} />
             <button
-              className="ui-focus-ring inline-flex h-11 items-center justify-center rounded-token-pill border border-surface-strong bg-surface-strong px-5 py-3 font-medium text-text-on-strong transition hover:border-border-focus hover:bg-surface-shell"
+              className="ui-focus-ring inline-flex h-11 items-center justify-center rounded-token-pill border border-border-default px-5 py-3 font-medium text-text-primary transition hover:border-border-focus hover:text-accent-cyan"
               type="submit"
             >
               Search
             </button>
           </form>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
             {statusTabs.map((tab) => (
               <Link
-                className={`rounded-full border px-4 py-2 text-sm transition ${
+                className={`text-sm transition ${
                   activeStatus === tab.value
-                    ? "border-border-focus bg-status-info-surface text-border-focus"
-                    : "border-border-default text-text-muted hover:border-border-focus hover:text-border-focus"
+                    ? "text-accent-cyan underline underline-offset-4"
+                    : "text-text-tertiary hover:text-accent-cyan hover:underline"
                 }`}
                 href={`/research${buildQuery({
                   q: activeQuery || undefined,
@@ -99,36 +94,10 @@ export default async function ResearchPage({
             ))}
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            {tags.map((tag) => {
-              const nextTags = activeTags.includes(tag)
-                ? activeTags.filter((entry) => entry !== tag)
-                : [...activeTags, tag];
-
-              return (
-                <Link
-                  className={`rounded-full border px-4 py-2 text-sm transition ${
-                    activeTags.includes(tag)
-                      ? "border-border-focus bg-status-info-surface text-border-focus"
-                      : "border-border-default text-text-muted hover:border-border-focus hover:text-border-focus"
-                  }`}
-                  href={`/research${buildQuery({
-                    q: activeQuery || undefined,
-                    status: activeStatus === "all" ? undefined : activeStatus,
-                    tags: nextTags.join(",") || undefined
-                  })}`}
-                  key={tag}
-                >
-                  {tag}
-                </Link>
-              );
-            })}
-          </div>
-
           <div className="mt-12">
 
             {filtered.length ? (
-              <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="mt-4">
                 {filtered.map((project) => (
                   <ProjectCard key={project.slug} project={project} showMetadata />
                 ))}

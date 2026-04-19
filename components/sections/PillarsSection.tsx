@@ -261,7 +261,7 @@ const InteractivePillarsSection: React.FC<{
                 }}>
             </div>
 
-            <div className="container mx-auto px-6 md:px-12 relative z-10">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
 
                 <div className="mb-16 flex flex-wrap items-end justify-between gap-10">
                     <div>

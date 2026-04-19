@@ -30,7 +30,7 @@ export type ButtonProps = NativeButtonProps;
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "border border-surface-strong bg-surface-strong text-text-on-strong shadow-soft hover:border-border-focus hover:bg-surface-shell active:translate-y-px",
+    "border border-surface-strong bg-surface-strong text-text-on-strong hover:border-border-focus hover:bg-surface-shell active:translate-y-px",
   secondary:
     "border border-border-default bg-surface-panel text-text-default hover:border-border-focus hover:text-border-focus active:bg-surface-canvas",
   ghost:
@@ -52,7 +52,7 @@ function getClasses(
 ): string {
   return cn(
     "ui-focus-ring inline-flex items-center justify-center gap-2 rounded-token-pill font-medium transition duration-200",
-    "disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-border disabled:bg-bg-elevated disabled:text-text-tertiary disabled:shadow-none disabled:opacity-60",
+    "disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-border disabled:bg-bg-elevated disabled:text-text-tertiary disabled:opacity-60",
     variantClasses[variant],
     sizeClasses[size],
     className,

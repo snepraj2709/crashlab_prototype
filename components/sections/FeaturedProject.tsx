@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Button, SectionLabel } from "@/components/ui";
+import { Button } from "@/components/ui";
 import type { ProjectSeed } from "@/types/research";
 
 interface FeaturedProjectProps {
@@ -26,7 +26,6 @@ export function FeaturedProject({
     <section className="py-8 lg:py-16">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div>
-          <SectionLabel number="04" text="Featured Research" />
           <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
             Radiology&apos;s Last Exam (RadLE)
           </h2>
@@ -80,7 +79,7 @@ export function FeaturedProject({
             Presentation | Ashoka University
           </p>
         </div>
-        <div className="overflow-hidden rounded-token-md border border-border-default bg-surface-panel shadow-panel">
+        <div className="overflow-hidden rounded-token-sm">
           <Image
             alt="RadLE benchmark comparison visualization"
             className="h-auto w-full object-cover"

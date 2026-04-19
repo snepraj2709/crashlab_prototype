@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Button, Card, SectionLabel } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { formatDate } from "@/lib/utils/formatDate";
 import type { SitePost, SitePostCategory } from "@/types/site";
 
@@ -36,7 +36,6 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
-            <SectionLabel number="06" text="News" />
             <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
               Research updates. Benchmark changes. What we&apos;re learning in
               the field.
@@ -53,37 +52,39 @@ export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12">
           {posts.slice(0, 3).map((post) => (
-            <Link className="ui-focus-ring rounded-token-md" href={`/news/${post.slug}`} key={post._id}>
-              <Card className="h-full transition hover:border-border-focus">
-                <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm border border-border-default">
+            <Link className="block border-b border-border py-6 transition hover:opacity-75" href={`/news/${post.slug}`} key={post._id}>
+              <div className="grid gap-6 lg:grid-cols-[12rem_minmax(0,1fr)] lg:items-start">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-token-sm">
                   <Image
                     alt={`Cover image for ${post.title}`}
                     className="object-cover"
                     fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    sizes="(max-width: 1024px) 100vw, 16rem"
                     src={getCoverSrc(post)}
                   />
                 </div>
-                <div className="mt-6 flex items-center justify-between gap-3">
-                  <span className="ui-status-badge border-status-info-border bg-status-info-surface text-status-info-text">
-                    {post.category?.replace(/-/g, " ") || "Update"}
-                  </span>
-                  <span className="text-sm text-text-tertiary">
-                    {formatDate(post.publishedAt)}
-                  </span>
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="ui-status-badge border-status-info-border bg-status-info-surface text-status-info-text">
+                      {post.category?.replace(/-/g, " ") || "Update"}
+                    </span>
+                    <span className="text-sm text-text-tertiary">
+                      {formatDate(post.publishedAt)}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 line-clamp-2 text-2xl font-medium text-text-default">
+                    {post.title}
+                  </h3>
+                  <p className="mt-3 line-clamp-2 text-text-muted">
+                    {post.excerpt}
+                  </p>
+                  <p className="mt-5 text-sm text-text-tertiary">
+                    {post.author?.name || "CRASH Lab"}
+                  </p>
                 </div>
-                <h3 className="mt-4 line-clamp-2 text-2xl font-semibold text-text-default">
-                  {post.title}
-                </h3>
-                <p className="mt-3 line-clamp-2 text-text-muted">
-                  {post.excerpt}
-                </p>
-                <p className="mt-5 text-sm text-text-tertiary">
-                  {post.author?.name || "CRASH Lab"}
-                </p>
-              </Card>
+              </div>
             </Link>
           ))}
         </div>

@@ -1,5 +1,4 @@
 import { PeopleDirectory } from "@/components/sections/PeopleDirectory";
-import { SectionLabel } from "@/components/ui";
 import type { TeamMemberProfile } from "@/types/team";
 
 interface TeamGridProps {
@@ -10,7 +9,6 @@ export function TeamGrid({ profiles }: TeamGridProps): React.ReactElement {
   return (
     <section className="py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel number="01" text="People" />
         <div className="mt-8 max-w-3xl">
           <div>
             <h1 className="font-display text-5xl text-text-primary lg:text-6xl">Lab Members</h1>

@@ -49,6 +49,8 @@ export default async function PersonPage({
   const visibleCredentials = person.credentials.slice(0, 4);
   const visibleResearchFocus = person.researchFocus.slice(0, 5);
   const hasSocialLinks = Object.values(person.socialLinks ?? {}).some(Boolean);
+  const alumniYear = (person as typeof person & { alumniYear?: number }).alumniYear;
+  const currentInstitution = (person as typeof person & { currentInstitution?: string }).currentInstitution;
 
   return (
     <>
@@ -68,7 +70,7 @@ export default async function PersonPage({
       />
       <div className="pt-32">
         <section className="py-8 lg:py-16">
-          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <Link
               className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan transition hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
               href="/people"
@@ -86,17 +88,17 @@ export default async function PersonPage({
                   sizes="(min-width: 1024px) 22rem, 90vw"
                 />
 
-                {( person.affiliation || hasSocialLinks || person.email) && (
+                {(hasSocialLinks || person.email || (!person.isActive && (alumniYear || currentInstitution))) && (
                   <div className="space-y-6 px-1">
-
-                    {person.affiliation ? (
+                    {!person.isActive && (alumniYear || currentInstitution) ? (
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan">
-                          Affiliation
+                          Status
                         </p>
-                        <p className="mt-2 text-sm leading-7 text-text-secondary">
-                          {person.affiliation}
-                        </p>
+                        <div className="mt-2 space-y-1 text-sm leading-7 text-text-secondary">
+                          {alumniYear ? <p>Alumni · {alumniYear}</p> : null}
+                          {currentInstitution ? <p>Now at {currentInstitution}</p> : null}
+                        </div>
                       </div>
                     ) : null}
 

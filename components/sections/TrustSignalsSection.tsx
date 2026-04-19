@@ -64,7 +64,7 @@ function LogoMarkup({
 }): React.ReactElement {
   const imageClassName = cn("h-auto w-auto max-w-full object-contain", maxHeightClassName);
   const logoTileClassName = cn(
-    "inline-flex items-center justify-center rounded-token-sm border border-border-subtle bg-surface-panel px-4 py-3 shadow-soft",
+    "inline-flex items-center justify-center px-2 py-2 opacity-80 transition-opacity duration-200 hover:opacity-100",
     tileClassName
   );
 
@@ -75,7 +75,7 @@ function LogoMarkup({
         aria-label={ariaHidden ? undefined : `Visit ${logo.name} (opens in new tab)`}
         className={cn(
           logoTileClassName,
-          "ui-focus-ring-panel transition-transform duration-200 hover:-translate-y-0.5 hover:border-border-focus"
+          "ui-focus-ring"
         )}
         href={logo.href}
         key={logo.id}
@@ -149,15 +149,8 @@ function FeaturedCredentialCard({
   const meta = credentialKindMeta[credential.kind];
 
   return (
-    <div className="rounded-token-sm border border-border-default bg-bg-elevated p-5 transition-colors duration-200 hover:border-border-focus">
-      <span
-        className={cn(
-          "ui-status-badge",
-          meta.badgeClassName
-        )}
-      >
-        {meta.label}
-      </span>
+    <div className="border-t border-border pt-5">
+      <p className="text-xs uppercase tracking-[0.18em] text-text-tertiary">{meta.label}</p>
       <div className="mt-3">
         <CredentialLabel
           className="text-sm font-semibold text-text-primary"
@@ -208,49 +201,44 @@ export function TrustSignalsSection({
     return (
       <section aria-label="Institutional affiliations and credentials" className="py-10 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="trust-logo-slideshow rounded-token-md border border-border-default bg-surface-panel px-6 py-8 shadow-panel sm:px-8 lg:px-10 lg:py-10">
-            <div aria-hidden="true" className="hero-mesh absolute inset-0 opacity-60" />
-            <div className="relative">
-              <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
-              <h2 className="mt-3 max-w-4xl font-display text-3xl text-text-primary sm:text-4xl lg:text-5xl">
-                {section.title}
-              </h2>
-              <p className="mt-4 max-w-3xl text-base text-text-secondary sm:text-lg">
-                {section.description}
-              </p>
+          <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
+          <h2 className="mt-3 max-w-4xl font-display text-3xl text-text-primary sm:text-4xl lg:text-5xl">
+            {section.title}
+          </h2>
+          <p className="mt-4 max-w-3xl text-base text-text-secondary sm:text-lg">
+            {section.description}
+          </p>
 
-              <div className="mt-10 sm:mt-12">
-                <div className="sr-only">
-                  <ul>
-                    {section.logos.map((logo) => (
-                      <li key={logo.id}>{logo.name}</li>
-                    ))}
-                  </ul>
-                </div>
+          <div className="mt-10 sm:mt-12">
+            <div className="sr-only">
+              <ul>
+                {section.logos.map((logo) => (
+                  <li key={logo.id}>{logo.name}</li>
+                ))}
+              </ul>
+            </div>
 
-                <div className="trust-logo-slideshow__viewport">
-                  <div
-                    aria-hidden="true"
-                    className="trust-logo-slideshow__edge trust-logo-slideshow__edge--left"
+            <div className="trust-logo-slideshow__viewport">
+              <div
+                aria-hidden="true"
+                className="trust-logo-slideshow__edge trust-logo-slideshow__edge--left"
+              />
+              <div
+                aria-hidden="true"
+                className="trust-logo-slideshow__edge trust-logo-slideshow__edge--right"
+              />
+
+              <div className="trust-logo-slideshow__track gap-8 sm:gap-10 lg:gap-12">
+                {repeatedLogos.map((logo, index) => (
+                  <LogoMarkup
+                    ariaHidden={index >= section.logos.length}
+                    key={`${logo.id}-${index}`}
+                    logo={logo}
+                    maxHeightClassName="max-h-10 sm:max-h-12"
+                    tabIndex={index >= section.logos.length ? -1 : undefined}
+                    tileClassName="h-[72px] min-w-[160px] sm:h-[84px] sm:min-w-[200px] lg:min-w-[220px]"
                   />
-                  <div
-                    aria-hidden="true"
-                    className="trust-logo-slideshow__edge trust-logo-slideshow__edge--right"
-                  />
-
-                  <div className="trust-logo-slideshow__track gap-4 sm:gap-6 lg:gap-8">
-                    {repeatedLogos.map((logo, index) => (
-                      <LogoMarkup
-                        ariaHidden={index >= section.logos.length}
-                        key={`${logo.id}-${index}`}
-                        logo={logo}
-                        maxHeightClassName="max-h-10 sm:max-h-12"
-                        tabIndex={index >= section.logos.length ? -1 : undefined}
-                        tileClassName="h-[92px] min-w-[180px] px-6 sm:h-[104px] sm:min-w-[220px] lg:min-w-[250px] lg:px-8"
-                      />
-                    ))}
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -308,7 +296,7 @@ export function TrustSignalsSection({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
           className={cn(
-            "grid items-center gap-8 rounded-token-md border border-border-default bg-surface-panel p-6 shadow-panel lg:p-10",
+            "grid items-center gap-8 border-t border-border pt-8 lg:pt-10",
             compactGridClassName,
             section.logos.length && visibleCredentials.length && "lg:grid-cols-[0.95fr_1.05fr]",
             !section.logos.length && "max-w-4xl"

@@ -34,7 +34,6 @@ export const navItems: NavItem[] = [
   },
   { label: "People", href: "/people" },
   { label: "Collaborate", href: "/collaborate" },
-  { label: "Blog", href: "/blog" },
   { label: "News & Events", href: "/news" }
 ];
 
@@ -52,7 +51,7 @@ function DropdownMenu({ items, visible }: DropdownMenuProps): React.ReactElement
   if (!visible) return null;
   return (
     <div
-      className="absolute left-0 top-full mt-2 min-w-[200px] overflow-hidden rounded-token-sm border border-border-default bg-surface-panel shadow-card"
+      className="absolute left-0 top-full mt-2 min-w-[200px] overflow-hidden rounded-token-sm border border-border-default bg-surface-panel"
       role="menu"
     >
       {items.map((child) => (
@@ -139,8 +138,8 @@ export function Navbar({ hasBanner }: NavbarProps): React.ReactElement {
                       className={cn(
                         "ui-focus-ring inline-flex items-center gap-1 rounded-token-pill border px-4 py-2 text-sm font-semibold tracking-[0.01em] transition-all duration-200",
                         isActive
-                          ? "border-border-focus bg-status-info-surface text-border-focus shadow-soft"
-                          : "border-transparent text-text-muted hover:border-border-default hover:bg-surface-panel hover:text-text-default hover:shadow-soft"
+                          ? "border-border-focus bg-status-info-surface text-border-focus"
+                          : "border-transparent text-text-muted hover:border-border-default hover:bg-surface-panel hover:text-text-default"
                       )}
                       href={item.href}
                     >

@@ -7,7 +7,6 @@ const footerLinks = [
   { href: "/research", label: "Research" },
   { href: "/people", label: "People" },
   { href: "/collaborate", label: "Collaborate" },
-  { href: "/blog", label: "Blog" },
   { href: "/news", label: "News & Events" },
   { href: "/join", label: "Apply" },
 ];
@@ -53,7 +52,7 @@ export function Footer(): React.ReactElement {
               </a>
               <p>
                 Built for researchers, industry partners, and funders who care
-                about clinical truth.
+                about clinical truth in AI.
               </p>
             </div>
             <div className="mt-8 flex flex-col items-start gap-3">

@@ -1,61 +1,43 @@
-import { SectionLabel } from "@/components/ui";
-
 const items = [
   {
     n: "01",
     h: "Benchmark inflation",
-    b: "Public radiology benchmarks have saturated. New models report ever-higher scores on tests that no longer reflect clinical reasoning.",
+    b: "Public radiology benchmarks have saturated. New models report higher scores on tests that no longer reflect clinical reasoning.",
   },
   {
     n: "02",
     h: "Clinical reality gap",
-    b: "In practice, frontier multimodal AI still misses the reasoning steps a trained radiologist does automatically on complex cases.",
+    b: "In practice, frontier multimodal AI still misses the reasoning steps a trained radiologist performs automatically on difficult cases.",
   },
   {
     n: "03",
     h: "No accountable yardstick",
-    b: "Hospitals, funders, and policy-makers need a reasoning-heavy benchmark that separates hype from signal — built with real radiologists.",
+    b: "Hospitals, funders, and policy-makers need a reasoning-heavy benchmark that separates hype from signal and was built with real readers.",
   },
 ];
 
 export function ProblemStrip(): React.ReactElement {
   return (
-    <section
-      id="problem"
-      className="bg-bg-primary py-24"
-    >
+    <section className="border-t border-border py-16 lg:py-24" id="problem">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header row */}
-        <div className="mb-12 grid gap-14 lg:grid-cols-[1fr_1.6fr] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-end">
           <div>
-            <SectionLabel number="02" text="WHY THIS MATTERS" />
-            <h2 className="mt-5 font-display text-4xl font-semibold leading-[1.02] tracking-tight text-text-primary lg:text-5xl">
+            <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
               The field has outgrown its benchmarks.
             </h2>
           </div>
-          <p className="text-base leading-relaxed text-text-secondary lg:text-[16.5px] lg:max-w-[560px]">
-            RadLE exists because the tests that currently decide &ldquo;AI is
-            ready for the clinic&rdquo; stopped measuring the hard part. These
-            are the three gaps it closes.
+          <p className="max-w-2xl text-base leading-8 text-text-secondary lg:justify-self-end">
+            RadLE exists because the tests currently used to decide whether healthcare AI is
+            ready for the clinic stopped measuring the hard part.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid gap-5 md:grid-cols-3">
-          {items.map((it) => (
-            <article
-              key={it.n}
-              className="flex min-h-[220px] flex-col gap-4 rounded-token-md border border-border-default bg-surface-panel p-7 shadow-soft"
-            >
-              <div className="font-mono text-xs tracking-[0.16em] text-text-tertiary">
-                {it.n}
-              </div>
-              <h3 className="font-display text-2xl font-semibold leading-tight tracking-tight text-text-primary">
-                {it.h}
-              </h3>
-              <p className="text-[14.5px] leading-relaxed text-text-secondary">
-                {it.b}
-              </p>
+        <div className="mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
+          {items.map((item) => (
+            <article className="border-t border-border pt-6" key={item.n}>
+              <p className="text-xs uppercase tracking-[0.18em] text-text-tertiary">{item.n}</p>
+              <h3 className="mt-4 text-2xl font-medium text-text-primary">{item.h}</h3>
+              <p className="mt-4 text-sm leading-8 text-text-secondary">{item.b}</p>
             </article>
           ))}
         </div>

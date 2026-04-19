@@ -1,10 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-
-import { Badge, Card } from "@/components/ui";
 import type { ProjectSeed } from "@/types/research";
 
 interface ProjectCardProps {
@@ -20,43 +14,71 @@ export function ProjectCard({
     project.seekingCollaborators && project.status !== "published"
       ? "seeking-collaborators"
       : project.status;
+  const statusMeta = {
+    active: {
+      dotClassName: "bg-accent-cyan",
+      label: "Active"
+    },
+    published: {
+      dotClassName: "bg-accent-green",
+      label: "Published"
+    },
+    completed: {
+      dotClassName: "bg-text-tertiary",
+      label: "Completed"
+    },
+    "seeking-collaborators": {
+      dotClassName: "bg-accent-orange",
+      label: "Seeking Collaborators"
+    }
+  }[status];
 
   return (
-    <motion.div whileHover={{ y: -4 }}>
-      <Card className="group flex h-full flex-col justify-between transition duration-200 hover:border-border-focus">
+    <article className="border-b border-border py-8 last:border-b-0">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(14rem,0.8fr)] lg:items-start">
         <div>
-          <div className="flex items-start justify-between gap-4">
-            <Badge status={status} />
-            {showMetadata && project.venue ? (
-              <span className="text-right text-xs uppercase tracking-[0.18em] text-text-tertiary">
-                {project.venue}
-              </span>
-            ) : null}
+          <div className="flex items-center gap-2 text-xs text-text-tertiary">
+            <span
+              aria-hidden="true"
+              className={`inline-block h-[5px] w-[5px] rounded-full ${statusMeta.dotClassName}`}
+            />
+            <span>{statusMeta.label}</span>
           </div>
-          <h3 className="mt-6 line-clamp-2 text-xl font-semibold text-text-default">
+          <Link
+            className="mt-3 block text-lg font-medium text-text-primary transition hover:text-accent-cyan hover:underline"
+            href={`/research/${project.slug}`}
+          >
             {project.problemStatement}
-          </h3>
-          <p className="mt-3 text-sm uppercase tracking-[0.16em] text-accent-cyan">{project.title}</p>
-          <p className="mt-4 line-clamp-3 text-sm leading-7 text-text-muted">
+          </Link>
+          <p className="mt-1 line-clamp-2 text-sm leading-7 text-text-secondary">
             {project.summary}
           </p>
-          {showMetadata ? (
-            <div className="mt-5 flex flex-wrap gap-2">
-              {project.tags.slice(0, 4).map((tag) => (
-                <span className="ui-chip" key={tag}>
-                  {tag}
-                </span>
-              ))}
-            </div>
-          ) : null}
+          <div className="mt-3 flex flex-wrap gap-2">
+            {project.tags.slice(0, showMetadata ? 4 : 3).map((tag) => (
+              <span
+                className="rounded-full border border-border-default px-3 py-1 text-xs text-text-secondary"
+                key={tag}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
-        <Link
-          className="ui-focus-ring mt-8 inline-flex items-center gap-2 text-sm font-medium text-text-default transition group-hover:text-border-focus"
-          href={`/research/${project.slug}`}
-        >
-          View Research <ArrowRight className="size-4" />
-        </Link>
-      </Card>
-    </motion.div>
+
+        <div className="space-y-3 lg:text-right">
+          {showMetadata && project.venue ? (
+            <p className="text-xs uppercase tracking-[0.18em] text-text-tertiary">
+              {project.venue}
+            </p>
+          ) : null}
+          <Link
+            className="inline-flex text-sm text-accent-cyan transition hover:opacity-75"
+            href={`/research/${project.slug}`}
+          >
+            View research →
+          </Link>
+        </div>
+      </div>
+    </article>
   );
 }

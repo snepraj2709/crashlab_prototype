@@ -1,21 +1,24 @@
-import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const rows = [
   {
-    who: "Industry AI teams",
-    why: "Validate your model on RadLE v1. Commission India-specific studies.",
+    who: "For Industry",
+    title: "Clinical validation for models that need to survive contact with practice.",
+    body: "Validate your model on RadLE, commission India-specific evaluation studies, or work with the lab on deployment-grade evidence.",
     cta: "Commission a study",
     href: "/collaborate",
   },
   {
-    who: "Clinical researchers",
-    why: "Join RadLE-X or propose a cohort. Expert readers and data access provided.",
+    who: "For Researchers",
+    title: "Benchmarks, cohorts, and clinical collaborators for serious research.",
+    body: "Join RadLE-X, propose a new cohort, or work with a lab that treats benchmark design as publishable infrastructure.",
     cta: "Propose a study",
     href: "/join",
   },
   {
-    who: "Funders & policy",
-    why: "Back the benchmark infrastructure the field is missing.",
+    who: "For Funders",
+    title: "Back the infrastructure the field will need before deployment scales.",
+    body: "Support benchmark systems, data commons, and evaluation standards that make healthcare AI more accountable.",
     cta: "Talk to the lab",
     href: "/contact",
   },
@@ -23,79 +26,34 @@ const rows = [
 
 export function CollaborateSection(): React.ReactElement {
   return (
-    <section
-      id="collaborate"
-      className="relative overflow-hidden py-28 lg:py-36"
-      style={{ background: "#0F172A", color: "#E8EDF5" }}
-    >
-      {/* Subtle background glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          opacity: 0.4,
-          backgroundImage:
-            "radial-gradient(circle at 15% 20%, rgba(35,76,106,.6) 0, transparent 30%), radial-gradient(circle at 88% 80%, rgba(234,88,12,.25) 0, transparent 28%)",
-        }}
-      />
-
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-14 grid gap-14 lg:grid-cols-2 lg:items-end">
+    <section className="border-t border-border py-16 lg:py-24" id="collaborate">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-end">
           <div>
-            <p className="font-sans text-[12px] font-medium uppercase tracking-[0.22em] text-accent-orange">
-              06 — COLLABORATE
-            </p>
-            <h2 className="mt-5 font-display text-5xl font-semibold leading-[1.02] tracking-[-0.035em] text-white lg:text-6xl">
-              Hold your model
-              <br />
-              to the hard test.
+            <h2 className="mt-6 max-w-4xl font-display text-4xl text-text-primary lg:text-5xl">
+              Hold healthcare AI to the hard test.
             </h2>
           </div>
-          <div>
-            <p className="max-w-[480px] text-[17px] leading-relaxed text-white/78">
-              Run your model against RadLE. Partner on the next benchmark. Fund
-              infrastructure India&apos;s healthcare AI actually needs.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href="#radle"
-                className="inline-flex h-[52px] items-center gap-2 rounded-full border border-white bg-white px-6 text-[15px] font-medium text-[#0F172A] shadow-[0_8px_24px_rgba(0,0,0,.25)] transition-opacity hover:opacity-90"
-              >
-                Explore the RadLE Benchmark <ArrowRight className="size-4" />
-              </a>
-              <a
-                href="mailto:suvrankar.datta@ashoka.edu.in"
-                className="inline-flex h-[52px] items-center gap-2 rounded-full border border-white/28 bg-transparent px-6 text-[15px] font-medium text-white transition-colors hover:border-white/50"
-              >
-                Collaborate with the lab
-              </a>
-            </div>
-          </div>
+          <p className="max-w-2xl text-base leading-8 text-text-secondary lg:justify-self-end">
+            CRASH Lab works with researchers, healthcare companies, and aligned funders that
+            need clinically credible evaluation rather than presentation-ready claims.
+          </p>
         </div>
 
-        {/* Audience cards */}
-        <div className="grid gap-5 md:grid-cols-3">
-          {rows.map((r) => (
-            <div
-              key={r.who}
-              className="flex min-h-[220px] flex-col gap-4 rounded-token-md border border-white/12 bg-white/[0.03] p-7"
-            >
-              <div className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-accent-orange">
-                For
-              </div>
-              <h3 className="font-display text-[22px] font-semibold leading-tight tracking-tight text-white">
-                {r.who}
+        <div className="mt-16 grid gap-10 lg:grid-cols-3 lg:gap-12">
+          {rows.map((row) => (
+            <div className="border-t border-border pt-6" key={row.who}>
+              <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">{row.who}</p>
+              <h3 className="mt-4 text-2xl font-medium leading-tight text-text-primary">
+                {row.title}
               </h3>
-              <p className="flex-1 text-[14.5px] leading-relaxed text-white/72">
-                {r.why}
-              </p>
-              <a
-                href={r.href}
-                className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-white hover:underline"
+              <p className="mt-4 text-sm leading-8 text-text-secondary">{row.body}</p>
+              <Link
+                className="mt-6 inline-flex text-sm text-accent-cyan transition hover:opacity-75"
+                href={row.href}
               >
-                {r.cta} <ArrowRight className="size-3.5" />
-              </a>
+                {row.cta} →
+              </Link>
             </div>
           ))}
         </div>

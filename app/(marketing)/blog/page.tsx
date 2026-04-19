@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-
-import { SectionLabel } from "@/components/ui";
 import { blogPosts } from "@/lib/data/blogPosts";
 
 export const metadata: Metadata = {
@@ -12,8 +10,8 @@ export const metadata: Metadata = {
 
 function InitialsCircle({ initials, size = 36 }: { initials: string; size?: number }): React.ReactElement {
   const cls = size === 28
-    ? "flex size-7 items-center justify-center rounded-full border border-border bg-bg-surface text-xs font-medium text-text-secondary"
-    : "flex items-center justify-center rounded-full border border-border bg-bg-surface text-sm font-medium text-text-secondary";
+    ? "flex size-7 items-center justify-center rounded-full border border-border text-xs font-medium text-text-secondary"
+    : "flex items-center justify-center rounded-full border border-border text-sm font-medium text-text-secondary";
   return (
     <span className={cls} style={size !== 28 ? { width: size, height: size } : undefined}>
       {initials}
@@ -40,7 +38,6 @@ export default function BlogPage(): React.ReactElement {
     <div className="pt-32">
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel number="01" text="Blog" />
           <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
             Thinking out loud.
           </h1>
@@ -51,10 +48,10 @@ export default function BlogPage(): React.ReactElement {
 
           {/* Featured post */}
           {featuredPost ? (
-            <div className="mt-12 overflow-hidden rounded-token-md border border-border transition hover:border-accent-cyan/50">
-              <div className="flex flex-col lg:flex-row">
+            <div className="mt-12 border-b border-border pb-12">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
                 {/* Image side */}
-                <div className="relative aspect-video lg:aspect-auto lg:h-auto lg:w-[45%]">
+                <div className="relative aspect-video overflow-hidden rounded-token-sm lg:aspect-auto lg:h-auto lg:w-[45%]">
                   {featuredPost.featuredImage ? (
                     <Image
                       alt={featuredPost.imageAlt ?? featuredPost.title}
@@ -65,7 +62,7 @@ export default function BlogPage(): React.ReactElement {
                       src={featuredPost.featuredImage}
                     />
                   ) : (
-                    <div className="flex h-full min-h-48 items-center justify-center bg-bg-surface">
+                    <div className="flex h-full min-h-48 items-center justify-center border border-border">
                       <span className="text-xs uppercase tracking-[0.18em] text-text-tertiary">
                         {featuredPost.category}
                       </span>
@@ -90,7 +87,7 @@ export default function BlogPage(): React.ReactElement {
                 </div>
 
                 {/* Content side */}
-                <div className="flex flex-col justify-center p-8 lg:w-[55%]">
+                <div className="flex flex-col justify-center lg:w-[55%]">
                   <CategoryBadge category={featuredPost.category} />
                   <h2 className="mt-4 font-display text-2xl leading-snug text-text-primary lg:text-3xl">
                     {featuredPost.title}
@@ -124,16 +121,15 @@ export default function BlogPage(): React.ReactElement {
           {/* Remaining posts grid */}
           {remainingPosts.length > 0 ? (
             <div className="mt-16">
-              <SectionLabel number="02" text="More posts" />
-              <div className="mt-6 grid gap-6 md:grid-cols-2">
+              <div className="mt-6">
                 {remainingPosts.map((post) => (
                   <Link
-                    className="block rounded-token-md border border-border p-5 transition hover:border-accent-cyan/50"
+                    className="block border-b border-border py-6 transition hover:opacity-75"
                     href={`/blog/${post.id}`}
                     key={post.id}
                   >
                     <CategoryBadge category={post.category} />
-                    <h3 className="mt-2 line-clamp-2 text-base font-medium leading-snug text-text-primary">
+                    <h3 className="mt-2 line-clamp-2 text-xl font-medium leading-snug text-text-primary">
                       {post.title}
                     </h3>
                     {(post.description ?? post.tldr) ? (
@@ -141,7 +137,7 @@ export default function BlogPage(): React.ReactElement {
                         {post.description ?? post.tldr}
                       </p>
                     ) : null}
-                    <div className="mt-4 flex items-center gap-2 border-t border-border pt-4">
+                    <div className="mt-4 flex items-center gap-2">
                       <InitialsCircle initials={post.author.initials} size={28} />
                       <span className="text-xs text-text-tertiary">
                         {post.author.name} · {post.date} · {post.readTime}
@@ -156,7 +152,6 @@ export default function BlogPage(): React.ReactElement {
           {/* Papers & Abstracts */}
           {papersOnly.length > 0 ? (
             <div className="mt-16">
-              <SectionLabel number="03" text="Papers & Abstracts" />
               <div className="mt-6">
                 {papersOnly.map((post) => (
                   <div
