@@ -377,17 +377,19 @@ export async function getTeamProfiles(): Promise<TeamMemberProfile[]> {
   const people = await getPeople();
   const peopleBySlug = new Map(people.map((person) => [person.slug, person]));
   const usedSlugs = new Set<string>();
+  const usedNames = new Set<string>();
 
   const rosterProfiles = getLabMembers().map((member) => {
     const profile = mergeTeamMemberProfile(member, peopleBySlug);
 
     usedSlugs.add(profile.slug);
+    usedNames.add(profile.name.toLowerCase());
 
     return profile;
   });
 
   const extraProfiles = people
-    .filter((person) => !usedSlugs.has(person.slug))
+    .filter((person) => !usedSlugs.has(person.slug) && !usedNames.has(person.name.toLowerCase()))
     .map<TeamMemberProfile>((person) => ({
       ...person,
       id: person.slug,

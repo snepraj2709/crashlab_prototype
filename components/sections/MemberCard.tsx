@@ -61,15 +61,15 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
             <p className="text-xl font-medium text-text-primary">{member.name}</p>
             <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-text-secondary">
               <span>{roleText}</span>
-              <span className="text-text-tertiary">·</span>
-              <span className={member.isActive ? "text-accent-green" : "text-text-tertiary"}>●</span>
-              <span className="text-[11px] text-text-tertiary">
-                {member.isActive
-                  ? "active"
-                  : member.alumniYear
-                    ? `alumni · ${member.alumniYear}`
-                    : "alumni"}
-              </span>
+              {!member.isActive ? (
+                <>
+                  <span className="text-text-tertiary">·</span>
+                  <span className="text-text-tertiary">●</span>
+                  <span className="text-[11px] text-text-tertiary">
+                    {member.alumniYear ? `alumni · ${member.alumniYear}` : "alumni"}
+                  </span>
+                </>
+              ) : null}
             </p>
 
             {member.credentials.length > 0 && (

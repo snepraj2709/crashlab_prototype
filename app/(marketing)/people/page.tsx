@@ -12,7 +12,6 @@ export default async function PeoplePage(): Promise<React.ReactElement> {
       <section className="pt-32">
         <TeamGrid profiles={profiles} />
       </section>
-      <TrustSignalsSection section={trustSection} variant="compact" />
     </>
   );
 }
