@@ -18,79 +18,77 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
       : member.role;
 
   return (
-    <article className={cn("py-6", !member.isActive && "opacity-70")}>
-      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-        <div className="flex gap-4">
-          <div className="shrink-0">
-            <PersonPhoto
-              className="size-14 rounded-full border border-border-default"
-              fallbackClassName="text-sm"
-              name={member.name}
-              photo={member.photo}
-              sizes="56px"
-            />
-          </div>
+    <Link href={`/people/${member.slug}`} className="block">
+      <article className={cn("py-6", !member.isActive && "opacity-70")}>
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div className="flex gap-4">
+            <div className="shrink-0">
+              <PersonPhoto
+                className="size-14 rounded-full border border-border-default"
+                fallbackClassName="text-sm"
+                name={member.name}
+                photo={member.photo}
+                sizes="56px"
+              />
+            </div>
 
-          <div className="min-w-0 flex-1">
-            {member.isPrincipalInvestigator && (
-              <p className="mb-1 text-[10px] uppercase tracking-wide text-text-tertiary">
-                Principal Investigator
+            <div className="min-w-0 flex-1">
+              {member.isPrincipalInvestigator && (
+                <p className="mb-1 text-[10px] uppercase tracking-wide text-text-tertiary">
+                  Principal Investigator
+                </p>
+              )}
+              <p className="text-xl font-medium text-text-primary">
+                {member.name}
               </p>
-            )}
+              <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-text-secondary">
+                <span>{roleText}</span>
+                {!member.isActive ? (
+                  <>
+                    <span className="text-text-tertiary">·</span>
+                    <span className="text-text-tertiary">●</span>
+                    <span className="text-[11px] text-text-tertiary">
+                      {member.alumniYear
+                        ? `alumni · ${member.alumniYear}`
+                        : "alumni"}
+                    </span>
+                  </>
+                ) : null}
+              </p>
 
-            <p className="text-xl font-medium text-text-primary">
-              {member.name}
-            </p>
-            <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-text-secondary">
-              <span>{roleText}</span>
-              {!member.isActive ? (
-                <>
-                  <span className="text-text-tertiary">·</span>
-                  <span className="text-text-tertiary">●</span>
-                  <span className="text-[11px] text-text-tertiary">
-                    {member.alumniYear
-                      ? `alumni · ${member.alumniYear}`
-                      : "alumni"}
-                  </span>
-                </>
-              ) : null}
-            </p>
-
-            {member.credentials.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
-                {member.credentials.slice(0, 2).map((cred) => (
-                  <span
-                    className="text-xs text-text-tertiary before:mr-1.5 before:content-['·']"
-                    key={cred}
-                  >
-                    {cred}
-                  </span>
-                ))}
-              </div>
-            )}
+              {member.credentials.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                  {member.credentials.slice(0, 2).map((cred) => (
+                    <span
+                      className="text-xs text-text-tertiary before:mr-1.5 before:content-['·']"
+                      key={cred}
+                    >
+                      {cred}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
+
+          <span className="shrink-0 text-sm text-accent-cyan transition hover:opacity-75">
+            View profile →
+          </span>
         </div>
 
-        <Link
-          className="shrink-0 text-sm text-accent-cyan transition hover:opacity-75"
-          href={`/people/${member.slug}`}
-        >
-          View profile →
-        </Link>
-      </div>
-
-      {member.researchFocus.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {member.researchFocus.slice(0, 3).map((tag) => (
-            <span
-              className="rounded-full border border-border-default px-3 py-1 text-xs text-text-secondary"
-              key={tag}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-    </article>
+        {member.researchFocus.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {member.researchFocus.slice(0, 3).map((tag) => (
+              <span
+                className="rounded-full border border-border-default px-3 py-1 text-xs text-text-secondary"
+                key={tag}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </article>
+    </Link>
   );
 }
