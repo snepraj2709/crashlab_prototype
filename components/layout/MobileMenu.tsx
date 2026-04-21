@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 import { BrandMark } from "@/components/layout/BrandMark";
 import { navItems } from "@/components/layout/Navbar";
-import { ThemeToggle } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
 
 interface MobileMenuProps {
@@ -118,11 +117,6 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
                   Apply to Join →
                 </Link>
               </nav>
-
-              <div className="mt-2 flex items-center justify-between border-t border-border-default py-3">
-                <span className="text-sm text-text-muted">Appearance</span>
-                <ThemeToggle />
-              </div>
             </div>
           </motion.div>
         </FocusTrap>

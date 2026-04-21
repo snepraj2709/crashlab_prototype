@@ -28,18 +28,10 @@ export function BrandMark({
         <Image
           alt=""
           aria-hidden="true"
-          className="brand-mark__logo brand-mark__logo--light object-contain"
+          className="brand-mark__logo object-contain"
           fill
           sizes={compact ? "40px" : "44px"}
           src="/logo.svg"
-        />
-        <Image
-          alt=""
-          aria-hidden="true"
-          className="brand-mark__logo brand-mark__logo--dark object-contain"
-          fill
-          sizes={compact ? "40px" : "44px"}
-          src="/logo-white.svg"
         />
       </span>
 

@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { BrandMark } from "@/components/layout/BrandMark";
 import { MobileMenu } from "@/components/layout/MobileMenu";
-import { Button, ThemeToggle } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 
@@ -161,8 +161,6 @@ export function Navbar({ hasBanner }: NavbarProps): React.ReactElement {
             <Button href="/join" size="lg">
               Join Us →
             </Button>
-
-            <ThemeToggle />
           </div>
 
           <button

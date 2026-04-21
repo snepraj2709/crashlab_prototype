@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
-import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -126,22 +125,14 @@ export default function RootLayout({
   children
 }: Readonly<{ children: React.ReactNode }>): React.ReactElement {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${display.variable} ${sans.variable} ${mono.variable}`}>
         <JsonLd data={organizationSchema} />
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="system"
-          disableTransitionOnChange={false}
-          enableSystem
-          themes={["dark", "light"]}
-        >
-          <JsonLd data={websiteSchema} />
-          {children}
-          <CustomCursor />
-          <Analytics />
-          <SpeedInsights />
-        </ThemeProvider>
+        <JsonLd data={websiteSchema} />
+        {children}
+        <CustomCursor />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

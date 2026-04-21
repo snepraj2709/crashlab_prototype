@@ -5,54 +5,34 @@ test("homepage renders core CRASH Lab sections", async ({ page }) => {
 
   await expect(page.locator("h1")).toContainText("Responsible AI");
   await expect(page.locator("h1")).toContainText("built for Healthcare.");
-  await expect(
-    page.getByRole("link", { name: /Explore Open Projects/i }).first(),
-  ).toBeVisible();
-  await expect(page.getByText("The Problems We Work On")).toBeVisible();
-  await expect(
-    page.getByRole("heading", {
-      level: 2,
-      name: "Radiology's Last Exam (RadLE)",
-    }),
-  ).toBeVisible();
-  await expect(page.getByRole("link", { name: /All Posts/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Join the team/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /The field has outgrown its benchmarks/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /Four pillars. One clock/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /Radiology's Last Exam/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /Hold healthcare AI to the hard test/i })).toBeVisible();
 });
 
-test("theme follows the user system preference on first load", async ({ page }) => {
+test("homepage stays in light mode regardless of system preference", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(248, 250, 252)");
+  expect(await page.locator("html").getAttribute("data-theme")).toBeNull();
+  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(250, 250, 248)");
 
   await page.emulateMedia({ colorScheme: "dark" });
   await page.reload();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(10, 15, 30)");
+  expect(await page.locator("html").getAttribute("data-theme")).toBeNull();
+  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(250, 250, 248)");
 });
 
-test("theme toggle switches between dark and light", async ({ page }) => {
-  await page.emulateMedia({ colorScheme: "dark" });
+test("navigation no longer exposes a theme toggle", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(10, 15, 30)");
+  await expect(page.getByRole("button", { name: /switch to .* theme/i })).toHaveCount(0);
+  await expect(page.getByText("Appearance")).toHaveCount(0);
 
-  await page.getByRole("button", { name: "Switch to light theme" }).click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(248, 250, 252)");
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByRole("button", { name: "Open menu" }).click();
 
-  await page.getByRole("button", { name: "Switch to dark theme" }).click();
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(10, 15, 30)");
-});
-
-test("theme preference persists on reload", async ({ page }) => {
-  await page.emulateMedia({ colorScheme: "dark" });
-  await page.goto("/");
-
-  await page.getByRole("button", { name: "Switch to light theme" }).click();
-  await page.reload();
-
-  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(248, 250, 252)");
+  await expect(page.getByText("Appearance")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /switch to .* theme/i })).toHaveCount(0);
 });
