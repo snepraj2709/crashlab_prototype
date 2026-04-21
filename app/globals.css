@@ -445,6 +445,20 @@
 .trust-logo-slideshow__viewport {
   position: relative;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 clamp(2.5rem, 6vw, 5rem),
+    #000 calc(100% - clamp(2.5rem, 6vw, 5rem)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 clamp(2.5rem, 6vw, 5rem),
+    #000 calc(100% - clamp(2.5rem, 6vw, 5rem)),
+    transparent 100%
+  );
 }
 
 .trust-logo-slideshow__track {
@@ -459,31 +473,12 @@
   animation-play-state: paused;
 }
 
-.trust-logo-slideshow__edge {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  width: clamp(2rem, 5vw, 4.5rem);
-  pointer-events: none;
+.trust-logo-slideshow__image {
+  mix-blend-mode: multiply;
 }
 
-.trust-logo-slideshow__edge--left {
-  left: 0;
-  background: linear-gradient(
-    90deg,
-    var(--color-surface-panel) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-.trust-logo-slideshow__edge--right {
-  right: 0;
-  background: linear-gradient(
-    270deg,
-    var(--color-surface-panel) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+[data-theme="dark"] .trust-logo-slideshow__image {
+  mix-blend-mode: normal;
 }
 
 @media (hover: hover) and (pointer: fine) {

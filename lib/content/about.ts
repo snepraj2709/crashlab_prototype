@@ -40,9 +40,9 @@ export const aboutContent = {
     }
   ],
   cta: {
-    heading: "See what we're working on.",
-    body: "From RadLE — our benchmark for radiology language model evaluation — to active collaborations with AIIMS New Delhi and JIPMER, our research is built to be used.",
-    buttonLabel: "Explore Research",
-    buttonHref: "/research"
+    heading: "Let’s Accelerate Healthcare AI Innovation Together",
+    body: "Whether you're a clinician, researcher, or industry partner — we'd love to collaborate.",
+    buttonLabel: "Get in Touch",
+    buttonHref: "/collaborate"
   }
 };

@@ -53,16 +53,22 @@ function LogoMarkup({
   logo,
   maxHeightClassName,
   tileClassName,
+  imageClassName,
   ariaHidden = false,
   tabIndex
 }: {
   logo: TrustLogoSeed;
   maxHeightClassName: string;
   tileClassName?: string;
+  imageClassName?: string;
   ariaHidden?: boolean;
   tabIndex?: number;
 }): React.ReactElement {
-  const imageClassName = cn("h-auto w-auto max-w-full object-contain", maxHeightClassName);
+  const imageClassNames = cn(
+    "h-auto w-auto max-w-full object-contain",
+    maxHeightClassName,
+    imageClassName
+  );
   const logoTileClassName = cn(
     "inline-flex items-center justify-center px-2 py-2 opacity-80 transition-opacity duration-200 hover:opacity-100",
     tileClassName
@@ -85,7 +91,7 @@ function LogoMarkup({
       >
         <Image
           alt={logo.logo.alt}
-          className={imageClassName}
+          className={imageClassNames}
           height={logo.logo.height}
           loading="lazy"
           src={logo.logo.url}
@@ -107,7 +113,7 @@ function LogoMarkup({
       <Image
         alt={logo.logo.alt}
         aria-hidden={ariaHidden ? "true" : undefined}
-        className={imageClassName}
+        className={imageClassNames}
         height={logo.logo.height}
         loading="lazy"
         src={logo.logo.url}
@@ -209,7 +215,7 @@ export function TrustSignalsSection({
             {section.description}
           </p>
 
-          <div className="mt-10 sm:mt-12">
+          <div className="trust-logo-slideshow mt-10 sm:mt-12">
             <div className="sr-only">
               <ul>
                 {section.logos.map((logo) => (
@@ -219,19 +225,11 @@ export function TrustSignalsSection({
             </div>
 
             <div className="trust-logo-slideshow__viewport">
-              <div
-                aria-hidden="true"
-                className="trust-logo-slideshow__edge trust-logo-slideshow__edge--left"
-              />
-              <div
-                aria-hidden="true"
-                className="trust-logo-slideshow__edge trust-logo-slideshow__edge--right"
-              />
-
               <div className="trust-logo-slideshow__track gap-8 sm:gap-10 lg:gap-12">
                 {repeatedLogos.map((logo, index) => (
                   <LogoMarkup
                     ariaHidden={index >= section.logos.length}
+                    imageClassName="trust-logo-slideshow__image"
                     key={`${logo.id}-${index}`}
                     logo={logo}
                     maxHeightClassName="max-h-10 sm:max-h-12"

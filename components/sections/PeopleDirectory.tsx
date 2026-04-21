@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui/Button";
 import { MemberCard } from "@/components/sections/MemberCard";
 import type { TeamMemberProfile } from "@/types/team";
 
@@ -25,35 +26,25 @@ export function PeopleDirectory({ profiles }: PeopleDirectoryProps): React.React
 
       {alumni.length > 0 ? (
         <div className="mt-8">
-          {!showAlumni ? (
-            <button
-              className="text-sm text-text-tertiary transition hover:text-text-secondary"
-              onClick={() => setShowAlumni(true)}
+          <div className="flex justify-center">
+            <Button
+              aria-controls="people-directory-alumni"
+              aria-expanded={showAlumni}
+              onClick={() => setShowAlumni((current) => !current)}
               type="button"
+              variant="secondary"
             >
-              Show {alumni.length} past member{alumni.length !== 1 ? "s" : ""} →
-            </button>
-          ) : (
-            <div>
-              <div className="flex items-center justify-between">
-                <p className="text-xs uppercase tracking-[0.2em] text-text-tertiary">
-                  Past Members
-                </p>
-                <button
-                  className="text-xs text-text-tertiary transition hover:text-text-secondary"
-                  onClick={() => setShowAlumni(false)}
-                  type="button"
-                >
-                  Hide ↑
-                </button>
-              </div>
-              <div className="mt-4 divide-y divide-border">
-                {alumni.map((profile) => (
-                  <MemberCard key={profile.id} member={profile} />
-                ))}
-              </div>
+              {showAlumni ? "Hide alumni" : "View Alumni"}
+            </Button>
+          </div>
+
+          {showAlumni ? (
+            <div className="mt-6 divide-y divide-border" id="people-directory-alumni">
+              {alumni.map((profile) => (
+                <MemberCard key={profile.id} member={profile} />
+              ))}
             </div>
-          )}
+          ) : null}
         </div>
       ) : null}
     </div>

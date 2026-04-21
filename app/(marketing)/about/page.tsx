@@ -80,12 +80,12 @@ export default function AboutPage(): React.ReactElement {
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="mt-6 font-display text-4xl text-text-primary">
-            What the lab has built since founding.
-          </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {impactMetrics.map((metric) => (
-              <MetricTile key={metric.label} label={metric.label} value={metric.value} />
-            ))}
+              What the lab has built since founding.
+            </h2>
+            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+              {impactMetrics.map((metric) => (
+                <MetricTile key={metric.label} label={metric.label} value={metric.value} />
+              ))}
           </div>
         </div>
       </section>
@@ -96,14 +96,28 @@ export default function AboutPage(): React.ReactElement {
       {/* CTA */}
       <section className="py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="rounded-token-md border border-border bg-bg-surface p-10 lg:p-16">
-            <h2 className="font-display text-4xl text-text-primary lg:text-5xl">{cta.heading}</h2>
-            <p className="mt-6 max-w-2xl text-lg text-text-secondary">{cta.body}</p>
+          <div className="relative overflow-hidden rounded-token-md border border-slate-800 bg-navy-900 px-10 py-12 shadow-soft lg:px-16 lg:py-14">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-accent-cyan/10 blur-3xl"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute bottom-5 right-5 h-12 w-12 rounded-full border-2 border-white/85"
+            />
+            <div className="relative max-w-5xl">
+              <h2 className="max-w-4xl font-display text-3xl font-semibold leading-[1.04] tracking-tight text-white sm:text-4xl lg:text-5xl">
+                {cta.heading}
+              </h2>
+              <p className="mt-6 max-w-4xl font-sans text-lg font-normal leading-8 text-slate-300 sm:text-xl sm:leading-[1.5] lg:text-2xl">
+                {cta.body}
+              </p>
+            </div>
             <Link
-              className="ui-focus-ring mt-10 inline-flex items-center rounded-token-pill border border-border-focus bg-status-info-surface px-6 py-3 text-base font-semibold text-border-focus transition-all hover:bg-border-focus hover:text-white"
+              className="ui-focus-ring relative mt-10 inline-flex items-center rounded-token-pill border border-brand-blue bg-brand-blue px-7 py-3 font-sans text-lg font-semibold text-white transition-all hover:brightness-110"
               href={cta.buttonHref}
             >
-              {cta.buttonLabel} →
+              {cta.buttonLabel} <span aria-hidden="true" className="ml-3 text-md leading-none">→</span>
             </Link>
           </div>
         </div>
