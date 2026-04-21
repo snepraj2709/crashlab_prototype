@@ -1,23 +1,14 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { ProofChip } from "@/components/ui";
 
-const leaderboard: Array<{ name: string; score: number; group: "human" | "ai" }> = [
-  { name: "Expert radiologists", score: 83, group: "human" },
-  { name: "Trainee radiologists", score: 45, group: "human" },
-  { name: "GPT-5 Thinking", score: 30, group: "ai" },
-  { name: "Claude Sonnet 4.5", score: 28, group: "ai" },
-  { name: "Gemini 2.5 Pro", score: 25, group: "ai" },
-  { name: "GPT-4o", score: 19, group: "ai" },
-  { name: "Llama 3.2 Vision", score: 14, group: "ai" },
-];
-
 const findings = [
   {
     tag: "Finding 01",
-    headline: "53-point accuracy gap",
-    body: "Expert radiologists reached 83%. The best frontier AI reached 30%. No current model crosses trainee-level reasoning.",
-    value: "−53 pts",
+    headline: "32-point expert gap",
+    body: "Board-certified radiologists reached 83%. Gemini 3.0 Pro reached 51%, beating trainees at 45% but remaining well below experts.",
+    value: "−32 pts",
   },
   {
     tag: "Finding 02",
@@ -32,10 +23,6 @@ const findings = [
     value: "κ = 0.78",
   },
 ];
-
-function getBarColor(group: "human" | "ai"): string {
-  return group === "human" ? "var(--color-text-primary)" : "var(--color-accent-cyan)";
-}
 
 export function RadLESection(): React.ReactElement {
   return (
@@ -63,7 +50,7 @@ export function RadLESection(): React.ReactElement {
 
         <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
           <div>
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-4">
+            <div className="border-b border-border pb-4">
               <div>
                 <p className="text-xs uppercase tracking-[0.2em] text-text-tertiary">
                   Results · RadLE v1
@@ -72,28 +59,19 @@ export function RadLESection(): React.ReactElement {
                   Accuracy on 50 reasoning cases
                 </h3>
               </div>
-              <div className="flex items-center gap-4 text-xs uppercase tracking-[0.14em] text-text-tertiary">
-                <span>Human</span>
-                <span>AI</span>
-              </div>
             </div>
 
-            <div className="mt-6 space-y-5">
-              {leaderboard.map((row) => (
-                <div key={row.name}>
-                  <div className="mb-2 flex items-baseline justify-between gap-4">
-                    <span className="text-sm text-text-primary">{row.name}</span>
-                    <span className="font-mono text-sm text-text-primary">{row.score}%</span>
-                  </div>
-                  <div aria-hidden="true" className="h-2 w-full bg-border">
-                    <div
-                      className="h-2"
-                      style={{ backgroundColor: getBarColor(row.group), width: `${row.score}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+            <figure className="mt-6 overflow-hidden rounded-token-sm border border-border-default bg-surface-panel shadow-soft">
+              <Image
+                alt="RadLE benchmark comparison chart showing board-certified radiologists at 0.83, Gemini 3.0 Pro at 0.51, radiology trainees at 0.45, GPT-5 Thinking at 0.30, Gemini 2.5 Pro at 0.29, OpenAI o3 at 0.23, Grok 4 at 0.12, and Claude Opus 4.1 at 0.01 diagnostic accuracy."
+                className="h-auto w-full"
+                height={1256}
+                priority={false}
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                src="/radle-image.png"
+                width={2238}
+              />
+            </figure>
           </div>
 
           <div className="space-y-8">
