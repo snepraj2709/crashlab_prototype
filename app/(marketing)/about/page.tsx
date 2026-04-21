@@ -101,10 +101,6 @@ export default function AboutPage(): React.ReactElement {
               aria-hidden="true"
               className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-accent-cyan/10 blur-3xl"
             />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute bottom-5 right-5 h-12 w-12 rounded-full border-2 border-white/85"
-            />
             <div className="relative max-w-5xl">
               <h2 className="max-w-4xl font-display text-3xl font-semibold leading-[1.04] tracking-tight text-white sm:text-4xl lg:text-5xl">
                 {cta.heading}
