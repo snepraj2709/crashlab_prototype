@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { PersonPhoto } from "@/components/sections/PersonPhoto";
 import { cn } from "@/lib/utils/cn";
 import type { TeamMemberProfile } from "@/types/team";
 
@@ -11,13 +11,6 @@ interface MemberCardProps {
   };
 }
 
-function getInitials(name: string): string {
-  const parts = name.trim().split(" ");
-  const first = parts[0]?.[0] ?? "";
-  const last = parts.length > 1 ? (parts[parts.length - 1]?.[0] ?? "") : "";
-  return (first + last).toUpperCase();
-}
-
 export function MemberCard({ member }: MemberCardProps): React.ReactElement {
   const roleText =
     !member.isActive && member.currentInstitution
@@ -25,30 +18,17 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
       : member.role;
 
   return (
-    <article
-      className={cn(
-        "py-6",
-        !member.isActive && "opacity-70"
-      )}
-    >
+    <article className={cn("py-6", !member.isActive && "opacity-70")}>
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div className="flex gap-4">
           <div className="shrink-0">
-            {member.photo?.url ? (
-              <div className="relative size-14 overflow-hidden rounded-full border border-border-default">
-                <Image
-                  alt={member.photo.alt || `${member.name} portrait`}
-                  className="object-cover"
-                  fill
-                  sizes="56px"
-                  src={member.photo.url}
-                />
-              </div>
-            ) : (
-              <div className="flex size-14 items-center justify-center rounded-full border border-border-default bg-bg-elevated text-sm font-medium text-text-muted">
-                {getInitials(member.name)}
-              </div>
-            )}
+            <PersonPhoto
+              className="size-14 rounded-full border border-border-default"
+              fallbackClassName="text-sm"
+              name={member.name}
+              photo={member.photo}
+              sizes="56px"
+            />
           </div>
 
           <div className="min-w-0 flex-1">
@@ -58,7 +38,9 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
               </p>
             )}
 
-            <p className="text-xl font-medium text-text-primary">{member.name}</p>
+            <p className="text-xl font-medium text-text-primary">
+              {member.name}
+            </p>
             <p className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-text-secondary">
               <span>{roleText}</span>
               {!member.isActive ? (
@@ -66,7 +48,9 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
                   <span className="text-text-tertiary">·</span>
                   <span className="text-text-tertiary">●</span>
                   <span className="text-[11px] text-text-tertiary">
-                    {member.alumniYear ? `alumni · ${member.alumniYear}` : "alumni"}
+                    {member.alumniYear
+                      ? `alumni · ${member.alumniYear}`
+                      : "alumni"}
                   </span>
                 </>
               ) : null}

@@ -1,9 +1,6 @@
-import Image from "next/image";
-
+import { PersonPhoto } from "@/components/sections/PersonPhoto";
 import { cn } from "@/lib/utils/cn";
 import type { TeamMemberProfile } from "@/types/team";
-
-const fallbackHeadshot = "/team/person-placeholder.svg";
 
 interface TeamMemberPortraitProps {
   member: Pick<TeamMemberProfile, "name" | "photo">;
@@ -16,23 +13,19 @@ export function TeamMemberPortrait({
   member,
   className,
   priority = false,
-  sizes = "(min-width: 1280px) 22vw, (min-width: 640px) 40vw, 90vw"
+  sizes = "(min-width: 1280px) 22vw, (min-width: 640px) 40vw, 90vw",
 }: TeamMemberPortraitProps): React.ReactElement {
   return (
-    <div
+    <PersonPhoto
       className={cn(
         "relative overflow-hidden rounded-token-md border border-border-default bg-bg-elevated",
-        className
+        className,
       )}
-    >
-      <Image
-        alt={member.photo?.alt || `${member.name} portrait`}
-        className="object-cover"
-        fill
-        priority={priority}
-        sizes={sizes}
-        src={member.photo?.url || fallbackHeadshot}
-      />
-    </div>
+      fallbackClassName="text-5xl tracking-[0.08em]"
+      name={member.name}
+      photo={member.photo}
+      priority={priority}
+      sizes={sizes}
+    />
   );
 }

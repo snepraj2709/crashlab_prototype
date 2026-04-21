@@ -1,7 +1,11 @@
 import announcementsSeed from "@/content/seed/announcements.json";
 import blogSeed from "@/content/seed/blog.json";
 import eventsSeed from "@/content/seed/events.json";
-import { labMemberGroups, labMemberVisuals, labMembers } from "@/content/seed/labMembers";
+import {
+  labMemberGroups,
+  labMemberVisuals,
+  labMembers,
+} from "@/content/seed/labMembers";
 import projectsSeed from "@/content/seed/projects.json";
 import publicationsSeed from "@/content/seed/publications.json";
 import teamSeed from "@/content/seed/team.json";
@@ -15,12 +19,15 @@ import {
   blogPostsQuery,
   newsPostsQuery,
   allProjectsQuery,
-  personBySlugQuery,
   postBySlugQuery,
-  projectBySlugQuery
+  projectBySlugQuery,
 } from "@/lib/sanity/queries";
 import { urlFor } from "@/lib/sanity/image";
-import type { ProjectAudience, PublicationEntry, ProjectSeed } from "@/types/research";
+import type {
+  ProjectAudience,
+  PublicationEntry,
+  ProjectSeed,
+} from "@/types/research";
 import type { SitePost, SitePostAuthor, SitePostSeed } from "@/types/site";
 import type {
   AllPeopleQueryResult,
@@ -28,28 +35,68 @@ import type {
   AllProjectsQueryResult,
   PersonBySlugQueryResult,
   PostBySlugQueryResult,
-  ProjectBySlugQueryResult
+  ProjectBySlugQueryResult,
 } from "@/types/sanity";
 import type {
   PersonSeed,
   TeamDirectoryGroup,
   TeamDirectoryMember,
-  TeamMemberProfile
+  TeamMemberProfile,
 } from "@/types/team";
 import type { TrustSectionSeed } from "@/types/trust";
 
 type SanityProject = NonNullable<ProjectBySlugQueryResult>;
 type SanityPerson = NonNullable<PersonBySlugQueryResult>;
 type SanityPost = NonNullable<PostBySlugQueryResult>;
-type PortableTextSource = SanityProject["body"] | SanityPerson["fullBio"] | SanityPost["body"];
+type PortableTextSource =
+  | SanityProject["body"]
+  | SanityPerson["fullBio"]
+  | SanityPost["body"];
 
-const groupOrderMap = new Map(labMemberGroups.map((group) => [group.id, group.order]));
-const groupLabelMap = new Map(labMemberGroups.map((group) => [group.id, group.label]));
-const labMemberVisualMap = new Map(labMemberVisuals.map((member) => [member.id, member]));
+function normalizePersonMatchKey(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/^(dr|mr|ms)\.?\s+/, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+const seedPeople = teamSeed as PersonSeed[];
+const seedPeopleBySlug = new Map(
+  seedPeople.map((person) => [person.slug, person]),
+);
+const seedSlugByNameKey = new Map(
+  seedPeople.map((person) => [
+    normalizePersonMatchKey(person.name),
+    person.slug,
+  ]),
+);
+const personSlugAliasMap = new Map<string, string>([
+  ["hakikat-bhatti", "hakikat-bir-singh-bhatti"],
+  ["lakshmi-kaza", "lakshmi-vennela-chowdary-kaza"],
+  ["siddharth-anthireddy", "siddharth-reddy-anthireddy"],
+]);
+
+const groupOrderMap = new Map(
+  labMemberGroups.map((group) => [group.id, group.order]),
+);
+const groupLabelMap = new Map(
+  labMemberGroups.map((group) => [group.id, group.label]),
+);
+const labMemberVisualMap = new Map(
+  labMemberVisuals.map((member) => [member.id, member]),
+);
 const defaultPhotoUrls = new Set(["/og/default.svg"]);
-const projectAudienceSet = new Set<ProjectAudience>(["researcher", "industry", "investor", "all"]);
+const projectAudienceSet = new Set<ProjectAudience>([
+  "researcher",
+  "industry",
+  "investor",
+  "all",
+]);
 
-function normalizePortableText(blocks: PortableTextSource): ProjectSeed["body"] | undefined {
+function normalizePortableText(
+  blocks: PortableTextSource,
+): ProjectSeed["body"] | undefined {
   if (!blocks?.length) {
     return undefined;
   }
@@ -64,14 +111,16 @@ function normalizePortableText(blocks: PortableTextSource): ProjectSeed["body"] 
         _key: block._key,
         _type: "block" as const,
         style:
-          block.style === "h2" || block.style === "h3" || block.style === "blockquote"
+          block.style === "h2" ||
+          block.style === "h3" ||
+          block.style === "blockquote"
             ? block.style
             : "normal",
         children: (block.children ?? []).map((child) => ({
           _type: "span" as const,
-          text: child.text ?? ""
-        }))
-      }
+          text: child.text ?? "",
+        })),
+      },
     ];
   });
 }
@@ -90,26 +139,30 @@ function normalizeProject(project: SanityProject): ProjectSeed {
     heroImage: project.heroImage
       ? {
           url: urlFor(project.heroImage),
-          alt: project.problemStatement ?? project.title ?? "CRASH Lab research project"
+          alt:
+            project.problemStatement ??
+            project.title ??
+            "CRASH Lab research project",
         }
       : null,
     tags: project.tags ?? [],
     audience:
-      project.audience?.filter(
-        (audience): audience is ProjectAudience => projectAudienceSet.has(audience as ProjectAudience)
+      project.audience?.filter((audience): audience is ProjectAudience =>
+        projectAudienceSet.has(audience as ProjectAudience),
       ) ?? [],
     lead: project.lead?.slug?.current ?? undefined,
     team:
       project.team
         ?.map((member) => member.slug?.current)
-        .filter((memberSlug): memberSlug is string => Boolean(memberSlug)) ?? [],
+        .filter((memberSlug): memberSlug is string => Boolean(memberSlug)) ??
+      [],
     featured: Boolean(project.featured),
     seekingCollaborators: Boolean(project.seekingCollaborators),
     metrics: project.metrics?.map((metric) => ({
       label: metric.label ?? "",
       value: metric.value ?? "",
-      type: metric.type ?? "human"
-    }))
+      type: metric.type ?? "human",
+    })),
   };
 }
 
@@ -122,7 +175,7 @@ function normalizePerson(person: AllPeopleQueryResult[number]): PersonSeed {
     photo: person.photo
       ? {
           url: urlFor(person.photo),
-          alt: `${person.name ?? "CRASH Lab team member"} portrait`
+          alt: `${person.name ?? "CRASH Lab team member"} portrait`,
         }
       : null,
     shortBio: person.shortBio ?? "",
@@ -134,19 +187,32 @@ function normalizePerson(person: AllPeopleQueryResult[number]): PersonSeed {
     isPrincipalInvestigator: Boolean(person.isPrincipalInvestigator),
     isActive: Boolean(person.isActive),
     joinedAt: person.joinedAt ?? undefined,
-    position: person.position ?? 999
+    position: person.position ?? 999,
   };
 }
 
 function buildFallbackTeamBio(member: TeamDirectoryMember): string {
   const projectCount = member.projectSlugs.length;
-  const projectLabel = `${projectCount} ${projectCount === 1 ? "active project" : "active projects"}`;
+  const affiliationSuffix = member.affiliation
+    ? ` as ${member.affiliation}`
+    : "";
+
+  if (!projectCount) {
+    return member.isActive
+      ? `${member.name} contributes to CRASH Lab${affiliationSuffix}.`
+      : `${member.name} contributed to CRASH Lab${affiliationSuffix}.`;
+  }
+
+  const projectLabel = `${projectCount} ${projectCount === 1 ? "project" : "projects"}`;
   const contributionWindow = member.isActive ? "current work" : "past work";
 
-  return `${member.name} contributes to CRASH Lab as ${member.affiliation}, with ${contributionWindow} spanning ${projectLabel}.`;
+  return `${member.name} contributes to CRASH Lab${affiliationSuffix}, with ${contributionWindow} spanning ${projectLabel}.`;
 }
 
-function buildPhotoFromSeed(memberId: string, memberName: string): PersonSeed["photo"] {
+function buildPhotoFromSeed(
+  memberId: string,
+  memberName: string,
+): PersonSeed["photo"] {
   const visual = labMemberVisualMap.get(memberId);
 
   if (!visual) {
@@ -155,33 +221,109 @@ function buildPhotoFromSeed(memberId: string, memberName: string): PersonSeed["p
 
   return {
     url: visual.image,
-    alt: `${memberName} portrait`
+    alt: `${memberName} portrait`,
   };
 }
 
 function resolvePreferredPhoto(
   personPhoto: PersonSeed["photo"] | undefined,
   memberId: string,
-  memberName: string
+  memberName: string,
 ): PersonSeed["photo"] {
+  const seedPhoto = buildPhotoFromSeed(memberId, memberName);
+
+  if (seedPhoto?.url && seedPhoto.url !== "/team/person-placeholder.svg") {
+    return seedPhoto;
+  }
+
   if (personPhoto?.url && !defaultPhotoUrls.has(personPhoto.url)) {
     return personPhoto;
   }
 
-  return buildPhotoFromSeed(memberId, memberName) ?? personPhoto ?? null;
+  return seedPhoto ?? personPhoto ?? null;
 }
 
-function sortDirectoryMembers(left: TeamDirectoryMember, right: TeamDirectoryMember): number {
+function resolveCanonicalPersonSlug(slug: string, name: string): string {
+  const aliasedSlug = personSlugAliasMap.get(slug);
+  if (aliasedSlug && seedPeopleBySlug.has(aliasedSlug)) {
+    return aliasedSlug;
+  }
+
+  if (seedPeopleBySlug.has(slug)) {
+    return slug;
+  }
+
+  return seedSlugByNameKey.get(normalizePersonMatchKey(name)) ?? slug;
+}
+
+function buildSeedBackedPerson(
+  seedPerson: PersonSeed,
+  sanityPerson?: PersonSeed,
+): PersonSeed {
+  return {
+    ...seedPerson,
+    photo: resolvePreferredPhoto(
+      sanityPerson?.photo ?? seedPerson.photo,
+      seedPerson.slug,
+      seedPerson.name,
+    ),
+    joinedAt: seedPerson.joinedAt ?? sanityPerson?.joinedAt,
+  };
+}
+
+function buildMergedPeople(sanityPeople: PersonSeed[]): PersonSeed[] {
+  const mergedPeople = new Map<string, PersonSeed>();
+
+  for (const seedPerson of seedPeople) {
+    mergedPeople.set(seedPerson.slug, buildSeedBackedPerson(seedPerson));
+  }
+
+  for (const sanityPerson of sanityPeople) {
+    const canonicalSlug = resolveCanonicalPersonSlug(
+      sanityPerson.slug,
+      sanityPerson.name,
+    );
+    const seedPerson = seedPeopleBySlug.get(canonicalSlug);
+
+    if (seedPerson) {
+      mergedPeople.set(
+        canonicalSlug,
+        buildSeedBackedPerson(seedPerson, sanityPerson),
+      );
+      continue;
+    }
+
+    if (!mergedPeople.has(canonicalSlug)) {
+      mergedPeople.set(canonicalSlug, sanityPerson);
+    }
+  }
+
+  return [...mergedPeople.values()].sort((left, right) => {
+    if (left.position !== right.position) {
+      return left.position - right.position;
+    }
+
+    return left.name.localeCompare(right.name);
+  });
+}
+
+function sortDirectoryMembers(
+  left: TeamDirectoryMember,
+  right: TeamDirectoryMember,
+): number {
   if (left.groupId === right.groupId) {
     return left.position - right.position;
   }
 
-  return (groupOrderMap.get(left.groupId) ?? 999) - (groupOrderMap.get(right.groupId) ?? 999);
+  return (
+    (groupOrderMap.get(left.groupId) ?? 999) -
+    (groupOrderMap.get(right.groupId) ?? 999)
+  );
 }
 
 function mergeTeamMemberProfile(
   member: TeamDirectoryMember,
-  peopleBySlug: Map<string, PersonSeed>
+  peopleBySlug: Map<string, PersonSeed>,
 ): TeamMemberProfile {
   const person = peopleBySlug.get(member.id);
   const visual = labMemberVisualMap.get(member.id);
@@ -193,13 +335,14 @@ function mergeTeamMemberProfile(
     role: person?.role ?? visual?.role ?? member.affiliation,
     title: person?.title ?? "",
     photo: resolvePreferredPhoto(person?.photo, member.id, member.name),
-    shortBio: person?.shortBio || buildFallbackTeamBio(member),
+    shortBio: person?.shortBio || "",
     fullBio: person?.fullBio,
     email: person?.email,
     credentials: person?.credentials ?? [],
     researchFocus: person?.researchFocus ?? [],
     socialLinks: person?.socialLinks,
-    isPrincipalInvestigator: person?.isPrincipalInvestigator ?? Boolean(visual?.isLead),
+    isPrincipalInvestigator:
+      person?.isPrincipalInvestigator ?? Boolean(visual?.isLead),
     isActive: person?.isActive ?? member.isActive,
     joinedAt: person?.joinedAt,
     position: person?.position ?? member.position,
@@ -210,11 +353,25 @@ function mergeTeamMemberProfile(
     tenure: member.tenure,
     groupId: member.groupId,
     groupLabel: groupLabelMap.get(member.groupId),
-    highlights: member.highlights
+    highlights: member.highlights,
   };
 }
 
-function normalizePostAuthor(author: SanityPost["author"]): SitePostAuthor | undefined {
+function mergePersonWithRosterFallback(person: PersonSeed): PersonSeed {
+  const rosterMember = getLabMembers().find(
+    (member) => member.id === person.slug,
+  );
+
+  if (!rosterMember) {
+    return person;
+  }
+
+  return mergeTeamMemberProfile(rosterMember, new Map([[person.slug, person]]));
+}
+
+function normalizePostAuthor(
+  author: SanityPost["author"],
+): SitePostAuthor | undefined {
   if (!author) {
     return undefined;
   }
@@ -226,9 +383,11 @@ function normalizePostAuthor(author: SanityPost["author"]): SitePostAuthor | und
     shortBio:
       author.shortBio ??
       "CRASH Lab is an interdisciplinary research group building responsible healthcare AI from Ashoka University.",
-    photo: author.photo ? { url: urlFor(author.photo), alt: `${author.name ?? "Author"} photo` } : null,
+    photo: author.photo
+      ? { url: urlFor(author.photo), alt: `${author.name ?? "Author"} photo` }
+      : null,
     credentials: author.credentials ?? undefined,
-    socialLinks: author.socialLinks ?? undefined
+    socialLinks: author.socialLinks ?? undefined,
   };
 }
 
@@ -243,7 +402,7 @@ function normalizePost(post: SanityPost): SitePost {
     coverImage: post.coverImage
       ? {
           url: urlFor(post.coverImage),
-          alt: post.title ?? "CRASH Lab blog post"
+          alt: post.title ?? "CRASH Lab blog post",
         }
       : null,
     publishedAt: post.publishedAt ?? undefined,
@@ -252,7 +411,7 @@ function normalizePost(post: SanityPost): SitePost {
     seoTitle: post.seoTitle ?? undefined,
     seoDescription: post.seoDescription ?? undefined,
     featured: Boolean(post.featured),
-    author: normalizePostAuthor(post.author)
+    author: normalizePostAuthor(post.author),
   };
 }
 
@@ -261,7 +420,7 @@ function resolveAuthor(authorSlug: string | undefined): PersonSeed | undefined {
     return undefined;
   }
 
-  return (teamSeed as PersonSeed[]).find((person) => person.slug === authorSlug);
+  return seedPeople.find((person) => person.slug === authorSlug);
 }
 
 export function getSeedProjects(): ProjectSeed[] {
@@ -269,7 +428,7 @@ export function getSeedProjects(): ProjectSeed[] {
 }
 
 export function getSeedPeople(): PersonSeed[] {
-  return teamSeed as PersonSeed[];
+  return seedPeople;
 }
 
 export function getLabMemberGroups(): TeamDirectoryGroup[] {
@@ -280,8 +439,12 @@ export function getLabMembers(): TeamDirectoryMember[] {
   return [...labMembers].sort(sortDirectoryMembers);
 }
 
-export function getProjectLabMembers(projectSlug: string): TeamDirectoryMember[] {
-  return getLabMembers().filter((member) => member.isActive && member.projectSlugs.includes(projectSlug));
+export function getProjectLabMembers(
+  projectSlug: string,
+): TeamDirectoryMember[] {
+  return getLabMembers().filter(
+    (member) => member.isActive && member.projectSlugs.includes(projectSlug),
+  );
 }
 
 export function getSeedPublications(): PublicationEntry[] {
@@ -314,9 +477,9 @@ export function getSeedPosts(): SitePost[] {
         _id: `seed-${post.authorSlug}`,
         slug: post.authorSlug,
         name: author.name,
-        shortBio: author.shortBio
+        shortBio: author.shortBio,
       };
-    })()
+    })(),
   }));
 }
 
@@ -325,23 +488,34 @@ export function getTrustSection(): TrustSectionSeed {
 
   return {
     ...data,
-    logos: [...data.logos].sort((left, right) => left.position - right.position),
-    credentials: [...data.credentials].sort((left, right) => left.position - right.position)
+    logos: [...data.logos].sort(
+      (left, right) => left.position - right.position,
+    ),
+    credentials: [...data.credentials].sort(
+      (left, right) => left.position - right.position,
+    ),
   };
 }
 
 export async function getProjects(): Promise<ProjectSeed[]> {
   const projects = await safeFetch<AllProjectsQueryResult>(allProjectsQuery);
   if (!projects?.length) {
-    console.warn("[CRASH Lab] Using seed project data because Sanity is unavailable.");
+    console.warn(
+      "[CRASH Lab] Using seed project data because Sanity is unavailable.",
+    );
     return getSeedProjects();
   }
 
   return projects.map(normalizeProject);
 }
 
-export async function getProjectBySlug(slug: string): Promise<ProjectSeed | null> {
-  const project = await safeFetch<ProjectBySlugQueryResult>(projectBySlugQuery, { slug });
+export async function getProjectBySlug(
+  slug: string,
+): Promise<ProjectSeed | null> {
+  const project = await safeFetch<ProjectBySlugQueryResult>(
+    projectBySlugQuery,
+    { slug },
+  );
   if (!project) {
     return getSeedProjects().find((entry) => entry.slug === slug) ?? null;
   }
@@ -350,27 +524,24 @@ export async function getProjectBySlug(slug: string): Promise<ProjectSeed | null
 }
 
 export async function getPeople(): Promise<PersonSeed[]> {
-  const people = await safeFetch<AllPeopleQueryResult>(allPeopleQuery);
-  if (!people?.length) {
-    console.warn("[CRASH Lab] Using seed team data because Sanity is unavailable.");
+  const sanityPeople = await safeFetch<AllPeopleQueryResult>(allPeopleQuery);
+  if (!sanityPeople?.length) {
+    console.warn(
+      "[CRASH Lab] Using seed team data because Sanity is unavailable.",
+    );
     return getSeedPeople();
   }
 
-  return people.map(normalizePerson);
+  return buildMergedPeople(sanityPeople.map(normalizePerson));
 }
 
-export async function getPersonBySlug(slug: string): Promise<PersonSeed | null> {
-  const person = await safeFetch<PersonBySlugQueryResult>(personBySlugQuery, { slug });
-  if (!person) {
-    return getSeedPeople().find((entry) => entry.slug === slug) ?? null;
-  }
+export async function getPersonBySlug(
+  slug: string,
+): Promise<PersonSeed | null> {
+  const people = await getPeople();
+  const person = people.find((entry) => entry.slug === slug);
 
-  const seedPerson = getSeedPeople().find((entry) => entry.slug === slug);
-
-  return {
-    ...seedPerson,
-    ...normalizePerson(person)
-  };
+  return person ? mergePersonWithRosterFallback(person) : null;
 }
 
 export async function getTeamProfiles(): Promise<TeamMemberProfile[]> {
@@ -383,19 +554,23 @@ export async function getTeamProfiles(): Promise<TeamMemberProfile[]> {
     const profile = mergeTeamMemberProfile(member, peopleBySlug);
 
     usedSlugs.add(profile.slug);
-    usedNames.add(profile.name.toLowerCase());
+    usedNames.add(normalizePersonMatchKey(profile.name));
 
     return profile;
   });
 
   const extraProfiles = people
-    .filter((person) => !usedSlugs.has(person.slug) && !usedNames.has(person.name.toLowerCase()))
+    .filter(
+      (person) =>
+        !usedSlugs.has(person.slug) &&
+        !usedNames.has(normalizePersonMatchKey(person.name)),
+    )
     .map<TeamMemberProfile>((person) => ({
       ...person,
       id: person.slug,
       photo: resolvePreferredPhoto(person.photo, person.slug, person.name),
       groupId: person.isActive ? "active-profiles" : "archived-profiles",
-      groupLabel: person.isActive ? "Active Profiles" : "Archived Profiles"
+      groupLabel: person.isActive ? "Active Profiles" : "Archived Profiles",
     }))
     .sort((left, right) => {
       if (left.isPrincipalInvestigator !== right.isPrincipalInvestigator) {
@@ -412,7 +587,9 @@ export async function getTeamProfiles(): Promise<TeamMemberProfile[]> {
   return [...rosterProfiles, ...extraProfiles];
 }
 
-export async function getTeamProfileBySlug(slug: string): Promise<TeamMemberProfile | null> {
+export async function getTeamProfileBySlug(
+  slug: string,
+): Promise<TeamMemberProfile | null> {
   const profiles = await getTeamProfiles();
   return profiles.find((profile) => profile.slug === slug) ?? null;
 }
@@ -420,7 +597,9 @@ export async function getTeamProfileBySlug(slug: string): Promise<TeamMemberProf
 export async function getPosts(): Promise<SitePost[]> {
   const posts = await safeFetch<AllPostsQueryResult>(allPostsQuery);
   if (!posts?.length) {
-    console.warn("[CRASH Lab] Using seed blog data because Sanity is unavailable.");
+    console.warn(
+      "[CRASH Lab] Using seed blog data because Sanity is unavailable.",
+    );
     return getSeedPosts();
   }
 
@@ -428,7 +607,9 @@ export async function getPosts(): Promise<SitePost[]> {
 }
 
 export async function getPostBySlug(slug: string): Promise<SitePost | null> {
-  const post = await safeFetch<PostBySlugQueryResult>(postBySlugQuery, { slug });
+  const post = await safeFetch<PostBySlugQueryResult>(postBySlugQuery, {
+    slug,
+  });
   if (!post) {
     return getSeedPosts().find((entry) => entry.slug === slug) ?? null;
   }
@@ -441,13 +622,16 @@ export async function getFeaturedProject(): Promise<ProjectSeed | null> {
   return projects.find((project) => project.featured) ?? projects[0] ?? null;
 }
 
-export async function getRelatedProjects(currentSlug: string, tags: string[]): Promise<ProjectSeed[]> {
+export async function getRelatedProjects(
+  currentSlug: string,
+  tags: string[],
+): Promise<ProjectSeed[]> {
   const projects = await getProjects();
   return projects
     .filter((project) => project.slug !== currentSlug)
     .map((project) => ({
       project,
-      score: project.tags.filter((tag) => tags.includes(tag)).length
+      score: project.tags.filter((tag) => tags.includes(tag)).length,
     }))
     .sort((left, right) => right.score - left.score)
     .slice(0, 3)
@@ -474,9 +658,13 @@ export interface LabEvent {
 }
 
 export async function getActiveAnnouncement(): Promise<AnnouncementSeed | null> {
-  const result = await safeFetch<AnnouncementSeed | null>(activeAnnouncementQuery);
+  const result = await safeFetch<AnnouncementSeed | null>(
+    activeAnnouncementQuery,
+  );
   if (result) return result;
-  const active = (announcementsSeed as AnnouncementSeed[]).find((a) => a.isActive);
+  const active = (announcementsSeed as AnnouncementSeed[]).find(
+    (a) => a.isActive,
+  );
   return active ?? null;
 }
 
@@ -489,7 +677,11 @@ export async function getEvents(): Promise<LabEvent[]> {
 export async function getNewsPosts(): Promise<SitePost[]> {
   const posts = await safeFetch<AllPostsQueryResult>(newsPostsQuery);
   if (!posts?.length) {
-    return getSeedPosts().filter((p) => !("postType" in p) || (p as SitePost & { postType?: string }).postType !== "blog");
+    return getSeedPosts().filter(
+      (p) =>
+        !("postType" in p) ||
+        (p as SitePost & { postType?: string }).postType !== "blog",
+    );
   }
   return posts.map(normalizePost);
 }

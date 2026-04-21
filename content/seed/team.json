@@ -2,13 +2,157 @@
   {
     "slug": "suvrankar-datta",
     "name": "Dr. Suvrankar Datta",
-    "role": "Group Lead",
+    "role": "",
     "title": "Dr.",
     "photo": {
       "url": "/team/suvrankar-datta.jpeg",
       "alt": "Portrait of Dr. Suvrankar Datta"
     },
-    "shortBio": "Dr. Suvrankar Datta is a radiologist and AI researcher who trained at AIIMS Delhi and JIPMER, now leading CRASH Lab at Ashoka University. He created Radiology's Last Exam (RadLE), the benchmark that revealed a 53-point gap between frontier AI and expert radiologists at RSNA 2025.",
+    "shortBio": "",
+    "credentials": ["JIPEMER", "AIIMS Delhi", "Ashoka University"],
+    "researchFocus": [],
+    "isPrincipalInvestigator": true,
+    "isActive": true,
+    "position": 1
+  },
+  {
+    "slug": "divya-buchireddygari",
+    "name": "Dr. Divya Buchireddygari",
+    "role": "Research Lead",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/divya-buchireddygari.jpeg",
+      "alt": "Portrait of Dr. Divya Buchireddygari"
+    },
+    "shortBio": "",
+    "credentials": [],
+    "researchFocus": [],
+    "isPrincipalInvestigator": false,
+    "isActive": false,
+    "position": 2
+  },
+  {
+    "slug": "hakikat-bir-singh-bhatti",
+    "name": "Dr. Hakikat Bir Singh Bhatti",
+    "role": "Research Lead",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/hakikat-bhatti.jpeg",
+      "alt": "Portrait of Dr. Hakikat Bir Singh Bhatti"
+    },
+    "shortBio": "",
+    "credentials": ["CRASH Lab", "MBBS", "IIT-Delhi"],
+    "researchFocus": [
+      "IndicCXR",
+      "Synth CXR",
+      "RadLE",
+      "Medical Visual Reasoning",
+      "Prompt Optimization",
+      "Rib Frac"
+    ],
+    "isPrincipalInvestigator": true,
+    "isActive": true,
+    "position": 3,
+    "email": "hbsb2566@gmail.com",
+    "socialLinks": {
+      "twitter": "https://x.com/hakikat_bir",
+      "googleScholar": "https://scholar.google.com/citations?user=QVKGWSAAAAAJ&hl=en",
+      "linkedin": "https://www.linkedin.com/in/drhbsb/",
+      "researchgate": "https://www.researchgate.net/profile/Hakikat-Bir-Bhatti"
+    }
+  },
+  {
+    "slug": "lakshmi-vennela-chowdary-kaza",
+    "name": "Dr. Lakshmi Vennela Chowdary Kaza",
+    "role": "Research Lead",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/lakshmi-vennela.jpeg",
+      "alt": "Portrait of Dr. Lakshmi Vennela Chowdary Kaza"
+    },
+    "shortBio": "",
+    "credentials": ["CRASH Lab", "IIT-Bombay"],
+    "researchFocus": ["RadLE", "Medical Visual Reasoning"],
+    "isPrincipalInvestigator": false,
+    "isActive": true,
+    "position": 4,
+    "email": "clakshmivennela@gmail.com",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/dr-lakshmi-vennela-chowdary-kaza-1b6014b0/"
+    }
+  },
+  {
+    "slug": "swarna-radhakrishnan",
+    "name": "Ms. Swarna Radhakrishnan",
+    "role": "Assistant Project Manager",
+    "title": "Ms.",
+    "photo": {
+      "url": "/team/swarna-radhakrishnan.jpeg",
+      "alt": "Portrait of Ms. Swarna Radhakrishnan"
+    },
+    "shortBio": "",
+    "credentials": ["KCDH-A", "Ashoka University"],
+    "researchFocus": ["PrAimaan", "V2DD"],
+    "isPrincipalInvestigator": false,
+    "isActive": true,
+    "position": 5,
+    "email": "swarna.r@ashoka.edu.in",
+    "socialLinks": {
+      "googleScholar": "https://scholar.google.com/citations?user=Aa4aUW4AAAAJ&hl=en&authuser=2",
+      "researchgate": "https://www.researchgate.net/profile/Swarna-Radhakrishnan"
+    }
+  },
+  {
+    "slug": "haritha-r",
+    "name": "Ms. Haritha R",
+    "role": "Junior Research Fellow",
+    "title": "Ms.",
+    "photo": {
+      "url": "/team/haritha.jpeg",
+      "alt": "Portrait of Ms. Haritha R"
+    },
+    "shortBio": "",
+    "credentials": ["KCDH-A", "Ashoka University"],
+    "researchFocus": ["APO", "Ambient AI Scribes", "NLP"],
+    "isPrincipalInvestigator": false,
+    "isActive": true,
+    "position": 6,
+    "email": "rharitha106@gmail.com",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/haritha-r-b527012a7/"
+    }
+  },
+  {
+    "slug": "gadha-lekshmi-p",
+    "name": "Ms. Gadha Lakshmi",
+    "role": "Junior Research Fellow",
+    "title": "Ms.",
+    "photo": {
+      "url": "/team/gadha-lekshmi.jpeg",
+      "alt": "Portrait of Ms. Gadha Lakshmi"
+    },
+    "shortBio": "",
+    "credentials": ["KCDH-A", "Ashoka University"],
+    "researchFocus": ["Medical Vision"],
+    "isPrincipalInvestigator": false,
+    "isActive": true,
+    "position": 7
+  },
+  {
+    "slug": "siddharth-reddy-anthireddy",
+    "name": "Mr. Siddharth Reddy Anthireddy",
+    "role": "Full Stack Engineer / Automator of the Technical Staff",
+    "title": "Mr.",
+    "photo": {
+      "url": "/team/siddharth-reddy.jpeg",
+      "alt": "Portrait of Mr. Siddharth Reddy Anthireddy"
+    },
+    "shortBio": "Software Engineer focused on building scalable AI systems, backend platforms, and privacy-preserving digital products across healthcare, automation, and emerging technology domains.",
+    "credentials": ["KCDHA", "IFRE"],
+    "researchFocus": ["prAImaan", "LLM Pipelines"],
+    "isPrincipalInvestigator": false,
+    "isActive": true,
+    "position": 8,
     "fullBio": [
       {
         "_key": "bio-1",
@@ -17,70 +161,128 @@
         "children": [
           {
             "_type": "span",
-            "text": "Dr. Suvrankar Datta works at the intersection of radiology, evaluation science, and frontier AI. His research focuses on building rigorous benchmarks, clinically grounded AI systems, and the governance infrastructure required for responsible deployment."
+            "text": "Software Engineer with experience building scalable software systems across backend infrastructure, applied AI, and privacy-focused digital products. Work spans medical AI evaluation platforms, LLM pipelines, blockchain transaction systems, and Zero-Knowledge KYC architectures. Contributions include designing concurrent backend services in Go, optimizing APIs and databases, building high-throughput batch processing systems, improving frontend performance, and supporting secure cloud-native deployments. With experience across both research-driven and production environments, the focus is on building robust, efficient, and practical systems that bring advanced technology into real-world use."
           }
         ]
       }
     ],
-    "email": "suvrankar.datta@ashoka.edu.in",
-    "credentials": [
-      "RSNA Trainee Research Prize 2023",
-      "Gold Medallist, JIPMER Puducherry",
-      "Senior Resident, AIIMS New Delhi (Radiodiagnosis & Interventional Radiology)",
-      "Harvard Medical School — Visiting Researcher",
-      "Ex-President, FAIMA (Federation of All India Medical Associations)"
-    ],
-    "researchFocus": [
-      "Radiology AI Benchmarks",
-      "Clinical Evaluation",
-      "Responsible AI",
-      "Healthcare Data Infrastructure"
-    ],
+    "email": "siddharthreddy2812@gmail.com",
     "socialLinks": {
-      "twitter": "https://x.com/DrDatta_AIIMS",
-      "googleScholar": "https://scholar.google.com/",
-      "linkedin": "https://www.linkedin.com/",
-      "personalWebsite": "https://crashlab.in/people/suvrankar-datta"
+      "twitter": "https://x.com/Siddharth_1228",
+      "googleScholar": "https://scholar.google.com/citations?user=InOjjfAAAAAJ&hl=en",
+      "linkedin": "https://www.linkedin.com/in/siddharth-reddy28/"
+    }
+  },
+  {
+    "slug": "shreyas-reddy-k",
+    "name": "Dr Shreyas Reddy",
+    "role": "Research Lead",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/shreyas-reddy.jpeg",
+      "alt": "Portrait of Dr Shreyas Reddy"
     },
+    "shortBio": "",
+    "credentials": ["CRASH LAB"],
+    "researchFocus": ["Synthetic CXR", "RadLE"],
     "isPrincipalInvestigator": true,
     "isActive": true,
-    "joinedAt": "2025-04-01",
-    "position": 1,
-    "headline": [
-      "Faculty Fellow, Koita Centre for Digital Health, Ashoka University",
-      "Visiting Researcher, Harvard Medical School",
-      "Group Lead & Founder, CRASH Lab"
-    ],
-    "originStory": [
-      {
-        "_key": "origin-1",
-        "_type": "block",
-        "style": "normal",
-        "children": [
-          {
-            "_type": "span",
-            "text": "CRASH Lab started with a question: if AI companies claim clinical performance, why are so few systems tested against the best radiologists under realistic conditions?"
-          }
-        ]
-      },
-      {
-        "_key": "origin-2",
-        "_type": "block",
-        "style": "normal",
-        "children": [
-          {
-            "_type": "span",
-            "text": "Dr. Datta built Radiology's Last Exam to make that gap visible. The benchmark did more than compare models. It defined the lab's mission: build healthcare AI that can survive contact with real clinical practice."
-          }
-        ]
-      }
-    ],
-    "collaborations": [
-      "Ashoka University",
-      "AIIMS New Delhi",
-      "Harvard Medical School",
-      "JIPMER Puducherry",
-      "Koita Foundation"
-    ]
+    "position": 9
+  },
+  {
+    "slug": "sarath-sasi",
+    "name": "Sarath Sasi",
+    "role": "Researcher",
+    "title": "",
+    "photo": {
+      "url": "/team/person-placeholder.svg",
+      "alt": "Portrait of Sarath Sasi"
+    },
+    "shortBio": "",
+    "credentials": ["CRASH LAB"],
+    "researchFocus": ["Synthetic CXR"],
+    "isPrincipalInvestigator": true,
+    "isActive": true,
+    "position": 10
+  },
+  {
+    "slug": "mrudula-bhalke",
+    "name": "Dr. Mrudula Bhalke",
+    "role": "Researcher",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/mrudula-bhalke.jpeg",
+      "alt": "Portrait of Dr. Mrudula Bhalke"
+    },
+    "shortBio": "",
+    "credentials": [],
+    "researchFocus": [],
+    "isPrincipalInvestigator": false,
+    "isActive": false,
+    "position": 11
+  },
+  {
+    "slug": "nishtha-mahajan",
+    "name": "Dr. Nishtha Mahajan",
+    "role": "Researcher",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/nishtha-mahajan.jpeg",
+      "alt": "Portrait of Dr. Nishtha Mahajan"
+    },
+    "shortBio": "",
+    "credentials": [],
+    "researchFocus": [],
+    "isPrincipalInvestigator": false,
+    "isActive": false,
+    "position": 12
+  },
+  {
+    "slug": "bhavya-ratan-maroo",
+    "name": "Dr. Bhavya Ratan Maroo",
+    "role": "Researcher",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/bhavya-ratan.jpeg",
+      "alt": "Portrait of Dr. Bhavya Ratan Maroo"
+    },
+    "shortBio": "",
+    "credentials": [],
+    "researchFocus": [],
+    "isPrincipalInvestigator": false,
+    "isActive": false,
+    "position": 13
+  },
+  {
+    "slug": "kautik-singh",
+    "name": "Kautik Singh",
+    "role": "Researcher",
+    "title": "",
+    "photo": {
+      "url": "/team/kautik-singh.jpeg",
+      "alt": "Portrait of Kautik Singh"
+    },
+    "shortBio": "",
+    "credentials": [],
+    "researchFocus": [],
+    "isPrincipalInvestigator": false,
+    "isActive": false,
+    "position": 14
+  },
+  {
+    "slug": "upasana-karnwal",
+    "name": "Upasana Karnwal",
+    "role": "Researcher",
+    "title": "",
+    "photo": {
+      "url": "/team/upasana-karnwal.jpeg",
+      "alt": "Portrait of Upasana Karnwal"
+    },
+    "shortBio": "",
+    "credentials": [],
+    "researchFocus": [],
+    "isPrincipalInvestigator": false,
+    "isActive": false,
+    "position": 15
   }
 ]
