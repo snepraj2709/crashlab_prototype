@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, ChevronDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { BrandMark } from "@/components/layout/BrandMark";
 import { MobileMenu } from "@/components/layout/MobileMenu";
@@ -75,16 +75,9 @@ interface NavbarProps {
 export function Navbar({ hasBanner }: NavbarProps): React.ReactElement {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [bannerDismissed, setBannerDismissed] = useState(false);
   const pathname = usePathname();
   const { hasScrolled } = useScrollProgress();
   const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    function onDismiss(): void { setBannerDismissed(true); }
-    window.addEventListener("banner-dismissed", onDismiss);
-    return () => window.removeEventListener("banner-dismissed", onDismiss);
-  }, []);
 
   function handleMouseEnter(label: string): void {
     if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
@@ -95,7 +88,9 @@ export function Navbar({ hasBanner }: NavbarProps): React.ReactElement {
     dropdownTimeout.current = setTimeout(() => setOpenDropdown(null), 120);
   }
 
-  const bannerOffset = hasBanner && !bannerDismissed && !hasScrolled ? "top-11" : "top-0";
+  const bannerOffset = hasBanner
+    ? "top-[var(--announcement-banner-offset,0px)]"
+    : "top-0";
 
   return (
     <>

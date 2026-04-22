@@ -1,10 +1,10 @@
 [
   {
     "_id": "announcement-1",
-    "message": "CRASH Lab's RadLE benchmark accepted at RSNA 2024 — our largest clinical AI evaluation to date.",
-    "ctaText": "Read the paper",
-    "ctaUrl": "/research?status=published",
-    "type": "paper",
+    "message": "Our lab has secured $20,000 from Google and $15,000 in support from OpenAI to accelerate our work",
+    "ctaText": "Read Announcement",
+    "ctaUrl": "https://www.linkedin.com/posts/kcdh-a_academicresearchgrants-kcdha-ashokauniversity-activity-7447527557442273280-CIAZ?utm_source=share&utm_medium=member_desktop&rcm=ACoAACIGXDABdVnzOr1gx5sy7Fc0zlfUeJ-06Ek",
+    "type": "general",
     "isActive": true
   }
 ]
