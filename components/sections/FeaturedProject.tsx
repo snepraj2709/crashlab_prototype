@@ -56,7 +56,7 @@ export function FeaturedProject({
                 href={resolvedPaperUrl}
                 rel="noreferrer"
                 target="_blank"
-                variant="outline"
+                variant="secondary"
               >
                 Read the Paper
                 {paperStatus === "preprint" ? (
@@ -70,7 +70,7 @@ export function FeaturedProject({
                 Pre-print Coming Soon
               </Button>
             )}
-            <Button href="/research/radle-benchmark" variant="ghost">
+            <Button href="/research/radle-benchmark" variant="secondary">
               Explore the Benchmark
             </Button>
           </div>

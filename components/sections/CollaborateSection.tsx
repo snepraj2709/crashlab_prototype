@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Button } from "@/components/ui";
 
 const rows = [
   {
@@ -48,12 +48,9 @@ export function CollaborateSection(): React.ReactElement {
                 {row.title}
               </h3>
               <p className="mt-4 text-sm leading-8 text-text-secondary">{row.body}</p>
-              <Link
-                className="mt-6 inline-flex text-sm text-accent-cyan transition hover:opacity-75"
-                href={row.href}
-              >
-                {row.cta} →
-              </Link>
+              <Button className="mt-6" href={row.href} variant="secondary">
+                {row.cta}
+              </Button>
             </div>
           ))}
         </div>

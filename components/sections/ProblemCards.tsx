@@ -42,8 +42,8 @@ export function ProblemCards({
             </p>
           </div>
           <div className="mt-6 lg:mt-0">
-            <Button href="/collaborate" variant="primary">
-              Explore Collaboration Models →
+            <Button href="/collaborate" variant="secondary">
+              Explore Collaboration Models
             </Button>
           </div>
         </div>

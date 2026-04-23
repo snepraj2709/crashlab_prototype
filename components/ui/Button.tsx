@@ -28,7 +28,7 @@ type NativeButtonProps = BaseButtonProps &
 
 export type ButtonProps = NativeButtonProps;
 
-const variantClasses: Record<ButtonVariant, string> = {
+const controlVariantClasses: Record<ButtonVariant, string> = {
   primary:
     "border border-surface-strong bg-surface-strong text-text-on-strong hover:border-border-focus hover:bg-surface-shell active:translate-y-px",
   secondary:
@@ -39,22 +39,40 @@ const variantClasses: Record<ButtonVariant, string> = {
     "border border-border-default bg-transparent text-text-default hover:border-border-focus hover:text-border-focus active:bg-surface-canvas",
 };
 
-const sizeClasses: Record<ButtonSize, string> = {
+const linkVariantClasses: Record<ButtonVariant, string> = {
+  primary:
+    "border border-navy-800 bg-navy-800 text-text-on-strong hover:border-[#f6f4ee] hover:bg-navy-800 hover:shadow-[0_0_0_3px_#fafaf8,0_0_0_6px_#5c7a8f]",
+  secondary:
+    "border border-[#b7bec6] bg-surface-panel text-text-primary hover:border-[#f6f4ee] hover:bg-navy-800 hover:text-text-on-strong hover:shadow-[0_0_0_3px_#fafaf8,0_0_0_6px_#5c7a8f]",
+  ghost:
+    "border border-transparent bg-transparent text-text-default hover:bg-surface-panel hover:text-border-focus active:bg-surface-canvas",
+  outline:
+    "border border-border-default bg-transparent text-text-default hover:border-border-focus hover:text-border-focus active:bg-surface-canvas",
+};
+
+const controlSizeClasses: Record<ButtonSize, string> = {
   sm: "h-11 px-4 text-sm",
   md: "h-11 px-5 text-sm md:text-base",
   lg: "h-12 px-6 text-base",
 };
 
+const linkSizeClasses: Record<ButtonSize, string> = {
+  sm: "h-11 px-4 text-sm",
+  md: "h-12 px-5 text-sm md:text-base",
+  lg: "h-[58px] px-7 text-base sm:px-9 sm:text-[1.05rem]",
+};
+
 function getClasses(
   variant: ButtonVariant,
   size: ButtonSize,
+  isLink: boolean,
   className?: string,
 ): string {
   return cn(
     "ui-focus-ring inline-flex items-center justify-center gap-2 rounded-token-pill font-medium transition duration-200",
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:border-border disabled:bg-bg-elevated disabled:text-text-tertiary disabled:opacity-60",
-    variantClasses[variant],
-    sizeClasses[size],
+    isLink ? linkVariantClasses[variant] : controlVariantClasses[variant],
+    isLink ? linkSizeClasses[size] : controlSizeClasses[size],
     className,
   );
 }
@@ -71,7 +89,7 @@ export const Button = forwardRef<
 
     return (
       <Link
-        className={getClasses(variant, size, className)}
+        className={getClasses(variant, size, true, className)}
         href={href}
         rel={rel}
         target={target}
@@ -85,7 +103,7 @@ export const Button = forwardRef<
   return (
     <button
       {...props}
-      className={getClasses(variant, size, className)}
+      className={getClasses(variant, size, false, className)}
       ref={ref as React.Ref<HTMLButtonElement>}
     >
       {children}

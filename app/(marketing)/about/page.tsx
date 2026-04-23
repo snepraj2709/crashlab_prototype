@@ -1,8 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 
 import { PillarsSection, TimelineSection } from "@/components/sections";
-import { MetricTile } from "@/components/ui";
+import { Button, MetricTile } from "@/components/ui";
 import { aboutContent } from "@/lib/content/about";
 
 export const metadata: Metadata = {
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
 const impactMetrics = [
   { value: "15+", label: "Papers accepted at top conferences" },
   { value: "6", label: "RSNA 2025 accepted abstracts" },
-  { value: "#1", label: "Indian lab by AI abstracts at RSNA 2025" },
+  // { value: "#1", label: "Indian lab by AI abstracts at RSNA 2025" },
   { value: "3", label: "International collaborations" }
 ];
 
@@ -109,12 +108,14 @@ export default function AboutPage(): React.ReactElement {
                 {cta.body}
               </p>
             </div>
-            <Link
-              className="ui-focus-ring relative mt-10 inline-flex items-center rounded-token-pill border border-brand-blue bg-brand-blue px-7 py-3 font-sans text-lg font-semibold text-white transition-all hover:brightness-110"
+            <Button
+              className="mt-10 font-sans text-lg font-semibold"
               href={cta.buttonHref}
+              size="lg"
+              variant="secondary"
             >
-              {cta.buttonLabel} <span aria-hidden="true" className="ml-3 text-md leading-none">→</span>
-            </Link>
+              {cta.buttonLabel}
+            </Button>
           </div>
         </div>
       </section>

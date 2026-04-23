@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui";
 import { flattenApiErrorDetails } from "@/lib/utils/api";
 import type { ApiResponse, ContactFormValues } from "@/types/forms";
 
@@ -178,14 +179,14 @@ export function ContactPageForm(): React.ReactElement {
       ) : null}
 
       <div>
-        <button
+        <Button
           aria-busy={isSubmitting}
-          className="ui-focus-ring inline-flex min-h-[52px] items-center justify-center rounded-token-pill border border-surface-strong bg-surface-strong px-8 py-4 text-xl font-medium text-text-on-strong transition hover:border-border-focus hover:bg-surface-shell disabled:cursor-not-allowed disabled:border-border disabled:bg-bg-elevated disabled:text-text-tertiary"
+          className="h-[58px] border-navy-800 bg-navy-800 px-7 text-base hover:border-[#f6f4ee] hover:bg-navy-800 hover:shadow-[0_0_0_3px_#fafaf8,0_0_0_6px_#5c7a8f] sm:px-9 sm:text-[1.05rem]"
           disabled={isSubmitting}
           type="submit"
         >
           {isSubmitting ? "Sending..." : "Send"}
-        </button>
+        </Button>
       </div>
     </form>
   );

@@ -153,8 +153,8 @@ export function Navbar({ hasBanner }: NavbarProps): React.ReactElement {
               })}
             </nav>
 
-            <Button href="/join" size="lg">
-              Join Us →
+            <Button href="/join">
+              Join Us
             </Button>
           </div>
 

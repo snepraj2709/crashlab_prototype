@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import { BrandMark } from "@/components/layout/BrandMark";
 import { navItems } from "@/components/layout/Navbar";
+import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
 
 interface MobileMenuProps {
@@ -109,13 +110,14 @@ export function MobileMenu({ open, onClose }: MobileMenuProps): React.ReactEleme
                   );
                 })}
 
-                <Link
-                  className="ui-focus-ring mt-2 rounded-token-sm border border-border-focus bg-status-info-surface px-5 py-4 text-center text-lg font-semibold text-border-focus"
+                <Button
+                  className="mt-2 w-full text-lg font-semibold"
                   href="/join"
                   onClick={onClose}
+                  size="lg"
                 >
-                  Apply to Join →
-                </Link>
+                  Apply to Join
+                </Button>
               </nav>
             </div>
           </motion.div>

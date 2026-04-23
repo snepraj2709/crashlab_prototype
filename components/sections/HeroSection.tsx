@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui";
 
 const stats = [
   { value: "15+", label: "papers" },
@@ -40,19 +40,22 @@ export function HeroSection(): React.ReactElement {
           India&apos;s healthcare future.
         </p>
 
-        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
-          <Link
-            className="text-sm text-accent-cyan transition hover:opacity-75"
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button
+            className="sm:min-w-[15.5rem]"
             href="/join"
+            size="lg"
           >
-            Join the team →
-          </Link>
-          <Link
-            className="text-sm text-accent-cyan transition hover:opacity-75"
+            Join the team
+          </Button>
+          <Button
+            className="sm:min-w-[15.5rem]"
             href="/collaborate"
+            size="lg"
+            variant="secondary"
           >
-            Collaborate with the lab →
-          </Link>
+            Collaborate with the lab
+          </Button>
         </div>
 
         <div className="mt-12 border-y border-border py-5">
