@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import {
+  CalendarDays,
+  Database,
+  FileText,
+  Globe,
+  Microscope,
+  Trophy,
+} from "lucide-react";
 
 import { PublicationsStory } from "@/components/sections";
-import { ProofChip } from "@/components/ui";
+import { MetricTile, ProofChip } from "@/components/ui";
 import { getPersonBySlug, getSeedPublications } from "@/lib/content/site";
 
 export const metadata: Metadata = {
@@ -11,12 +19,36 @@ export const metadata: Metadata = {
 };
 
 const impactMetrics = [
-  { value: "15+", label: "Papers accepted at top conferences" },
-  { value: "6", label: "RSNA 2025 accepted abstracts" },
-  { value: "#1", label: "Indian lab by AI abstracts at RSNA 2025" },
-  { value: "Apr 2025", label: "Lab founded — fastest ramp in Indian health AI" },
-  { value: "4", label: "Research pillars: Data, Benchmarks, Design, Models" },
-  { value: "3", label: "International institutional collaborations" }
+  {
+    value: "15+",
+    label: "Papers accepted at top conferences",
+    icon: FileText,
+  },
+  {
+    value: "6",
+    label: "RSNA 2025 accepted abstracts",
+    icon: Microscope,
+  },
+  {
+    value: "#1",
+    label: "Indian lab by AI abstracts at RSNA 2025",
+    icon: Trophy,
+  },
+  {
+    value: "Apr 2025",
+    label: "Lab founded — fastest ramp in Indian health AI",
+    icon: CalendarDays,
+  },
+  {
+    value: "4",
+    label: "Research pillars: Data, Benchmarks, Design, Models",
+    icon: Database,
+  },
+  {
+    value: "3",
+    label: "International institutional collaborations",
+    icon: Globe,
+  }
 ];
 
 export default async function PublicationsPage(): Promise<React.ReactElement> {
@@ -42,10 +74,13 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
           <div className="mt-12 border-y border-border py-5">
             <div className="grid gap-6 md:grid-cols-3 md:divide-x md:divide-border">
               {impactMetrics.slice(0, 3).map((metric) => (
-                <div className="md:px-6 md:first:pl-0 md:last:pr-0" key={metric.label}>
-                  <p className="font-mono text-3xl text-text-primary">{metric.value}</p>
-                  <p className="mt-2 text-sm text-text-secondary">{metric.label}</p>
-                </div>
+                <MetricTile
+                  className="md:px-6 md:first:pl-0 md:last:pr-0"
+                  icon={metric.icon}
+                  key={metric.label}
+                  label={metric.label}
+                  value={metric.value}
+                />
               ))}
             </div>
           </div>

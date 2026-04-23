@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { LucideIcon } from "lucide-react";
+import { BrainCircuit, ShieldCheck, TrendingDown } from "lucide-react";
 
 import { ProofChip } from "@/components/ui";
 
@@ -9,20 +11,29 @@ const findings = [
     headline: "32-point expert gap",
     body: "Board-certified radiologists reached 83%. Gemini 3.0 Pro reached 51%, beating trainees at 45% but remaining well below experts.",
     value: "−32 pts",
+    icon: TrendingDown,
   },
   {
     tag: "Finding 02",
     headline: "Reasoning, not recall",
     body: "Cases require multi-step inference: differential diagnosis, anatomy, and patient context. Pattern matching fails where radiologists reason.",
     value: "7 / 7",
+    icon: BrainCircuit,
   },
   {
     tag: "Finding 03",
     headline: "Validated by readers",
     body: "Twelve board-certified radiologists blind-read every case. The benchmark ships with agreement data and error taxonomies.",
     value: "κ = 0.78",
+    icon: ShieldCheck,
   },
-];
+] satisfies Array<{
+  tag: string;
+  headline: string;
+  body: string;
+  value: string;
+  icon: LucideIcon;
+}>;
 
 export function RadLESection(): React.ReactElement {
   return (
@@ -123,7 +134,13 @@ export function RadLESection(): React.ReactElement {
           {findings.map((finding) => (
             <article className="border-t border-border pt-6" key={finding.tag}>
               <div className="flex items-baseline justify-between gap-4">
-                <p className="text-xs uppercase tracking-[0.18em] text-accent-cyan">{finding.tag}</p>
+                <div className="flex items-center gap-2">
+                  <finding.icon
+                    aria-hidden="true"
+                    className="size-4 shrink-0 text-accent-cyan"
+                  />
+                  <p className="text-xs uppercase tracking-[0.18em] text-accent-cyan">{finding.tag}</p>
+                </div>
                 <p className="font-mono text-xl text-text-primary">{finding.value}</p>
               </div>
               <h3 className="mt-4 text-2xl font-medium text-text-primary">{finding.headline}</h3>

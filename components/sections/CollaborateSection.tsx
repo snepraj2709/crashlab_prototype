@@ -1,3 +1,6 @@
+import type { LucideIcon } from "lucide-react";
+import { Building2, Microscope, TrendingUp } from "lucide-react";
+
 import { Button } from "@/components/ui";
 
 const rows = [
@@ -7,6 +10,7 @@ const rows = [
     body: "Validate your model on RadLE, commission India-specific evaluation studies, or work with the lab on deployment-grade evidence.",
     cta: "Commission a study",
     href: "/collaborate",
+    icon: Building2,
   },
   {
     who: "For Researchers",
@@ -14,6 +18,7 @@ const rows = [
     body: "Join RadLE-X, propose a new cohort, or work with a lab that treats benchmark design as publishable infrastructure.",
     cta: "Propose a study",
     href: "/join",
+    icon: Microscope,
   },
   {
     who: "For Funders",
@@ -21,8 +26,16 @@ const rows = [
     body: "Support benchmark systems, data commons, and evaluation standards that make healthcare AI more accountable.",
     cta: "Talk to the lab",
     href: "/contact",
+    icon: TrendingUp,
   },
-];
+] satisfies Array<{
+  who: string;
+  title: string;
+  body: string;
+  cta: string;
+  href: string;
+  icon: LucideIcon;
+}>;
 
 export function CollaborateSection(): React.ReactElement {
   return (
@@ -44,6 +57,12 @@ export function CollaborateSection(): React.ReactElement {
           {rows.map((row) => (
             <div className="border-t border-border pt-6" key={row.who}>
               <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">{row.who}</p>
+              <div
+                aria-hidden="true"
+                className="mt-5 inline-flex size-12 items-center justify-center rounded-full bg-accent-cyan-muted text-accent-cyan"
+              >
+                <row.icon className="size-5" />
+              </div>
               <h3 className="mt-4 text-2xl font-medium leading-tight text-text-primary">
                 {row.title}
               </h3>

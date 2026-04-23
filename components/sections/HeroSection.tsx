@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, FileText, Globe, Microscope } from "lucide-react";
 import { Button } from "@/components/ui";
 
 const stats = [
-  { value: "15+", label: "papers" },
-  { value: "6", label: "RSNA abstracts" },
-  { value: "3", label: "institutional collaborations" },
+  { value: "15+", label: "papers", icon: FileText },
+  { value: "6", label: "RSNA abstracts", icon: Microscope },
+  { value: "3", label: "institutional collaborations", icon: Globe },
 ];
 
 export function HeroSection(): React.ReactElement {
@@ -62,9 +62,13 @@ export function HeroSection(): React.ReactElement {
           <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:gap-0">
             {stats.map((stat, index) => (
               <div
-                className="flex items-baseline gap-3 md:pr-6 md:mr-6 md:border-r md:border-border last:md:mr-0 last:md:border-r-0 last:md:pr-0"
+                className="flex items-center gap-3 md:pr-6 md:mr-6 md:border-r md:border-border last:md:mr-0 last:md:border-r-0 last:md:pr-0"
                 key={stat.label}
               >
+                <stat.icon
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-accent-cyan"
+                />
                 <span className="font-mono text-2xl text-text-primary">{stat.value}</span>
                 <span className="text-sm text-text-secondary">{stat.label}</span>
                 {index === stats.length - 1 ? null : null}

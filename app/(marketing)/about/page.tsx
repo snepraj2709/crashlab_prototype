@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FileText, Globe, Microscope } from "lucide-react";
 
 import { PillarsSection, TimelineSection } from "@/components/sections";
 import { Button, MetricTile } from "@/components/ui";
@@ -11,10 +12,22 @@ export const metadata: Metadata = {
 };
 
 const impactMetrics = [
-  { value: "15+", label: "Papers accepted at top conferences" },
-  { value: "6", label: "RSNA 2025 accepted abstracts" },
+  {
+    value: "15+",
+    label: "Papers accepted at top conferences",
+    icon: FileText,
+  },
+  {
+    value: "6",
+    label: "RSNA 2025 accepted abstracts",
+    icon: Microscope,
+  },
   // { value: "#1", label: "Indian lab by AI abstracts at RSNA 2025" },
-  { value: "3", label: "International collaborations" }
+  {
+    value: "3",
+    label: "International collaborations",
+    icon: Globe,
+  }
 ];
 
 export default function AboutPage(): React.ReactElement {
@@ -83,7 +96,12 @@ export default function AboutPage(): React.ReactElement {
             </h2>
             <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
               {impactMetrics.map((metric) => (
-                <MetricTile key={metric.label} label={metric.label} value={metric.value} />
+                <MetricTile
+                  icon={metric.icon}
+                  key={metric.label}
+                  label={metric.label}
+                  value={metric.value}
+                />
               ))}
           </div>
         </div>
