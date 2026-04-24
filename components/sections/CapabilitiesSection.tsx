@@ -9,8 +9,6 @@ export function CapabilitiesSection(): React.ReactElement {
       }}
       headline="Four pillars. One clock."
       id="research"
-      labelNumber="05"
-      labelText="Our Capabilities"
       variant="interactive"
     />
   );

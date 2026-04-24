@@ -59,7 +59,7 @@ export default function CollaboratePage(): React.ReactElement {
       </div>
 
       {/* General Contact */}
-      <section className="py-12 lg:py-24">
+      <section className="py-12 lg:py-18">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-16">
             <div className="max-w-2xl pt-2">

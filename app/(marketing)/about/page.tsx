@@ -132,7 +132,7 @@ export default function AboutPage(): React.ReactElement {
       <JourneyOutlookSection futureOutlook={futureOutlook} journey={journey} />
 
       {/* CTA */}
-      <section className="py-12 lg:py-24">
+      <section className="py-12 lg:py-18">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-token-md border border-slate-800 bg-navy-900 px-10 py-12 shadow-soft lg:px-16 lg:py-14">
             <div
