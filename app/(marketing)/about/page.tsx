@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { FileText, Globe, Microscope } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { FileText, Globe, Presentation } from "lucide-react";
 
-import { PillarsSection, TimelineSection } from "@/components/sections";
-import { Button, MetricTile } from "@/components/ui";
+import { JourneyOutlookSection, PillarsSection } from "@/components/sections";
+import { Button } from "@/components/ui";
 import { aboutContent } from "@/lib/content/about";
 
 export const metadata: Metadata = {
@@ -11,27 +12,23 @@ export const metadata: Metadata = {
     "Learn how CRASH Lab came to exist, its mission to build responsible AI for Indian healthcare, and what it has accomplished since founding in April 2025."
 };
 
-const impactMetrics = [
-  {
-    value: "15+",
-    label: "Papers accepted at top conferences",
-    icon: FileText,
-  },
-  {
-    value: "6",
-    label: "RSNA 2025 accepted abstracts",
-    icon: Microscope,
-  },
-  // { value: "#1", label: "Indian lab by AI abstracts at RSNA 2025" },
-  {
-    value: "3",
-    label: "International collaborations",
-    icon: Globe,
-  }
-];
+const aboutIconMap = {
+  papers: FileText,
+  presentation: Presentation,
+  globe: Globe
+} satisfies Record<string, LucideIcon>;
 
 export default function AboutPage(): React.ReactElement {
-  const { hero, origin, mission, vision, cta } = aboutContent;
+  const {
+    hero,
+    origin,
+    mission,
+    vision,
+    impactMetrics,
+    journey,
+    futureOutlook,
+    cta
+  } = aboutContent;
   const missionVisionItems = [
     { ...mission },
     { ...vision }
@@ -42,7 +39,6 @@ export default function AboutPage(): React.ReactElement {
       {/* Hero */}
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          
           <p className="mt-6 text-xs uppercase tracking-[0.22em] text-accent-cyan">
             {hero.eyebrow}
           </p>
@@ -106,24 +102,34 @@ export default function AboutPage(): React.ReactElement {
       {/* Impact Numbers */}
       <section className="py-8 lg:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mt-6 font-display text-4xl text-text-primary">
-              What the lab has built since founding.
-            </h2>
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
-              {impactMetrics.map((metric) => (
-                <MetricTile
-                  icon={metric.icon}
-                  key={metric.label}
-                  label={metric.label}
-                  value={metric.value}
-                />
-              ))}
+          <h2 className="mt-6 max-w-4xl font-display text-4xl leading-tight tracking-tight text-text-primary sm:text-5xl lg:text-[4rem]">
+            What the lab has built since founding.
+          </h2>
+          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 lg:mt-16 lg:gap-14">
+            {impactMetrics.map((metric) => {
+              const Icon = aboutIconMap[metric.icon as keyof typeof aboutIconMap];
+
+              return (
+                <article className="flex items-start gap-5" key={metric.label}>
+                  <div className="flex size-16 shrink-0 items-center justify-center rounded-[1.4rem] border border-border-subtle bg-surface-panel shadow-soft">
+                    <Icon aria-hidden="true" className="size-7 text-text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-display text-5xl font-semibold leading-none tracking-tight text-text-primary sm:text-6xl">
+                      {metric.value}
+                    </p>
+                    <p className="mt-3 max-w-xs text-lg leading-8 text-text-secondary">
+                      {metric.label}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <TimelineSection />
+      <JourneyOutlookSection futureOutlook={futureOutlook} journey={journey} />
 
       {/* CTA */}
       <section className="py-16 lg:py-24">

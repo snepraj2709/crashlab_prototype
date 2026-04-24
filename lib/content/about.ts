@@ -39,10 +39,80 @@ export const aboutContent = {
       description: "Foundation models and task-specific architectures evaluated under our own rigorous standards."
     }
   ],
+  impactMetrics: [
+    {
+      value: "15+",
+      label: "Papers accepted at top conferences",
+      icon: "papers"
+    },
+    {
+      value: "6",
+      label: "RSNA 2025 accepted abstracts",
+      icon: "presentation"
+    },
+    {
+      value: "3",
+      label: "International collaborations",
+      icon: "globe"
+    }
+  ],
+  journey: {
+    heading: "Journey & Outlook",
+    body: "Our path from inception to building India's largest responsible healthcare AI infrastructure.",
+    items: [
+      {
+        period: "April 2025",
+        title: "CRASH Lab Founded",
+        body: "The lab launched at Ashoka University with a mandate to build clinically grounded evaluation infrastructure for healthcare AI.",
+        icon: "building"
+      },
+      {
+        period: "Q2 2025",
+        title: "First RSNA Research Cohort Launched",
+        body: "Initiated groundbreaking research cohort focusing on radiology AI evaluation and validation.",
+        icon: "cohort"
+      },
+      {
+        period: "Q2 2025",
+        title: "15 Papers Accepted at Major Conferences",
+        body: "Achieved significant academic recognition with papers accepted at premier AI and medical imaging conferences.",
+        icon: "papers"
+      },
+      {
+        period: "Q2 2025",
+        title: "NeurIPS Research Cohort Initiated",
+        body: "Expanded research initiatives with new cohort focused on neural information processing in healthcare.",
+        icon: "trend"
+      },
+      {
+        period: "Sep 2025",
+        title: "RadLE Benchmark Unveiled",
+        body: "Radiology's Last Exam became the lab's flagship benchmark and the anchor for its problem-first research narrative.",
+        icon: "presentation"
+      },
+      {
+        period: "Nov 2025",
+        title: "RSNA Breakout Year",
+        body: "Six accepted abstracts positioned CRASH Lab as the fastest-ramping responsible health AI lab in India.",
+        icon: "globe"
+      },
+      {
+        period: "2027",
+        title: "50+ Hospital Data Commons Vision",
+        body: "Scale federated data infrastructure, benchmark access, and responsible deployment partnerships across India. Building the infrastructure for the next generation of responsible healthcare AI.",
+        icon: "data",
+        isFeatured: true
+      }
+    ]
+  },
+  futureOutlook: {
+    heading: "Future Outlook",
+    body: "Expanding collaborations across India and internationally, building the infrastructure for the next generation of responsible healthcare AI. We aim to scale our \"Data Commons\" to 50+ hospitals by 2027."
+  },
   cta: {
     heading: "Let’s Accelerate Healthcare AI Innovation Together",
     body: "Whether you're a clinician, researcher, or industry partner — we'd love to collaborate.",
-    buttonLabel: "Get in Touch",
+    buttonLabel: "Get involved",
     buttonHref: "/collaborate"
   }
 };
