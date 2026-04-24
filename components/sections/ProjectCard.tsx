@@ -13,7 +13,7 @@ interface ProjectCardProps {
 export function ProjectCard({
   project,
   showMetadata = false,
-  variant = "default"
+  variant = "default",
 }: ProjectCardProps): React.ReactElement {
   const status =
     project.seekingCollaborators && project.status !== "published"
@@ -21,31 +21,35 @@ export function ProjectCard({
       : project.status;
   const statusMeta = {
     active: {
-      badgeClassName: "border-status-success-border bg-status-success-surface text-status-success-text",
+      badgeClassName:
+        "border-status-success-border bg-status-success-surface text-status-success-text",
       dotClassName: "bg-status-success-text",
       label: "Active",
-      pill: true
+      pill: true,
     },
     published: {
       badgeClassName: "",
       dotClassName: "bg-accent-green",
       label: "Published",
-      pill: false
+      pill: false,
     },
     completed: {
       badgeClassName: "",
       dotClassName: "bg-text-tertiary",
       label: "Completed",
-      pill: false
+      pill: false,
     },
     "seeking-collaborators": {
-      badgeClassName: "border-status-warning-border bg-status-warning-surface text-status-warning-text",
+      badgeClassName:
+        "border-status-warning-border bg-status-warning-surface text-status-warning-text",
       dotClassName: "bg-status-warning-text",
       label: "Seeking Collaborators",
-      pill: true
-    }
+      pill: true,
+    },
   }[status];
-  const hasPaperLink = Boolean(project.paperUrl && project.paperUrl !== "https://arxiv.org/");
+  const hasPaperLink = Boolean(
+    project.paperUrl && project.paperUrl !== "https://arxiv.org/",
+  );
   const yearLabel = getYearLabel(project);
   const railMeta = getRailMeta(project, statusMeta.label, hasPaperLink);
 
@@ -63,12 +67,15 @@ export function ProjectCard({
                   <span
                     className={cn(
                       "ui-status-badge gap-1.5",
-                      statusMeta.badgeClassName
+                      statusMeta.badgeClassName,
                     )}
                   >
                     <span
                       aria-hidden="true"
-                      className={cn("inline-block h-[5px] w-[5px] rounded-full", statusMeta.dotClassName)}
+                      className={cn(
+                        "inline-block h-[5px] w-[5px] rounded-full",
+                        statusMeta.dotClassName,
+                      )}
                     />
                     {statusMeta.label}
                   </span>
@@ -79,7 +86,12 @@ export function ProjectCard({
                 )}
                 {yearLabel ? (
                   <>
-                    <span aria-hidden="true" className="text-[11px] font-bold text-text-tertiary">·</span>
+                    <span
+                      aria-hidden="true"
+                      className="text-[11px] font-bold text-text-tertiary"
+                    >
+                      ·
+                    </span>
                     <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-text-tertiary">
                       {yearLabel}
                     </span>
@@ -88,7 +100,7 @@ export function ProjectCard({
               </div>
 
               <div className="mt-4 space-y-3">
-                <h3 className="text-lg font-display font-semibold leading-snug text-navy-900 pr-8 transition-colors group-hover:text-brand-blue md:text-xl">
+                <h3 className="pr-8 font-display text-lg font-semibold leading-snug text-navy-900 transition-colors group-hover:text-brand-blue md:text-xl">
                   {project.problemStatement}
                 </h3>
 
@@ -102,12 +114,11 @@ export function ProjectCard({
 
             <div className="flex items-center justify-between gap-5 border-t border-border pt-5 lg:block lg:border-t-0 lg:pt-0 lg:text-right">
               <div>
-                <p className="text-base font-semibold leading-tight text-text-primary">
-                  {railMeta.primary}
-                </p>
-                <p className="mt-1 text-[0.8125rem] text-text-tertiary">
-                  {railMeta.secondary}
-                </p>
+                {railMeta.secondary ? (
+                  <p className="mt-1 text-[0.8125rem] text-text-tertiary">
+                    {railMeta.secondary}
+                  </p>
+                ) : null}
               </div>
 
               {hasPaperLink || status !== "published" ? (
@@ -118,7 +129,7 @@ export function ProjectCard({
                       "flex size-12 items-center justify-center rounded-full border transition-all duration-200",
                       hasPaperLink
                         ? "border-text-primary bg-text-primary text-white group-hover:border-accent-cyan group-hover:bg-accent-cyan"
-                        : "border-border-default bg-surface-panel text-text-primary group-hover:border-accent-cyan group-hover:bg-accent-cyan group-hover:text-white"
+                        : "border-border-default bg-surface-panel text-text-primary group-hover:border-accent-cyan group-hover:bg-accent-cyan group-hover:text-white",
                     )}
                   >
                     <ArrowUpRight className="size-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -203,26 +214,27 @@ export function ProjectCard({
 function getRailMeta(
   project: ProjectSeed,
   statusLabel: string,
-  hasPaperLink: boolean
-): { primary: string; secondary: string } {
+  hasPaperLink: boolean,
+): { primary: string; secondary?: string } {
   if (hasPaperLink) {
-    const primary = project.paperUrl?.includes("arxiv.org") ? "arXiv" : "Publication";
+    const primary = project.paperUrl?.includes("arxiv.org")
+      ? "arXiv"
+      : "Publication";
     return {
       primary,
-      secondary: project.venue ?? "CRASH Lab"
+      secondary: project.venue ?? undefined,
     };
   }
 
   if (project.venue) {
     return {
       primary: project.venue,
-      secondary: "CRASH Lab"
+      secondary: undefined,
     };
   }
 
   return {
     primary: statusLabel,
-    secondary: "CRASH Lab"
   };
 }
 

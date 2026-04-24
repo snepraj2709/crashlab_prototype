@@ -135,7 +135,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                 priority
                 sizes="(min-width: 1024px) 16rem, 14rem"
               />
-              <h2 className="max-w-4xl font-display text-2xl font-semibold leading-[1.04] tracking-tight text-white sm:text-4xl lg:text-3xl">
+              <h2 className="max-w-4xl font-display text-2xl font-semibold leading-[1.04] tracking-tight text-white sm:text-4xl lg:text-3xl mt-6">
                 {lead?.name ?? "Dr. Suvrankar Datta"}
               </h2>
               {leadCredentials.length ? (
@@ -150,9 +150,8 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                   ))}
                 </div>
               ) : null}
-            </div>
-            <Link
-              className="ui-focus-ring group mt-10 inline-flex items-center gap-2 text-base font-medium text-slate-300 transition-colors duration-200 hover:text-white"
+              <Link
+              className="ui-focus-ring group mt-10 inline-flex items-center gap-2 text-base font-lg text-slate-300 transition-colors duration-200 hover:text-white"
               href="/people"
             >
               <span>Meet the team behind Crash Lab&apos;s Success.</span>
@@ -163,6 +162,17 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                 →
               </span>
             </Link>
+              <div className="mt-8 border-t border-white/10 pt-5">
+                <p className="text-sm font-medium text-slate-400">
+                  Supported by Koita Foundation
+                </p>
+                <p className="mt-3 max-w-xl text-sm leading-7 text-slate-400">
+                  The lab is funded by Koita Foundation, Google grant, and other
+                  institutional partner and philanthropic capital.
+                </p>
+              </div>
+            </div>
+            
           </Card>
         </div>
       </section>
