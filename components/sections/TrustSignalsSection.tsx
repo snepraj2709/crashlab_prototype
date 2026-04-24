@@ -205,7 +205,7 @@ export function TrustSignalsSection({
     const repeatedLogos = [...section.logos, ...section.logos];
 
     return (
-      <section aria-label="Institutional affiliations and credentials" className="py-10 lg:py-16">
+      <section aria-label="Institutional affiliations and credentials" className="py-10 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
           <h2 className="mt-3 max-w-4xl font-display text-3xl text-text-primary sm:text-4xl lg:text-5xl">
@@ -252,7 +252,7 @@ export function TrustSignalsSection({
 
   if (isFeatured) {
     return (
-      <section aria-label="Institutional affiliations and credentials" className="border-b border-border py-16 lg:py-20">
+      <section aria-label="Institutional affiliations and credentials" className="border-b border-border py-12 lg:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">{section.eyebrow}</p>
           <h2 className="mt-3 font-display text-2xl text-text-primary lg:text-3xl">{section.title}</h2>

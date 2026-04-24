@@ -5,7 +5,7 @@ import { ProofChip } from "@/components/ui";
 
 export function RadLESection(): React.ReactElement {
   return (
-    <section className="border-t border-border py-16 lg:py-24" id="radle">
+    <section className="border-t border-border py-12 lg:py-24" id="radle">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
           <div>

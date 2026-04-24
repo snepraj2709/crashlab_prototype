@@ -235,8 +235,8 @@ tokenized; spacing is mostly repeated through shared Tailwind utility patterns.
 | ---------------------------- | -------------------------------------------------- | --------------------------------------------------------- |
 | Main content shell           | `mx-auto max-w-7xl px-6 lg:px-8`                   | Most shared sections use this exact container             |
 | Narrow content widths        | `max-w-2xl`, `max-w-3xl`, `max-w-4xl`, `max-w-5xl` | Used to constrain headings, intros, and long-form content |
-| Default section rhythm       | `py-8 lg:py-16`                                    | Most page sections and reusable sections start here       |
-| Larger section rhythm        | `py-16 lg:py-24`                                   | Used on more prominent full-width sections                |
+| Default section rhythm       | `py-8 lg:py-12`                                    | Most page sections and reusable sections start here       |
+| Larger section rhythm        | `py-12 lg:py-24`                                   | Used on more prominent full-width sections                |
 | Feature-heavy section rhythm | `py-24` or `py-28 lg:py-32`                        | Used where the section is more immersive or editorial     |
 | Control sizing               | `h-11`, `h-12`, `px-4` to `px-7`                   | Shared controls mostly follow this pattern                |
 | Pill shapes                  | `rounded-token-pill`                               | Common for buttons, badges, chips, and icon buttons       |

@@ -107,7 +107,7 @@ export function JourneyOutlookSection({
   }, []);
 
   return (
-    <section className="py-8 lg:py-16">
+    <section className="py-8 lg:py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.18fr)] lg:gap-20 xl:gap-28">
           <div className="lg:hidden">

@@ -62,7 +62,7 @@ export function PillarsSection(props: PillarsSectionProps): React.ReactElement {
         const { id, items, headline, labelNumber, labelText } = props;
 
         return (
-            <section className="py-8 lg:py-16" id={id}>
+            <section className="py-8 lg:py-12" id={id}>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <SectionLabel number={labelNumber} text={labelText} />
                     <h2 className="mt-6 max-w-3xl font-display text-4xl leading-tight tracking-tight text-text-primary lg:text-5xl">

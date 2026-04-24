@@ -18,21 +18,21 @@ const items = [
 
 export function ProblemStrip(): React.ReactElement {
   return (
-    <section className="border-t border-border py-16 lg:py-24" id="problem">
+    <section className="border-t border-border py-12 lg:py-20" id="problem">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-start">
           <div>
-            <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
+            <h2 className="mt-6 font-display text-4xl text-text-primary lg:mt-0 lg:text-5xl">
               The field has outgrown its benchmarks.
             </h2>
           </div>
-          <p className="max-w-2xl text-base leading-8 text-text-secondary lg:justify-self-end">
+          <p className="max-w-2xl text-base leading-8 text-text-secondary lg:justify-self-start">
             RadLE exists because the tests currently used to decide whether healthcare AI is
             ready for the clinic stopped measuring the hard part.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
+        <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
           {items.map((item) => (
             <article className="border-t border-border pt-6" key={item.n}>
               <p className="text-xs uppercase tracking-[0.18em] text-text-tertiary">{item.n}</p>

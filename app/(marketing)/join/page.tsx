@@ -32,7 +32,7 @@ export default async function JoinPage(): Promise<React.ReactElement> {
 
   return (
     <div className="pt-32">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-24">
 
         {/* Header */}
         <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">

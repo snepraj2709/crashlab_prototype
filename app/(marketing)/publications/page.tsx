@@ -60,7 +60,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
   return (
     <div className="pt-32">
       {/* Hero */}
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
             Publications
@@ -88,14 +88,14 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
       </section>
 
       {/* Publications grouped by type */}
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <PublicationsStory publications={publications} />
         </div>
       </section>
 
       {/* PI credibility + funding */}
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
           <div className="border-t border-border pt-6">
             <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Upcoming</p>

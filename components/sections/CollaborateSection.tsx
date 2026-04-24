@@ -39,7 +39,7 @@ const rows = [
 
 export function CollaborateSection(): React.ReactElement {
   return (
-    <section className="border-t border-border py-16 lg:py-24" id="collaborate">
+    <section className="border-t border-border py-12 lg:py-24" id="collaborate">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-end">
           <div>

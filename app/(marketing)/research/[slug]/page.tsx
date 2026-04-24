@@ -82,7 +82,7 @@ export default async function ResearchProjectPage({
       />
 
       <div className="pt-32">
-        <section className="py-8 lg:py-16">
+        <section className="py-8 lg:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Research Project</p>
           <h1 className="mt-6 max-w-5xl font-display text-5xl text-text-primary lg:text-6xl">

@@ -81,7 +81,7 @@ export default function BlogPostPage({
 
   return (
     <div className="pt-32">
-      <article className="py-8 lg:py-16">
+      <article className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Link
             className="text-sm text-accent-cyan transition hover:opacity-75"

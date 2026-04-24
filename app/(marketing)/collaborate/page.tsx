@@ -31,7 +31,7 @@ export default function CollaboratePage(): React.ReactElement {
   return (
     <div className="pt-32">
       {/* Partner collaboration */}
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h1 className="mt-6 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
             Your AI needs to work in real clinical settings. Ours already does.
@@ -59,7 +59,7 @@ export default function CollaboratePage(): React.ReactElement {
       </div>
 
       {/* General Contact */}
-      <section className="py-16 lg:py-24">
+      <section className="py-12 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-16">
             <div className="max-w-2xl pt-2">

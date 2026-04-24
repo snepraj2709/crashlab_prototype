@@ -14,7 +14,7 @@ const footerLinks = [
 export function Footer(): React.ReactElement {
   return (
     <footer className="border-t border-white/10 bg-navy-900 text-white">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr]">
           <div>
             <p className="text-xs uppercase tracking-[0.22em] text-steel-300">

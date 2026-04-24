@@ -33,7 +33,7 @@ export function PublicationList({
   );
 
   return (
-    <section className="py-8 lg:py-16">
+    <section className="py-8 lg:py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mt-8 flex flex-wrap gap-4">
           <select

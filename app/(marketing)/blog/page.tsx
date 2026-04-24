@@ -36,7 +36,7 @@ export default function BlogPage(): React.ReactElement {
 
   return (
     <div className="pt-32">
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h1 className="mt-6 font-display text-5xl text-text-primary lg:text-6xl">
             Thinking out loud.

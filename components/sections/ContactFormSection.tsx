@@ -63,7 +63,7 @@ export function ContactFormSection({
   }
 
   return (
-    <section className="py-8 lg:py-16">
+    <section className="py-8 lg:py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div>
           <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">{title}</h2>

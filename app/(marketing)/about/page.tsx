@@ -37,7 +37,7 @@ export default function AboutPage(): React.ReactElement {
   return (
     <div className="pt-32">
       {/* Hero */}
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="mt-6 text-xs uppercase tracking-[0.22em] text-accent-cyan">
             {hero.eyebrow}
@@ -50,7 +50,7 @@ export default function AboutPage(): React.ReactElement {
       </section>
 
       {/* Origin Story */}
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <div>
@@ -100,7 +100,7 @@ export default function AboutPage(): React.ReactElement {
       />
 
       {/* Impact Numbers */}
-      <section className="py-8 lg:py-16">
+      <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="mt-6 max-w-4xl font-display text-4xl leading-tight tracking-tight text-text-primary sm:text-5xl lg:text-[4rem]">
             What the lab has built since founding.
@@ -132,7 +132,7 @@ export default function AboutPage(): React.ReactElement {
       <JourneyOutlookSection futureOutlook={futureOutlook} journey={journey} />
 
       {/* CTA */}
-      <section className="py-16 lg:py-24">
+      <section className="py-12 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-token-md border border-slate-800 bg-navy-900 px-10 py-12 shadow-soft lg:px-16 lg:py-14">
             <div

@@ -7,7 +7,7 @@ interface TeamGridProps {
 
 export function TeamGrid({ profiles }: TeamGridProps): React.ReactElement {
   return (
-    <section className="py-8 lg:py-16">
+    <section className="py-8 lg:py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mt-8 max-w-3xl">
           <div>

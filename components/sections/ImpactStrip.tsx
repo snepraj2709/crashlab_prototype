@@ -19,7 +19,7 @@ export function ImpactStrip(): React.ReactElement {
   const inView = useInView(ref, { once: true, amount: 0.25 });
 
   return (
-    <section className="py-8 lg:py-16">
+    <section className="py-8 lg:py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mt-6 flex items-end justify-between gap-8">
           <h2 className="max-w-3xl font-display text-4xl text-text-primary lg:text-5xl">

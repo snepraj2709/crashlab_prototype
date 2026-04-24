@@ -32,7 +32,7 @@ function getCoverSrc(post: SitePost): string {
 
 export function BlogPreview({ posts }: BlogPreviewProps): React.ReactElement {
   return (
-    <section className="py-8 lg:py-16">
+    <section className="py-8 lg:py-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>

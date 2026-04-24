@@ -69,7 +69,7 @@ export default async function PersonPage({
         }}
       />
       <div className="pt-32">
-        <section className="py-8 lg:py-16">
+        <section className="py-8 lg:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <Link
               className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent-cyan transition hover:opacity-75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
