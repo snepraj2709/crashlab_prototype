@@ -110,12 +110,12 @@ export default function AboutPage(): React.ReactElement {
               const Icon = aboutIconMap[metric.icon as keyof typeof aboutIconMap];
 
               return (
-                <article className="flex items-start gap-5" key={metric.label}>
-                  <div className="flex size-16 shrink-0 items-center justify-center rounded-[1.4rem] border border-border-subtle bg-surface-panel shadow-soft">
-                    <Icon aria-hidden="true" className="size-7 text-text-primary" />
+                <article className="flex items-start gap-4" key={metric.label}>
+                  <div className="flex h-12 w-12 shrink-0 items-start justify-center pt-1">
+                    <Icon aria-hidden="true" className="size-8 text-accent-cyan" />
                   </div>
                   <div>
-                    <p className="font-display text-5xl font-semibold leading-none tracking-tight text-text-primary sm:text-6xl">
+                    <p className="font-display text-3xl font-semibold leading-none tracking-tight text-text-primary sm:text-4xl">
                       {metric.value}
                     </p>
                     <p className="mt-3 max-w-xs text-lg leading-8 text-text-secondary">
