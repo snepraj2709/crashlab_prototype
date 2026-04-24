@@ -99,7 +99,12 @@ export default async function ResearchPage({
             {filtered.length ? (
               <div className="mt-4">
                 {filtered.map((project) => (
-                  <ProjectCard key={project.slug} project={project} showMetadata />
+                  <ProjectCard
+                    key={project.slug}
+                    project={project}
+                    showMetadata
+                    variant="editorial"
+                  />
                 ))}
               </div>
             ) : (

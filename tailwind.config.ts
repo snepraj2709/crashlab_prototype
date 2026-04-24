@@ -95,6 +95,11 @@ const config: Config = {
           "Georgia",
           "serif"
         ],
+        serif: [
+          "var(--font-display)",
+          "Georgia",
+          "serif"
+        ],
         sans: [
           "var(--font-sans)",
           "system-ui",
