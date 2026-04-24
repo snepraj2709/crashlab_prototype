@@ -16,20 +16,28 @@ export function ProjectCard({
       : project.status;
   const statusMeta = {
     active: {
-      dotClassName: "bg-accent-cyan",
-      label: "Active"
+      badgeClassName: "bg-status-success-surface text-status-success-text",
+      dotClassName: "bg-status-success-text",
+      label: "Active",
+      pill: true
     },
     published: {
+      badgeClassName: "",
       dotClassName: "bg-accent-green",
-      label: "Published"
+      label: "Published",
+      pill: false
     },
     completed: {
+      badgeClassName: "",
       dotClassName: "bg-text-tertiary",
-      label: "Completed"
+      label: "Completed",
+      pill: false
     },
     "seeking-collaborators": {
-      dotClassName: "bg-accent-orange",
-      label: "Seeking Collaborators"
+      badgeClassName: "bg-status-warning-surface text-status-warning-text",
+      dotClassName: "bg-status-warning-text",
+      label: "Seeking Collaborators",
+      pill: true
     }
   }[status];
 
@@ -38,11 +46,25 @@ export function ProjectCard({
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(14rem,0.8fr)] lg:items-start">
         <div>
           <div className="flex items-center gap-2 text-xs text-text-tertiary">
-            <span
-              aria-hidden="true"
-              className={`inline-block h-[5px] w-[5px] rounded-full ${statusMeta.dotClassName}`}
-            />
-            <span>{statusMeta.label}</span>
+            {statusMeta.pill ? (
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${statusMeta.badgeClassName}`}
+              >
+                <span
+                  aria-hidden="true"
+                  className={`inline-block h-[5px] w-[5px] rounded-full ${statusMeta.dotClassName}`}
+                />
+                {statusMeta.label}
+              </span>
+            ) : (
+              <>
+                <span
+                  aria-hidden="true"
+                  className={`inline-block h-[5px] w-[5px] rounded-full ${statusMeta.dotClassName}`}
+                />
+                <span>{statusMeta.label}</span>
+              </>
+            )}
           </div>
           <Link
             className="mt-3 block text-lg font-medium text-text-primary transition hover:text-accent-cyan hover:underline"

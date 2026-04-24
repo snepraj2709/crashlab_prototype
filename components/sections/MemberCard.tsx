@@ -56,7 +56,11 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
         </p>
 
         {/* Role */}
-        <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-text-tertiary">
+        <p
+          className={cn(
+            "mt-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-text-secondary",
+          )}
+        >
           {roleLabel}
         </p>
 
@@ -66,7 +70,7 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
         {/* Expertise chips */}
         {member.researchFocus.length > 0 && (
           <div className="mt-4 w-full">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-text-tertiary">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-text-secondary">
               Expertise
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-1.5">

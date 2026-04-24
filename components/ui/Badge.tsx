@@ -8,7 +8,7 @@ interface BadgeProps {
 
 const styles: Record<ProjectStatus, string> = {
   published: "border-status-success-border bg-status-success-surface text-status-success-text",
-  active: "border-status-info-border bg-status-info-surface text-status-info-text",
+  active: "border-status-success-border bg-status-success-surface text-status-success-text",
   "seeking-collaborators":
     "border-status-warning-border bg-status-warning-surface text-status-warning-text",
   completed: "border-status-neutral-border bg-status-neutral-surface text-status-neutral-text"

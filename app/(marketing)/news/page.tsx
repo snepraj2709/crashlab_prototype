@@ -12,9 +12,7 @@ const categories = [
   { label: "All", value: "all" },
   { label: "Benchmark Update", value: "benchmark-update" },
   { label: "Research Paper", value: "research-paper" },
-  { label: "Industry Insight", value: "industry-insight" },
   { label: "Lab News", value: "lab-news" },
-  { label: "Policy", value: "policy" },
   { label: "Events", value: "events" }
 ];
 

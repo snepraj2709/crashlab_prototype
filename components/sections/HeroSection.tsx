@@ -14,7 +14,7 @@ export function HeroSection(): React.ReactElement {
   return (
     <section
       id="top"
-      className="relative overflow-hidden bg-bg-primary pb-20 pt-36 lg:pb-24"
+      className="relative overflow-hidden bg-bg-primary pb-20 pt-16 lg:pb-24"
     >
       <div
         aria-hidden
@@ -40,24 +40,6 @@ export function HeroSection(): React.ReactElement {
           India&apos;s healthcare future.
         </p>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <Button
-            className="sm:min-w-[15.5rem]"
-            href="/join"
-            size="lg"
-          >
-            Join the team
-          </Button>
-          <Button
-            className="sm:min-w-[15.5rem]"
-            href="/collaborate"
-            size="lg"
-            variant="secondary"
-          >
-            Collaborate with the lab
-          </Button>
-        </div>
-
         <div className="mt-12 border-y border-border py-5">
           <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:gap-0">
             {stats.map((stat, index) => (
@@ -75,6 +57,24 @@ export function HeroSection(): React.ReactElement {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button
+            className="sm:min-w-[15.5rem]"
+            href="/join"
+            size="lg"
+          >
+            Join the team
+          </Button>
+          <Button
+            className="sm:min-w-[15.5rem]"
+            href="/collaborate"
+            size="lg"
+            variant="secondary"
+          >
+            Collaborate with the lab
+          </Button>
         </div>
       </div>
 
