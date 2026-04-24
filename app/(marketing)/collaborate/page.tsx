@@ -29,7 +29,7 @@ const models = [
 
 export default function CollaboratePage(): React.ReactElement {
   return (
-    <div className="pt-32">
+    <div className="pt-24">
       {/* Partner collaboration */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

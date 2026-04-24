@@ -31,7 +31,7 @@ export default async function JoinPage(): Promise<React.ReactElement> {
   const interests = Array.from(new Set(projects.flatMap((project) => project.tags)));
 
   return (
-    <div className="pt-32">
+    <div className="pt-24">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-18">
 
         {/* Header */}
