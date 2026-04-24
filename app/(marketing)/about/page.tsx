@@ -77,19 +77,17 @@ export default function AboutPage(): React.ReactElement {
           <div>
             {missionVisionItems.map((item) => (
               <article
-                className="border-t border-border py-14 lg:py-28"
-                key={item.title}
+                className="border-t-2 border-border py-10 lg:py-15"
+                key={item.heading}
               >
-                <div className="grid gap-10 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:gap-24">
+                <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:gap-24">
                   <div>
-                    <p className="font-sans text-[0.78rem] font-semibold uppercase tracking-[0.3em] text-brand-blue sm:text-[0.86rem] lg:text-[0.95rem]">
-                    </p>
-                    <h2 className="mt-5 font-display text-[2.5rem] font-medium leading-[0.98] tracking-[-0.065em] text-navy-800 sm:text-[3rem] lg:text-[3.8rem]">
-                      {item.title}
+                    <h2 className="font-sans text-[1.25rem] font-semibold leading-[0.98] tracking-[-0.05em] text-text-primary sm:text-[1.5rem] lg:text-[1.925rem]">
+                      {item.heading}
                     </h2>
                   </div>
                   <div className="lg:pt-1">
-                    <p className="max-w-none font-display text-[1.5rem] font-medium leading-[1.24] tracking-[-0.045em] text-navy-800 sm:text-[1.95rem] lg:text-[2.45rem]">
+                    <p className="max-w-none font-sans text-[0.75rem] font-medium leading-[1.26] tracking-[-0.03em] text-text-primary sm:text-[0.95rem] lg:text-[1.175rem]">
                       {item.body}
                     </p>
                   </div>

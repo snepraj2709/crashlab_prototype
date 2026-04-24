@@ -14,12 +14,12 @@ export const aboutContent = {
     ]
   },
   mission: {
-    heading: "Mission",
-    body: "To create rigorous, clinically grounded evaluation infrastructure for healthcare AI — so that models deployed in Indian hospitals are tested against the conditions they'll actually face."
+    heading: "Our Mission",
+    body: "To create responsible healthcare AI that improves care through ethical innovation, transparent data, and collaboration — making quality healthcare fair and accessible for everyone."
   },
   vision: {
-    heading: "Vision",
-    body: "A future where no AI system enters an Indian clinical setting without having been validated against representative data, real workflow constraints, and the scrutiny of practicing clinicians."
+    heading: "Our Vision",
+    body: "To make CRASH Lab a global leader in responsible, clinician-driven healthcare AI — advancing ethical, transparent, and inclusive innovation that strengthens data infrastructure and makes high-quality care accessible to everyone."
   },
   pillars: [
     {
