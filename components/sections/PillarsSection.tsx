@@ -249,7 +249,7 @@ const InteractivePillarsSection: React.FC<{
     };
 
     return (
-        <section id={id ?? "research"} className="py-18 bg-navy-900 relative overflow-hidden">
+        <section id={id ?? "research"} className="py-24 bg-navy-900 relative overflow-hidden">
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 pointer-events-none" />
 

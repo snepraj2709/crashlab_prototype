@@ -39,23 +39,25 @@ const rows = [
 
 export function CollaborateSection(): React.ReactElement {
   return (
-    <section className="border-t border-border py-12 lg:py-24" id="collaborate">
+    <section className="py-12 lg:py-18" id="collaborate">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-end">
+       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
           <div>
-            <h2 className="mt-6 max-w-4xl font-display text-4xl text-text-primary lg:text-5xl">
+            <h2 className="max-w-4xl font-display text-4xl text-text-primary lg:text-5xl">
               Hold healthcare AI to the hard test.
             </h2>
           </div>
-          <p className="max-w-2xl text-base leading-8 text-text-secondary lg:justify-self-end">
-            CRASH Lab works with researchers, healthcare companies, and aligned funders that
-            need clinically credible evaluation rather than presentation-ready claims.
-          </p>
+          <div>
+            <p className="max-w-2xl text-base leading-8 text-text-secondary lg:justify-self-end">
+              CRASH Lab works with researchers, healthcare companies, and aligned funders that
+              need clinically credible evaluation rather than presentation-ready claims.
+            </p>
+          </div>
         </div>
 
         <div className="mt-16 grid gap-10 lg:grid-cols-3 lg:gap-12">
           {rows.map((row) => (
-            <div className="border-t border-border pt-6" key={row.who}>
+            <div className="pt-6" key={row.who}>
               <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">{row.who}</p>
               <div
                 aria-hidden="true"
