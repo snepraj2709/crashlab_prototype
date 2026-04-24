@@ -9,7 +9,7 @@ export default async function PeoplePage(): Promise<React.ReactElement> {
 
   return (
     <>
-      <section className="pt-16">
+      <section>
         <TeamGrid profiles={profiles} />
       </section>
     </>

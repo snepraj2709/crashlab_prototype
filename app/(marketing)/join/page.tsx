@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import type { LucideIcon } from "lucide-react";
+import { Building2, Database, FileText, Users } from "lucide-react";
+
 import { JoinInterestForm } from "@/components/sections";
 import { getProjects } from "@/lib/content/site";
+import { cn } from "@/lib/utils/cn";
 
 export const metadata: Metadata = {
   title: "Apply to Join CRASH Lab",
@@ -20,18 +24,38 @@ export const metadata: Metadata = {
 };
 
 const benefits = [
-  "Publication Venues: RSNA / MICCAI / NeurIPS",
-  "Clinical Data Access",
-  "Mentorship Network",
-  "Ashoka Affiliation"
-];
+  {
+    title: "Publication venues",
+    detail: "RSNA / MICCAI / NeurIPS",
+    icon: FileText
+  },
+  {
+    title: "Clinical data access",
+    detail: "Clinical Data Access",
+    icon: Database
+  },
+  {
+    title: "Mentorship network",
+    detail: "Mentorship Network",
+    icon: Users
+  },
+  {
+    title: "Ashoka affiliation",
+    detail: "Ashoka Affiliation",
+    icon: Building2
+  }
+] satisfies Array<{
+  title: string;
+  detail: string;
+  icon: LucideIcon;
+}>;
 
 export default async function JoinPage(): Promise<React.ReactElement> {
   const projects = await getProjects();
   const interests = Array.from(new Set(projects.flatMap((project) => project.tags)));
 
   return (
-    <div className="pt-16">
+    <div>
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-18">
 
         {/* Header */}
@@ -57,21 +81,38 @@ export default async function JoinPage(): Promise<React.ReactElement> {
 
           <div className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-text-primary">What you&apos;ll get</h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {benefits.map((benefit) => (
+            <div className="mt-6 overflow-hidden border border-border-subtle bg-surface-panel">
+              <div className="grid sm:grid-cols-2">
+                {benefits.map((benefit, index) => (
                 <div
-                  className="border-t border-border py-4 text-base text-text-primary"
-                  key={benefit}
+                  className={cn(
+                    "px-6 py-6",
+                    index < 2 && "border-b border-border-subtle",
+                    index % 2 === 0 && "sm:border-r sm:border-border-subtle"
+                  )}
+                  key={benefit.title}
                 >
-                  {benefit}
+                  <benefit.icon
+                    aria-hidden="true"
+                    className="size-5 text-accent-cyan"
+                  />
+                  <div className="mt-3">
+                    <p className="text-lg font-medium text-text-primary">
+                      {benefit.title}
+                    </p>
+                    <p className="mt-1 text-sm text-text-secondary">
+                      {benefit.detail}
+                    </p>
+                  </div>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Form */}
-        <div className="mt-16 border-t border-border-default pt-16">
+        <div className="mt-16 border-t border-border-default pt-8">
           <h2 className="font-display text-3xl text-text-primary">Interest Form</h2>
           <p className="mt-3 text-text-secondary">
             Tell us a bit about yourself and we&apos;ll be in touch.

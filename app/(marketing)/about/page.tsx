@@ -35,7 +35,7 @@ export default function AboutPage(): React.ReactElement {
   ];
 
   return (
-    <div className="pt-16">
+    <div>
       {/* Hero */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -75,7 +75,7 @@ export default function AboutPage(): React.ReactElement {
       {/* Impact Numbers */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mt-6 max-w-4xl font-display text-4xl leading-tight tracking-tight text-text-primary sm:text-5xl lg:text-[4rem]">
+          <h2 className="mt-6 max-w-4xl font-display text-2xl leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-[3rem]">
             What the lab has built since founding.
           </h2>
           <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 lg:mt-16 lg:gap-14">

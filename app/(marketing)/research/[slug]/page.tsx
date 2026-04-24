@@ -81,7 +81,7 @@ export default async function ResearchProjectPage({
         }}
       />
 
-      <div className="pt-16">
+      <div>
         <section className="py-8 lg:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Research Project</p>
