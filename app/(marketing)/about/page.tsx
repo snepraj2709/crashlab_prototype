@@ -32,6 +32,10 @@ const impactMetrics = [
 
 export default function AboutPage(): React.ReactElement {
   const { hero, origin, mission, vision, cta } = aboutContent;
+  const missionVisionItems = [
+    { ...mission },
+    { ...vision }
+  ];
 
   return (
     <div className="pt-32">
@@ -68,17 +72,30 @@ export default function AboutPage(): React.ReactElement {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-8 lg:py-16">
+      <section className="pb-8 pt-2 lg:pb-16 lg:pt-6">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            <div className="rounded-token-md border border-border bg-bg-surface p-8">
-              <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Mission</p>
-              <p className="mt-6 text-lg leading-8 text-text-secondary">{mission.body}</p>
-            </div>
-            <div className="rounded-token-md border border-border bg-bg-surface p-8">
-              <p className="text-xs uppercase tracking-[0.2em] text-accent-cyan">Vision</p>
-              <p className="mt-6 text-lg leading-8 text-text-secondary">{vision.body}</p>
-            </div>
+          <div>
+            {missionVisionItems.map((item) => (
+              <article
+                className="border-t border-border py-14 lg:py-28"
+                key={item.title}
+              >
+                <div className="grid gap-10 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:gap-24">
+                  <div>
+                    <p className="font-sans text-[0.78rem] font-semibold uppercase tracking-[0.3em] text-brand-blue sm:text-[0.86rem] lg:text-[0.95rem]">
+                    </p>
+                    <h2 className="mt-5 font-display text-[2.5rem] font-medium leading-[0.98] tracking-[-0.065em] text-navy-800 sm:text-[3rem] lg:text-[3.8rem]">
+                      {item.title}
+                    </h2>
+                  </div>
+                  <div className="lg:pt-1">
+                    <p className="max-w-none font-display text-[1.5rem] font-medium leading-[1.24] tracking-[-0.045em] text-navy-800 sm:text-[1.95rem] lg:text-[2.45rem]">
+                      {item.body}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
