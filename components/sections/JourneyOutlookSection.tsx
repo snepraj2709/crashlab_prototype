@@ -9,7 +9,7 @@ import {
   DatabaseZap,
   FileText,
   Globe,
-  Presentation
+  Presentation,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils/cn";
@@ -44,7 +44,7 @@ const sectionIconMap = {
   building: Building2,
   cohort: Beaker,
   trend: ArrowUpRight,
-  data: DatabaseZap
+  data: DatabaseZap,
 } satisfies Record<string, LucideIcon>;
 
 const futureOutlookHighlight = "50+ hospitals by 2027.";
@@ -55,18 +55,18 @@ function JourneyIntro({ body }: { body: string }): React.ReactElement {
     <div>
       <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary md:text-5xl">
         Journey &amp;
-        <span className="block italic text-accent-cyan">
-          Outlook
-        </span>
+        <span className="block italic text-accent-cyan">Outlook</span>
       </h2>
-      <p className="mt-8 max-w-md text-lg leading-9 text-text-secondary">{body}</p>
+      <p className="mt-8 max-w-md text-lg leading-9 text-text-secondary">
+        {body}
+      </p>
     </div>
   );
 }
 
 export function JourneyOutlookSection({
   futureOutlook,
-  journey
+  journey,
 }: JourneyOutlookSectionProps): React.ReactElement {
   const desktopRailRef = useRef<HTMLDivElement>(null);
   const desktopIntroRef = useRef<HTMLDivElement>(null);
@@ -95,11 +95,12 @@ export function JourneyOutlookSection({
 
       const rightColumnRect = rightColumnRef.current.getBoundingClientRect();
       const futureCardRect = futureCardRef.current.getBoundingClientRect();
-      const introHeight = desktopIntroRef.current.getBoundingClientRect().height;
+      const introHeight =
+        desktopIntroRef.current.getBoundingClientRect().height;
       const stickyBottom = stickyTopOffset + introHeight;
       const nextDockOffset = Math.max(
         0,
-        futureCardRect.bottom - rightColumnRect.top - introHeight
+        futureCardRect.bottom - rightColumnRect.top - introHeight,
       );
 
       setDockOffset(nextDockOffset);
@@ -118,7 +119,7 @@ export function JourneyOutlookSection({
   }, []);
 
   return (
-    <section className="py-8 lg:py-12">
+    <section className="py-8 lg:py-12" id="journey-outlook">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.18fr)] lg:gap-20 xl:gap-28">
           <div className="lg:hidden">
@@ -129,27 +130,37 @@ export function JourneyOutlookSection({
             <div
               className={cn(
                 "max-w-md",
-                isDocked ? "absolute left-0 right-0" : "sticky top-32"
+                isDocked ? "absolute left-0 right-0" : "sticky top-32",
               )}
               ref={desktopIntroRef}
-              style={isDocked && dockOffset !== null ? { top: dockOffset } : undefined}
+              style={
+                isDocked && dockOffset !== null
+                  ? { top: dockOffset }
+                  : undefined
+              }
             >
               <JourneyIntro body={journey.body} />
             </div>
           </div>
 
-          <div className="space-y-14 lg:space-y-20 lg:pr-6" ref={rightColumnRef}>
+          <div
+            className="space-y-14 lg:space-y-20 lg:pr-6"
+            ref={rightColumnRef}
+          >
             <div aria-label="CRASH Lab journey timeline" className="relative">
               <div className="relative before:absolute before:bottom-0 before:left-6 before:top-6 before:w-px before:bg-border-subtle">
                 {journey.items.map((item, index) => {
-                  const Icon = sectionIconMap[item.icon as keyof typeof sectionIconMap];
+                  const Icon =
+                    sectionIconMap[item.icon as keyof typeof sectionIconMap];
                   const isFeatured = item.isFeatured === true;
 
                   return (
                     <article
                       className={cn(
                         "relative snap-start pl-20",
-                        index === journey.items.length - 1 ? "pb-6" : "pb-14 lg:pb-20"
+                        index === journey.items.length - 1
+                          ? "pb-6"
+                          : "pb-14 lg:pb-20",
                       )}
                       key={`${item.period}-${item.title}`}
                     >
@@ -158,12 +169,15 @@ export function JourneyOutlookSection({
                           "absolute left-0 top-0 z-10 flex size-12 items-center justify-center rounded-full border transition-all",
                           isFeatured
                             ? "border-navy-900 bg-navy-900 text-white shadow-soft"
-                            : "border-border-default bg-surface-panel text-text-secondary shadow-[0_0_0_6px_rgba(250,250,248,0.98)]"
+                            : "border-border-default bg-surface-panel text-text-secondary shadow-[0_0_0_6px_rgba(250,250,248,0.98)]",
                         )}
                       >
                         <Icon
                           aria-hidden="true"
-                          className={cn("size-5", isFeatured ? "text-white" : "text-text-secondary")}
+                          className={cn(
+                            "size-5",
+                            isFeatured ? "text-white" : "text-text-secondary",
+                          )}
                         />
                       </div>
 
@@ -173,14 +187,14 @@ export function JourneyOutlookSection({
                         </p>
                         <h3
                           className={cn(
-                            "max-w-3xl tracking-tight text-text-primary font-sans text-[2rem] font-semibold leading-[1.15] lg:text-[2.15rem]"
+                            "max-w-3xl font-sans text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-primary lg:text-[2.15rem]",
                           )}
                         >
                           {item.title}
                         </h3>
                         <p
                           className={cn(
-                            "max-w-3xl text-lg leading-8 text-text-secondary lg:text-[1.2rem] lg:leading-9"
+                            "max-w-3xl text-lg leading-8 text-text-secondary lg:text-[1.2rem] lg:leading-9",
                           )}
                         >
                           {item.body}
@@ -201,7 +215,9 @@ export function JourneyOutlookSection({
               </h3>
               <p className="mt-6 max-w-4xl font-sans text-lg font-normal leading-relaxed text-white/90 md:text-xl">
                 {futureOutlook.body.replace(futureOutlookHighlight, "")}
-                <span className="font-medium text-white">{futureOutlookHighlight}</span>
+                <span className="font-medium text-white">
+                  {futureOutlookHighlight}
+                </span>
               </p>
             </article>
           </div>

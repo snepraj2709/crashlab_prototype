@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
+  ArrowRight,
   CalendarDays,
   Database,
   FileText,
@@ -86,6 +87,17 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                 />
               ))}
             </div>
+            <div className="mt-5 flex justify-end pt-6">
+              <Link
+                className="ui-focus-ring group inline-flex items-center gap-1.5 text-sm font-semibold text-accent-cyan transition-all duration-200 hover:gap-2 hover:text-text-primary"
+                href="/about#journey-outlook"
+              >
+                <span className="underline decoration-transparent underline-offset-4 transition-all duration-200 group-hover:decoration-current">
+                  Learn more about the lab&apos;s journey.
+                </span>
+                <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -135,7 +147,7 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                 priority
                 sizes="(min-width: 1024px) 16rem, 14rem"
               />
-              <h2 className="max-w-4xl font-display text-2xl font-semibold leading-[1.04] tracking-tight text-white sm:text-4xl lg:text-3xl mt-6">
+              <h2 className="mt-6 max-w-4xl font-display text-2xl font-semibold leading-[1.04] tracking-tight text-white sm:text-4xl lg:text-3xl">
                 {lead?.name ?? "Dr. Suvrankar Datta"}
               </h2>
               {leadCredentials.length ? (
@@ -151,17 +163,17 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                 </div>
               ) : null}
               <Link
-              className="ui-focus-ring group mt-10 inline-flex items-center gap-2 text-base font-lg text-slate-300 transition-colors duration-200 hover:text-white"
-              href="/people"
-            >
-              <span>Meet the team behind Crash Lab&apos;s Success.</span>
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
+                className="ui-focus-ring font-lg group mt-10 inline-flex items-center gap-2 text-base text-slate-300 transition-colors duration-200 hover:text-white"
+                href="/people"
               >
-                →
-              </span>
-            </Link>
+                <span>Meet the team behind Crash Lab&apos;s Success.</span>
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                >
+                  →
+                </span>
+              </Link>
               <div className="mt-8 border-t border-white/10 pt-5">
                 <p className="text-sm font-medium text-slate-400">
                   Supported by Koita Foundation
@@ -172,7 +184,6 @@ export default async function PublicationsPage(): Promise<React.ReactElement> {
                 </p>
               </div>
             </div>
-            
           </Card>
         </div>
       </section>
