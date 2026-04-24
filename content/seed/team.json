@@ -11,6 +11,11 @@
     "shortBio": "",
     "credentials": ["JIPEMER", "AIIMS Delhi", "Ashoka University"],
     "researchFocus": [],
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/suvrankardatta/",
+      "twitter": "https://x.com/DrDatta_AIIMS",
+      "personalWebsite": "https://drdattaaiims.github.io/"
+    },
     "isPrincipalInvestigator": true,
     "isActive": true,
     "position": 1
@@ -52,7 +57,7 @@
     ],
     "isPrincipalInvestigator": true,
     "isActive": true,
-    "position": 3,
+    "position": 2,
     "email": "hbsb2566@gmail.com",
     "socialLinks": {
       "twitter": "https://x.com/hakikat_bir",
@@ -60,6 +65,38 @@
       "linkedin": "https://www.linkedin.com/in/drhbsb/",
       "researchgate": "https://www.researchgate.net/profile/Hakikat-Bir-Bhatti"
     }
+  },
+  {
+    "slug": "sarath-sasi",
+    "name": "Sarath Sasi",
+    "role": "Researcher",
+    "title": "",
+    "photo": {
+      "url": "/team/sarath-sasi.jpeg",
+      "alt": "Portrait of Sarath Sasi"
+    },
+    "shortBio": "",
+    "credentials": ["CRASH LAB"],
+    "researchFocus": ["Synthetic CXR"],
+    "isPrincipalInvestigator": true,
+    "isActive": true,
+    "position": 3
+  },
+  {
+    "slug": "shreyas-reddy-k",
+    "name": "Dr Shreyas Reddy",
+    "role": "Research Lead",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/shreyas-reddy.jpeg",
+      "alt": "Portrait of Dr Shreyas Reddy"
+    },
+    "shortBio": "",
+    "credentials": ["CRASH LAB"],
+    "researchFocus": ["Synthetic CXR", "RadLE"],
+    "isPrincipalInvestigator": true,
+    "isActive": true,
+    "position": 4
   },
   {
     "slug": "lakshmi-vennela-chowdary-kaza",
@@ -75,7 +112,7 @@
     "researchFocus": ["RadLE", "Medical Visual Reasoning"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 4,
+    "position": 5,
     "email": "clakshmivennela@gmail.com",
     "socialLinks": {
       "linkedin": "https://www.linkedin.com/in/dr-lakshmi-vennela-chowdary-kaza-1b6014b0/"
@@ -95,7 +132,7 @@
     "researchFocus": ["PrAimaan", "V2DD"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 5,
+    "position": 6,
     "email": "swarna.r@ashoka.edu.in",
     "socialLinks": {
       "googleScholar": "https://scholar.google.com/citations?user=Aa4aUW4AAAAJ&hl=en&authuser=2",
@@ -116,7 +153,7 @@
     "researchFocus": ["APO", "Ambient AI Scribes", "NLP"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 6,
+    "position": 7,
     "email": "rharitha106@gmail.com",
     "socialLinks": {
       "linkedin": "https://www.linkedin.com/in/haritha-r-b527012a7/"
@@ -136,7 +173,7 @@
     "researchFocus": ["Medical Vision"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 7
+    "position": 8
   },
   {
     "slug": "siddharth-reddy-anthireddy",
@@ -152,7 +189,7 @@
     "researchFocus": ["prAImaan", "LLM Pipelines"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 8,
+    "position": 9,
     "fullBio": [
       {
         "_key": "bio-1",
@@ -172,38 +209,6 @@
       "googleScholar": "https://scholar.google.com/citations?user=InOjjfAAAAAJ&hl=en",
       "linkedin": "https://www.linkedin.com/in/siddharth-reddy28/"
     }
-  },
-  {
-    "slug": "shreyas-reddy-k",
-    "name": "Dr Shreyas Reddy",
-    "role": "Research Lead",
-    "title": "Dr.",
-    "photo": {
-      "url": "/team/shreyas-reddy.jpeg",
-      "alt": "Portrait of Dr Shreyas Reddy"
-    },
-    "shortBio": "",
-    "credentials": ["CRASH LAB"],
-    "researchFocus": ["Synthetic CXR", "RadLE"],
-    "isPrincipalInvestigator": true,
-    "isActive": true,
-    "position": 9
-  },
-  {
-    "slug": "sarath-sasi",
-    "name": "Sarath Sasi",
-    "role": "Researcher",
-    "title": "",
-    "photo": {
-      "url": "/team/person-placeholder.svg",
-      "alt": "Portrait of Sarath Sasi"
-    },
-    "shortBio": "",
-    "credentials": ["CRASH LAB"],
-    "researchFocus": ["Synthetic CXR"],
-    "isPrincipalInvestigator": true,
-    "isActive": true,
-    "position": 10
   },
   {
     "slug": "mrudula-bhalke",

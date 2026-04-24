@@ -16,13 +16,29 @@ interface AnnouncementBannerProps {
   announcement: AnnouncementData | null;
 }
 
-export function AnnouncementBanner({ announcement }: AnnouncementBannerProps): React.ReactElement | null {
-  const [dismissed, setDismissed] = useState(true);
+function getDismissKey(announcement: AnnouncementData): string {
+  return [
+    "banner-dismissed",
+    announcement._id,
+    announcement.message,
+    announcement.ctaText ?? "",
+    announcement.ctaUrl ?? "",
+  ].join("::");
+}
+
+export function AnnouncementBanner({
+  announcement,
+}: AnnouncementBannerProps): React.ReactElement | null {
+  const [dismissed, setDismissed] = useState(false);
   const bannerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!announcement) return;
-    const key = `banner-dismissed-${announcement._id}`;
+    if (!announcement) {
+      setDismissed(false);
+      return;
+    }
+
+    const key = getDismissKey(announcement);
     setDismissed(sessionStorage.getItem(key) === "1");
   }, [announcement]);
 
@@ -58,8 +74,10 @@ export function AnnouncementBanner({ announcement }: AnnouncementBannerProps): R
 
   if (!announcement || dismissed) return null;
 
+  const currentAnnouncement = announcement;
+
   function dismiss(): void {
-    const key = `banner-dismissed-${announcement!._id}`;
+    const key = getDismissKey(currentAnnouncement);
     sessionStorage.setItem(key, "1");
     setDismissed(true);
     window.dispatchEvent(new Event("banner-dismissed"));
@@ -78,14 +96,14 @@ export function AnnouncementBanner({ announcement }: AnnouncementBannerProps): R
             <p className="max-w-4xl text-base font-medium leading-snug text-white/90 sm:text-lg">
               {announcement.message}
             </p>
-            {announcement.ctaText && announcement.ctaUrl ? (
+            {currentAnnouncement.ctaText && currentAnnouncement.ctaUrl ? (
               <Link
                 className="shrink-0 rounded-full border border-white/40 px-4 py-1.5 text-sm font-semibold text-white transition-all hover:bg-white hover:text-neutral-900"
-                href={announcement.ctaUrl}
+                href={currentAnnouncement.ctaUrl}
                 rel="noreferrer"
                 target="_blank"
               >
-                {announcement.ctaText}
+                {currentAnnouncement.ctaText}
               </Link>
             ) : null}
           </div>
