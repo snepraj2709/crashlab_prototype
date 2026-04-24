@@ -1,5 +1,6 @@
 import { Globe, GraduationCap, Linkedin } from "lucide-react";
 
+import { cn } from "@/lib/utils/cn";
 import { XIcon } from "@/components/ui/XIcon";
 import type { SocialLinks } from "@/types/team";
 
@@ -35,11 +36,15 @@ const socialLinkItems: SocialLinkItem[] = [
 interface TeamSocialLinksProps {
   name: string;
   socialLinks?: SocialLinks;
+  className?: string;
+  variant?: "default" | "compact";
 }
 
 export function TeamSocialLinks({
   name,
-  socialLinks
+  socialLinks,
+  className,
+  variant = "default"
 }: TeamSocialLinksProps): React.ReactElement | null {
   const links = socialLinkItems.flatMap((item) => {
     const href = socialLinks?.[item.key];
@@ -61,14 +66,26 @@ export function TeamSocialLinks({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2" role="list">
+    <div
+      className={cn(
+        "flex flex-wrap items-center",
+        variant === "compact" ? "justify-center gap-3" : "gap-2",
+        className
+      )}
+      role="list"
+    >
       {links.map((link) => {
         const Icon = link.icon;
 
         return (
           <a
             aria-label={`${name} on ${link.label}`}
-            className="ui-focus-ring-panel inline-flex h-11 w-11 items-center justify-center rounded-token-pill border border-border-default bg-surface-panel text-text-muted transition hover:border-border-focus hover:text-border-focus"
+            className={cn(
+              "ui-focus-ring-panel inline-flex items-center justify-center border border-border-default text-text-muted transition hover:border-border-focus hover:text-border-focus",
+              variant === "compact"
+                ? "h-9 w-9 rounded-full bg-surface-canvas"
+                : "h-11 w-11 rounded-token-pill bg-surface-panel"
+            )}
             href={link.href}
             key={link.key}
             rel="noreferrer"
@@ -76,7 +93,7 @@ export function TeamSocialLinks({
             target="_blank"
             title={link.label}
           >
-            <Icon className="h-4 w-4" />
+            <Icon className={variant === "compact" ? "h-3.5 w-3.5" : "h-4 w-4"} />
           </a>
         );
       })}

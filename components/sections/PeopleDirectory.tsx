@@ -18,14 +18,14 @@ export function PeopleDirectory({ profiles }: PeopleDirectoryProps): React.React
 
   return (
     <div className="mt-12">
-      <div className="divide-y divide-border">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {active.map((profile) => (
           <MemberCard key={profile.id} member={profile} />
         ))}
       </div>
 
       {alumni.length > 0 ? (
-        <div className="mt-8">
+        <div className="mt-12">
           <div className="flex justify-center">
             <Button
               aria-controls="people-directory-alumni"
@@ -39,7 +39,10 @@ export function PeopleDirectory({ profiles }: PeopleDirectoryProps): React.React
           </div>
 
           {showAlumni ? (
-            <div className="mt-6 divide-y divide-border" id="people-directory-alumni">
+            <div
+              className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+              id="people-directory-alumni"
+            >
               {alumni.map((profile) => (
                 <MemberCard key={profile.id} member={profile} />
               ))}
