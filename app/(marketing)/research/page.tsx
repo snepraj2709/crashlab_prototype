@@ -49,7 +49,7 @@ export default async function ResearchPage({
   const trustSection = getTrustSection();
 
   return (
-    <div className="pt-24">
+    <div className="pt-16">
       <SectionErrorBoundary fallbackTitle="Research page unavailable">
         <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

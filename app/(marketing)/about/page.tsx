@@ -35,7 +35,7 @@ export default function AboutPage(): React.ReactElement {
   ];
 
   return (
-    <div className="pt-24">
+    <div className="pt-16">
       {/* Hero */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -63,33 +63,6 @@ export default function AboutPage(): React.ReactElement {
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission & Vision */}
-      <section className="pb-8 pt-2 lg:pb-16 lg:pt-6">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div>
-            {missionVisionItems.map((item) => (
-              <article
-                className="border-t-2 border-border py-10 lg:py-15"
-                key={item.heading}
-              >
-                <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:gap-24">
-                  <div>
-                    <h2 className="font-sans text-[1.25rem] font-semibold leading-[0.98] tracking-[-0.05em] text-text-primary sm:text-[1.5rem] lg:text-[1.925rem]">
-                      {item.heading}
-                    </h2>
-                  </div>
-                  <div className="lg:pt-1">
-                    <p className="max-w-none font-sans text-[0.75rem] font-medium leading-[1.26] tracking-[-0.03em] text-text-primary sm:text-[0.95rem] lg:text-[1.175rem]">
-                      {item.body}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
           </div>
         </div>
       </section>
@@ -130,6 +103,33 @@ export default function AboutPage(): React.ReactElement {
       </section>
 
       <JourneyOutlookSection futureOutlook={futureOutlook} journey={journey} />
+
+      {/* Mission & Vision */}
+      <section className="pb-8 pt-2 lg:pb-16 lg:pt-6">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div>
+            {missionVisionItems.map((item) => (
+              <article
+                className="border-t-2 border-border py-10 lg:py-15"
+                key={item.heading}
+              >
+                <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:gap-24">
+                  <div>
+                    <h2 className="font-sans text-[1.25rem] font-semibold leading-[0.98] tracking-[-0.05em] text-text-primary sm:text-[1.5rem] lg:text-[1.925rem]">
+                      {item.heading}
+                    </h2>
+                  </div>
+                  <div className="lg:pt-1">
+                    <p className="max-w-none font-sans text-[0.75rem] font-medium leading-[1.26] tracking-[-0.03em] text-text-primary sm:text-[0.95rem] lg:text-[1.175rem]">
+                      {item.body}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="py-12 lg:py-18">

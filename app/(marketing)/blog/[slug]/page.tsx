@@ -80,7 +80,7 @@ export default function BlogPostPage({
   const hasMultipleAuthors = post.authors && post.authors.length > 1;
 
   return (
-    <div className="pt-24">
+    <div className="pt-16">
       <article className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Link

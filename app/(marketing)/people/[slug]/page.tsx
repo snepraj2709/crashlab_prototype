@@ -68,7 +68,7 @@ export default async function PersonPage({
           url: `https://crashlab.in/people/${person.slug}`
         }}
       />
-      <div className="pt-24">
+      <div className="pt-16">
         <section className="py-8 lg:py-12">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <Link
