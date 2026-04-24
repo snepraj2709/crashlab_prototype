@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import type { LucideIcon } from "lucide-react";
 import { FileText, Globe, Presentation } from "lucide-react";
 
-import { JourneyOutlookSection, PillarsSection } from "@/components/sections";
-import { Button } from "@/components/ui";
+import {
+  CallToActionCard,
+  JourneyOutlookSection,
+  PillarsSection,
+} from "@/components/sections";
 import { aboutContent } from "@/lib/content/about";
 
 export const metadata: Metadata = {
@@ -29,10 +32,7 @@ export default function AboutPage(): React.ReactElement {
     futureOutlook,
     cta
   } = aboutContent;
-  const missionVisionItems = [
-    { ...mission },
-    { ...vision }
-  ];
+  const missionVisionItems = [{ ...mission }, { ...vision }];
 
   return (
     <div>
@@ -45,7 +45,9 @@ export default function AboutPage(): React.ReactElement {
           <h1 className="mt-4 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
             {hero.headline}
           </h1>
-          <p className="mt-6 max-w-3xl text-lg text-text-secondary">{hero.subheadline}</p>
+          <p className="mt-6 max-w-3xl text-lg text-text-secondary">
+            {hero.subheadline}
+          </p>
         </div>
       </section>
 
@@ -67,10 +69,7 @@ export default function AboutPage(): React.ReactElement {
         </div>
       </section>
 
-      <PillarsSection
-        id="research-pillars"
-        variant="interactive"
-      />
+      <PillarsSection id="research-pillars" variant="interactive" />
 
       {/* Impact Numbers */}
       <section className="py-8 lg:py-12">
@@ -80,12 +79,16 @@ export default function AboutPage(): React.ReactElement {
           </h2>
           <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 lg:mt-16 lg:gap-14">
             {impactMetrics.map((metric) => {
-              const Icon = aboutIconMap[metric.icon as keyof typeof aboutIconMap];
+              const Icon =
+                aboutIconMap[metric.icon as keyof typeof aboutIconMap];
 
               return (
                 <article className="flex items-start gap-4" key={metric.label}>
                   <div className="flex h-12 w-12 shrink-0 items-start justify-center pt-1">
-                    <Icon aria-hidden="true" className="size-8 text-accent-cyan" />
+                    <Icon
+                      aria-hidden="true"
+                      className="size-8 text-accent-cyan"
+                    />
                   </div>
                   <div>
                     <p className="font-display text-3xl font-semibold leading-none tracking-tight text-text-primary sm:text-4xl">
@@ -110,7 +113,7 @@ export default function AboutPage(): React.ReactElement {
           <div>
             {missionVisionItems.map((item) => (
               <article
-                className="border-t-2 border-border py-10 lg:py-15"
+                className="lg:py-15 border-t-2 border-border py-10"
                 key={item.heading}
               >
                 <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:gap-24">
@@ -132,30 +135,14 @@ export default function AboutPage(): React.ReactElement {
       </section>
 
       {/* CTA */}
-      <section className="py-12 lg:py-18">
+      <section className="lg:py-18 py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-token-md border border-slate-800 bg-navy-900 px-10 py-12 shadow-soft lg:px-16 lg:py-14">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-accent-cyan/10 blur-3xl"
-            />
-            <div className="relative max-w-5xl">
-              <h2 className="max-w-4xl font-display text-3xl font-semibold leading-[1.04] tracking-tight text-white sm:text-4xl lg:text-5xl">
-                {cta.heading}
-              </h2>
-              <p className="mt-6 max-w-4xl font-sans text-lg font-normal leading-8 text-slate-300 sm:text-xl sm:leading-[1.5] lg:text-2xl">
-                {cta.body}
-              </p>
-            </div>
-            <Button
-              className="mt-10 font-sans text-lg font-semibold"
-              href={cta.buttonHref}
-              size="lg"
-              variant="secondary"
-            >
-              {cta.buttonLabel}
-            </Button>
-          </div>
+          <CallToActionCard
+            body={cta.body}
+            buttonHref={cta.buttonHref}
+            buttonLabel={cta.buttonLabel}
+            heading={cta.heading}
+          />
         </div>
       </section>
     </div>

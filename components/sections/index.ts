@@ -1,5 +1,6 @@
 export * from "@/components/sections/BlogPreview";
 export * from "@/components/sections/CapabilitiesSection";
+export * from "@/components/sections/CallToActionCard";
 export * from "@/components/sections/CollaborateSection";
 export * from "@/components/sections/ContactFormSection";
 export * from "@/components/sections/ContactPageForm";
