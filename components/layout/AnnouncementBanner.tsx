@@ -35,7 +35,7 @@ export function AnnouncementBanner({ announcement }: AnnouncementBannerProps): R
       return;
     }
 
-    const gap = 12;
+    const gap = 0;
     const updateOffset = (): void => {
       root.style.setProperty(
         "--announcement-banner-offset",

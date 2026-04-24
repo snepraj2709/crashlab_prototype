@@ -96,7 +96,7 @@ export function Navbar({ hasBanner }: NavbarProps): React.ReactElement {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 z-40 transition-all duration-300",
+          "sticky z-40 w-full transition-all duration-300",
           bannerOffset,
           hasScrolled ? "border-b backdrop-blur-xl" : "bg-transparent"
         )}
