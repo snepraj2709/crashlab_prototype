@@ -53,13 +53,13 @@ const stickyTopOffset = 128;
 function JourneyIntro({ body }: { body: string }): React.ReactElement {
   return (
     <div>
-      <h2 className="font-display text-[3rem] font-semibold leading-[0.94] tracking-[-0.05em] text-text-primary sm:text-[3.8rem] lg:text-[4.35rem]">
+      <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary md:text-5xl">
         Journey &amp;
-        <span className="block font-sans text-[0.9em] italic text-accent-cyan">
+        <span className="block italic text-accent-cyan">
           Outlook
         </span>
       </h2>
-      <p className="mt-8 max-w-md text-xl leading-9 text-text-secondary">{body}</p>
+      <p className="mt-8 max-w-md text-lg leading-9 text-text-secondary">{body}</p>
     </div>
   );
 }
@@ -69,6 +69,7 @@ export function JourneyOutlookSection({
   journey
 }: JourneyOutlookSectionProps): React.ReactElement {
   const desktopRailRef = useRef<HTMLDivElement>(null);
+  const desktopIntroRef = useRef<HTMLDivElement>(null);
   const rightColumnRef = useRef<HTMLDivElement>(null);
   const futureCardRef = useRef<HTMLElement>(null);
 
@@ -77,7 +78,12 @@ export function JourneyOutlookSection({
 
   useEffect(() => {
     function updateDockState(): void {
-      if (!desktopRailRef.current || !rightColumnRef.current || !futureCardRef.current) {
+      if (
+        !desktopRailRef.current ||
+        !desktopIntroRef.current ||
+        !rightColumnRef.current ||
+        !futureCardRef.current
+      ) {
         return;
       }
 
@@ -89,10 +95,15 @@ export function JourneyOutlookSection({
 
       const rightColumnRect = rightColumnRef.current.getBoundingClientRect();
       const futureCardRect = futureCardRef.current.getBoundingClientRect();
-      const nextDockOffset = futureCardRect.top - rightColumnRect.top;
+      const introHeight = desktopIntroRef.current.getBoundingClientRect().height;
+      const stickyBottom = stickyTopOffset + introHeight;
+      const nextDockOffset = Math.max(
+        0,
+        futureCardRect.bottom - rightColumnRect.top - introHeight
+      );
 
       setDockOffset(nextDockOffset);
-      setIsDocked(futureCardRect.top <= stickyTopOffset);
+      setIsDocked(futureCardRect.bottom <= stickyBottom);
     }
 
     updateDockState();
@@ -120,6 +131,7 @@ export function JourneyOutlookSection({
                 "max-w-md",
                 isDocked ? "absolute left-0 right-0" : "sticky top-32"
               )}
+              ref={desktopIntroRef}
               style={isDocked && dockOffset !== null ? { top: dockOffset } : undefined}
             >
               <JourneyIntro body={journey.body} />
@@ -161,20 +173,14 @@ export function JourneyOutlookSection({
                         </p>
                         <h3
                           className={cn(
-                            "max-w-3xl tracking-tight text-text-primary",
-                            isFeatured
-                              ? "font-display text-4xl leading-[1.02] sm:text-[3.35rem]"
-                              : "font-sans text-[2rem] font-semibold leading-[1.15] lg:text-[2.15rem]"
+                            "max-w-3xl tracking-tight text-text-primary font-sans text-[2rem] font-semibold leading-[1.15] lg:text-[2.15rem]"
                           )}
                         >
                           {item.title}
                         </h3>
                         <p
                           className={cn(
-                            "max-w-3xl",
-                            isFeatured
-                              ? "text-xl leading-10 text-text-primary lg:text-[1.45rem]"
-                              : "text-lg leading-8 text-text-secondary lg:text-[1.2rem] lg:leading-9"
+                            "max-w-3xl text-lg leading-8 text-text-secondary lg:text-[1.2rem] lg:leading-9"
                           )}
                         >
                           {item.body}
@@ -190,10 +196,10 @@ export function JourneyOutlookSection({
               className="overflow-hidden rounded-[2rem] bg-navy-900 px-8 py-10 shadow-soft sm:px-10 lg:px-14 lg:py-14"
               ref={futureCardRef}
             >
-              <h3 className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+              <h3 className="font-display text-3xl font-semibold text-white md:text-4xl">
                 {futureOutlook.heading}
               </h3>
-              <p className="mt-8 max-w-4xl text-2xl leading-[1.55] text-slate-300 sm:text-[2rem] sm:leading-[1.5]">
+              <p className="mt-6 max-w-4xl font-sans text-lg font-normal leading-relaxed text-white/90 md:text-xl">
                 {futureOutlook.body.replace(futureOutlookHighlight, "")}
                 <span className="font-medium text-white">{futureOutlookHighlight}</span>
               </p>
