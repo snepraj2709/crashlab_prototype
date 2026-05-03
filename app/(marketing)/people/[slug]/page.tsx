@@ -166,7 +166,7 @@ export default async function PersonPage({
                       <div className="mt-4 flex max-w-3xl flex-wrap gap-3">
                         {visibleResearchFocus.map((focus) => (
                           <span
-                            className="rounded-full border border-border px-4 py-2 text-sm font-medium text-text-secondary"
+                            className="rounded-none border border-border px-4 py-2 text-sm font-medium text-text-secondary"
                             key={focus}
                           >
                             {focus}

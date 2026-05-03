@@ -1,9 +1,30 @@
+import { Globe, GraduationCap } from "lucide-react";
 import Link from "next/link";
 
 import { PersonPhoto } from "@/components/sections/PersonPhoto";
-import { TeamSocialLinks } from "@/components/sections/TeamSocialLinks";
+import { XIcon } from "@/components/ui/XIcon";
 import { cn } from "@/lib/utils/cn";
-import type { TeamMemberProfile } from "@/types/team";
+import type { SocialLinks, TeamMemberProfile } from "@/types/team";
+
+function LinkedInIcon(props: React.SVGProps<SVGSVGElement>): React.ReactElement {
+  return (
+    <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+const socialDefs: {
+  key: keyof SocialLinks;
+  label: string;
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}[] = [
+  { key: "linkedin", label: "LinkedIn", Icon: LinkedInIcon },
+  { key: "twitter", label: "X", Icon: XIcon },
+  { key: "googleScholar", label: "Google Scholar", Icon: GraduationCap },
+  { key: "personalWebsite", label: "Personal Website", Icon: Globe },
+];
 
 interface MemberCardProps {
   member: TeamMemberProfile & {
@@ -22,94 +43,86 @@ export function MemberCard({ member }: MemberCardProps): React.ReactElement {
   const roleText = !isHonorificOnly(member.title) && member.title ? member.title : member.role;
   const roleLabel = member.isPrincipalInvestigator ? "Principal Investigator" : roleText;
 
+  const socialLinks = socialDefs.flatMap(({ key, label, Icon }) => {
+    const href = member.socialLinks?.[key];
+    return href ? [{ href, label, Icon, key }] : [];
+  });
+
   return (
     <article
       className={cn(
-        "group flex h-full flex-col rounded-2xl border border-border-default bg-surface-panel text-center",
+        "group relative overflow-hidden rounded-none border border-border-default bg-surface-panel",
         !member.isActive && "opacity-75"
       )}
     >
-      {/* Photo — zoom on hover, clipped by overflow-hidden inside PersonPhoto */}
+      {/* Full-card link — sits behind everything, handles clicks on photo and name/role */}
       <Link
-        className="ui-focus-ring block rounded-t-2xl"
+        aria-label={`View ${member.name}'s profile`}
+        className="absolute inset-0 z-0 cursor-pointer"
         href={`/people/${member.slug}`}
-      >
+        tabIndex={-1}
+      />
+
+      {/* Photo + social overlay */}
+      <div className="pointer-events-none relative z-10 aspect-square overflow-hidden">
         <PersonPhoto
-          className="aspect-square w-full rounded-t-2xl"
+          className="h-full w-full"
           imageClassName="transition-transform duration-300 ease-out group-hover:scale-105"
           name={member.name}
           photo={member.photo}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
         />
-      </Link>
 
-      {/* Content */}
-      <div className="flex flex-1 flex-col items-center px-6 pb-6 pt-5">
-        {/* Name */}
-        <p className="font-display text-xl font-semibold tracking-tight text-text-primary">
-          <Link
-            className="ui-focus-ring rounded-token-xs transition hover:text-border-focus"
-            href={`/people/${member.slug}`}
-          >
-            {member.name}
-          </Link>
-        </p>
+        {socialLinks.length > 0 && (
+          <div className="absolute inset-0 flex items-end justify-center gap-3 bg-gradient-to-t from-black/60 via-black/10 to-transparent pb-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            {socialLinks.map(({ href, label, Icon, key }) => (
+              <a
+                key={key}
+                aria-label={`${member.name} on ${label}`}
+                className="pointer-events-auto inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/60 bg-white/20 text-white backdrop-blur-sm transition hover:bg-white hover:text-gray-900"
+                href={href}
+                rel="noreferrer"
+                target="_blank"
+                title={label}
+              >
+                <Icon className="h-3.5 w-3.5" />
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
 
-        {/* Role */}
+      {/* Name + role + bio reveal */}
+      <div className="pointer-events-none relative z-10 px-4 pb-4 pt-3 text-center">
         <p
-          className={cn(
-            "mt-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-text-secondary",
-          )}
+          className="font-display text-base font-semibold tracking-tight text-text-primary"
+          title={member.name}
+        >
+          {member.name}
+        </p>
+        <p
+          className="mt-0.5 line-clamp-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-text-secondary"
+          title={roleLabel}
         >
           {roleLabel}
         </p>
 
-        {/* Divider */}
-        <div className="mt-4 w-full border-t border-border-subtle" />
-
-        {/* Expertise chips */}
-        {member.researchFocus.length > 0 && (
-          <div className="mt-4 w-full">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-text-secondary">
-              Expertise
-            </p>
-            <div className="mt-2 flex flex-wrap justify-center gap-1.5">
-              {member.researchFocus.slice(0, 3).map((tag) => (
-                <span
-                  className="rounded-token-pill border border-border px-3 py-0.5 text-xs text-text-secondary"
-                  key={tag}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
+        {/* Short bio — revealed on hover */}
+        {member.shortBio && (
+          <p className="mt-0 max-h-0 overflow-hidden text-xs leading-relaxed text-text-muted transition-all duration-300 ease-out group-hover:mt-2 group-hover:max-h-24">
+            {member.shortBio}
+          </p>
         )}
-
-        {/* Credential / institution chips */}
-        {member.credentials.length > 0 && (
-          <div className="mt-2 flex flex-wrap justify-center gap-1.5">
-            {member.credentials.slice(0, 3).map((cred) => (
-              <span
-                className="rounded-token-pill border border-border-subtle bg-bg-elevated px-3 py-0.5 text-xs text-text-muted"
-                key={cred}
-              >
-                {cred}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Social links */}
-        <div className="mt-auto w-full pt-5">
-          <TeamSocialLinks
-            className="justify-center"
-            name={member.name}
-            socialLinks={member.socialLinks}
-            variant="compact"
-          />
-        </div>
       </div>
+
+      {/* Focusable card link for keyboard navigation */}
+      <Link
+        className="ui-focus-ring absolute inset-0 z-10 opacity-0"
+        href={`/people/${member.slug}`}
+        tabIndex={0}
+      >
+        {member.name}
+      </Link>
     </article>
   );
 }

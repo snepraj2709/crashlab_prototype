@@ -83,7 +83,7 @@ export function TeamSocialLinks({
             className={cn(
               "ui-focus-ring-panel inline-flex items-center justify-center border border-border-default text-text-muted transition hover:border-border-focus hover:text-border-focus",
               variant === "compact"
-                ? "h-9 w-9 rounded-full bg-surface-canvas"
+                ? "h-9 w-9 rounded-none bg-surface-canvas"
                 : "h-11 w-11 rounded-token-pill bg-surface-panel"
             )}
             href={link.href}

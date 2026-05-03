@@ -18,7 +18,7 @@ export function PeopleDirectory({ profiles }: PeopleDirectoryProps): React.React
 
   return (
     <div className="mt-12">
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {active.map((profile) => (
           <MemberCard key={profile.id} member={profile} />
         ))}
@@ -40,7 +40,7 @@ export function PeopleDirectory({ profiles }: PeopleDirectoryProps): React.React
 
           {showAlumni ? (
             <div
-              className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+              className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
               id="people-directory-alumni"
             >
               {alumni.map((profile) => (
