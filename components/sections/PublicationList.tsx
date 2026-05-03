@@ -37,7 +37,7 @@ export function PublicationList({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mt-8 flex flex-wrap gap-4">
           <select
-            className="rounded-full border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary"
+            className="rounded-none border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary"
             onChange={(event) => setYear(event.target.value)}
             value={year}
           >
@@ -48,7 +48,7 @@ export function PublicationList({
             ))}
           </select>
           <select
-            className="rounded-full border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary"
+            className="rounded-none border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary"
             onChange={(event) => setVenue(event.target.value)}
             value={venue}
           >
