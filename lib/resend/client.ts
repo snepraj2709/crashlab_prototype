@@ -28,7 +28,7 @@ function renderRows(fields: Array<{ label: string; value: string }>): string {
 export function createEmailTemplate(options: EmailTemplateOptions): string {
   return `
     <div style="background:#0A0F1E;padding:32px;font-family:DM Sans,system-ui,sans-serif;color:#E8EDF5;">
-      <div style="max-width:680px;margin:0 auto;border:1px solid #1F2937;border-radius:24px;background:#111827;padding:32px;">
+      <div style="max-width:680px;margin:0 auto;border:1px solid #1F2937;border-radius:0;background:#111827;padding:32px;">
         <p style="margin:0 0 12px;color:#00D4FF;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;">${options.eyebrow}</p>
         <h1 style="margin:0 0 16px;font-size:28px;line-height:1.1;font-family:Georgia,serif;">${options.title}</h1>
         <p style="margin:0 0 24px;color:#94A3B8;font-size:15px;line-height:1.7;">${options.intro}</p>

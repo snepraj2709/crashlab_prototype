@@ -343,9 +343,9 @@ function mergeTeamMemberProfile(
     socialLinks: person?.socialLinks,
     isPrincipalInvestigator:
       person?.isPrincipalInvestigator ?? Boolean(visual?.isLead),
-    isActive: person?.isActive ?? member.isActive,
+    isActive: member.isActive,
     joinedAt: person?.joinedAt,
-    position: person?.position ?? member.position,
+    position: member.position,
     headline: person?.headline,
     originStory: person?.originStory,
     collaborations: person?.collaborations,

@@ -27,7 +27,7 @@ export function Card({
         <>
           <div
             aria-hidden="true"
-            className="bg-accent-cyan/10 pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full blur-3xl"
+            className="bg-accent-cyan/10 pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-none blur-3xl"
           />
           <div className="relative">{children}</div>
         </>

@@ -10,7 +10,7 @@ export default function NotFound(): React.ReactElement {
           The route may have moved, been unpublished, or never existed.
         </p>
         <Link
-          className="mt-8 inline-flex rounded-full border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
+          className="mt-8 inline-flex rounded-none border border-border px-5 py-3 text-text-primary transition hover:border-accent-cyan hover:text-accent-cyan"
           href="/"
         >
           Return home
