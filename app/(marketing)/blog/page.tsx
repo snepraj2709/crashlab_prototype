@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 function InitialsCircle({ initials, size = 36 }: { initials: string; size?: number }): React.ReactElement {
   const cls = size === 28
-    ? "flex size-7 items-center justify-center rounded-full border border-border text-xs font-medium text-text-secondary"
-    : "flex items-center justify-center rounded-full border border-border text-sm font-medium text-text-secondary";
+    ? "flex size-7 items-center justify-center rounded-none border border-border text-xs font-medium text-text-secondary"
+    : "flex items-center justify-center rounded-none border border-border text-sm font-medium text-text-secondary";
   return (
     <span className={cls} style={size !== 28 ? { width: size, height: size } : undefined}>
       {initials}
@@ -21,7 +21,7 @@ function InitialsCircle({ initials, size = 36 }: { initials: string; size?: numb
 
 function CategoryBadge({ category }: { category: string }): React.ReactElement {
   return (
-    <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
+    <span className="rounded-none border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
       {category}
     </span>
   );
@@ -71,7 +71,7 @@ export default function BlogPage(): React.ReactElement {
                   {featuredPost.imageOverlay ? (
                     <div className="absolute bottom-4 left-4">
                       {featuredPost.imageOverlay.badge ? (
-                        <span className="rounded-full bg-bg-primary/80 px-2 py-1 text-xs text-text-primary">
+                        <span className="rounded-none bg-bg-primary/80 px-2 py-1 text-xs text-text-primary">
                           {featuredPost.imageOverlay.badge}
                         </span>
                       ) : null}
