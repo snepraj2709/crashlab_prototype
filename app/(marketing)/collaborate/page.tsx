@@ -16,15 +16,15 @@ const pillars = [
     who: "Clinical benchmarks",
     title: "Clinical Benchmarks & Evaluation",
     body: "We offer standardized, stress-test environments that evaluate how AI models perform against expert human reasoning. Our frameworks help partners identify safety gaps and validate their technology for high-stakes medical use.",
-    cta: "Back to RadLE",
+    cta: "Radiology's Last Exam",
     href: "/#radle",
     icon: LayoutGrid,
     featured: true
   },
   {
     who: "Data commons",
-    title: "Secure Medical Data Commons",
-    body: "We are building a secure data infrastructure that reflects India’s diverse patient population. This resource allows for the training and validation of AI on representative, real-world datasets without compromising patient privacy or data security.",
+    title: "Medical Data Commons",
+    body: "We are building a national data infrastructure that reflects India’s diverse patient population. This resource allows for the training and validation of AI on representative, real-world datasets without compromising patient privacy or data security.",
     icon: Database
   },
   {

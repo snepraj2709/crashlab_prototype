@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 204 169.5">
+  <!-- Cropped: mark + MICCAI wordmark only (full name removed). Source: MICCAI conference SVG. Generator: Adobe Illustrator 30.1.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 136)  -->
+  <defs>
+    <style>
+      .st0, .st1 {
+        fill: none;
+      }
+
+      .st2 {
+        opacity: .2;
+      }
+
+      .st2, .st3, .st1 {
+        isolation: isolate;
+      }
+
+      .st2, .st4 {
+        fill: #10274e;
+      }
+
+      .st5 {
+        fill: url(#linear-gradient2);
+      }
+
+      .st6 {
+        fill: url(#linear-gradient1);
+      }
+
+      .st7 {
+        fill: url(#linear-gradient);
+      }
+
+      .st1 {
+        mix-blend-mode: overlay;
+        opacity: .5;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: .6px;
+      }
+
+      .st8 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="24.5" y1="-2008.6" x2="46.1" y2="-1912.4" gradientTransform="translate(0 -1903.4) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#337fdb"/>
+      <stop offset="1" stop-color="#164dc1"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient1" x1="4680.8" y1="-2008.6" x2="4702.4" y2="-1912.4" gradientTransform="translate(4855.6 -1903.4) rotate(-180)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#337fdb"/>
+      <stop offset="1" stop-color="#164dc1"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient2" x1="99.3" y1="-1909" x2="102.8" y2="-2005.8" gradientTransform="translate(0 -1903.4) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4db0f4"/>
+      <stop offset="1" stop-color="#164dc1"/>
+    </linearGradient>
+    <clipPath id="clippath">
+      <path class="st0" d="M162.6,2.4h-30.5c-3.1,0-5.9,1.9-7.1,4.7l-25.8,62.5L73.3,7.1c-1.2-2.9-4-4.7-7.1-4.7h-30.5c-.3,0-.6,0-.9,0,2.4.3,4.4,1.7,5.6,3.8l36,86.9c3.8,9.2,12.8,15.2,22.8,15.2s19-6,22.8-15.2L157.9,6.2c1.2-2.1,3.3-3.5,5.6-3.8-.3,0-.6,0-.9,0h0Z"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_1-2">
+    <g id="uuid-8e216439-c7a2-4f83-877e-4519fc76ce6d">
+      <g>
+        <g class="st3">
+          <g id="Layer_2-2">
+            <g id="uuid-24a945e3-8d09-4f75-911d-fc18fe635b67">
+              <g id="Layer_1-3">
+                <g id="Layer_11">
+                  <g>
+                    <path class="st7" d="M68.1,2.4l-28.9,110.2s-36.9.4-36.9,0L30.1,6.6c.7-2.5,2.9-4.2,5.5-4.2,0,0,32.5,0,32.5,0Z"/>
+                    <path class="st6" d="M131.2,2.4l28.9,110.2s36.9.4,36.9,0L169.2,6.6c-.7-2.5-2.9-4.2-5.5-4.2h-32.5Z"/>
+                    <path class="st5" d="M162.6,2.4h-30.5c-3.1,0-5.9,1.9-7.1,4.7l-25.8,62.5L73.3,7.1c-1.2-2.9-4-4.7-7.1-4.7h-30.5c-.3,0-.6,0-.9,0,2.4.3,4.4,1.7,5.6,3.8l36,86.9c3.8,9.2,12.8,15.2,22.8,15.2h0c10,0,19-6,22.8-15.2L157.9,6.2c1.2-2.1,3.3-3.5,5.6-3.8-.3,0-.6,0-.9,0h0Z"/>
+                    <g class="st8">
+                      <g>
+                        <path class="st1" d="M88.7,108.9c11.8-4.1,15.4-25.6,38-28.4,20.5-2.5,20.6-4.1,20.6-4.1"/>
+                        <path class="st1" d="M86.1,108.3c13.4-5.7,20.2-27.9,35.3-32.1,15.7-4.3,17.9-5.4,17.9-5.4"/>
+                        <path class="st1" d="M84.1,107.1c12.9-5.3,21.6-30.3,37.3-34.8,14-4,19.5-8.4,19.5-8.4"/>
+                        <path class="st1" d="M83.2,105.4c15.1-7.9,20-31,38.3-37.4s22.2-13.1,22.2-13.1"/>
+                        <path class="st1" d="M81.8,103.2c12.7-3,19.7-32.4,37.2-39.1,17.5-6.7,23.2-11.8,27.9-19.3"/>
+                        <path class="st1" d="M80.2,101.5c13.6-2.9,20-36.6,40.2-43.4,18.6-6.2,30.8-25.3,30.8-25.3"/>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+              <g>
+                <path class="st4" d="M28.3,146.9l-8.7,10.3h-1.7l-8.5-10.2v20.1H0v-33.9h10l8.9,11.5,8.9-11.5h10v33.9h-9.5v-20.2h0Z"/>
+                <path class="st4" d="M48.8,167.1v-33.9h9.5v33.9h-9.5Z"/>
+                <path class="st4" d="M99.5,162.7c-3.8,3.8-8.5,5.3-13.6,5.3-13.3,0-18.5-8.4-18.6-17.6,0-8.7,5.8-18,18.6-18s9.3,1.7,13.1,5.4l-5.9,5.8c-2.4-2.3-4.9-3-7.2-3-6.5,0-9.1,5.3-9.1,9.7s2.4,9.4,9.1,9.4,5.6-1,8-3.4l5.6,6.3h0Z"/>
+                <path class="st4" d="M136.6,162.7c-3.8,3.8-8.5,5.3-13.6,5.3-13.3,0-18.5-8.4-18.6-17.6,0-8.7,5.8-18,18.6-18s9.3,1.7,13.1,5.4l-5.9,5.8c-2.4-2.3-4.9-3-7.2-3-6.5,0-9.1,5.3-9.1,9.7s2.4,9.4,9.1,9.4,5.6-1,8-3.4l5.6,6.3h0Z"/>
+                <path class="st4" d="M168.9,161.5h-15.2l-2.2,5.6h-10.2l15.2-33.9h9.7l15.2,33.9h-10.3l-2.2-5.6h0ZM161.4,142.7l-4.4,10.8h8.7l-4.3-10.8Z"/>
+                <path class="st4" d="M188.4,167.1v-33.9h9.5v33.9h-9.5Z"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

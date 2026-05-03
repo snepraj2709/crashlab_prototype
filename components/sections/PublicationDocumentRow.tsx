@@ -32,29 +32,28 @@ export function PublicationDocumentRow({
   const [expanded, setExpanded] = useState(false);
   const { short, needsMore } = useMemo(() => splitTeaser(pub.summary), [pub.summary]);
 
-  const titleClass =
-    "block text-xl font-normal leading-[1.35] text-navy-900 underline decoration-transparent underline-offset-[3px] transition-colors group-hover:text-accent-cyan group-hover:decoration-accent-cyan/50 sm:text-2xl sm:leading-snug";
+  const titleNode = (
+    <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-text-primary sm:text-2xl">
+      {pub.title}
+    </h2>
+  );
 
   return (
-    <article className="border-b border-border py-10 last:border-b-0 lg:py-12">
+    <article className="border-b border-border py-8 last:border-b-0 lg:py-10">
       {pub.link ? (
         <Link
-          className="ui-focus-ring group block"
+          className="ui-focus-ring group block transition-opacity hover:opacity-75"
           href={pub.link}
           rel="noopener noreferrer"
           target="_blank"
         >
-          <h2 className="font-display font-semibold tracking-tight">
-            <span className={titleClass}>{pub.title}</span>
-          </h2>
+          {titleNode}
         </Link>
       ) : (
-        <h2 className="font-display text-xl font-semibold leading-[1.35] tracking-tight text-navy-900 sm:text-2xl sm:leading-snug">
-          {pub.title}
-        </h2>
+        titleNode
       )}
 
-      <div className="mt-5 text-[0.9375rem] leading-[1.75] text-text-secondary sm:text-base lg:mt-6">
+      <div className="mt-3 text-[0.9375rem] leading-[1.7] text-text-secondary">
         <p>
           {needsMore && !expanded ? short : pub.summary}
           {needsMore ? (
@@ -62,10 +61,8 @@ export function PublicationDocumentRow({
               {" "}
               <button
                 aria-expanded={expanded}
-                className="ui-focus-ring inline p-0 text-sm font-semibold text-accent-cyan underline decoration-transparent underline-offset-2 transition hover:text-text-primary hover:decoration-current"
-                onClick={() => {
-                  setExpanded((v) => !v);
-                }}
+                className="ui-focus-ring inline p-0 text-sm text-text-tertiary underline underline-offset-2 transition hover:text-text-primary"
+                onClick={() => setExpanded((v) => !v)}
                 type="button"
               >
                 {expanded ? "less" : "more"}
@@ -75,37 +72,22 @@ export function PublicationDocumentRow({
         </p>
       </div>
 
-      <p className="mt-5 text-sm leading-relaxed text-text-secondary sm:mt-6">
-        <span className="text-text-tertiary">by </span>
-        {pub.authors.join(", ")}
-      </p>
-
-      <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-text-tertiary sm:mt-5">
+      <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-tertiary">
+        <span>
+          <span className="text-text-tertiary">by </span>
+          <span className="text-text-secondary">{pub.authors.join(", ")}</span>
+        </span>
+        <span aria-hidden="true">·</span>
         <span>{pub.venue}</span>
-        <span aria-hidden="true">
-          ·
-        </span>
+        <span aria-hidden="true">·</span>
         <span>{pub.year}</span>
-        <span aria-hidden="true">
-          ·
-        </span>
-        <span className="border border-border px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-text-tertiary">
-          {TYPE_LABELS[pub.type]}
-        </span>
+        <span aria-hidden="true">·</span>
+        <span className="text-xs font-medium uppercase tracking-wide">{TYPE_LABELS[pub.type]}</span>
         {pub.tags.length ? (
           <>
-            <span aria-hidden="true" className="hidden sm:inline">
-              ·
-            </span>
-            <span className="max-w-full sm:inline">
-              {pub.tags.map((tag, i) => (
-                <span key={tag}>
-                  {i > 0 ? ", " : null}
-                  <span className="text-text-secondary">
-                    {tag.replace(/-/g, " ")}
-                  </span>
-                </span>
-              ))}
+            <span aria-hidden="true" className="hidden sm:inline">·</span>
+            <span className="hidden text-text-secondary sm:inline">
+              {pub.tags.map((tag) => tag.replace(/-/g, " ")).join(", ")}
             </span>
           </>
         ) : null}

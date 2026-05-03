@@ -14,10 +14,12 @@ interface ResearchTabsProps {
   publications: PublicationEntry[];
 }
 
-const tabs: Array<{ id: Tab; label: string }> = [
-  { id: "publications", label: "Publications" },
-  { id: "research", label: "Active Research" },
-];
+function buildTabs(pubCount: number, projectCount: number): Array<{ id: Tab; label: string }> {
+  return [
+    { id: "publications", label: `Publications (${pubCount})` },
+    { id: "research", label: `Active Research (${projectCount})` },
+  ];
+}
 
 const STATUS_LABELS: Record<string, string> = {
   active: "Active",
@@ -42,9 +44,6 @@ function splitTeaser(text: string): { short: string; needsMore: boolean } {
   const end = lastSpace > TEASER_MAX * 0.55 ? lastSpace : TEASER_MAX;
   return { short: `${text.slice(0, end).trimEnd()}…`, needsMore: true };
 }
-
-const titleClass =
-  "block text-xl font-normal leading-[1.35] text-navy-900 underline decoration-transparent underline-offset-[3px] transition-colors group-hover:text-accent-cyan group-hover:decoration-accent-cyan/50 sm:text-2xl sm:leading-snug";
 
 function ExpandableBody({ body }: { body: string }): React.ReactElement {
   const [expanded, setExpanded] = useState(false);
@@ -79,51 +78,39 @@ function PublicationRow({
   pub: PublicationEntry;
   showKindTag?: boolean;
 }): React.ReactElement {
-  return (
-    <article className="border-b border-border py-10 last:border-b-0 lg:py-12">
-      {showKindTag ? (
-        <span className="mb-3 inline-block border border-border px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-text-tertiary">
-          Publication
-        </span>
-      ) : null}
+  const titleNode = (
+    <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-text-primary sm:text-2xl">
+      {showKindTag ? <span className="mr-2 text-xs font-medium uppercase tracking-wide text-text-tertiary">Publication · </span> : null}
+      {pub.title}
+    </h2>
+  );
 
+  return (
+    <article className="border-b border-border py-8 last:border-b-0 lg:py-10">
       {pub.link ? (
-        <Link className="ui-focus-ring group block" href={pub.link} rel="noopener noreferrer" target="_blank">
-          <h2 className="font-display font-semibold tracking-tight">
-            <span className={titleClass}>{pub.title}</span>
-          </h2>
+        <Link className="ui-focus-ring group block transition-opacity hover:opacity-75" href={pub.link} rel="noopener noreferrer" target="_blank">
+          {titleNode}
         </Link>
-      ) : (
-        <h2 className="font-display text-xl font-semibold leading-[1.35] tracking-tight text-navy-900 sm:text-2xl sm:leading-snug">
-          {pub.title}
-        </h2>
-      )}
+      ) : titleNode}
 
       <ExpandableBody body={pub.summary} />
 
-      <p className="mt-5 text-sm leading-relaxed text-text-secondary sm:mt-6">
-        <span className="text-text-tertiary">by </span>
-        {pub.authors.join(", ")}
-      </p>
-
-      <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-text-tertiary sm:mt-5">
+      <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-tertiary">
+        <span>
+          <span className="text-text-tertiary">by </span>
+          <span className="text-text-secondary">{pub.authors.join(", ")}</span>
+        </span>
+        <span aria-hidden="true">·</span>
         <span>{pub.venue}</span>
         <span aria-hidden="true">·</span>
         <span>{pub.year}</span>
         <span aria-hidden="true">·</span>
-        <span className="border border-border px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-text-tertiary">
-          {TYPE_LABELS[pub.type]}
-        </span>
+        <span className="text-xs font-medium uppercase tracking-wide">{TYPE_LABELS[pub.type]}</span>
         {pub.tags.length ? (
           <>
             <span aria-hidden="true" className="hidden sm:inline">·</span>
-            <span className="max-w-full sm:inline">
-              {pub.tags.map((tag, i) => (
-                <span key={tag}>
-                  {i > 0 ? ", " : null}
-                  <span className="text-text-secondary">{tag.replace(/-/g, " ")}</span>
-                </span>
-              ))}
+            <span className="hidden text-text-secondary sm:inline">
+              {pub.tags.map((tag) => tag.replace(/-/g, " ")).join(", ")}
             </span>
           </>
         ) : null}
@@ -142,23 +129,18 @@ function ProjectRow({
   const body = project.summary || project.problemStatement;
 
   return (
-    <article className="border-b border-border py-10 last:border-b-0 lg:py-12">
-      {showKindTag ? (
-        <span className="mb-3 inline-block border border-border px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-text-tertiary">
-          Research
-        </span>
-      ) : null}
-
-      <Link className="ui-focus-ring group block" href={`/research/${project.slug}`}>
-        <h2 className="font-display font-semibold tracking-tight">
-          <span className={titleClass}>{project.title}</span>
+    <article className="border-b border-border py-8 last:border-b-0 lg:py-10">
+      <Link className="ui-focus-ring group block transition-opacity hover:opacity-75" href={`/research/${project.slug}`}>
+        <h2 className="font-display text-xl font-semibold leading-snug tracking-tight text-text-primary sm:text-2xl">
+          {showKindTag ? <span className="mr-2 text-xs font-medium uppercase tracking-wide text-text-tertiary">Research · </span> : null}
+          {project.title}
         </h2>
       </Link>
 
       <ExpandableBody body={body} />
 
-      <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-text-tertiary sm:mt-5">
-        <span className="border border-border px-1.5 py-0.5 text-[11px] font-medium uppercase tracking-wide text-text-tertiary">
+      <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-text-tertiary">
+        <span className="text-xs font-medium uppercase tracking-wide">
           {STATUS_LABELS[project.status] ?? project.status}
         </span>
         {project.venue ? (
@@ -176,13 +158,8 @@ function ProjectRow({
         {project.tags.length ? (
           <>
             <span aria-hidden="true" className="hidden sm:inline">·</span>
-            <span className="max-w-full sm:inline">
-              {project.tags.map((tag, i) => (
-                <span key={tag}>
-                  {i > 0 ? ", " : null}
-                  <span className="text-text-secondary">{tag.replace(/-/g, " ")}</span>
-                </span>
-              ))}
+            <span className="hidden text-text-secondary sm:inline">
+              {project.tags.map((tag) => tag.replace(/-/g, " ")).join(", ")}
             </span>
           </>
         ) : null}
@@ -198,8 +175,18 @@ type SearchResult =
 export function ResearchTabs({ projects, publications }: ResearchTabsProps): React.ReactElement {
   const [activeTab, setActiveTab] = useState<Tab>("publications");
   const [query, setQuery] = useState("");
+  const [year, setYear] = useState("all");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const tabs = buildTabs(publications.length, projects.length);
+
+  const years = useMemo(() => {
+    const unique = Array.from(new Set(publications.map((p) => String(p.year))));
+    unique.sort((a, b) => Number(b) - Number(a));
+    return ["all", ...unique];
+  }, [publications]);
 
   const isSearching = query.trim().length > 0;
+  const showFilters = !isSearching && activeTab === "publications";
 
   const searchResults = useMemo((): SearchResult[] => {
     if (!isSearching) return [];
@@ -231,17 +218,20 @@ export function ResearchTabs({ projects, publications }: ResearchTabsProps): Rea
 
   return (
     <div>
-      {/* Tab bar + search row */}
+      {/* Tab bar + filters + search */}
       <div className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-14 xl:px-16">
-          <div className="-mb-px flex items-end justify-between gap-6">
-            {/* Tabs — hidden while searching */}
+          {/* Mobile/tablet: tabs row, then controls row stacked below.
+              lg+: single flex row with tabs left, controls right. */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between">
+
+            {/* Tabs (or search result count) */}
             {!isSearching ? (
-              <nav aria-label="Research sections" className="flex gap-8">
+              <nav aria-label="Research sections" className="-mb-px flex gap-6 overflow-x-auto sm:gap-8">
                 {tabs.map((tab) => (
                   <button
                     className={cn(
-                      "border-b-2 pb-3 pt-4 text-sm font-semibold tracking-[0.01em] transition-colors duration-150",
+                      "whitespace-nowrap border-b-2 pb-3 pt-4 text-sm font-semibold tracking-[0.01em] transition-colors duration-150",
                       activeTab === tab.id
                         ? "border-accent-cyan text-text-primary"
                         : "border-transparent text-text-tertiary hover:text-text-secondary",
@@ -260,21 +250,51 @@ export function ResearchTabs({ projects, publications }: ResearchTabsProps): Rea
               </p>
             )}
 
-            {/* Search input — always visible */}
-            <input
-              className="mb-3 w-full max-w-[14rem] border border-border bg-bg-surface px-3 py-2 text-sm text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-cyan"
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search…"
-              type="search"
-              value={query}
-            />
+            {/* Controls: filters + search
+                Mobile: full-width row below tabs with top border separator
+                lg+: right-aligned in the same row as tabs */}
+            <div className="flex flex-wrap items-center gap-2 border-t border-border py-3 lg:border-t-0 lg:pb-3 lg:pt-4">
+              {showFilters ? (
+                <>
+                  <select
+                    aria-label="Filter by year"
+                    className="border border-border bg-bg-surface pl-3 pr-7 py-1.5 text-xs text-text-secondary focus:outline-none focus:ring-1 focus:ring-accent-cyan"
+                    onChange={(e) => setYear(e.target.value)}
+                    value={year}
+                  >
+                    {years.map((y) => (
+                      <option key={y} value={y}>{y === "all" ? "All years" : y}</option>
+                    ))}
+                  </select>
+                  <select
+                    aria-label="Filter by type"
+                    className="border border-border bg-bg-surface pl-3 pr-7 py-1.5 text-xs text-text-secondary focus:outline-none focus:ring-1 focus:ring-accent-cyan"
+                    onChange={(e) => setTypeFilter(e.target.value)}
+                    value={typeFilter}
+                  >
+                    <option value="all">All types</option>
+                    <option value="benchmark">Benchmark</option>
+                    <option value="paper">Paper</option>
+                    <option value="abstract">Abstract</option>
+                    <option value="talk">Talk</option>
+                  </select>
+                </>
+              ) : null}
+              <input
+                className="min-w-0 flex-1 border border-border bg-bg-surface px-3 py-1.5 text-sm text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent-cyan lg:w-[14rem] lg:flex-none"
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search…"
+                type="search"
+                value={query}
+              />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Search results */}
       {isSearching && (
-        <section className="pt-6 pb-14 lg:pt-8 lg:pb-16">
+        <section className="pb-14 pt-6 lg:pb-16 lg:pt-8">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-14 xl:px-16">
             {searchResults.length ? (
               <div>
@@ -297,27 +317,17 @@ export function ResearchTabs({ projects, publications }: ResearchTabsProps): Rea
 
       {/* Publications tab */}
       {!isSearching && activeTab === "publications" && (
-        <section className="pt-6 pb-14 lg:pt-8 lg:pb-20">
+        <section className="pb-14 pt-6 lg:pb-20 lg:pt-8">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-14 xl:px-16">
-            <PublicationsStory publications={publications} />
+            <PublicationsStory publications={publications} typeFilter={typeFilter} year={year} />
           </div>
         </section>
       )}
 
       {/* Active Research tab */}
       {!isSearching && activeTab === "research" && (
-        <section className="pt-6 pb-14 lg:pt-8 lg:pb-16">
+        <section className="pb-14 pt-6 lg:pb-16 lg:pt-8">
           <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-14 xl:px-16">
-            <header className="flex flex-col gap-8 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between sm:pb-10">
-              <div>
-                <h2 className="font-display text-2xl text-text-primary lg:text-3xl">
-                  Active Research
-                </h2>
-                <p className="mt-2 text-sm text-text-tertiary">
-                  {projects.length} {projects.length === 1 ? "project" : "projects"}
-                </p>
-              </div>
-            </header>
             <div>
               {projects.map((project) => (
                 <ProjectRow key={project.slug} project={project} />

@@ -80,7 +80,7 @@ export default function AboutPage(): React.ReactElement {
                     </h2>
                   </div>
                   <div>
-                    <p className="max-w-none font-sans text-[0.75rem] font-medium leading-[1.26] tracking-[-0.03em] text-text-primary sm:text-[0.95rem] lg:text-[1.175rem]">
+                    <p className="max-w-none font-sans text-sm font-medium leading-relaxed tracking-[-0.02em] text-text-primary sm:text-base lg:text-lg lg:leading-[1.55]">
                       {item.body}
                     </p>
                   </div>
@@ -94,7 +94,7 @@ export default function AboutPage(): React.ReactElement {
       {/* Impact Numbers */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mt-6 max-w-4xl font-display text-2xl leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-[3rem]">
+          <h2 className="mt-6 max-w-4xl font-display text-4xl font-semibold leading-tight tracking-tight text-text-primary lg:text-5xl">
             What the lab has built since founding.
           </h2>
           <div className="mt-12 grid gap-10 sm:grid-cols-2 sm:gap-8 lg:mt-16 lg:grid-cols-4 lg:gap-10">
@@ -130,7 +130,7 @@ export default function AboutPage(): React.ReactElement {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-20">
             <div className="text-left">
-              <h2 className="mt-6 font-display text-4xl text-text-primary lg:mt-0 lg:text-5xl">
+              <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight text-text-primary lg:mt-0 lg:text-5xl">
                 {origin.heading}
               </h2>
             </div>

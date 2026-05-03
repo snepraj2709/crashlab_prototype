@@ -61,9 +61,9 @@ const PILLARS: {
         },
         Icon: Database,
         accent: {
-            icon: "text-accent-cyan",
-            arrow: "text-accent-cyan",
-            modalBorder: "border-l border-l-accent-cyan/90"
+            icon: "text-steel-200",
+            arrow: "text-steel-400",
+            modalBorder: "border-l border-l-white/20"
         }
     },
     {
@@ -96,9 +96,9 @@ const PILLARS: {
         },
         Icon: Activity,
         accent: {
-            icon: "text-accent-orange",
-            arrow: "text-accent-orange",
-            modalBorder: "border-l border-l-accent-orange/90"
+            icon: "text-steel-200",
+            arrow: "text-steel-400",
+            modalBorder: "border-l border-l-white/20"
         }
     },
     {
@@ -131,9 +131,9 @@ const PILLARS: {
         },
         Icon: Bot,
         accent: {
-            icon: "text-accent-yellow",
-            arrow: "text-accent-yellow",
-            modalBorder: "border-l border-l-accent-yellow/90"
+            icon: "text-steel-200",
+            arrow: "text-steel-400",
+            modalBorder: "border-l border-l-white/20"
         }
     },
     {
@@ -166,9 +166,9 @@ const PILLARS: {
         },
         Icon: UserRound,
         accent: {
-            icon: "text-accent-green",
-            arrow: "text-accent-green",
-            modalBorder: "border-l border-l-accent-green/90"
+            icon: "text-steel-200",
+            arrow: "text-steel-400",
+            modalBorder: "border-l border-l-white/20"
         }
     }
 ];
@@ -295,10 +295,10 @@ export function PillarsSection({
                             )}
                         >
                             <div className="min-w-0 pl-1">
-                                <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-steel-500">
+                                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-steel-400">
                                     Pillar {activePillar.number}
                                 </p>
-                                <h2 className="mt-2 font-display text-[1.35rem] font-semibold leading-tight tracking-tight text-white sm:text-2xl" id={modalTitleId}>
+                                <h2 className="mt-2 font-display text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl" id={modalTitleId}>
                                     {activePillar.title}
                                 </h2>
                             </div>
@@ -313,8 +313,8 @@ export function PillarsSection({
                         </div>
 
                         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-6 sm:px-8 sm:py-8">
-                            <p className="text-[15px] font-medium leading-relaxed text-white/95">{activePillar.detail.positioning}</p>
-                            <p className="mt-5 text-[14px] leading-[1.65] text-steel-400">{activePillar.detail.context}</p>
+                            <p className="text-base font-medium leading-relaxed text-white/95">{activePillar.detail.positioning}</p>
+                            <p className="mt-5 text-sm leading-relaxed text-steel-300">{activePillar.detail.context}</p>
 
                             <div className="mt-10">
                                 {activePillar.detail.capabilities.map((cap, idx) => (
@@ -322,8 +322,8 @@ export function PillarsSection({
                                         className={cn(idx > 0 && "mt-6 border-t border-white/[0.06] pt-6")}
                                         key={cap.title}
                                     >
-                                        <h3 className="text-[13px] font-semibold uppercase tracking-[0.12em] text-steel-500">{cap.title}</h3>
-                                        <p className="mt-3 text-[14px] leading-[1.65] text-steel-300">{cap.body}</p>
+                                        <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-steel-400">{cap.title}</h3>
+                                        <p className="mt-3 text-sm leading-relaxed text-steel-200">{cap.body}</p>
                                     </div>
                                 ))}
                             </div>
@@ -365,7 +365,7 @@ function PillarCard({
         >
             <div className="relative z-10 flex min-h-0 flex-1 flex-col px-5 pb-5 pt-6">
                 <div className="flex items-center justify-between gap-3 border-b border-white/[0.12] pb-4 transition-colors duration-300 group-hover:border-white/20">
-                    <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-steel-300">
+                    <span className="font-mono text-xs font-medium tracking-[0.14em] text-steel-300">
                         {pillar.number}
                     </span>
                     <div className="rounded-none bg-white/[0.08] p-2 ring-1 ring-white/[0.12] transition-opacity duration-300 group-hover:pointer-events-none group-hover:opacity-0">
@@ -379,23 +379,23 @@ function PillarCard({
 
                 <span className="sr-only">Opens the full pillar brief in a dialog. Press Enter.</span>
 
-                <h3 className="mt-4 font-display text-lg font-semibold leading-snug tracking-tight text-white sm:text-[1.125rem]" id={labelId}>
+                <h3 className="mt-4 font-display text-xl font-semibold leading-snug tracking-tight text-white sm:text-2xl" id={labelId}>
                     {pillar.title}
                 </h3>
-                <p className="mt-2 text-[13px] leading-snug text-steel-300 transition-colors duration-300 group-hover:text-steel-200">
+                <p className="mt-2 text-sm leading-snug text-steel-300 transition-colors duration-300 group-hover:text-steel-200">
                     {pillar.tagline}
                 </p>
 
                 <div className="relative isolate mt-5 flex-1">
                     <ul
                         className={cn(
-                            "space-y-2.5 text-[13px] leading-relaxed text-steel-200 transition-all duration-300",
+                            "space-y-2.5 text-sm leading-relaxed text-steel-200 transition-all duration-300",
                             "lg:group-hover:pointer-events-none lg:group-hover:opacity-0"
                         )}
                     >
                         {pillar.bullets.map((line) => (
                             <li className="flex gap-2.5" key={line}>
-                                <span className={cn("mt-0.5 shrink-0 text-[11px] font-medium", pillar.accent.arrow)} aria-hidden>
+                                <span className={cn("mt-0.5 shrink-0 text-xs font-medium", pillar.accent.arrow)} aria-hidden>
                                     →
                                 </span>
                                 <span>{line}</span>
@@ -404,7 +404,7 @@ function PillarCard({
                     </ul>
                     <p
                         className={cn(
-                            "pointer-events-none absolute inset-0 text-[13px] font-medium leading-[1.55] text-white opacity-0 transition-opacity duration-300 ease-out",
+                            "pointer-events-none absolute inset-0 text-sm font-medium leading-relaxed text-white opacity-0 transition-opacity duration-300 ease-out",
                             "max-lg:hidden lg:group-hover:opacity-100"
                         )}
                     >
@@ -413,10 +413,10 @@ function PillarCard({
                 </div>
 
                 <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.12] pt-4 transition-colors duration-300 group-hover:border-white/20">
-                    <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-steel-300 transition-colors duration-300 group-hover:text-steel-200">
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-steel-300 transition-colors duration-300 group-hover:text-steel-200">
                         Click for full brief
                     </span>
-                    <span className={cn("text-xs transition-colors duration-300 group-hover:text-white", pillar.accent.icon)} aria-hidden>
+                    <span className={cn("text-sm transition-colors duration-300 group-hover:text-white", pillar.accent.icon)} aria-hidden>
                         →
                     </span>
                 </div>

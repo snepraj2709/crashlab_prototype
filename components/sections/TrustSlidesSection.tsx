@@ -23,6 +23,7 @@ type MarqueeSectionProps = {
   title?: string;
   description?: string;
   animationDuration?: number;
+  direction?: "left" | "right" | "static";
 } & (
   | { kind: "logos"; logos: LogoItem[] }
   | { kind: "venues"; venues: VenueItem[] }
@@ -40,7 +41,7 @@ function repeatMarqueeStrip<T>(items: readonly T[]): T[] {
  * (same optical baseline; wide marks scale down uniformly).
  */
 const TRUST_MARQUEE_SLOT =
-  "relative box-border shrink-0 cursor-help overflow-hidden rounded-none opacity-70 transition-opacity hover:opacity-100 h-16 w-16 bg-transparent p-2 sm:h-[4.25rem] sm:w-[4.25rem] sm:p-2.5 lg:h-[5.25rem] lg:w-[5.25rem] lg:p-3";
+  "relative box-border shrink-0 cursor-help overflow-hidden rounded-none opacity-70 transition-opacity hover:opacity-100 h-[5.25rem] w-[5.25rem] bg-transparent p-2.5 sm:h-[6.5rem] sm:w-[6.5rem] sm:p-3 lg:h-[7.75rem] lg:w-[7.75rem] lg:p-3.5";
 
 const TRUST_SLOT_INNER =
   "flex size-full items-center justify-center [min-height:0] [min-width:0]";
@@ -49,16 +50,18 @@ const TRUST_MARQUEE_IMG =
   "logo-clean relative mx-auto block h-auto max-h-full w-auto max-w-full shrink-0 object-contain object-center";
 
 const FEATURED_PILL =
-  "inline-flex min-h-10 cursor-help shrink-0 items-center gap-2.5 whitespace-nowrap rounded-none border border-border bg-bg-secondary px-3 py-2 sm:min-h-[2.75rem] sm:gap-3 sm:px-4 sm:py-2";
+  "inline-flex min-h-11 cursor-help shrink-0 items-center gap-2.5 whitespace-nowrap rounded-none border border-border bg-bg-secondary px-3 py-2 sm:min-h-[3.125rem] sm:gap-3 sm:px-4 sm:py-2";
 
 function MarqueeSection(props: MarqueeSectionProps) {
-  const { eyebrow, title, description, animationDuration = 28 } = props;
+  const { eyebrow, title, description, animationDuration = 28, direction = "left" } = props;
+
+  const isStatic = direction === "static";
 
   const logoItems =
-    props.kind === "logos" ? repeatMarqueeStrip(props.logos) : null;
+    props.kind === "logos" && !isStatic ? repeatMarqueeStrip(props.logos) : null;
 
   const venueItems =
-    props.kind === "venues" ? repeatMarqueeStrip(props.venues) : null;
+    props.kind === "venues" && !isStatic ? repeatMarqueeStrip(props.venues) : null;
 
   return (
     <div
@@ -81,7 +84,7 @@ function MarqueeSection(props: MarqueeSectionProps) {
           </p>
         ) : null}
 
-        <div className="trust-logo-slideshow mt-2 sm:mt-3">
+        <div className={cn("mt-2 sm:mt-3", !isStatic && "trust-logo-slideshow")}>
           {props.kind === "logos" && logoItems ? (
             <>
               <div className="sr-only">
@@ -93,7 +96,10 @@ function MarqueeSection(props: MarqueeSectionProps) {
               </div>
               <div className="trust-logo-slideshow__viewport">
                 <div
-                  className="trust-logo-slideshow__track items-center gap-5 sm:gap-6 lg:gap-8"
+                  className={cn(
+                    "trust-logo-slideshow__track items-center gap-7 sm:gap-9 lg:gap-11",
+                    direction === "right" && "trust-logo-slideshow__track--reverse",
+                  )}
                   style={{ animationDuration: `${animationDuration}s` }}
                 >
                   {logoItems.map((logo, index) => (
@@ -110,7 +116,7 @@ function MarqueeSection(props: MarqueeSectionProps) {
                           className={cn(TRUST_MARQUEE_IMG, logo.tuning)}
                           height={256}
                           loading="lazy"
-                          sizes="(min-width: 1024px) 5.25rem, (min-width: 640px) 4.25rem, 4rem"
+                          sizes="(min-width: 1024px) 7.75rem, (min-width: 640px) 6.5rem, 5.25rem"
                           src={logo.src}
                           unoptimized={/\.svg($|\?)/i.test(logo.src)}
                           width={256}
@@ -123,7 +129,7 @@ function MarqueeSection(props: MarqueeSectionProps) {
             </>
           ) : null}
 
-          {props.kind === "venues" && venueItems ? (
+          {props.kind === "venues" && !isStatic && venueItems ? (
             <>
               <div className="sr-only">
                 <ul>
@@ -134,7 +140,10 @@ function MarqueeSection(props: MarqueeSectionProps) {
               </div>
               <div className="trust-logo-slideshow__viewport">
                 <div
-                  className="trust-logo-slideshow__track items-center gap-3 sm:gap-4"
+                  className={cn(
+                    "trust-logo-slideshow__track items-center gap-5 sm:gap-6",
+                    direction === "right" && "trust-logo-slideshow__track--reverse",
+                  )}
                   style={{ animationDuration: `${animationDuration}s` }}
                 >
                   {venueItems.map((venue, index) => (
@@ -145,16 +154,16 @@ function MarqueeSection(props: MarqueeSectionProps) {
                     >
                       <div className={cn(FEATURED_PILL)} title={venue.name}>
                         {venue.logoSrc ? (
-                          <span className="inline-flex h-7 w-8 shrink-0 items-center justify-center sm:h-8 sm:w-9">
+                          <span className="inline-flex h-10 w-11 shrink-0 items-center justify-center sm:h-11 sm:w-12">
                             <Image
                               alt=""
                               aria-hidden
                               className={cn(
-                                "trust-logo-slideshow__image relative block max-h-[1.5rem] w-auto max-w-full object-contain object-center sm:max-h-[1.75rem]",
+                                "trust-logo-slideshow__image relative block max-h-[2.125rem] w-auto max-w-full object-contain object-center sm:max-h-[2.375rem]",
                                 venue.logoTuning,
                               )}
                               height={42}
-                              sizes="(min-width: 640px) 2rem, 1.75rem"
+                              sizes="(min-width: 640px) 2.375rem, 2.125rem"
                               src={venue.logoSrc}
                               unoptimized={venue.logoSrc.endsWith(".svg")}
                               width={120}
@@ -171,6 +180,37 @@ function MarqueeSection(props: MarqueeSectionProps) {
               </div>
             </>
           ) : null}
+
+          {props.kind === "venues" && isStatic ? (
+            <ul className="flex flex-wrap gap-2 sm:gap-3">
+              {props.venues.map((venue) => (
+                <li className="inline-flex shrink-0 items-center" key={venue.name}>
+                  <div className={cn(FEATURED_PILL)}>
+                    {venue.logoSrc ? (
+                      <span className="inline-flex h-10 w-11 shrink-0 items-center justify-center sm:h-11 sm:w-12">
+                        <Image
+                          alt=""
+                          aria-hidden
+                          className={cn(
+                            "trust-logo-slideshow__image relative block max-h-[2.125rem] w-auto max-w-full object-contain object-center sm:max-h-[2.375rem]",
+                            venue.logoTuning,
+                          )}
+                          height={42}
+                          sizes="(min-width: 640px) 2.375rem, 2.125rem"
+                          src={venue.logoSrc}
+                          unoptimized={venue.logoSrc.endsWith(".svg")}
+                          width={120}
+                        />
+                      </span>
+                    ) : null}
+                    <span className="self-center font-semibold text-text-primary leading-none text-xs sm:text-sm">
+                      {venue.name}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
     </div>
@@ -178,37 +218,36 @@ function MarqueeSection(props: MarqueeSectionProps) {
 }
 
 const supportedByLogos: LogoItem[] = [
-  { name: "DST", src: "/logos/DST.svg" },
-  { name: "ANRF", src: "/logos/ANRF.svg" },
-  { name: "IndiaAI", src: "/logos/india_ai_summit.svg" },
-  { name: "Koita Foundation", src: "/logos/koita-foundation.svg" },
-  { name: "OpenAI", src: "/logos/openai.svg" },
-  { name: "Google.org", src: "/logos/google-logo.svg" },
+  { name: "DST", src: "/logos/DST_clean.png" },
+  { name: "ANRF", src: "/logos/ANRF_clean.png" },
+  { name: "IndiaAI", src: "/logos/india_ai_summit_clean.png" },
+  { name: "Koita Foundation", src: "/logos/koita-foundation_clean.png" },
+  { name: "OpenAI", src: "/logos/openai_clean.png" },
+  { name: "Google.org", src: "/logos/google-logo_clean.png" },
 ];
 
 const collaborationLogos: LogoItem[] = [
-  { name: "AIIMS Delhi", src: "/logos/AIIMS_Delhi.svg" },
-  { name: "JIPMER", src: "/logos/jipmer.svg" },
-  { name: "KMC Manipal", src: "/logos/kastubra_medical_college.svg" },
-  { name: "Microsoft Research India", src: "/logos/microsoft.svg" },
+  { name: "AIIMS Delhi", src: "/logos/AIIMS_Delhi_clean.png" },
+  { name: "JIPMER", src: "/logos/jipmer_clean.png" },
+  { name: "KMC Manipal", src: "/logos/KMCMAHEMANIPAL.png" },
+  { name: "Microsoft Research India", src: "/logos/microsoft-research-india.png" },
   { name: "NIMHANS", src: "/logos/National_Institute_of_Mental_Health.svg" },
   { name: "Tata Memorial", src: "/logos/tmc.svg" },
-  { name: "Harvard", src: "/logos/harvard-medical-school.svg" },
+  { name: "Harvard University", src: "/logos/harvard-university.svg" },
   { name: "Stanford", src: "/logos/stanford_university.svg" },
-  { name: "Johns Hopkins", src: "/logos/john_hopkins.svg" },
-  /** Spaces in pathname — encoded so both dev and prod static serving resolve reliably. */
-  { name: "NUS", src: "/logos/National%20University%20of%20Singapore.svg" },
+  { name: "Johns Hopkins", src: "/logos/johns_hopkins_clean.png" },
+  { name: "NUS", src: "/logos/nus-logo-blue_vertical.png" },
   { name: "EPFL", src: "/logos/EPFL.svg" },
-  { name: "IIT Jodhpur", src: "/logos/IIT_jodhpur.svg" },
+  { name: "IIT Jodhpur", src: "/logos/IIT_jodhpur_clean.png" },
 ];
 
 const featuredVenues: VenueItem[] = [
   { name: "RSNA 2025", logoSrc: "/logos/rsna.svg" },
-  { name: "MICCAI 2025" },
-  { name: "KCR 2025" },
-  { name: "IJRI" },
-  { name: "NEJM AI" },
-  { name: "AOCR 2025" },
+  { name: "MICCAI 2025", logoSrc: "/logos/miccai.svg" },
+  { name: "KCR 2025", logoSrc: "/logos/kcr.svg" },
+  { name: "IJRI", logoSrc: "/logos/ijri.svg" },
+  { name: "NEJM AI", logoSrc: "/logos/nejm-ai.png" },
+  { name: "AOCR 2025", logoSrc: "/logos/aocr-2025.webp" },
 ];
 
 export function TrustSlidesSection(): React.ReactElement {
@@ -216,7 +255,7 @@ export function TrustSlidesSection(): React.ReactElement {
     <section aria-labelledby="trust-slides-heading">
       <div className="mx-auto max-w-7xl px-6 pb-4 pt-6 lg:px-8 lg:pb-6 lg:pt-8">
         <h2
-          className="mb-3 font-display text-xl font-semibold leading-tight text-text-primary sm:mb-4 sm:text-2xl lg:mb-5 lg:text-3xl"
+          className="mb-3 font-display text-4xl text-text-primary sm:mb-4 lg:mb-5 lg:text-5xl"
           id="trust-slides-heading"
         >
           Built on Institutional Trust and Credibility
@@ -225,6 +264,7 @@ export function TrustSlidesSection(): React.ReactElement {
         <MarqueeSection
           animationDuration={22}
           description="Grants & Institutional Funding"
+          direction="left"
           eyebrow="Supported By"
           kind="logos"
           logos={supportedByLogos}
@@ -232,13 +272,14 @@ export function TrustSlidesSection(): React.ReactElement {
         <MarqueeSection
           animationDuration={44}
           description="Researchers and clinical groups at these institutions have collaborated with Dr. Suvrankar Datta and CRASH Lab on published or ongoing work."
+          direction="right"
           eyebrow="In Collaboration With"
           kind="logos"
           logos={collaborationLogos}
         />
         <MarqueeSection
-          animationDuration={20}
           description="Recent collaborative research of Dr. Suvrankar Datta and CRASH Lab has been published and presented at:"
+          direction="static"
           eyebrow="Featured At"
           kind="venues"
           venues={featuredVenues}

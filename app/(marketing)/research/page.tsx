@@ -15,12 +15,6 @@ export const metadata: Metadata = {
 
 export const revalidate = 300;
 
-const impactMetrics = [
-  { value: "15+", label: "Papers accepted at top conferences" },
-  { value: "6", label: "RSNA 2025 accepted abstracts" },
-  { value: "#1", label: "Indian lab by AI abstracts at RSNA 2025" },
-];
-
 export default async function ResearchPage(): Promise<React.ReactElement> {
   const [projects, lead, publications] = await Promise.all([
     getProjects(),
@@ -46,28 +40,6 @@ export default async function ResearchPage(): Promise<React.ReactElement> {
             clinical reality, not presentation-friendly metrics alone.
           </p>
 
-          <dl className="mt-14 grid grid-cols-1 gap-10 border-t border-border pt-14 sm:grid-cols-3 sm:gap-12 lg:gap-16">
-            {impactMetrics.map((metric) => (
-              <div key={metric.label}>
-                <dt className="text-sm leading-snug text-text-tertiary">{metric.label}</dt>
-                <dd className="mt-2 font-display text-2xl font-semibold tabular-nums text-text-primary">
-                  {metric.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-
-          <div className="mt-12 lg:mt-14">
-            <Link
-              className="ui-focus-ring group inline-flex items-center gap-1.5 text-sm font-semibold text-accent-cyan transition-all duration-200 hover:gap-2 hover:text-text-primary"
-              href="/about#journey-outlook"
-            >
-              <span className="underline decoration-transparent underline-offset-4 transition-all duration-200 group-hover:decoration-current">
-                Learn more about the lab&apos;s journey.
-              </span>
-              <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </Link>
-          </div>
         </div>
       </section>
 
