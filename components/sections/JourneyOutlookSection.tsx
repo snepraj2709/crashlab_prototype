@@ -110,12 +110,12 @@ const SEGMENT_TAILWIND: Record<
     nodeOuter: "border-accent-yellow bg-accent-yellow",
   },
   steel: {
-    bar: "bg-steel-500",
-    connector: "bg-steel-500",
-    border: "border-steel-500",
-    headerBg: "bg-steel-600",
+    bar: "bg-navy-800",
+    connector: "bg-navy-800",
+    border: "border-navy-800",
+    headerBg: "bg-navy-800",
     headerText: "text-white",
-    nodeOuter: "border-steel-500 bg-steel-500",
+    nodeOuter: "border-navy-800 bg-navy-800",
   },
   featured: {
     bar: "bg-navy-900",
@@ -128,11 +128,6 @@ const SEGMENT_TAILWIND: Record<
 };
 
 const SEGMENT_CYCLE: SegmentKey[] = [
-  "accentOrange",
-  "accentCyan",
-  "brandBlue",
-  "accentGreen",
-  "accentYellow",
   "steel",
 ];
 
@@ -390,7 +385,7 @@ export function JourneyOutlookSection({
   const items = journey.items;
 
   return (
-    <section className="py-8 lg:min-h-0 lg:py-6 xl:py-8" id="journey-outlook">
+    <section className="py-8 lg:min-h-0 lg:pt-6 lg:pb-12 xl:pt-8 xl:pb-16" id="journey-outlook">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <JourneyIntro intro={journey.body} />
 

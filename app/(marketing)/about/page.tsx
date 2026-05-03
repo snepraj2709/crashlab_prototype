@@ -73,13 +73,13 @@ export default function AboutPage(): React.ReactElement {
                 className="lg:py-15 border-t-2 border-border py-10"
                 key={item.heading}
               >
-                <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:gap-24">
-                  <div>
+                <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:items-center lg:gap-24">
+                  <div className="text-left">
                     <h2 className="font-sans text-[1.25rem] font-semibold leading-[0.98] tracking-[-0.05em] text-text-primary sm:text-[1.5rem] lg:text-[1.925rem]">
                       {item.heading}
                     </h2>
                   </div>
-                  <div className="lg:pt-1">
+                  <div>
                     <p className="max-w-none font-sans text-[0.75rem] font-medium leading-[1.26] tracking-[-0.03em] text-text-primary sm:text-[0.95rem] lg:text-[1.175rem]">
                       {item.body}
                     </p>
@@ -128,9 +128,9 @@ export default function AboutPage(): React.ReactElement {
       {/* Origin Story */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-            <div>
-              <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-20">
+            <div className="text-left">
+              <h2 className="mt-6 font-display text-4xl text-text-primary lg:mt-0 lg:text-5xl">
                 {origin.heading}
               </h2>
             </div>
