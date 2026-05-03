@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
-import { FileText, Globe, Presentation } from "lucide-react";
+import { Database, FileText, Globe, Presentation } from "lucide-react";
 
 import {
   CallToActionCard,
@@ -18,7 +19,8 @@ export const metadata: Metadata = {
 const aboutIconMap = {
   papers: FileText,
   presentation: Presentation,
-  globe: Globe
+  globe: Globe,
+  data: Database
 } satisfies Record<string, LucideIcon>;
 
 export default function AboutPage(): React.ReactElement {
@@ -32,7 +34,8 @@ export default function AboutPage(): React.ReactElement {
     futureOutlook,
     cta
   } = aboutContent;
-  const missionVisionItems = [{ ...mission }, { ...vision }];
+  const missionVisionItems = [{ ...vision }, { ...mission }];
+  const subheadlineParts = hero.subheadline.split(hero.mainWebsiteLabel);
 
   return (
     <div>
@@ -46,66 +49,20 @@ export default function AboutPage(): React.ReactElement {
             {hero.headline}
           </h1>
           <p className="mt-6 max-w-3xl text-lg text-text-secondary">
-            {hero.subheadline}
+            {subheadlineParts[0]}
+            <Link
+              className="underline decoration-border-focus underline-offset-4 transition-colors hover:text-text-primary"
+              href={hero.mainWebsiteHref}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {hero.mainWebsiteLabel}
+            </Link>
+            {subheadlineParts[1]}
           </p>
         </div>
       </section>
-
-      {/* Origin Story */}
-      <section className="py-8 lg:py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-            <div>
-              <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
-                {origin.heading}
-              </h2>
-            </div>
-            <div className="space-y-6 text-lg leading-9 text-text-secondary">
-              {origin.paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <PillarsSection id="research-pillars" variant="interactive" />
-
-      {/* Impact Numbers */}
-      <section className="py-8 lg:py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mt-6 max-w-4xl font-display text-2xl leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-[3rem]">
-            What the lab has built since founding.
-          </h2>
-          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8 lg:mt-16 lg:gap-14">
-            {impactMetrics.map((metric) => {
-              const Icon =
-                aboutIconMap[metric.icon as keyof typeof aboutIconMap];
-
-              return (
-                <article className="flex items-start gap-4" key={metric.label}>
-                  <div className="flex h-12 w-12 shrink-0 items-start justify-center pt-1">
-                    <Icon
-                      aria-hidden="true"
-                      className="size-8 text-accent-cyan"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-display text-3xl font-semibold leading-none tracking-tight text-text-primary sm:text-4xl">
-                      {metric.value}
-                    </p>
-                    <p className="mt-3 max-w-xs text-lg leading-8 text-text-secondary">
-                      {metric.label}
-                    </p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <JourneyOutlookSection futureOutlook={futureOutlook} journey={journey} />
+      
 
       {/* Mission & Vision */}
       <section className="pb-8 pt-2 lg:pb-16 lg:pt-6">
@@ -133,6 +90,67 @@ export default function AboutPage(): React.ReactElement {
           </div>
         </div>
       </section>
+      
+      {/* Impact Numbers */}
+      <section className="py-8 lg:py-12">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <h2 className="mt-6 max-w-4xl font-display text-2xl leading-tight tracking-tight text-text-primary sm:text-4xl lg:text-[3rem]">
+            What the lab has built since founding.
+          </h2>
+          <div className="mt-12 grid gap-10 sm:grid-cols-2 sm:gap-8 lg:mt-16 lg:grid-cols-4 lg:gap-10">
+            {impactMetrics.map((metric) => {
+              const Icon =
+                aboutIconMap[metric.icon as keyof typeof aboutIconMap] ?? Globe;
+
+              return (
+                <article className="flex items-start gap-4" key={metric.label}>
+                  <div className="flex h-12 w-12 shrink-0 items-start justify-center pt-1">
+                    <Icon
+                      aria-hidden="true"
+                      className="size-8 text-accent-cyan"
+                    />
+                  </div>
+                  <div>
+                    <p className="font-display text-3xl font-semibold leading-none tracking-tight text-text-primary sm:text-4xl">
+                      {metric.value}
+                    </p>
+                    <p className="mt-3 max-w-xs text-lg leading-8 text-text-secondary">
+                      {metric.label}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Origin Story */}
+      <section className="py-8 lg:py-12">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+            <div>
+              <h2 className="mt-6 font-display text-4xl text-text-primary lg:text-5xl">
+                {origin.heading}
+              </h2>
+            </div>
+            <div className="space-y-6 text-lg leading-9 text-text-secondary">
+              {origin.paragraphs.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Journey & Outlook */}
+      <JourneyOutlookSection futureOutlook={futureOutlook} journey={journey} />
+
+      {/* Research Pillars */}
+      <PillarsSection id="research-pillars" />
+
+      
+
 
       {/* CTA */}
       <section className="lg:py-18 py-12">
