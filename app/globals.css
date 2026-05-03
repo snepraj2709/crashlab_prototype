@@ -469,8 +469,22 @@
   }
 }
 
+@keyframes trustLogoMarqueeReverse {
+  0% {
+    transform: translate3d(calc(-100% / 6), 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.trust-logo-slideshow__track--reverse {
+  animation-name: trustLogoMarqueeReverse;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .trust-logo-slideshow__track {
+  .trust-logo-slideshow__track,
+  .trust-logo-slideshow__track--reverse {
     animation: none;
   }
 }

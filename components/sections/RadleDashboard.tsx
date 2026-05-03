@@ -18,9 +18,14 @@ import {
 
 type BarMark =
   | { kind: "human"; cohort: "boardCertified" | "trainee" }
-  | { kind: "image"; src: string; label: string; intrinsicRatio?: "square" | "wide" }
-  | { kind: "grok" }
-  | { kind: "claude" };
+  | {
+      kind: "image";
+      /** viewBox width / height — used to scale each wordmark cleanly inside the bar slot. */
+      aspectRatio?: number;
+      intrinsicRatio?: "square" | "wide";
+      label: string;
+      src: string;
+    };
 
 const plotData: Array<{
   key: string;
@@ -53,9 +58,10 @@ const plotData: Array<{
     tone: "frontier",
     barColor: "#9FC9C1",
     mark: {
+      aspectRatio: 1180 / 320,
       kind: "image",
-      intrinsicRatio: "square",
-      src: "/logos/openai.svg",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/OpenAI_Logo.svg",
       label: "OpenAI",
     },
   },
@@ -66,9 +72,10 @@ const plotData: Array<{
     tone: "frontier",
     barColor: "#5A84DE",
     mark: {
+      aspectRatio: 288 / 65,
       kind: "image",
       intrinsicRatio: "wide",
-      src: "/logos/google-logo.svg",
+      src: "/radle_logos/Google_Gemini_logo_2025.svg",
       label: "Google Gemini",
     },
   },
@@ -79,9 +86,10 @@ const plotData: Array<{
     tone: "frontier",
     barColor: "#7D7D7D",
     mark: {
+      aspectRatio: 1180 / 320,
       kind: "image",
-      intrinsicRatio: "square",
-      src: "/logos/openai.svg",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/OpenAI_Logo.svg",
       label: "OpenAI",
     },
   },
@@ -91,7 +99,13 @@ const plotData: Array<{
     value: 12,
     tone: "frontier",
     barColor: "#2C2F35",
-    mark: { kind: "grok" },
+    mark: {
+      aspectRatio: 1024 / 400,
+      kind: "image",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/Grok_Full_Logomark_Dark.svg",
+      label: "Grok",
+    },
   },
   {
     key: "claude",
@@ -99,7 +113,13 @@ const plotData: Array<{
     value: 1,
     tone: "frontier",
     barColor: "#E0906A",
-    mark: { kind: "claude" },
+    mark: {
+      aspectRatio: 184 / 40,
+      kind: "image",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/claude_logo.svg",
+      label: "Claude",
+    },
   },
 ];
 
@@ -162,25 +182,33 @@ function RadleBarTopMark(props: {
   const barW = Number(props.width ?? 0);
   const barX = Number(props.x ?? 0);
   const barTop = Number(props.y ?? 0);
-  const cx = barX + barW / 2;
 
-  /** Full bar-slot width with a tiny inset; height stays visually short. */
-  const MARK_H = 20;
-  const GAP = 4;
+  /** Reserved strip above bars for frontier wordmarks / human pills. */
+  const MARK_SLOT_H = 28;
+  const GAP = 5;
   const markW = Math.max(barW - 2, 0);
-  const top = barTop - MARK_H - GAP;
+  const slotTop = barTop - MARK_SLOT_H - GAP;
+
+  /** Human marks use fixed pill height inside the slot. */
+  const HUMAN_MARK_H = 22;
+  const humanTop = slotTop + (MARK_SLOT_H - HUMAN_MARK_H) / 2;
   const left = barX + (barW - markW) / 2;
 
-  const iconScale = (MARK_H * 0.78) / 24;
+  const iconScale = (HUMAN_MARK_H * 0.78) / 24;
 
   if (mark.kind === "human") {
-    /** Board-certified — filled clinician silhouette; trainees — stroked graduation cap (24×24 viewBox). */
+    /** Board-certified — filled clinician silhouette; trainees — stroked graduation cap (24x24 viewBox). */
     return (
-      <g transform={`translate(${left},${top})`}>
+      <g transform={`translate(${left},${humanTop})`}>
         <title>{row.label}</title>
-        <rect fill={row.barColor} height={MARK_H} rx={MARK_H / 2} width={markW} />
+        <rect
+          fill={row.barColor}
+          height={HUMAN_MARK_H}
+          rx={HUMAN_MARK_H / 2}
+          width={markW}
+        />
         <g
-          transform={`translate(${markW / 2},${MARK_H / 2}) scale(${iconScale}) translate(-12,-12)`}
+          transform={`translate(${markW / 2},${HUMAN_MARK_H / 2}) scale(${iconScale}) translate(-12,-12)`}
         >
           {mark.cohort === "boardCertified" ? (
             <>
@@ -212,15 +240,16 @@ function RadleBarTopMark(props: {
   }
 
   if (mark.kind === "image") {
-    const ratio = mark.intrinsicRatio ?? "wide";
+    const layout = mark.intrinsicRatio ?? "wide";
 
-    if (ratio === "square") {
-      /* Square marks (e.g. OpenAI bloom): wide + short viewBox breaks `meet` inside a bar strip. */
-      const side = Math.min(Math.max(barW - 2, 0), MARK_H);
+    if (layout === "square") {
+      /* Square intrinsic marks: bounded by the narrower of bar width vs slot height. */
+      const side = Math.min(markW, MARK_SLOT_H);
       const sqLeft = barX + (barW - side) / 2;
+      const sqTop = slotTop + (MARK_SLOT_H - side) / 2;
 
       return (
-        <g transform={`translate(${sqLeft},${top})`}>
+        <g transform={`translate(${sqLeft},${sqTop})`}>
           <title>{mark.label}</title>
           <image
             height={side}
@@ -234,14 +263,23 @@ function RadleBarTopMark(props: {
       );
     }
 
+    /* Wide wordmarks: scale = min(barWidth/ar, slotHeight) with intrinsic ratio width/height. */
+    const ar = mark.aspectRatio ?? 3.25;
+    const scale = Math.min(markW > 0 ? markW / ar : 0, MARK_SLOT_H);
+    const imgW = scale * ar;
+    const imgH = scale;
+
+    const imgLeft = barX + (barW - imgW) / 2;
+    const imgTop = slotTop + (MARK_SLOT_H - imgH) / 2;
+
     return (
-      <g transform={`translate(${left},${top})`}>
+      <g transform={`translate(${imgLeft},${imgTop})`}>
         <title>{mark.label}</title>
         <image
-          height={MARK_H}
+          height={imgH}
           href={mark.src}
           preserveAspectRatio="xMidYMid meet"
-          width={markW}
+          width={imgW}
           x={0}
           y={0}
         />
@@ -249,44 +287,7 @@ function RadleBarTopMark(props: {
     );
   }
 
-  const glyphPx = Math.min(Math.max(barW * 0.42, 16), MARK_H + 12);
-
-  if (mark.kind === "grok") {
-    return (
-      <g transform={`translate(${cx}, ${top + MARK_H / 2})`}>
-        <title>{row.label}</title>
-        <text
-          dominantBaseline="middle"
-          fill="#1d1d1d"
-          fontSize={glyphPx}
-          fontStyle="italic"
-          fontWeight={600}
-          textAnchor="middle"
-          x={0}
-          y={0}
-        >
-          g
-        </text>
-      </g>
-    );
-  }
-
-  return (
-    <g transform={`translate(${cx}, ${top + MARK_H / 2})`}>
-      <title>{row.label}</title>
-      <text
-        dominantBaseline="middle"
-        fill="#E77747"
-        fontSize={glyphPx}
-        fontWeight={600}
-        textAnchor="middle"
-        x={0}
-        y={0}
-      >
-        ✳
-      </text>
-    </g>
-  );
+  return null;
 }
 
 export function RadleDashboard(): React.ReactElement {
@@ -378,9 +379,6 @@ export function RadleDashboard(): React.ReactElement {
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <p className="font-serif text-base font-semibold text-[#1f1f1f] sm:text-2xl sm:leading-snug lg:text-[1.65rem]">
-                      Figure 1: Diagnostic accuracy on RadLE v1
-                    </p>
-                    <p className="mt-0.5 text-[11px] leading-snug text-[#3f3f3f] sm:text-sm sm:leading-relaxed">
                       Mean diagnostic accuracy with 95% Wilson confidence
                       intervals. Humans on the left, frontier AI models on the
                       right.
@@ -420,7 +418,7 @@ export function RadleDashboard(): React.ReactElement {
                             accessibilityLayer
                             barCategoryGap="14%"
                             data={chartData}
-                            margin={{ top: 34, right: 8, left: 8, bottom: 4 }}
+                            margin={{ top: 44, right: 8, left: 8, bottom: 4 }}
                           >
                             <CartesianGrid stroke="#efefef" strokeDasharray="0" vertical={false} />
                             <XAxis
