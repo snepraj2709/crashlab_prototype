@@ -98,7 +98,7 @@ export function AnnouncementBanner({
             </p>
             {currentAnnouncement.ctaText && currentAnnouncement.ctaUrl ? (
               <Link
-                className="shrink-0 rounded-full border border-white/40 px-4 py-1.5 text-sm font-semibold text-white transition-all hover:bg-white hover:text-neutral-900"
+                className="shrink-0 rounded-none border border-white/40 px-4 py-1.5 text-sm font-semibold text-white transition-all hover:bg-white hover:text-neutral-900"
                 href={currentAnnouncement.ctaUrl}
                 rel="noreferrer"
                 target="_blank"
@@ -109,7 +109,7 @@ export function AnnouncementBanner({
           </div>
           <button
             aria-label="Dismiss announcement"
-            className="absolute right-0 top-1/2 shrink-0 -translate-y-1/2 rounded-full p-1 text-white/60 transition-colors hover:text-white"
+            className="absolute right-0 top-1/2 shrink-0 -translate-y-1/2 rounded-none p-1 text-white/60 transition-colors hover:text-white"
             onClick={dismiss}
             type="button"
           >
