@@ -144,8 +144,7 @@ function JourneyIntro({ intro }: { intro: string }): React.ReactElement {
   return (
     <div className="mt-6 max-w-3xl space-y-5 lg:grid lg:max-w-none lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)] lg:items-start lg:gap-x-10 lg:gap-y-2 lg:space-y-0">
       <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary lg:text-5xl">
-        CRASH Lab Journey
-        <span className="mt-2 block italic text-accent-cyan">The Milestone Timeline</span>
+        CRASH Lab Journey: The Milestone Timeline
       </h2>
       <p
         className="text-base leading-relaxed text-text-secondary md:text-[1.05rem] lg:max-w-xl lg:self-center lg:text-[1rem] lg:leading-snug xl:text-[1.05rem]"
@@ -228,7 +227,7 @@ function JourneyMilestoneDescription({
     <button
       aria-controls={descId}
       aria-expanded={expanded}
-      className="ui-focus-ring mt-0.5 rounded-sm font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent-cyan transition-colors hover:text-text-primary lg:text-[0.6rem]"
+      className="ui-focus-ring mt-0.5 rounded-sm font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent-cyan transition-colors hover:text-text-primary lg:hidden"
       onClick={() => {
         setExpanded((v) => !v);
       }}
@@ -239,7 +238,7 @@ function JourneyMilestoneDescription({
         <ChevronDown
           aria-hidden="true"
           className={cn(
-            "size-3.5 shrink-0 transition-transform duration-200 ease-out lg:size-3",
+            "size-3.5 shrink-0 transition-transform duration-200 ease-out",
             expanded && "rotate-180",
           )}
         />
@@ -249,7 +248,7 @@ function JourneyMilestoneDescription({
 
   return (
     <div className="min-w-0 space-y-1">
-      <p className={cn(paragraphClassName, !expanded && "line-clamp-3")} id={descId} ref={measureRef}>
+      <p className={cn(paragraphClassName, !expanded && "line-clamp-3 lg:group-hover/col:line-clamp-none")} id={descId} ref={measureRef}>
         {body}
       </p>
       {control}
@@ -265,6 +264,8 @@ function CardAbovePanels({ item, segment, Icon }: JourneyCardPanelsProps): React
     <div
       className={cn(
         "mx-0 overflow-hidden border-2 bg-surface-panel lg:border lg:border-solid",
+        "lg:overflow-visible lg:transition-[width,box-shadow] lg:duration-200 lg:ease-in-out",
+        "lg:group-hover/col:w-[calc(100%+3.5rem)] lg:group-hover/col:shadow-md",
         s.border,
       )}
     >
@@ -300,7 +301,12 @@ function CardBelowPanels({ item, segment, Icon }: JourneyCardPanelsProps): React
   const s = SEGMENT_TAILWIND[segment];
 
   return (
-    <div className={cn("mx-0 overflow-hidden border-2 bg-surface-panel lg:border lg:border-solid", s.border)}>
+    <div className={cn(
+      "mx-0 overflow-hidden border-2 bg-surface-panel lg:border lg:border-solid",
+      "lg:overflow-visible lg:transition-[width,box-shadow] lg:duration-200 lg:ease-in-out",
+      "lg:group-hover/col:w-[calc(100%+3.5rem)] lg:group-hover/col:shadow-md",
+      s.border,
+    )}>
       <div
         className={cn(
           "px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] lg:px-2 lg:py-1.5 lg:text-[0.6rem] lg:tracking-[0.12em]",
@@ -389,7 +395,7 @@ export function JourneyOutlookSection({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <JourneyIntro intro={journey.body} />
 
-        <div className="mt-12 lg:mt-5 xl:mt-7">
+        <div className="mt-12 lg:mt-12 xl:mt-14">
           {/* Smaller breakpoints: horizontal scroll */}
           <div className="relative lg:hidden" aria-label="CRASH Lab journey timeline">
             {hasOverflow && canScrollRight ? (
@@ -455,7 +461,7 @@ export function JourneyOutlookSection({
 
                 return (
                   <div
-                    className="flex min-h-0 min-w-0 flex-1 flex-col justify-end px-0.5"
+                    className="group/col relative flex min-h-0 min-w-0 flex-1 flex-col justify-end px-0.5 hover:z-10"
                     key={`${item.period}-${item.title}-band-up`}
                   >
                     {above ? (
@@ -493,7 +499,7 @@ export function JourneyOutlookSection({
 
                 return (
                   <div
-                    className="flex min-w-0 flex-1 flex-col px-0.5"
+                    className="group/col relative flex min-w-0 flex-1 flex-col px-0.5 hover:z-10"
                     key={`${item.period}-${item.title}-band-low`}
                   >
                     {below ? (

@@ -106,12 +106,6 @@ export function CollaborateSection(): React.ReactElement {
                       {card.segment}
                     </span>
                   </div>
-                  {isFeatured ? (
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 size-8 shrink-0 border border-white/35"
-                    />
-                  ) : null}
                 </div>
 
                 <h3

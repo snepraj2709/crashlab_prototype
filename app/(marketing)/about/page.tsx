@@ -41,14 +41,14 @@ export default function AboutPage(): React.ReactElement {
     <div>
       {/* Hero */}
       <section className="py-8 lg:py-12">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
           <p className="mt-6 text-xs uppercase tracking-[0.22em] text-accent-cyan">
             {hero.eyebrow}
           </p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
+          <h1 className="mx-auto mt-4 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
             {hero.headline}
           </h1>
-          <p className="mt-6 max-w-3xl text-lg text-text-secondary">
+          <p className="mx-auto mt-6 max-w-3xl text-lg text-text-secondary">
             {subheadlineParts[0]}
             <Link
               className="underline decoration-border-focus underline-offset-4 transition-colors hover:text-text-primary"
@@ -75,12 +75,12 @@ export default function AboutPage(): React.ReactElement {
               >
                 <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:items-center lg:gap-24">
                   <div className="text-left">
-                    <h2 className="font-sans text-[1.25rem] font-semibold leading-[0.98] tracking-[-0.05em] text-text-primary sm:text-[1.5rem] lg:text-[1.925rem]">
+                    <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary lg:text-5xl">
                       {item.heading}
                     </h2>
                   </div>
                   <div>
-                    <p className="max-w-none font-sans text-sm font-medium leading-relaxed tracking-[-0.02em] text-text-primary sm:text-base lg:text-lg lg:leading-[1.55]">
+                    <p className="text-lg leading-9 text-text-secondary">
                       {item.body}
                     </p>
                   </div>
@@ -128,7 +128,7 @@ export default function AboutPage(): React.ReactElement {
       {/* Origin Story */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20">
             <div className="text-left">
               <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight text-text-primary lg:mt-0 lg:text-5xl">
                 {origin.heading}
