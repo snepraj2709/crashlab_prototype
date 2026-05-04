@@ -1,25 +1,25 @@
 export const aboutContent = {
   hero: {
     eyebrow: "Centre for Responsible Autonomous Systems in Healthcare",
-    headline: "Building AI that earns its place in the clinic.",
+    headline: "An interdisciplinary research studio where clinical expertise drives AI development.",
     subheadline:
-      "CRASH Lab is an interdisciplinary research group at Ashoka University, founded to close the gap between AI benchmarks and clinical reality in Indian healthcare."
+      "Operating within the Koita Centre for Digital Health at Ashoka University, we bring together doctors, engineers, and researchers to solve the most pressing challenges in medical AI. Our work is not just to build models, but build the benchmarks, datasets, and frameworks needed to ensure AI is safe and effective in real-world clinical settings. Our group operates at the intersection of frontier technology and applied healthcare. By grounding our research in clinical reality, we are helping build a future where AI acts as a reliable, transparent tool for healthcare providers.",
+    mainWebsiteHref: "https://kcdha.ashoka.edu.in/",
+    mainWebsiteLabel: "Koita Centre for Digital Health at Ashoka University"
   },
   origin: {
-    heading: "How CRASH Lab came to be",
+    heading: "How we started",
     paragraphs: [
-      "Healthcare AI in India was moving fast — but in the wrong direction. Models trained on Western datasets were being benchmarked on curated slides and deployed in hospitals that looked nothing like the validation environment. The failure wasn't the models. It was the evaluation.",
-      "Dr. Suvrankar Datta, a radiologist and AI researcher trained at AIIMS New Delhi and with affiliations spanning Harvard Medical School and global clinical networks, saw this gap firsthand. In April 2025, supported by the Koita Foundation at Ashoka University's Koita Centre for Digital Health, he founded CRASH Lab.",
-      "The mandate was narrow by design: build the benchmarks, datasets, and evaluation frameworks that clinical AI actually needs. Not prototypes. Not demos. Infrastructure that survives contact with real hospital workflows, real radiologists, and real patients."
+      "Since starting the research group in April 2025, CRASH Lab has grown from a single research cohort into a nationwide effort spanning AI evaluation, data infrastructure, and clinician-AI collaboration. Our work is extremely fast-paced and is built around the thesis that healthcare AI should be evaluated by experts under real world scenarios. The timeline below traces what we've shipped since."
     ]
   },
   mission: {
     heading: "Our Mission",
-    body: "To create responsible healthcare AI that improves care through ethical innovation, transparent data, and collaboration — making quality healthcare fair and accessible for everyone."
+    body: "To build the datasets, evaluation frameworks, and foundations that healthcare AI needs to be developed and deployed safely across the patients, workflows, and contexts where it will actually be used."
   },
   vision: {
     heading: "Our Vision",
-    body: "To make CRASH Lab a global leader in responsible, clinician-driven healthcare AI — advancing ethical, transparent, and inclusive innovation that strengthens data infrastructure and makes high-quality care accessible to everyone."
+    body: "A future where AI advances clinical care safely as AI systems become more capable and autonomous while keeping clinicians at the centre of every management decision for our patients."
   },
   pillars: [
     {
@@ -41,65 +41,64 @@ export const aboutContent = {
   ],
   impactMetrics: [
     {
-      value: "15+",
-      label: "Papers accepted at top conferences",
+      value: "10+",
+      label: "Most RSNA 2025 abstracts by any Indian healthcare AI lab",
       icon: "papers"
     },
     {
-      value: "6",
-      label: "RSNA 2025 accepted abstracts",
+      value: "15+",
+      label: "Papers & abstracts at RSNA, MICCAI, NEJM AI, IJRI, KCR, AOCR since 2025",
       icon: "presentation"
     },
     {
-      value: "3",
-      label: "International collaborations",
+      value: "10+",
+      label: "Collaborating institutions across India, US, Europe, and Asia",
       icon: "globe"
+    },
+    {
+      value: "90+",
+      label: "Clinicians, researchers, and engineers across CRASH Lab projects",
+      icon: "data"
     }
   ],
   journey: {
     heading: "Journey & Outlook",
-    body: "Our path from inception to building India's largest responsible healthcare AI infrastructure.",
+    body: "",
     items: [
       {
         period: "April 2025",
         title: "CRASH Lab Founded",
-        body: "The lab launched at Ashoka University with a mandate to build clinically grounded evaluation infrastructure for healthcare AI.",
+        body: "CRASH Lab began as a small cohort of physicians, primarily radiologists, and engineers working together on radiology AI research projects for RSNA.",
         icon: "building"
       },
       {
-        period: "Q2 2025",
-        title: "First RSNA Research Cohort Launched",
-        body: "Initiated groundbreaking research cohort focusing on radiology AI evaluation and validation.",
+        period: "May-June 2025",
+        title: "Scaling the Research Studio",
+        body: "As our initial projects expanded, more physicians across specialties, medical students, researchers, psychologists, and engineers joined us. This helped CRASH Lab evolve from a radiology AI initiative into a broader healthcare AI research lab.",
         icon: "cohort"
       },
       {
-        period: "Q2 2025",
-        title: "15 Papers Accepted at Major Conferences",
-        body: "Achieved significant academic recognition with papers accepted at premier AI and medical imaging conferences.",
+        period: "July 2025",
+        title: "Academic Validation",
+        body: "CRASH Lab's early work received academic validation through accepted research across healthcare AI and medical imaging venues.",
         icon: "papers"
       },
       {
-        period: "Q2 2025",
-        title: "NeurIPS Research Cohort Initiated",
-        body: "Expanded research initiatives with new cohort focused on neural information processing in healthcare.",
-        icon: "trend"
-      },
-      {
-        period: "Sep 2025",
+        period: "Sept 2025",
         title: "RadLE Benchmark Unveiled",
-        body: "Radiology's Last Exam became the lab's flagship benchmark and the anchor for its problem-first research narrative.",
+        body: "We launched Radiology's Last Exam, a benchmark designed to test how frontier AI models perform against expert radiology reasoning.",
         icon: "presentation"
       },
       {
         period: "Nov 2025",
-        title: "RSNA Breakout Year",
-        body: "Six accepted abstracts positioned CRASH Lab as the fastest-ramping responsible health AI lab in India.",
+        title: "RSNA Research Milestone",
+        body: "We reached a major RSNA milestone with 11 accepted abstracts, reflecting our growing research output in radiology AI.",
         icon: "globe"
       },
       {
-        period: "2027",
-        title: "50+ Hospital Data Commons Vision",
-        body: "Scale federated data infrastructure, benchmark access, and responsible deployment partnerships across India. Building the infrastructure for the next generation of responsible healthcare AI.",
+        period: "2026 and Beyond",
+        title: "National Research Collaborations",
+        body: "We began securing support from leading national bodies, including ANRF, DST, and the IndiaAI Mission, to advance responsible healthcare AI research.",
         icon: "data",
         isFeatured: true
       }

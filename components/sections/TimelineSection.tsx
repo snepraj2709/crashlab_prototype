@@ -42,12 +42,12 @@ export function TimelineSection(): React.ReactElement {
         <div className="mt-10 grid gap-6 lg:grid-cols-4">
           {timelineItems.map((item) => (
             <Card className="relative overflow-hidden" key={item.year}>
-              <div className="absolute inset-x-6 top-0 h-1 rounded-full bg-accent-cyan" />
+              <div className="absolute inset-x-6 top-0 h-1 rounded-none bg-accent-cyan" />
               <div className="mt-6 flex items-center justify-between gap-4">
                 <p className="font-mono text-sm text-accent-cyan">{item.year}</p>
                 <div
                   aria-hidden="true"
-                  className="flex size-10 items-center justify-center rounded-full bg-status-info-surface text-accent-cyan"
+                  className="flex size-10 items-center justify-center rounded-none bg-status-info-surface text-accent-cyan"
                 >
                   <item.icon className="size-4" />
                 </div>

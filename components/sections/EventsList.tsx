@@ -53,9 +53,9 @@ export function EventsList({ events }: EventsListProps): React.ReactElement {
       ) : null}
 
       {past.length ? (
-        <div>
-          <h2 className="font-display text-2xl text-text-muted">Past Events</h2>
-          <div className="mt-6 opacity-60">
+        <div className="border-t border-border pt-12">
+          <h2 className="font-display text-2xl text-text-secondary">Past Events</h2>
+          <div className="mt-6">
             {past.map((event) => (
               <EventCard event={event} key={event._id} />
             ))}

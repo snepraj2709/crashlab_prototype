@@ -179,7 +179,7 @@ function CompactCredentialRow({
 
   return (
     <div className="flex items-start gap-3 border-b border-border-subtle py-2 last:border-0" key={credential.id}>
-      <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", meta.dotClassName)} />
+      <span className={cn("mt-1.5 size-2 shrink-0 rounded-none", meta.dotClassName)} />
       <div className="flex-1">
         <CredentialLabel
           className="text-sm font-medium text-text-primary"

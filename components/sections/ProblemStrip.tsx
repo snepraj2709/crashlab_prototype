@@ -61,9 +61,9 @@ export function ProblemStrip(): React.ReactElement {
                     </span>
                     <span className="font-mono text-xs text-text-secondary">{score}%</span>
                   </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-steel-100">
+                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-none bg-steel-100">
                     <div
-                      className="h-full rounded-full bg-steel-400 transition-all"
+                      className="h-full rounded-none bg-steel-400 transition-all"
                       style={{ width: `${score}%` }}
                     />
                   </div>
@@ -73,7 +73,7 @@ export function ProblemStrip(): React.ReactElement {
           </article>
 
           {/* Card 2 — Clinical reality gap (dark) */}
-          <article className="flex flex-col bg-navy-900 p-6 text-white rounded-2xl">
+          <article className="flex flex-col bg-navy-900 p-6 text-white rounded-none">
             <ClipboardList
               className="mb-5 h-6 w-6 text-white/70"
               aria-hidden="true"
@@ -95,9 +95,9 @@ export function ProblemStrip(): React.ReactElement {
                     </span>
                     <span className="font-mono text-xs text-white/70">{score}%</span>
                   </div>
-                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-none bg-white/10">
                     <div
-                      className={`h-full rounded-full transition-all ${barClass}`}
+                      className={`h-full rounded-none transition-all ${barClass}`}
                       style={{ width: `${score}%` }}
                     />
                   </div>

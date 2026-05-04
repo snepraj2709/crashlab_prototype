@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --radius-xs: 8px;
-  --radius-sm: 12px;
-  --radius-md: 16px;
-  --radius-lg: 9999px;
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
 
   --motion-duration-instant: 150ms;
   --motion-duration-fast: 300ms;
@@ -20,8 +20,9 @@
   --color-border-subtle: #eef2f7;
 
   --color-text-primary: #0f172a;
-  --color-text-secondary: #374151;
-  --color-text-tertiary: #94a3b8;
+  /* Darker than before for contrast on warm off-white canvas (#fafaf8) */
+  --color-text-secondary: #2d3640;
+  --color-text-tertiary: #4a5568;
   --color-text-inverse: #ffffff;
 
   --color-accent-cyan: #234c6a;
@@ -39,7 +40,7 @@
   --color-surface-shell: #234c6a;
   --color-surface-strong: #234c6a;
   --color-text-default: #0f172a;
-  --color-text-muted: #374151;
+  --color-text-muted: #3d4754;
   --color-text-on-strong: #ffffff;
   --color-border-default: #e5e7eb;
   --color-border-focus: #234c6a;
@@ -329,24 +330,32 @@
 .trust-logo-slideshow__viewport {
   position: relative;
   overflow: hidden;
+  padding-inline: 0.5rem;
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0,
-    #000 clamp(2.5rem, 6vw, 5rem),
-    #000 calc(100% - clamp(2.5rem, 6vw, 5rem)),
+    #000 clamp(1rem, 3vw, 2.25rem),
+    #000 calc(100% - clamp(1rem, 3vw, 2.25rem)),
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0,
-    #000 clamp(2.5rem, 6vw, 5rem),
-    #000 calc(100% - clamp(2.5rem, 6vw, 5rem)),
+    #000 clamp(1rem, 3vw, 2.25rem),
+    #000 calc(100% - clamp(1rem, 3vw, 2.25rem)),
     transparent 100%
   );
 }
 
+@media (min-width: 640px) {
+  .trust-logo-slideshow__viewport {
+    padding-inline: 1rem;
+  }
+}
+
 .trust-logo-slideshow__track {
   display: flex;
+  align-items: center;
   width: max-content;
   animation: trustLogoMarquee 28s linear infinite;
   will-change: transform;
@@ -359,6 +368,12 @@
 
 .trust-logo-slideshow__image {
   mix-blend-mode: multiply;
+}
+
+/* Trust marquee marks: centered in slots via Tailwind (`object-center`). */
+.logo-clean {
+  mix-blend-mode: multiply;
+  object-fit: contain;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -440,17 +455,36 @@
   }
 }
 
+/**
+ * Seamless marquee: repeat the base strip `MARQUEE_SEGMENT_REPEAT` times in JSX,
+ * then translate exactly **one** segment width (-100% / repeatCount).
+ * (Keeps wide viewports from showing blank trailing space.)
+ */
 @keyframes trustLogoMarquee {
   0% {
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(calc(-100% / 6), 0, 0);
   }
 }
 
+@keyframes trustLogoMarqueeReverse {
+  0% {
+    transform: translate3d(calc(-100% / 6), 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.trust-logo-slideshow__track--reverse {
+  animation-name: trustLogoMarqueeReverse;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .trust-logo-slideshow__track {
+  .trust-logo-slideshow__track,
+  .trust-logo-slideshow__track--reverse {
     animation: none;
   }
 }

@@ -13,6 +13,7 @@ const categories = [
   { label: "Benchmark Update", value: "benchmark-update" },
   { label: "Research Paper", value: "research-paper" },
   { label: "Lab News", value: "lab-news" },
+  { label: "Blogs", value: "blogs" },
   { label: "Events", value: "events" }
 ];
 
@@ -40,13 +41,15 @@ export default async function NewsPage({
   const category =
     typeof searchParams.category === "string" ? searchParams.category : "all";
   const showEvents = category === "events";
+  const showBlogs = category === "blogs";
+  const skipNewsPosts = showEvents || showBlogs;
 
   const [posts, events] = await Promise.all([
-    showEvents ? Promise.resolve([]) : getNewsPosts(),
+    skipNewsPosts ? Promise.resolve([]) : getNewsPosts(),
     showEvents ? getEvents() : Promise.resolve([])
   ]);
 
-  const filtered = showEvents ? [] : filterPosts(posts, category);
+  const filtered = skipNewsPosts ? [] : filterPosts(posts, category);
   const [featured, ...rest] = filtered;
 
   return (
@@ -83,6 +86,13 @@ export default async function NewsPage({
 
           {showEvents ? (
             <EventsList events={events} />
+          ) : showBlogs ? (
+            <div className="mt-12">
+              <EmptyState
+                body="Longer-form blog posts will appear here. We're setting this section up—check back soon."
+                title="Blogs"
+              />
+            </div>
           ) : (
             <>
               {featured ? (

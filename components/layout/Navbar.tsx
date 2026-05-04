@@ -24,14 +24,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: "About", href: "/about" },
-  {
-    label: "Research",
-    href: "/research",
-    children: [
-      { label: "Active Research", href: "/research?status=active" },
-      { label: "Publications", href: "/publications" }
-    ]
-  },
+  { label: "Research", href: "/research" },
   { label: "People", href: "/people" },
   { label: "Collaborate", href: "/collaborate" },
   { label: "News & Events", href: "/news" }

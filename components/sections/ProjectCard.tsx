@@ -57,7 +57,7 @@ export function ProjectCard({
     return (
       <article className="border-b border-border last:border-b-0">
         <Link
-          className="ui-focus-ring group block rounded-2xl py-6 pr-4 transition-[background-color,transform] duration-200 hover:bg-bg-elevated active:scale-[0.998] sm:pr-6 lg:py-8"
+          className="ui-focus-ring group block rounded-none py-6 pr-4 transition-[background-color,transform] duration-200 hover:bg-bg-elevated active:scale-[0.998] sm:pr-6 lg:py-8"
           href={`/research/${project.slug}`}
         >
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1.55fr)_minmax(14rem,0.45fr)] lg:items-start lg:gap-10">
@@ -73,7 +73,7 @@ export function ProjectCard({
                     <span
                       aria-hidden="true"
                       className={cn(
-                        "inline-block h-[5px] w-[5px] rounded-full",
+                        "inline-block h-[5px] w-[5px] rounded-none",
                         statusMeta.dotClassName,
                       )}
                     />
@@ -126,7 +126,7 @@ export function ProjectCard({
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "flex size-12 items-center justify-center rounded-full border transition-all duration-200",
+                      "flex size-12 items-center justify-center rounded-none border transition-all duration-200",
                       hasPaperLink
                         ? "border-text-primary bg-text-primary text-white group-hover:border-accent-cyan group-hover:bg-accent-cyan"
                         : "border-border-default bg-surface-panel text-text-primary group-hover:border-accent-cyan group-hover:bg-accent-cyan group-hover:text-white",
@@ -154,11 +154,11 @@ export function ProjectCard({
           <div className="flex items-center gap-2 text-xs text-text-tertiary">
             {statusMeta.pill ? (
               <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${statusMeta.badgeClassName}`}
+                className={`inline-flex items-center gap-1.5 rounded-none px-2.5 py-0.5 text-xs font-medium ${statusMeta.badgeClassName}`}
               >
                 <span
                   aria-hidden="true"
-                  className={`inline-block h-[5px] w-[5px] rounded-full ${statusMeta.dotClassName}`}
+                  className={`inline-block h-[5px] w-[5px] rounded-none ${statusMeta.dotClassName}`}
                 />
                 {statusMeta.label}
               </span>
@@ -166,7 +166,7 @@ export function ProjectCard({
               <>
                 <span
                   aria-hidden="true"
-                  className={`inline-block h-[5px] w-[5px] rounded-full ${statusMeta.dotClassName}`}
+                  className={`inline-block h-[5px] w-[5px] rounded-none ${statusMeta.dotClassName}`}
                 />
                 <span>{statusMeta.label}</span>
               </>
@@ -184,7 +184,7 @@ export function ProjectCard({
           <div className="mt-3 flex flex-wrap gap-2">
             {project.tags.slice(0, showMetadata ? 4 : 3).map((tag) => (
               <span
-                className="rounded-full border border-border-default px-3 py-1 text-xs text-text-secondary"
+                className="rounded-none border border-border-default px-3 py-1 text-xs text-text-secondary"
                 key={tag}
               >
                 {tag}

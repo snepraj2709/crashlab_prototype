@@ -21,22 +21,6 @@
     "position": 1
   },
   {
-    "slug": "divya-buchireddygari",
-    "name": "Dr. Divya Buchireddygari",
-    "role": "Research Lead",
-    "title": "Dr.",
-    "photo": {
-      "url": "/team/divya-buchireddygari.jpeg",
-      "alt": "Portrait of Dr. Divya Buchireddygari"
-    },
-    "shortBio": "",
-    "credentials": [],
-    "researchFocus": [],
-    "isPrincipalInvestigator": false,
-    "isActive": false,
-    "position": 2
-  },
-  {
     "slug": "hakikat-bir-singh-bhatti",
     "name": "Dr. Hakikat Bir Singh Bhatti",
     "role": "Research Lead",
@@ -67,20 +51,40 @@
     }
   },
   {
-    "slug": "sarath-sasi",
-    "name": "Sarath Sasi",
-    "role": "Researcher",
-    "title": "",
+    "slug": "lakshmi-vennela-chowdary-kaza",
+    "name": "Dr. Lakshmi Vennela Chowdary Kaza",
+    "role": "Research Lead",
+    "title": "Dr.",
     "photo": {
-      "url": "/team/sarath-sasi.jpeg",
-      "alt": "Portrait of Sarath Sasi"
+      "url": "/team/lakshmi-vennela.jpeg",
+      "alt": "Portrait of Dr. Lakshmi Vennela Chowdary Kaza"
     },
     "shortBio": "",
-    "credentials": ["CRASH LAB"],
-    "researchFocus": ["Synthetic CXR"],
-    "isPrincipalInvestigator": true,
+    "credentials": ["CRASH Lab", "IIT-Bombay"],
+    "researchFocus": ["RadLE", "Medical Visual Reasoning"],
+    "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 3
+    "position": 3,
+    "email": "clakshmivennela@gmail.com",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/dr-lakshmi-vennela-chowdary-kaza-1b6014b0/"
+    }
+  },
+  {
+    "slug": "divya-buchireddygari",
+    "name": "Dr. Divya Buchireddygari",
+    "role": "Research Lead",
+    "title": "Dr.",
+    "photo": {
+      "url": "/team/divya-buchireddygari.jpeg",
+      "alt": "Portrait of Dr. Divya Buchireddygari"
+    },
+    "shortBio": "",
+    "credentials": [],
+    "researchFocus": [],
+    "isPrincipalInvestigator": false,
+    "isActive": true,
+    "position": 4
   },
   {
     "slug": "shreyas-reddy-k",
@@ -96,27 +100,23 @@
     "researchFocus": ["Synthetic CXR", "RadLE"],
     "isPrincipalInvestigator": true,
     "isActive": true,
-    "position": 4
+    "position": 5
   },
   {
-    "slug": "lakshmi-vennela-chowdary-kaza",
-    "name": "Dr. Lakshmi Vennela Chowdary Kaza",
-    "role": "Research Lead",
-    "title": "Dr.",
+    "slug": "sarath-sasi",
+    "name": "Sarath Sasi",
+    "role": "Researcher",
+    "title": "",
     "photo": {
-      "url": "/team/lakshmi-vennela.jpeg",
-      "alt": "Portrait of Dr. Lakshmi Vennela Chowdary Kaza"
+      "url": "/team/sarath-sasi.jpeg",
+      "alt": "Portrait of Sarath Sasi"
     },
     "shortBio": "",
-    "credentials": ["CRASH Lab", "IIT-Bombay"],
-    "researchFocus": ["RadLE", "Medical Visual Reasoning"],
-    "isPrincipalInvestigator": false,
+    "credentials": ["CRASH LAB"],
+    "researchFocus": ["Synthetic CXR"],
+    "isPrincipalInvestigator": true,
     "isActive": true,
-    "position": 5,
-    "email": "clakshmivennela@gmail.com",
-    "socialLinks": {
-      "linkedin": "https://www.linkedin.com/in/dr-lakshmi-vennela-chowdary-kaza-1b6014b0/"
-    }
+    "position": 6
   },
   {
     "slug": "swarna-radhakrishnan",
@@ -132,7 +132,7 @@
     "researchFocus": ["PrAimaan", "V2DD"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 6,
+    "position": 7,
     "email": "swarna.r@ashoka.edu.in",
     "socialLinks": {
       "googleScholar": "https://scholar.google.com/citations?user=Aa4aUW4AAAAJ&hl=en&authuser=2",
@@ -153,7 +153,7 @@
     "researchFocus": ["APO", "Ambient AI Scribes", "NLP"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 7,
+    "position": 8,
     "email": "rharitha106@gmail.com",
     "socialLinks": {
       "linkedin": "https://www.linkedin.com/in/haritha-r-b527012a7/"
@@ -173,7 +173,7 @@
     "researchFocus": ["Medical Vision"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 8
+    "position": 9
   },
   {
     "slug": "siddharth-reddy-anthireddy",
@@ -189,7 +189,7 @@
     "researchFocus": ["prAImaan", "LLM Pipelines"],
     "isPrincipalInvestigator": false,
     "isActive": true,
-    "position": 9,
+    "position": 10,
     "fullBio": [
       {
         "_key": "bio-1",

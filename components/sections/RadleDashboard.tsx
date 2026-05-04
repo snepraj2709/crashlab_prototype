@@ -1,79 +1,293 @@
 "use client";
 
 import Link from "next/link";
-import type { LucideIcon } from "lucide-react";
-import {
-  ArrowRight,
-  BarChart3,
-  Bot,
-  ChartColumn,
-  UserRound,
-} from "lucide-react";
+import { BarChart3 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  LabelList,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
-import { cn } from "@/lib/utils/cn";
+type BarMark =
+  | { kind: "human"; cohort: "boardCertified" | "trainee" }
+  | {
+      kind: "image";
+      /** viewBox width / height — used to scale each wordmark cleanly inside the bar slot. */
+      aspectRatio?: number;
+      intrinsicRatio?: "square" | "wide";
+      label: string;
+      src: string;
+    };
 
-type ChartTone = "human" | "ai" | "muted";
-
-interface ChartDatum {
-  label: string;
+const plotData: Array<{
+  key: string;
+  labelLines: string[];
   value: number;
-  tone: ChartTone;
-  isNew?: boolean;
-}
+  tone: "human" | "frontier";
+  barColor: string;
+  mark: BarMark;
+}> = [
+  {
+    key: "radiologists",
+    labelLines: ["Board-certified", "radiologists"],
+    value: 83,
+    tone: "human",
+    barColor: "#4D50A8",
+    mark: { cohort: "boardCertified", kind: "human" },
+  },
+  {
+    key: "trainees",
+    labelLines: ["Radiology", "trainees"],
+    value: 45,
+    tone: "human",
+    barColor: "#6EA1E3",
+    mark: { cohort: "trainee", kind: "human" },
+  },
+  {
+    key: "gpt5",
+    labelLines: ["GPT-5", "thinking"],
+    value: 30,
+    tone: "frontier",
+    barColor: "#9FC9C1",
+    mark: {
+      aspectRatio: 1180 / 320,
+      kind: "image",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/OpenAI_Logo.svg",
+      label: "OpenAI",
+    },
+  },
+  {
+    key: "gemini",
+    labelLines: ["Gemini 2.5", "Pro"],
+    value: 29,
+    tone: "frontier",
+    barColor: "#5A84DE",
+    mark: {
+      aspectRatio: 288 / 65,
+      kind: "image",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/Google_Gemini_logo_2025.svg",
+      label: "Google Gemini",
+    },
+  },
+  {
+    key: "o3",
+    labelLines: ["OpenAI o3"],
+    value: 23,
+    tone: "frontier",
+    barColor: "#7D7D7D",
+    mark: {
+      aspectRatio: 1180 / 320,
+      kind: "image",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/OpenAI_Logo.svg",
+      label: "OpenAI",
+    },
+  },
+  {
+    key: "grok4",
+    labelLines: ["Grok 4"],
+    value: 12,
+    tone: "frontier",
+    barColor: "#2C2F35",
+    mark: {
+      aspectRatio: 1024 / 400,
+      kind: "image",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/Grok_Full_Logomark_Dark.svg",
+      label: "Grok",
+    },
+  },
+  {
+    key: "claude",
+    labelLines: ["Claude", "Opus 4.1"],
+    value: 1,
+    tone: "frontier",
+    barColor: "#E0906A",
+    mark: {
+      aspectRatio: 184 / 40,
+      kind: "image",
+      intrinsicRatio: "wide",
+      src: "/radle_logos/claude_logo.svg",
+      label: "Claude",
+    },
+  },
+];
 
-interface KeyMetric {
-  label: string;
-  value: string;
-  icon: LucideIcon;
-  tone: "default" | "highlight";
-}
+const traineeBenchmark = 45;
 
-const chartData = [
-  { label: "Experts", value: 83, tone: "human" },
-  { label: "Gemini", value: 57, tone: "ai", isNew: true },
-  { label: "Web", value: 51, tone: "muted" },
-  { label: "Trainees", value: 45, tone: "muted" },
-  { label: "GPT-5", value: 30, tone: "muted" },
-] satisfies ChartDatum[];
+const chartData = plotData.map((row) => ({
+  ...row,
+  label: row.labelLines.join(" "),
+}));
 
-const keyMetrics = [
-  { label: "Human", value: "83%", icon: UserRound, tone: "default" },
-  { label: "Best AI", value: "57%", icon: Bot, tone: "highlight" },
-  { label: "Gap", value: "26pt", icon: ChartColumn, tone: "default" },
-] satisfies KeyMetric[];
+const expertAccuracy = plotData.find((p) => p.key === "radiologists")!.value;
+const bestAiAccuracy = Math.max(
+  ...plotData.filter((p) => p.tone === "frontier").map((p) => p.value),
+);
+const expertAiGapPts = expertAccuracy - bestAiAccuracy;
+const RADLE_KAPPA = "0.64";
 
-const maxScore = Math.max(...chartData.map((item) => item.value));
-
-function getBarClassName(tone: ChartTone): string {
-  switch (tone) {
-    case "human":
-      return "shadow-[0_18px_40px_rgba(35,76,106,0.22)]";
-    case "ai":
-      return "shadow-[0_18px_40px_rgba(35,76,106,0.16)]";
-    default:
-      return "";
+/** Multi-line X labels: stack tspans under the axis tick. */
+function RadleCategoryTickStacked(props: {
+  x?: number | string;
+  y?: number | string;
+  payload?: { value?: string };
+}) {
+  const x = Number(props.x ?? 0);
+  const y = Number(props.y ?? 0);
+  const keyVal = props.payload?.value;
+  const row = plotData.find((p) => p.key === keyVal);
+  if (!row) {
+    return null;
   }
+  return (
+    <text fill="#4a4a4a" fontSize={10} fontWeight={500} textAnchor="middle" x={x} y={y}>
+      {row.labelLines.map((line, i) => (
+        <tspan dy={i === 0 ? 11 : 10} key={`${row.key}-${line}`} x={x}>
+          {line}
+        </tspan>
+      ))}
+    </text>
+  );
 }
 
-function getBarStyle(tone: ChartTone): { background: string } {
-  switch (tone) {
-    case "human":
-      return {
-        background:
-          "linear-gradient(180deg, rgba(112, 150, 182, 0.96) 0%, rgba(35, 76, 106, 0.92) 100%)",
-      };
-    case "ai":
-      return {
-        background:
-          "linear-gradient(180deg, rgba(125, 165, 195, 0.94) 0%, rgba(63, 104, 136, 0.92) 100%)",
-      };
-    default:
-      return {
-        background:
-          "linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(226, 232, 240, 0.1) 100%)",
-      };
+/**
+ * Logos/mark above each bar — percentages stay in tooltip only.
+ * Recharts 3 strips non-SVG keys (including payload) before calling custom content — resolve row via index.
+ */
+function RadleBarTopMark(props: {
+  x?: number | string;
+  y?: number | string;
+  width?: number | string;
+  index?: number;
+  payload?: (typeof chartData)[number];
+}): React.ReactElement | null {
+  const row =
+    props.payload ??
+    (typeof props.index === "number" ? chartData[props.index] : undefined);
+  const mark = row?.mark;
+  if (!row || !mark) {
+    return null;
   }
+  const barW = Number(props.width ?? 0);
+  const barX = Number(props.x ?? 0);
+  const barTop = Number(props.y ?? 0);
+
+  /** Reserved strip above bars for frontier wordmarks / human pills. */
+  const MARK_SLOT_H = 28;
+  const GAP = 5;
+  const markW = Math.max(barW - 2, 0);
+  const slotTop = barTop - MARK_SLOT_H - GAP;
+
+  /** Human marks use fixed pill height inside the slot. */
+  const HUMAN_MARK_H = 22;
+  const humanTop = slotTop + (MARK_SLOT_H - HUMAN_MARK_H) / 2;
+  const left = barX + (barW - markW) / 2;
+
+  const iconScale = (HUMAN_MARK_H * 0.78) / 24;
+
+  if (mark.kind === "human") {
+    /** Board-certified — filled clinician silhouette; trainees — stroked graduation cap (24x24 viewBox). */
+    return (
+      <g transform={`translate(${left},${humanTop})`}>
+        <title>{row.label}</title>
+        <rect
+          fill={row.barColor}
+          height={HUMAN_MARK_H}
+          rx={HUMAN_MARK_H / 2}
+          width={markW}
+        />
+        <g
+          transform={`translate(${markW / 2},${HUMAN_MARK_H / 2}) scale(${iconScale}) translate(-12,-12)`}
+        >
+          {mark.cohort === "boardCertified" ? (
+            <>
+              <circle cx="12" cy="8" fill="white" r="5" stroke="none" />
+              <path
+                d="M20 21a8 8 0 0 0-16 0"
+                fill="none"
+                stroke="white"
+                strokeLinecap="round"
+                strokeWidth="2"
+              />
+            </>
+          ) : (
+            <g
+              fill="none"
+              stroke="white"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            >
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.113a2 2 0 0 0-1.66 0L2.6 9.086a1 1 0 0 0 0 1.838l8.58 3.908a2 2 0 0 0 1.66 0z" />
+              <path d="M22 10v6" />
+              <path d="M6 12.5V16a6 6 0 0 0 12 0v-3.5" />
+            </g>
+          )}
+        </g>
+      </g>
+    );
+  }
+
+  if (mark.kind === "image") {
+    const layout = mark.intrinsicRatio ?? "wide";
+
+    if (layout === "square") {
+      /* Square intrinsic marks: bounded by the narrower of bar width vs slot height. */
+      const side = Math.min(markW, MARK_SLOT_H);
+      const sqLeft = barX + (barW - side) / 2;
+      const sqTop = slotTop + (MARK_SLOT_H - side) / 2;
+
+      return (
+        <g transform={`translate(${sqLeft},${sqTop})`}>
+          <title>{mark.label}</title>
+          <image
+            height={side}
+            href={mark.src}
+            preserveAspectRatio="xMidYMid meet"
+            width={side}
+            x={0}
+            y={0}
+          />
+        </g>
+      );
+    }
+
+    /* Wide wordmarks: scale = min(barWidth/ar, slotHeight) with intrinsic ratio width/height. */
+    const ar = mark.aspectRatio ?? 3.25;
+    const scale = Math.min(markW > 0 ? markW / ar : 0, MARK_SLOT_H);
+    const imgW = scale * ar;
+    const imgH = scale;
+
+    const imgLeft = barX + (barW - imgW) / 2;
+    const imgTop = slotTop + (MARK_SLOT_H - imgH) / 2;
+
+    return (
+      <g transform={`translate(${imgLeft},${imgTop})`}>
+        <title>{mark.label}</title>
+        <image
+          height={imgH}
+          href={mark.src}
+          preserveAspectRatio="xMidYMid meet"
+          width={imgW}
+          x={0}
+          y={0}
+        />
+      </g>
+    );
+  }
+
+  return null;
 }
 
 export function RadleDashboard(): React.ReactElement {
@@ -94,59 +308,55 @@ export function RadleDashboard(): React.ReactElement {
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-2 rounded-[2rem] blur-2xl"
+          className="pointer-events-none absolute -inset-2 rounded-none blur-2xl"
           style={{
             background:
-              "radial-gradient(circle at 18% 12%, rgba(35, 76, 106, 0.22) 0%, transparent 38%), radial-gradient(circle at 78% 18%, rgba(35, 76, 106, 0.14) 0%, transparent 34%)",
+              "radial-gradient(circle at 18% 12%, rgba(17, 24, 39, 0.14) 0%, transparent 38%), radial-gradient(circle at 78% 18%, rgba(17, 24, 39, 0.08) 0%, transparent 34%)",
           }}
         />
 
         <Link
-          aria-label="Read the Gemini 3.0 RadLE benchmark update"
-          className="group relative block overflow-hidden rounded-[1.75rem] border border-white/10 text-white shadow-panel"
-          href="/blog/gemini-3-0-radle"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(17, 24, 39, 0.98) 100%)",
-          }}
+          aria-label="Open the RadLE benchmark research project page"
+          className="group relative block overflow-hidden rounded-none border border-border bg-bg-primary text-text-primary shadow-panel"
+          href="/research/radle-benchmark"
         >
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 opacity-30"
+            className="pointer-events-none absolute inset-0 opacity-15"
             style={{
               backgroundImage:
-                "linear-gradient(transparent 50%, rgba(255, 255, 255, 0.018) 50%)",
+                "linear-gradient(transparent 50%, rgba(17, 24, 39, 0.02) 50%)",
               backgroundSize: "100% 4px",
             }}
           />
 
-          <div className="relative flex h-11 items-center justify-between border-b border-white/10 bg-white/5 px-4 sm:h-12 sm:px-5 lg:px-6">
+          <div className="relative flex h-9 items-center justify-between border-b border-border bg-bg-secondary/40 px-3 sm:h-10 sm:px-4 lg:px-5">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
                 <span
                   aria-hidden="true"
-                  className="size-2.5 rounded-full"
-                  style={{ backgroundColor: "rgba(248, 113, 113, 0.7)" }}
+                  className="size-2.5 rounded-none"
+                  style={{ backgroundColor: "rgba(239, 68, 68, 0.7)" }}
                 />
                 <span
                   aria-hidden="true"
-                  className="size-2.5 rounded-full"
-                  style={{ backgroundColor: "rgba(250, 204, 21, 0.7)" }}
+                  className="size-2.5 rounded-none"
+                  style={{ backgroundColor: "rgba(234, 179, 8, 0.7)" }}
                 />
                 <span
                   aria-hidden="true"
-                  className="size-2.5 rounded-full"
-                  style={{ backgroundColor: "rgba(35, 76, 106, 0.8)" }}
+                  className="size-2.5 rounded-none"
+                  style={{ backgroundColor: "rgba(34, 197, 94, 0.8)" }}
                 />
               </div>
 
-              <div className="h-4 w-px bg-white/10" />
+              <div className="h-4 w-px bg-border" />
 
               <BarChart3
                 aria-hidden="true"
-                className="size-4 shrink-0 text-accent-cyan"
+                className="size-4 shrink-0 text-text-secondary"
               />
-              <span className="text-sm font-semibold tracking-wide text-white/90">
+              <span className="text-sm font-semibold tracking-wide text-text-primary">
                 RadLE Benchmark
               </span>
             </div>
@@ -154,166 +364,170 @@ export function RadleDashboard(): React.ReactElement {
             <div className="hidden items-center gap-2 sm:flex">
               <span
                 aria-hidden="true"
-                className="size-2 rounded-full"
-                style={{ backgroundColor: "rgba(112, 150, 182, 0.78)" }}
+                className="size-2 rounded-none"
+                style={{ backgroundColor: "rgba(34, 197, 94, 0.78)" }}
               />
-              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/45">
-                Live
+              <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-text-tertiary">
+                v1
               </span>
             </div>
           </div>
 
-          <div className="relative flex flex-col lg:min-h-[34rem] lg:flex-row">
-            <div className="w-full border-b border-white/5 p-5 sm:p-6 lg:w-[70%] lg:border-b-0 lg:border-r lg:p-10">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white/90">
-                  Performance Comparison
-                </h3>
-                <span
-                  className="w-fit rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80"
-                  style={{ backgroundColor: "rgba(35, 76, 106, 0.26)" }}
-                >
-                  RSNA 2025
-                </span>
-              </div>
-
-              <div className="mt-8 sm:mt-10">
-                <div className="flex h-[18rem] items-end gap-3 sm:h-[20rem] sm:gap-4 lg:h-[24rem] lg:gap-6">
-                  {chartData.map((item) => {
-                    const barHeight = Math.max((item.value / maxScore) * 100, 20);
-
-                    return (
-                      <div
-                        className="grid h-full flex-1 grid-rows-[4.5rem_minmax(0,1fr)_2.25rem] gap-3 sm:grid-rows-[5rem_minmax(0,1fr)_2.75rem]"
-                        key={item.label}
-                      >
-                        <div className="flex flex-col items-center justify-end gap-1.5">
-                          {item.isNew ? (
-                            <span
-                              className="rounded-md px-2 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-white"
-                              style={{ backgroundColor: "rgba(112, 150, 182, 0.72)" }}
-                            >
-                              New
-                            </span>
-                          ) : (
-                            <span aria-hidden="true" className="h-[1.625rem]" />
-                          )}
-                          <span
-                            className={cn(
-                              "font-mono text-base font-semibold sm:text-2xl",
-                              item.tone === "muted" ? "text-white/52" : "text-white",
-                            )}
-                          >
-                            {item.value}%
-                          </span>
-                        </div>
-
-                        <div className="flex items-end">
-                          <div
-                            className={cn(
-                              "w-full rounded-t-lg sm:rounded-t-xl",
-                              getBarClassName(item.tone),
-                            )}
-                            style={{
-                              ...getBarStyle(item.tone),
-                              height: `${barHeight}%`,
-                            }}
-                          />
-                        </div>
-
-                        <div className="pt-1 text-center text-[11px] font-medium text-white/60 sm:text-sm">
-                          {item.label}
-                        </div>
-                      </div>
-                    );
-                  })}
+          <div className="relative p-3 sm:p-5 lg:p-6">
+            <div className="rounded-token-md border border-black/5 bg-[#fdfdfc] text-[#222222]">
+              <div className="px-3 py-3 sm:px-4 sm:py-4">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <p className="font-serif text-base font-semibold text-[#1f1f1f] sm:text-2xl sm:leading-snug lg:text-[1.65rem]">
+                      Mean diagnostic accuracy with 95% Wilson confidence
+                      intervals. Humans on the left, frontier AI models on the
+                      right.
+                    </p>
+                  </div>
+                  <p className="text-xs font-semibold text-[#676767] sm:text-sm">N = 50 cases</p>
                 </div>
-              </div>
-            </div>
 
-            <div className="w-full lg:w-[30%]">
-              <div className="border-b border-white/5 p-5 sm:p-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/38">
-                  Key Metrics
-                </p>
-
-                <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-1 lg:gap-4">
-                  {keyMetrics.map((metric) => (
-                    <div
-                      className={cn(
-                        "rounded-token-md border p-3 sm:p-4",
-                        metric.tone === "highlight"
-                          ? "border-[rgba(35,76,106,0.34)]"
-                          : "border-white/5",
-                      )}
-                      key={metric.label}
-                      style={{
-                        backgroundColor:
-                          metric.tone === "highlight"
-                            ? "rgba(35, 76, 106, 0.14)"
-                            : "rgba(255, 255, 255, 0.05)",
-                      }}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-white/38 sm:text-[10px]">
-                            {metric.label}
-                          </p>
-                          <p className="mt-1 font-mono text-xl font-semibold text-white sm:text-3xl">
-                            {metric.value}
-                          </p>
-                        </div>
-
-                        <div
-                          aria-hidden="true"
-                          className="hidden size-12 shrink-0 items-center justify-center rounded-full lg:flex"
-                          style={{ backgroundColor: "rgba(35, 76, 106, 0.18)" }}
-                        >
-                          <metric.icon className="size-5 text-accent-cyan" />
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="p-5 sm:p-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/38">
-                  Insight
-                </p>
-
-                <div
-                  className="mt-4 rounded-token-md border p-4 sm:p-5"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, rgba(35, 76, 106, 0.16) 0%, rgba(255, 255, 255, 0.02) 100%)",
-                    borderColor: "rgba(35, 76, 106, 0.28)",
-                  }}
-                >
-                  <p className="text-base font-medium leading-relaxed text-white/86">
-                    First AI to beat radiology trainees
-                  </p>
-                  <span
-                    className="mt-4 inline-flex rounded-lg px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/80"
-                    style={{ backgroundColor: "rgba(112, 150, 182, 0.18)" }}
-                  >
-                    +12% vs Trainees
+                <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-[#2c2c2c] sm:text-xs">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="size-3 rounded-none bg-[#4D50A8]" />
+                    Human readers
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <span className="size-3 rounded-none bg-[#9FC9C1]" />
+                    Frontier AI
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-0.5 w-6 border-t border-dashed border-[#8a8a8a]" />
+                    Trainee benchmark (45%)
                   </span>
                 </div>
 
-                <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white/88">
-                  <span>Read full analysis</span>
-                  <ArrowRight aria-hidden="true" className="size-4" />
+                {/*
+                  Narrow viewports: horizontal scroll so seven categories + two-line ticks
+                  keep readable width instead of cramming into ~320px.
+                */}
+                <div className="-mx-3 mt-3 touch-pan-x sm:mx-0">
+                  <div className="overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:thin] sm:overflow-visible [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-none [&::-webkit-scrollbar-thumb]:bg-black/15">
+                    <div className="min-w-[44rem] px-3 sm:min-w-0 sm:w-full sm:px-0">
+                      <div
+                        aria-hidden="true"
+                        className="h-[min(38vh,300px)] w-full sm:h-[min(34vh,280px)] lg:h-[300px]"
+                      >
+                        <ResponsiveContainer debounce={50} height="100%" width="100%">
+                          <BarChart
+                            accessibilityLayer
+                            barCategoryGap="14%"
+                            data={chartData}
+                            margin={{ top: 44, right: 8, left: 8, bottom: 4 }}
+                          >
+                            <CartesianGrid stroke="#efefef" strokeDasharray="0" vertical={false} />
+                            <XAxis
+                              axisLine={{ stroke: "#d9d9d9" }}
+                              dataKey="key"
+                              height={58}
+                              interval={0}
+                              tick={(props) => <RadleCategoryTickStacked {...props} />}
+                              tickLine={false}
+                              type="category"
+                            />
+                            <YAxis
+                              axisLine={{ stroke: "#d9d9d9" }}
+                              domain={[0, 100]}
+                              tick={{ fill: "#4a4a4a", fontSize: 11 }}
+                              tickFormatter={(v) => `${v}%`}
+                              tickLine={false}
+                              ticks={[0, 20, 40, 60, 80, 100]}
+                              width={52}
+                            />
+                            <Tooltip
+                              contentStyle={{
+                                borderRadius: "0px",
+                                border: "1px solid #e5e5e5",
+                                fontSize: "12px",
+                              }}
+                              cursor={{ fill: "rgba(0,0,0,0.04)" }}
+                              formatter={(value, _name, item) => {
+                                const v = value ?? item?.value ?? 0;
+                                return [`${v}%`, "Accuracy"];
+                              }}
+                              labelFormatter={(_, items) => {
+                                const item = items?.[0]?.payload as { label?: string } | undefined;
+                                return item?.label ?? "";
+                              }}
+                            />
+                            <ReferenceLine
+                              stroke="#9f9f9f"
+                              strokeDasharray="4 4"
+                              strokeWidth={1}
+                              y={traineeBenchmark}
+                            />
+                            <Bar
+                              animationDuration={shouldReduceMotion ? 0 : 450}
+                              animationEasing="ease-out"
+                              dataKey="value"
+                              isAnimationActive={!shouldReduceMotion}
+                              radius={[4, 4, 0, 0]}
+                            >
+                              <LabelList
+                                content={RadleBarTopMark as never}
+                                dataKey="value"
+                                position="top"
+                              />
+                              {chartData.map((entry) => (
+                                <Cell fill={entry.barColor} key={entry.key} />
+                              ))}
+                            </Bar>
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-black/10 pt-3 sm:mt-5 sm:grid-cols-4 sm:gap-x-6 sm:pt-4 lg:gap-x-8">
+                  <div className="min-w-0">
+                    <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#797979] sm:text-[11px]">
+                      Expert
+                    </dt>
+                    <dd className="mt-0.5 text-lg font-bold tabular-nums leading-none text-[#141414] sm:text-xl">
+                      {expertAccuracy}%
+                    </dd>
+                  </div>
+                  <div className="min-w-0">
+                    <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#797979] sm:text-[11px]">
+                      Best AI
+                    </dt>
+                    <dd className="mt-0.5 text-lg font-bold tabular-nums leading-none text-[#141414] sm:text-xl">
+                      {bestAiAccuracy}%
+                    </dd>
+                  </div>
+                  <div className="min-w-0">
+                    <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#797979] sm:text-[11px]">
+                      Expert-AI gap
+                    </dt>
+                    <dd className="mt-0.5 text-lg font-bold tabular-nums leading-none text-[#9c4638] sm:text-xl">
+                      {expertAiGapPts} pts
+                    </dd>
+                  </div>
+                  <div className="min-w-0">
+                    <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#797979] sm:text-[11px]">
+                      Reproducibility
+                    </dt>
+                    <dd className="mt-0.5 text-lg font-bold tabular-nums leading-none text-[#141414] sm:text-xl">
+                      κ&nbsp;≈&nbsp;
+                      {RADLE_KAPPA}
+                    </dd>
+                  </div>
+                </dl>
               </div>
             </div>
           </div>
 
-          <div className="relative flex flex-col gap-2 border-t border-white/5 bg-white/5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5 lg:px-6">
-            <span className="text-[9px] font-mono uppercase tracking-[0.26em] text-white/58 sm:text-[10px]">
+          <div className="relative flex flex-col gap-1 border-t border-border bg-bg-secondary/30 px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:px-4 lg:px-5">
+            <span className="text-[9px] font-mono uppercase tracking-[0.26em] text-text-tertiary sm:text-[10px]">
               RSNA 2025 • Cutting Edge Oral Presentation
             </span>
-            <span className="text-[9px] font-mono text-white/82 sm:text-[10px]">
+            <span className="text-[9px] font-mono text-text-secondary sm:text-[10px]">
               crashlab.in/radle
             </span>
           </div>

@@ -7,9 +7,7 @@ export function CapabilitiesSection(): React.ReactElement {
         href: "/research",
         label: "See the full research agenda"
       }}
-      headline="Four pillars. One clock."
       id="research"
-      variant="interactive"
     />
   );
 }

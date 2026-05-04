@@ -26,22 +26,21 @@ export function HeroSection(): React.ReactElement {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8 text-center">
         <h1 className="mt-6 font-display font-semibold leading-[0.92] tracking-[-0.035em] text-text-primary text-[clamp(2.75rem,7vw,4.75rem)]">
-          Responsible AI,
-          <br />
-          built for <span className="text-[#244c6a]">Healthcare.</span>
+          Responsible AI for Safer <span className="text-[#244c6a]">Healthcare</span>
         </h1>
 
-        <p className="mt-8 max-w-3xl text-base leading-8 text-text-secondary lg:text-lg">
-          CRASH Lab is an interdisciplinary research group at the intersection
-          of clinical practice and frontier AI — building benchmarks that hold
-          AI accountable, tools clinicians trust, and infrastructure for
-          India&apos;s healthcare future.
+        <p className="mt-8 mx-auto max-w-3xl text-base leading-8 text-text-secondary lg:text-lg">
+          The Centre for Responsible Autonomous Systems in Healthcare (CRASH Lab) is a
+          clinician-led collaborative research group directed by Dr. Suvrankar Datta and
+          anchored at the Koita Centre for Digital Health, Ashoka University. We develop
+          the benchmarks, datasets and evaluation frameworks needed to make medical AI
+          safe and reliable in the clinical settings.
         </p>
 
-        <div className="mt-12 border-y border-border py-5">
-          <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:gap-0">
+        {/* <div className="mt-12 border-y border-border py-5">
+          <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-center md:justify-center md:gap-0">
             {stats.map((stat, index) => (
               <div
                 className="flex items-center gap-3 md:pr-6 md:mr-6 md:border-r md:border-border last:md:mr-0 last:md:border-r-0 last:md:pr-0"
@@ -57,9 +56,9 @@ export function HeroSection(): React.ReactElement {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
           <Button
             className="sm:min-w-[15.5rem]"
             href="/join"

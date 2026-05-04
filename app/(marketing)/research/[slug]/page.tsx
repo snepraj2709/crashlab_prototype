@@ -108,7 +108,7 @@ export default async function ResearchProjectPage({
 
           <div className="mt-6 flex flex-wrap gap-3">
             {project.tags.map((tag) => (
-              <span className="rounded-full border border-border px-4 py-2 text-sm text-text-secondary" key={tag}>
+              <span className="rounded-none border border-border px-4 py-2 text-sm text-text-secondary" key={tag}>
                 {tag}
               </span>
             ))}
@@ -133,7 +133,7 @@ export default async function ResearchProjectPage({
               <div className="mt-6 space-y-4">
                 {projectMembers.map((member) => (
                   <div className="flex items-center gap-4" key={member.id}>
-                    <span className="flex size-10 items-center justify-center rounded-full border border-border-default text-xs text-text-secondary">
+                    <span className="flex size-10 items-center justify-center rounded-none border border-border-default text-xs text-text-secondary">
                       {getInitials(member.name)}
                     </span>
                     <div>

@@ -10,7 +10,7 @@ export function PrincipalInvestigatorBadge({
   return (
     <span
       className={cn(
-        "rounded-full border border-accent-cyan/20 bg-accent-cyan-muted px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-text-primary",
+        "rounded-none border border-accent-cyan/20 bg-accent-cyan-muted px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-text-primary",
         className
       )}
     >

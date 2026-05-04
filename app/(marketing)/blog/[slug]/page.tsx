@@ -13,7 +13,7 @@ function slugify(text: string): string {
 
 function CategoryBadge({ category }: { category: string }): React.ReactElement {
   return (
-    <span className="rounded-full border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
+    <span className="rounded-none border border-accent-cyan/30 bg-accent-cyan/10 px-3 py-1 text-xs uppercase tracking-[0.18em] text-accent-cyan">
       {category}
     </span>
   );
@@ -30,7 +30,7 @@ function InitialsCircle({
 }): React.ReactElement {
   return (
     <span
-      className="flex shrink-0 items-center justify-center rounded-full border border-border font-medium text-text-secondary"
+      className="flex shrink-0 items-center justify-center rounded-none border border-border font-medium text-text-secondary"
       style={{ width: size, height: size, fontSize: size <= 28 ? 11 : 14 }}
       title={title}
     >
@@ -158,7 +158,7 @@ export default function BlogPostPage({
                   {post.imageOverlay ? (
                     <div className="absolute bottom-4 left-4">
                       {post.imageOverlay.badge ? (
-                        <span className="rounded-full bg-bg-primary/80 px-2 py-1 text-xs text-text-primary">
+                        <span className="rounded-none bg-bg-primary/80 px-2 py-1 text-xs text-text-primary">
                           {post.imageOverlay.badge}
                         </span>
                       ) : null}

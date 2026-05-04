@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowUpRight,
   Beaker,
   Building2,
+  ChevronDown,
+  ChevronRight,
   DatabaseZap,
   FileText,
   Globe,
@@ -47,19 +49,291 @@ const sectionIconMap = {
   data: DatabaseZap,
 } satisfies Record<string, LucideIcon>;
 
-const futureOutlookHighlight = "50+ hospitals by 2027.";
-const stickyTopOffset = 128;
+type SegmentKey =
+  | "accentOrange"
+  | "accentCyan"
+  | "brandBlue"
+  | "accentGreen"
+  | "accentYellow"
+  | "steel"
+  | "featured";
 
-function JourneyIntro({ body }: { body: string }): React.ReactElement {
+const SEGMENT_TAILWIND: Record<
+  SegmentKey,
+  {
+    bar: string;
+    connector: string;
+    border: string;
+    headerBg: string;
+    headerText: string;
+    nodeOuter: string;
+  }
+> = {
+  accentOrange: {
+    bar: "bg-accent-orange",
+    connector: "bg-accent-orange",
+    border: "border-accent-orange",
+    headerBg: "bg-accent-orange",
+    headerText: "text-white",
+    nodeOuter: "border-accent-orange bg-accent-orange",
+  },
+  accentCyan: {
+    bar: "bg-accent-cyan",
+    connector: "bg-accent-cyan",
+    border: "border-accent-cyan",
+    headerBg: "bg-accent-cyan",
+    headerText: "text-white",
+    nodeOuter: "border-accent-cyan bg-accent-cyan",
+  },
+  brandBlue: {
+    bar: "bg-brand-blue",
+    connector: "bg-brand-blue",
+    border: "border-brand-blue",
+    headerBg: "bg-brand-blue",
+    headerText: "text-white",
+    nodeOuter: "border-brand-blue bg-brand-blue",
+  },
+  accentGreen: {
+    bar: "bg-accent-green",
+    connector: "bg-accent-green",
+    border: "border-accent-green",
+    headerBg: "bg-accent-green",
+    headerText: "text-white",
+    nodeOuter: "border-accent-green bg-accent-green",
+  },
+  accentYellow: {
+    bar: "bg-accent-yellow",
+    connector: "bg-accent-yellow",
+    border: "border-accent-yellow",
+    headerBg: "bg-accent-yellow",
+    headerText: "text-white",
+    nodeOuter: "border-accent-yellow bg-accent-yellow",
+  },
+  steel: {
+    bar: "bg-navy-800",
+    connector: "bg-navy-800",
+    border: "border-navy-800",
+    headerBg: "bg-navy-800",
+    headerText: "text-white",
+    nodeOuter: "border-navy-800 bg-navy-800",
+  },
+  featured: {
+    bar: "bg-navy-900",
+    connector: "bg-navy-900",
+    border: "border-navy-900",
+    headerBg: "bg-navy-900",
+    headerText: "text-white",
+    nodeOuter: "border-navy-900 bg-navy-900",
+  },
+};
+
+const SEGMENT_CYCLE: SegmentKey[] = [
+  "steel",
+];
+
+function segmentForItem(item: JourneyItem, index: number): SegmentKey {
+  if (item.isFeatured === true) {
+    return "featured";
+  }
+
+  const cycled = SEGMENT_CYCLE[index % SEGMENT_CYCLE.length];
+  return cycled ?? "accentOrange";
+}
+
+function JourneyIntro({ intro }: { intro: string }): React.ReactElement {
   return (
-    <div>
-      <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary md:text-5xl">
-        Journey &amp;
-        <span className="block italic text-accent-cyan">Outlook</span>
+    <div className="mt-6 max-w-3xl space-y-5 lg:grid lg:max-w-none lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)] lg:items-start lg:gap-x-10 lg:gap-y-2 lg:space-y-0">
+      <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary lg:text-5xl">
+        CRASH Lab Journey
+        <span className="mt-2 block italic text-accent-cyan">The Milestone Timeline</span>
       </h2>
-      <p className="mt-8 max-w-md text-lg leading-9 text-text-secondary">
+      <p
+        className="text-base leading-relaxed text-text-secondary md:text-[1.05rem] lg:max-w-xl lg:self-center lg:text-[1rem] lg:leading-snug xl:text-[1.05rem]"
+        title={intro}
+      >
+        {intro}
+      </p>
+    </div>
+  );
+}
+
+function AxisNode({ segment }: { segment: SegmentKey }): React.ReactElement {
+  const s = SEGMENT_TAILWIND[segment];
+
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(
+        "absolute left-1/2 top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 border border-surface-panel shadow-sm lg:size-2.5",
+        s.nodeOuter,
+      )}
+    />
+  );
+}
+
+interface JourneyCardPanelsProps {
+  item: JourneyItem;
+  segment: SegmentKey;
+  Icon?: LucideIcon;
+}
+
+function JourneyMilestoneDescription({
+  body,
+  paragraphClassName,
+}: {
+  body: string;
+  paragraphClassName: string;
+}): React.ReactElement {
+  const baseId = useId();
+  const descId = `${baseId}-journey-desc`;
+  const measureRef = useRef<HTMLParagraphElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  const remeasure = useCallback((): void => {
+    const el = measureRef.current;
+    if (!el) {
+      return;
+    }
+
+    if (expanded) {
+      setIsOverflowing(true);
+      return;
+    }
+
+    setIsOverflowing(el.scrollHeight > el.clientHeight + 1);
+  }, [expanded]);
+
+  useLayoutEffect(() => {
+    remeasure();
+
+    const el = measureRef.current;
+    if (!el) {
+      return;
+    }
+
+    const observer = new ResizeObserver(() => {
+      remeasure();
+    });
+    observer.observe(el);
+    window.addEventListener("resize", remeasure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", remeasure);
+    };
+  }, [body, expanded, remeasure]);
+
+  const control = !(isOverflowing || expanded) ? null : (
+    <button
+      aria-controls={descId}
+      aria-expanded={expanded}
+      className="ui-focus-ring mt-0.5 rounded-sm font-mono text-[0.65rem] uppercase tracking-[0.14em] text-accent-cyan transition-colors hover:text-text-primary lg:text-[0.6rem]"
+      onClick={() => {
+        setExpanded((v) => !v);
+      }}
+      type="button"
+    >
+      <span className="inline-flex items-center gap-1">
+        {expanded ? "Show less" : "Read full"}
+        <ChevronDown
+          aria-hidden="true"
+          className={cn(
+            "size-3.5 shrink-0 transition-transform duration-200 ease-out lg:size-3",
+            expanded && "rotate-180",
+          )}
+        />
+      </span>
+    </button>
+  );
+
+  return (
+    <div className="min-w-0 space-y-1">
+      <p className={cn(paragraphClassName, !expanded && "line-clamp-3")} id={descId} ref={measureRef}>
         {body}
       </p>
+      {control}
+    </div>
+  );
+}
+
+/** Above-axis: caption first, coloured period strip at bottom (nearest the axis). */
+function CardAbovePanels({ item, segment, Icon }: JourneyCardPanelsProps): React.ReactElement {
+  const s = SEGMENT_TAILWIND[segment];
+
+  return (
+    <div
+      className={cn(
+        "mx-0 overflow-hidden border-2 bg-surface-panel lg:border lg:border-solid",
+        s.border,
+      )}
+    >
+      <div className="space-y-1.5 p-4 lg:space-y-1 lg:p-2 lg:px-2.5 lg:pb-2 lg:pt-2">
+        <div className="flex items-start justify-between gap-1.5">
+          <h3 className="line-clamp-2 font-sans text-base font-semibold leading-snug tracking-tight text-text-primary lg:text-[0.8125rem] lg:leading-tight">
+            {item.title}
+          </h3>
+          {Icon !== undefined ? (
+            <Icon aria-hidden="true" className="size-4 shrink-0 text-text-secondary lg:size-3.5 lg:opacity-75" />
+          ) : null}
+        </div>
+        <JourneyMilestoneDescription
+          body={item.body}
+          paragraphClassName="text-xs leading-relaxed text-text-secondary lg:text-[0.6875rem] lg:leading-[1.35]"
+        />
+      </div>
+      <div
+        className={cn(
+          "px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] lg:px-2 lg:py-1.5 lg:text-[0.6rem] lg:tracking-[0.12em]",
+          s.headerBg,
+          s.headerText,
+        )}
+      >
+        {item.period}
+      </div>
+    </div>
+  );
+}
+
+/** Below-axis: coloured period strip on top, caption block below. */
+function CardBelowPanels({ item, segment, Icon }: JourneyCardPanelsProps): React.ReactElement {
+  const s = SEGMENT_TAILWIND[segment];
+
+  return (
+    <div className={cn("mx-0 overflow-hidden border-2 bg-surface-panel lg:border lg:border-solid", s.border)}>
+      <div
+        className={cn(
+          "px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] lg:px-2 lg:py-1.5 lg:text-[0.6rem] lg:tracking-[0.12em]",
+          s.headerBg,
+          s.headerText,
+        )}
+      >
+        {item.period}
+      </div>
+      <div className="space-y-1.5 border-t border-border-subtle p-4 lg:space-y-1 lg:p-2 lg:px-2.5 lg:pb-2 lg:pt-2">
+        <div className="flex items-start justify-between gap-1.5">
+          <h3 className="line-clamp-2 font-sans text-base font-semibold leading-snug tracking-tight text-text-primary lg:text-[0.8125rem] lg:leading-tight">
+            {item.title}
+          </h3>
+          {Icon !== undefined ? (
+            <Icon aria-hidden="true" className="size-4 shrink-0 text-text-secondary lg:size-3.5 lg:opacity-75" />
+          ) : null}
+        </div>
+        <JourneyMilestoneDescription
+          body={item.body}
+          paragraphClassName="text-xs leading-relaxed text-text-secondary lg:text-[0.6875rem] lg:leading-[1.35]"
+        />
+      </div>
+    </div>
+  );
+}
+
+function ConnectorDown({ segment }: { segment: SegmentKey }): React.ReactElement {
+  const s = SEGMENT_TAILWIND[segment];
+
+  return (
+    <div className="flex shrink-0 justify-center">
+      <div className={cn("h-10 w-px lg:h-5", s.connector)} />
     </div>
   );
 }
@@ -68,158 +342,172 @@ export function JourneyOutlookSection({
   futureOutlook,
   journey,
 }: JourneyOutlookSectionProps): React.ReactElement {
-  const desktopRailRef = useRef<HTMLDivElement>(null);
-  const desktopIntroRef = useRef<HTMLDivElement>(null);
-  const rightColumnRef = useRef<HTMLDivElement>(null);
-  const futureCardRef = useRef<HTMLElement>(null);
+  void futureOutlook;
 
-  const [dockOffset, setDockOffset] = useState<number | null>(null);
-  const [isDocked, setIsDocked] = useState(false);
+  const timelineScrollerRef = useRef<HTMLDivElement>(null);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
-    function updateDockState(): void {
-      if (
-        !desktopRailRef.current ||
-        !desktopIntroRef.current ||
-        !rightColumnRef.current ||
-        !futureCardRef.current
-      ) {
-        return;
-      }
-
-      if (window.innerWidth < 1024) {
-        setIsDocked(false);
-        setDockOffset(null);
-        return;
-      }
-
-      const rightColumnRect = rightColumnRef.current.getBoundingClientRect();
-      const futureCardRect = futureCardRef.current.getBoundingClientRect();
-      const introHeight =
-        desktopIntroRef.current.getBoundingClientRect().height;
-      const stickyBottom = stickyTopOffset + introHeight;
-      const nextDockOffset = Math.max(
-        0,
-        futureCardRect.bottom - rightColumnRect.top - introHeight,
-      );
-
-      setDockOffset(nextDockOffset);
-      setIsDocked(futureCardRect.bottom <= stickyBottom);
+    const scroller = timelineScrollerRef.current;
+    if (!scroller) {
+      return;
     }
 
-    updateDockState();
+    function updateScrollCues(): void {
+      if (!timelineScrollerRef.current) {
+        return;
+      }
 
-    window.addEventListener("resize", updateDockState);
-    window.addEventListener("scroll", updateDockState, { passive: true });
+      const el = timelineScrollerRef.current;
+      const maxScrollLeft = el.scrollWidth - el.clientWidth;
+      setHasOverflow(maxScrollLeft > 4);
+      setCanScrollRight(el.scrollLeft < maxScrollLeft - 4);
+    }
+
+    updateScrollCues();
+    scroller.addEventListener("scroll", updateScrollCues, { passive: true });
+    window.addEventListener("resize", updateScrollCues);
 
     return () => {
-      window.removeEventListener("resize", updateDockState);
-      window.removeEventListener("scroll", updateDockState);
+      scroller.removeEventListener("scroll", updateScrollCues);
+      window.removeEventListener("resize", updateScrollCues);
     };
   }, []);
 
+  function handleScrollRight(): void {
+    timelineScrollerRef.current?.scrollBy({
+      left: 360,
+      behavior: "smooth",
+    });
+  }
+
+  const items = journey.items;
+
   return (
-    <section className="py-8 lg:py-12" id="journey-outlook">
+    <section className="py-8 lg:min-h-0 lg:pt-6 lg:pb-12 xl:pt-8 xl:pb-16" id="journey-outlook">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-16 lg:grid-cols-[minmax(18rem,0.82fr)_minmax(0,1.18fr)] lg:gap-20 xl:gap-28">
-          <div className="lg:hidden">
-            <JourneyIntro body={journey.body} />
-          </div>
+        <JourneyIntro intro={journey.body} />
 
-          <div className="relative hidden lg:block" ref={desktopRailRef}>
+        <div className="mt-12 lg:mt-5 xl:mt-7">
+          {/* Smaller breakpoints: horizontal scroll */}
+          <div className="relative lg:hidden" aria-label="CRASH Lab journey timeline">
+            {hasOverflow && canScrollRight ? (
+              <>
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-bg-primary to-transparent" />
+                <button
+                  aria-label="Scroll timeline right"
+                  className="ui-focus-ring-panel absolute right-2 top-[28%] z-20 inline-flex size-9 items-center justify-center rounded-none border border-border-default bg-surface-panel text-text-secondary shadow-sm transition hover:border-border-focus hover:text-text-primary"
+                  onClick={handleScrollRight}
+                  type="button"
+                >
+                  <ChevronRight aria-hidden="true" className="size-4" />
+                </button>
+              </>
+            ) : null}
             <div
-              className={cn(
-                "max-w-md",
-                isDocked ? "absolute left-0 right-0" : "sticky top-32",
-              )}
-              ref={desktopIntroRef}
-              style={
-                isDocked && dockOffset !== null
-                  ? { top: dockOffset }
-                  : undefined
-              }
+              className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:thin]"
+              ref={timelineScrollerRef}
             >
-              <JourneyIntro body={journey.body} />
+              {items.map((item, index) => {
+                const segment = segmentForItem(item, index);
+                const s = SEGMENT_TAILWIND[segment];
+                const Icon = sectionIconMap[item.icon as keyof typeof sectionIconMap];
+
+                return (
+                  <article
+                    className="w-[85vw] max-w-[21rem] shrink-0 snap-start sm:w-[22rem]"
+                    key={`${item.period}-${item.title}-m`}
+                  >
+                    <div className={cn("h-2 w-full shrink-0", s.bar)} />
+                    <div className={cn("border-2 border-t-0 bg-surface-panel", s.border)}>
+                      <div className="flex items-start gap-3 p-4">
+                        {Icon !== undefined ? (
+                          <Icon aria-hidden="true" className="mt-1 size-5 shrink-0 text-text-secondary" />
+                        ) : null}
+                        <div className="min-w-0 space-y-2">
+                          <p className="font-mono text-xs uppercase tracking-[0.14em] text-text-secondary">
+                            {item.period}
+                          </p>
+                          <h3 className="font-sans text-lg font-semibold leading-snug text-text-primary">
+                            {item.title}
+                          </h3>
+                          <JourneyMilestoneDescription
+                            body={item.body}
+                            paragraphClassName="text-sm leading-relaxed text-text-secondary"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
 
-          <div
-            className="space-y-14 lg:space-y-20 lg:pr-6"
-            ref={rightColumnRef}
-          >
-            <div aria-label="CRASH Lab journey timeline" className="relative">
-              <div className="relative before:absolute before:bottom-0 before:left-6 before:top-6 before:w-px before:bg-border-subtle">
-                {journey.items.map((item, index) => {
-                  const Icon =
-                    sectionIconMap[item.icon as keyof typeof sectionIconMap];
-                  const isFeatured = item.isFeatured === true;
+          {/* lg+: segmented horizontal axis + alternating above/below — no horizontal scroll */}
+          <div aria-label="CRASH Lab journey timeline" className="hidden lg:block">
+            <div className="flex min-w-0 items-end">
+              {items.map((item, index) => {
+                const segment = segmentForItem(item, index);
+                const above = index % 2 === 1;
+                const Icon = sectionIconMap[item.icon as keyof typeof sectionIconMap];
 
-                  return (
-                    <article
-                      className={cn(
-                        "relative snap-start pl-20",
-                        index === journey.items.length - 1
-                          ? "pb-6"
-                          : "pb-14 lg:pb-20",
-                      )}
-                      key={`${item.period}-${item.title}`}
-                    >
-                      <div
-                        className={cn(
-                          "absolute left-0 top-0 z-10 flex size-12 items-center justify-center rounded-full border transition-all",
-                          isFeatured
-                            ? "border-navy-900 bg-navy-900 text-white shadow-soft"
-                            : "border-border-default bg-surface-panel text-text-secondary shadow-[0_0_0_6px_rgba(250,250,248,0.98)]",
-                        )}
-                      >
-                        <Icon
-                          aria-hidden="true"
-                          className={cn(
-                            "size-5",
-                            isFeatured ? "text-white" : "text-text-secondary",
-                          )}
-                        />
-                      </div>
-
-                      <div className="space-y-4">
-                        <p className="font-mono text-sm uppercase tracking-[0.18em] text-text-secondary">
-                          {item.period}
-                        </p>
-                        <h3
-                          className={cn(
-                            "max-w-3xl font-sans text-[2rem] font-semibold leading-[1.15] tracking-tight text-text-primary lg:text-[2.15rem]",
-                          )}
-                        >
-                          {item.title}
-                        </h3>
-                        <p
-                          className={cn(
-                            "max-w-3xl text-lg leading-8 text-text-secondary lg:text-[1.2rem] lg:leading-9",
-                          )}
-                        >
-                          {item.body}
-                        </p>
-                      </div>
-                    </article>
-                  );
-                })}
-              </div>
+                return (
+                  <div
+                    className="flex min-h-0 min-w-0 flex-1 flex-col justify-end px-0.5"
+                    key={`${item.period}-${item.title}-band-up`}
+                  >
+                    {above ? (
+                      <>
+                        <CardAbovePanels Icon={Icon} item={item} segment={segment} />
+                        <ConnectorDown segment={segment} />
+                      </>
+                    ) : null}
+                  </div>
+                );
+              })}
             </div>
 
-            <article
-              className="overflow-hidden rounded-[2rem] bg-navy-900 px-8 py-10 shadow-soft sm:px-10 lg:px-14 lg:py-14"
-              ref={futureCardRef}
-            >
-              <h3 className="font-display text-3xl font-semibold text-white md:text-4xl">
-                {futureOutlook.heading}
-              </h3>
-              <p className="mt-6 max-w-4xl font-sans text-lg font-normal leading-relaxed text-white/90 md:text-xl">
-                {futureOutlook.body.replace(futureOutlookHighlight, "")}
-                <span className="font-medium text-white">
-                  {futureOutlookHighlight}
-                </span>
-              </p>
-            </article>
+            <div className="flex h-3 w-full min-w-0 shrink-0 lg:h-2">
+              {items.map((item, index) => {
+                const segment = segmentForItem(item, index);
+                const s = SEGMENT_TAILWIND[segment];
+
+                return (
+                  <div
+                    className={cn("relative min-w-0 flex-1 first:rounded-l-sm last:rounded-r-sm", s.bar)}
+                    key={`${item.period}-axis-${index}`}
+                  >
+                    <AxisNode segment={segment} />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex min-h-0 min-w-0 items-start">
+              {items.map((item, index) => {
+                const segment = segmentForItem(item, index);
+                const below = index % 2 === 0;
+                const Icon = sectionIconMap[item.icon as keyof typeof sectionIconMap];
+
+                return (
+                  <div
+                    className="flex min-w-0 flex-1 flex-col px-0.5"
+                    key={`${item.period}-${item.title}-band-low`}
+                  >
+                    {below ? (
+                      <>
+                        <ConnectorDown segment={segment} />
+                        <CardBelowPanels Icon={Icon} item={item} segment={segment} />
+                      </>
+                    ) : (
+                      <div className="min-h-0 flex-1" aria-hidden />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

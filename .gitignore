@@ -8,3 +8,6 @@ test-results
 *.log
 *.tsbuildinfo
 .env
+
+# Generated logo pipeline outputs (see npm run logos:prepare)
+public/logos/_processed/

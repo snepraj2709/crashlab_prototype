@@ -1,122 +1,199 @@
 import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
 import { Building2, Microscope, TrendingUp } from "lucide-react";
 
-import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils/cn";
+import { ContactPageForm } from "@/components/sections/ContactPageForm";
 
-const rows = [
+type AudienceCard = {
+  segment: string;
+  headline: string;
+  body: string;
+  icon: LucideIcon;
+  ctaHref: string;
+  ctaLabel: string;
+  paperHref?: string;
+  paperLabel?: string;
+  featured?: boolean;
+};
+
+const audienceCards: AudienceCard[] = [
   {
-    who: "For Industry",
-    title: "Clinical validation for models that need to survive contact with practice.",
-    body: "Validate your model on RadLE, commission India-specific evaluation studies, or work with the lab on deployment-grade evidence.",
-    cta: "Commission a study",
-    href: "/collaborate",
+    segment: "Evaluation",
+    headline: "Many AI benchmarks reuse cases models already saw during training, which inflates performance.",
+    body: "We build hard, contamination-resistant evaluations from fresh clinical cases and test AI models against expert clinicians so scores reflect genuine clinical competence.",
     icon: Building2,
+    ctaHref: "/collaborate",
+    ctaLabel: "Commission an evaluation",
+    paperHref: "https://arxiv.org/abs/2509.25559",
+    paperLabel: "Radiology's Last Exam (RadLE paper)",
   },
   {
-    who: "For Researchers",
-    title: "Benchmarks, cohorts, and clinical collaborators for serious research.",
-    body: "Join RadLE-X, propose a new cohort, or work with a lab that treats benchmark design as publishable infrastructure.",
-    cta: "Propose a study",
-    href: "/join",
+    segment: "Infrastructure",
+    headline: "The future of medical AI evaluation lives inside evaluation harnesses.",
+    body: "We work with academic and commercial partners to embed evaluations directly into clinical AI pipelines, enabling continuous and reproducible testing as models evolve.",
     icon: Microscope,
+    ctaHref: "/collaborate",
+    ctaLabel: "Partner on infrastructure",
     featured: true,
   },
   {
-    who: "For Investors",
-    title: "Back the infrastructure the field will need before deployment scales.",
-    body: "Support benchmark systems, data commons, and evaluation standards that make healthcare AI more accountable.",
-    cta: "Talk to the lab",
-    href: "/contact",
+    segment: "Community",
+    headline: "The clinicians of the next decade will work alongside AI every day.",
+    body: "CRASH Lab is cultivating evaluation expertise by collaborating with leading clinicians to identify hard and novel cases, analyse frontier model failures, and build practical AI evaluation judgment.",
     icon: TrendingUp,
+    ctaHref: "/collaborate",
+    ctaLabel: "Join our expert community",
   },
-] satisfies Array<{
-  who: string;
-  title: string;
-  body: string;
-  cta: string;
-  href: string;
-  icon: LucideIcon;
-  featured?: boolean;
-}>;
+];
 
 export function CollaborateSection(): React.ReactElement {
   return (
-    <section className="py-12 lg:pt-18 lg:pb-24" id="collaborate">
+    <section className="border-t border-border py-12 lg:pt-18 lg:pb-24" id="collaborate">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
-          <div>
-            <h2 className="max-w-4xl font-display text-4xl text-text-primary lg:text-5xl">
-              Hold healthcare AI to the hard test.
-            </h2>
-          </div>
-          <div>
-            <p className="max-w-2xl text-base leading-8 text-text-secondary lg:justify-self-end">
-              CRASH Lab works with researchers, healthcare companies, and aligned funders that
-              need clinically credible evaluation rather than presentation-ready claims.
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-16 xl:gap-24">
+          <h2 className="max-w-xl font-display text-4xl text-text-primary lg:max-w-2xl lg:text-5xl">
+            AI benchmarks have drifted from real-world clinical practice.
+          </h2>
+          <div className="max-w-xl space-y-5 text-base leading-8 text-text-secondary lg:max-w-md lg:pt-1 lg:text-left">
+            <p>
+              Real-world clinical cases demand more than current generic benchmarks can offer. At CRASH Lab,
+              our focus is building evaluations and benchmarks that probe how frontier AI models actually
+              perform in real-world hard cases.
+            </p>
+            <p>
+              We evaluate where these models fail, characterise their failure modes, and use those insights
+              to make AI safer and more reliable before it reaches the clinic.
+            </p>
+            <p>
+              While we lead in building evaluations, our work extends from benchmarking methods to responsible
+              deployment of AI in real clinical workflows.
             </p>
           </div>
         </div>
 
-        <div className="my-16 grid gap-10 lg:grid-cols-3 lg:gap-12">
-          {rows.map((row) => (
-            <div
-              className={cn(
-                "flex h-full flex-col",
-                row.featured ? "rounded-2xl bg-navy-900 p-6 text-white" : "pt-6",
-              )}
-              key={row.who}
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  aria-hidden="true"
+        <div className="mt-14 grid gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+          {audienceCards.map((card) => {
+            const Icon = card.icon;
+            const isFeatured = card.featured === true;
+
+            return (
+              <div
+                className={cn(
+                  "flex min-w-0 flex-col border border-border-default p-8 lg:p-9",
+                  isFeatured && "relative border-transparent bg-navy-900 shadow-panel",
+                )}
+                key={card.segment}
+              >
+                <div className={cn("flex items-start justify-between gap-4", !isFeatured && "min-h-9")}>
+                  <div className="flex min-w-0 items-center gap-3">
+                    {isFeatured ? (
+                      <span
+                        aria-hidden="true"
+                        className="inline-flex size-9 shrink-0 items-center justify-center border border-white/25 bg-white/5 text-white"
+                      >
+                        <Icon className="size-[18px]" strokeWidth={2} />
+                      </span>
+                    ) : (
+                      <Icon className="size-[18px] shrink-0 text-accent-cyan" strokeWidth={2} aria-hidden="true" />
+                    )}
+                    <span
+                      className={cn(
+                        "text-[11px] font-semibold uppercase tracking-[0.2em]",
+                        isFeatured ? "text-sky-200/90" : "text-accent-cyan",
+                      )}
+                    >
+                      {card.segment}
+                    </span>
+                  </div>
+                  {isFeatured ? (
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 size-8 shrink-0 border border-white/35"
+                    />
+                  ) : null}
+                </div>
+
+                <h3
                   className={cn(
-                    "inline-flex size-10 items-center justify-center rounded-full",
-                    row.featured
-                      ? "bg-white/10 text-white/70"
-                      : "bg-accent-cyan-muted text-accent-cyan",
+                    "mt-6 text-xl font-semibold leading-snug tracking-tight sm:text-[1.35rem]",
+                    isFeatured ? "text-white" : "text-text-primary",
                   )}
                 >
-                  <row.icon className="size-[18px]" />
-                </div>
+                  {card.headline}
+                </h3>
                 <p
                   className={cn(
-                    "text-xs uppercase tracking-[0.2em]",
-                    row.featured ? "text-white/60" : "text-accent-cyan",
+                    "mt-4 flex-1 text-sm leading-8",
+                    isFeatured ? "text-slate-300" : "text-text-secondary",
                   )}
                 >
-                  {row.who}
+                  {card.body}
+                </p>
+                {card.paperHref && card.paperLabel ? (
+                  <a
+                    href={card.paperHref}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    className={cn(
+                      "mt-3 inline-flex w-fit items-center border-b text-sm leading-6 transition",
+                      isFeatured
+                        ? "border-sky-200/70 text-sky-100 hover:border-sky-100 hover:text-white"
+                        : "border-accent-cyan/50 text-accent-cyan hover:border-accent-cyan hover:text-accent-cyan",
+                    )}
+                  >
+                    {card.paperLabel}
+                  </a>
+                ) : null}
+
+                <div className="mt-8">
+                  {isFeatured ? (
+                    <Link
+                      href={card.ctaHref}
+                      className={cn(
+                        "ui-focus-ring inline-flex h-12 w-full items-center justify-center border border-white bg-white px-6 text-sm font-medium text-navy-900 transition duration-200",
+                        "hover:bg-slate-100 focus-visible:outline-none",
+                      )}
+                    >
+                      {card.ctaLabel}
+                    </Link>
+                  ) : (
+                    <Link
+                      href={card.ctaHref}
+                      className={cn(
+                        "ui-focus-ring inline-flex h-12 w-full items-center justify-center border border-[#b7bec6] bg-surface-panel px-6 text-sm font-medium text-text-primary transition duration-200",
+                        "hover:border-border-focus hover:text-border-focus focus-visible:outline-none",
+                      )}
+                    >
+                      {card.ctaLabel}
+                    </Link>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="border-t border-border pt-16 lg:pt-20">
+          <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-16">
+            <div className="max-w-2xl">
+              <h2 className="font-display text-3xl text-text-primary lg:text-4xl">Join Our Mission</h2>
+              <div className="mt-6 space-y-6 text-base leading-8 text-text-secondary">
+                <p>
+                  We are building a new ecosystem for responsible healthcare AI. Whether you are developing
+                  an AI-driven product or seeking a dedicated, high-resource research environment, CRASH Lab
+                  provides the clinical expertise and infrastructure needed to turn innovation into reality.
+                </p>
+                <p>
+                  Please share as much detail as possible in the form below. This helps us direct your inquiry
+                  to the right specialist so we can begin exploring how to work together.
                 </p>
               </div>
-              <h3
-                className={cn(
-                  "mt-5 text-2xl font-medium leading-tight",
-                  row.featured ? "text-white" : "text-text-primary",
-                )}
-              >
-                {row.title}
-              </h3>
-              <p
-                className={cn(
-                  "mt-4 text-sm leading-8",
-                  row.featured ? "text-white/70" : "text-text-secondary",
-                )}
-              >
-                {row.body}
-              </p>
-              <Button
-                className={cn(
-                  "mt-6",
-                  row.featured &&
-                    "border-white bg-white text-navy-900 hover:border-white hover:bg-white hover:text-navy-900 hover:shadow-[0_0_0_3px_#0c1527,0_0_0_6px_rgba(255,255,255,0.9)] active:bg-white/80 active:shadow-[0_0_0_2px_#0c1527,0_0_0_4px_rgba(255,255,255,0.72)]",
-                )}
-                href={row.href}
-                variant={row.featured ? "outline" : "secondary"}
-              >
-                {row.cta}
-              </Button>
             </div>
-          ))}
+            <div className="lg:pl-4">
+              <ContactPageForm />
+            </div>
+          </div>
         </div>
       </div>
     </section>

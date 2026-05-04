@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 80" fill="#0f172a">
+  <text
+    x="70"
+    y="28"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', Times, serif"
+    font-size="24"
+    font-weight="700"
+  >
+    IJRI
+  </text>
+  <text
+    x="70"
+    y="46"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', Times, serif"
+    font-size="9.25"
+    font-weight="400"
+  >
+    Indian Journal of
+  </text>
+  <text
+    x="70"
+    y="58"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', Times, serif"
+    font-size="9.25"
+    font-weight="400"
+  >
+    Radiology and
+  </text>
+  <text
+    x="70"
+    y="70"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', Times, serif"
+    font-size="9.25"
+    font-weight="400"
+  >
+    Imaging
+  </text>
+</svg>

@@ -47,7 +47,7 @@ function ListSection({ items }: { items: string[] }): React.ReactElement {
     <ul className="mt-5 space-y-2">
       {items.map((item, i) => (
         <li className="flex gap-2 text-base leading-relaxed text-text-secondary" key={i}>
-          <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent-cyan" />
+          <span className="mt-1.5 size-1.5 shrink-0 rounded-none bg-accent-cyan" />
           <span>{renderInline(item)}</span>
         </li>
       ))}
