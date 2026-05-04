@@ -61,8 +61,8 @@ const PILLARS: {
         },
         Icon: Database,
         accent: {
-            icon: "text-steel-200",
-            arrow: "text-steel-400",
+            icon: "text-white",
+            arrow: "text-white",
             modalBorder: "border-l border-l-white/20"
         }
     },
@@ -96,8 +96,8 @@ const PILLARS: {
         },
         Icon: Activity,
         accent: {
-            icon: "text-steel-200",
-            arrow: "text-steel-400",
+            icon: "text-white",
+            arrow: "text-white",
             modalBorder: "border-l border-l-white/20"
         }
     },
@@ -131,8 +131,8 @@ const PILLARS: {
         },
         Icon: Bot,
         accent: {
-            icon: "text-steel-200",
-            arrow: "text-steel-400",
+            icon: "text-white",
+            arrow: "text-white",
             modalBorder: "border-l border-l-white/20"
         }
     },
@@ -166,8 +166,8 @@ const PILLARS: {
         },
         Icon: UserRound,
         accent: {
-            icon: "text-steel-200",
-            arrow: "text-steel-400",
+            icon: "text-white",
+            arrow: "text-white",
             modalBorder: "border-l border-l-white/20"
         }
     }
@@ -237,17 +237,17 @@ export function PillarsSection({
             <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mb-10 flex flex-col gap-6 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
                     <div className="text-center lg:text-left">
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-cyan">{overline}</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white">{overline}</p>
                         <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white md:text-5xl lg:text-[2.75rem]">
                             {title}
                         </h2>
-                        <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-steel-200 lg:mx-0">
+                        <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white lg:mx-0">
                             {subtitle}
                         </p>
                     </div>
                     {cta ? (
                         <a
-                            className="inline-flex shrink-0 items-center justify-center gap-2 self-center text-sm font-medium text-steel-200 transition hover:text-white hover:underline lg:self-auto"
+                            className="inline-flex shrink-0 items-center justify-center gap-2 self-center text-sm font-medium text-white transition hover:text-white hover:underline lg:self-auto"
                             href={cta.href}
                         >
                             {cta.label}
@@ -267,7 +267,7 @@ export function PillarsSection({
                 </div>
 
                 {flowLine !== null && flowLine !== "" ? (
-                    <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-steel-300 md:text-[15px]">
+                    <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-white md:text-[15px]">
                         <FlowSentence text={flowLine} />
                     </p>
                 ) : null}
@@ -295,7 +295,7 @@ export function PillarsSection({
                             )}
                         >
                             <div className="min-w-0 pl-1">
-                                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-steel-400">
+                                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                                     Pillar {activePillar.number}
                                 </p>
                                 <h2 className="mt-2 font-display text-2xl font-semibold leading-tight tracking-tight text-white sm:text-3xl" id={modalTitleId}>
@@ -303,7 +303,7 @@ export function PillarsSection({
                                 </h2>
                             </div>
                             <button
-                                className="ui-focus-ring shrink-0 rounded-none p-2 text-steel-400 transition hover:bg-white/5 hover:text-white"
+                                className="ui-focus-ring shrink-0 rounded-none p-2 text-white/60 transition hover:bg-white/5 hover:text-white"
                                 type="button"
                                 aria-label="Close"
                                 onClick={closeModal}
@@ -313,8 +313,8 @@ export function PillarsSection({
                         </div>
 
                         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-6 py-6 sm:px-8 sm:py-8">
-                            <p className="text-base font-medium leading-relaxed text-white/95">{activePillar.detail.positioning}</p>
-                            <p className="mt-5 text-sm leading-relaxed text-steel-300">{activePillar.detail.context}</p>
+                            <p className="text-base font-medium leading-relaxed text-white">{activePillar.detail.positioning}</p>
+                            <p className="mt-5 text-sm leading-relaxed text-white">{activePillar.detail.context}</p>
 
                             <div className="mt-10">
                                 {activePillar.detail.capabilities.map((cap, idx) => (
@@ -322,8 +322,8 @@ export function PillarsSection({
                                         className={cn(idx > 0 && "mt-6 border-t border-white/[0.06] pt-6")}
                                         key={cap.title}
                                     >
-                                        <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-steel-400">{cap.title}</h3>
-                                        <p className="mt-3 text-sm leading-relaxed text-steel-200">{cap.body}</p>
+                                        <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-white/60">{cap.title}</h3>
+                                        <p className="mt-3 text-sm leading-relaxed text-white">{cap.body}</p>
                                     </div>
                                 ))}
                             </div>
@@ -365,7 +365,7 @@ function PillarCard({
         >
             <div className="relative z-10 flex min-h-0 flex-1 flex-col px-5 pb-5 pt-6">
                 <div className="flex items-center justify-between gap-3 border-b border-white/[0.12] pb-4 transition-colors duration-300 group-hover:border-white/20">
-                    <span className="font-mono text-xs font-medium tracking-[0.14em] text-steel-300">
+                    <span className="font-mono text-xs font-medium tracking-[0.14em] text-white">
                         {pillar.number}
                     </span>
                     <div className="rounded-none bg-white/[0.08] p-2 ring-1 ring-white/[0.12] transition-opacity duration-300 group-hover:pointer-events-none group-hover:opacity-0">
@@ -382,14 +382,14 @@ function PillarCard({
                 <h3 className="mt-4 font-display text-xl font-semibold leading-snug tracking-tight text-white sm:text-2xl" id={labelId}>
                     {pillar.title}
                 </h3>
-                <p className="mt-2 text-sm leading-snug text-steel-300 transition-colors duration-300 group-hover:text-steel-200">
+                <p className="mt-2 text-sm leading-snug text-white transition-colors duration-300 group-hover:text-white">
                     {pillar.tagline}
                 </p>
 
                 <div className="relative isolate mt-5 flex-1">
                     <ul
                         className={cn(
-                            "space-y-2.5 text-sm leading-relaxed text-steel-200 transition-all duration-300",
+                            "space-y-2.5 text-sm leading-relaxed text-white transition-all duration-300",
                             "lg:group-hover:pointer-events-none lg:group-hover:opacity-0"
                         )}
                     >
@@ -413,7 +413,7 @@ function PillarCard({
                 </div>
 
                 <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.12] pt-4 transition-colors duration-300 group-hover:border-white/20">
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-steel-300 transition-colors duration-300 group-hover:text-steel-200">
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white transition-colors duration-300 group-hover:text-white">
                         Click for full brief
                     </span>
                     <span className={cn("text-sm transition-colors duration-300 group-hover:text-white", pillar.accent.icon)} aria-hidden>
@@ -434,14 +434,7 @@ function normalizeFlowLine(raw: string): string {
 function FlowSentence({ text }: { text: string }): ReactElement {
     const normalized = normalizeFlowLine(text);
     const parts = normalized.split(/\b(data|benchmarks|models|deployment)\b/gi);
-    const tone = (word: string): string => {
-        const w = word.toLowerCase();
-        if (w === "data") return "text-accent-cyan";
-        if (w === "benchmarks") return "text-accent-orange";
-        if (w === "models") return "text-accent-yellow";
-        if (w === "deployment") return "text-accent-green";
-        return "";
-    };
+    const tone = (_word: string): string => "";
 
     return (
         <>

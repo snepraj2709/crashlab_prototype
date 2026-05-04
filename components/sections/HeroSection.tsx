@@ -27,8 +27,8 @@ export function HeroSection(): React.ReactElement {
       />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8 text-center">
-        <h1 className="mt-6 font-display font-semibold leading-[0.92] tracking-[-0.035em] text-text-primary text-[clamp(2.75rem,7vw,4.75rem)]">
-          Responsible AI for Safer <span className="text-[#244c6a]">Healthcare</span>
+        <h1 className="mt-6 font-display font-semibold leading-[1.1] tracking-[-0.035em] text-text-primary text-[clamp(2.75rem,7vw,4.75rem)]">
+          Responsible AI for<br /><span className="text-[#244c6a] ">Safer Healthcare</span>
         </h1>
 
         <p className="mt-8 mx-auto max-w-3xl text-base leading-8 text-text-secondary lg:text-lg">

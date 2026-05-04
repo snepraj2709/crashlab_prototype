@@ -84,7 +84,7 @@ function MarqueeSection(props: MarqueeSectionProps) {
           </p>
         ) : null}
 
-        <div className={cn("mt-2 sm:mt-3", !isStatic && "trust-logo-slideshow")}>
+        <div className={cn(isStatic ? "mt-6 sm:mt-8" : "mt-2 sm:mt-3 trust-logo-slideshow")}>
           {props.kind === "logos" && logoItems ? (
             <>
               <div className="sr-only">
@@ -182,31 +182,26 @@ function MarqueeSection(props: MarqueeSectionProps) {
           ) : null}
 
           {props.kind === "venues" && isStatic ? (
-            <ul className="flex flex-wrap gap-2 sm:gap-3">
+            <ul className="flex flex-wrap justify-center gap-6 sm:gap-8">
               {props.venues.map((venue) => (
-                <li className="inline-flex shrink-0 items-center" key={venue.name}>
-                  <div className={cn(FEATURED_PILL)}>
-                    {venue.logoSrc ? (
-                      <span className="inline-flex h-10 w-11 shrink-0 items-center justify-center sm:h-11 sm:w-12">
+                <li className="group relative inline-flex shrink-0 cursor-help" key={venue.name}>
+                  {venue.logoSrc ? (
+                    <>
+                      <div className="relative h-12 w-32 sm:h-14 sm:w-36">
                         <Image
-                          alt=""
-                          aria-hidden
-                          className={cn(
-                            "trust-logo-slideshow__image relative block max-h-[2.125rem] w-auto max-w-full object-contain object-center sm:max-h-[2.375rem]",
-                            venue.logoTuning,
-                          )}
-                          height={42}
-                          sizes="(min-width: 640px) 2.375rem, 2.125rem"
+                          alt={venue.name}
+                          fill
+                          className={cn("object-contain object-center", venue.logoTuning)}
+                          sizes="(min-width: 640px) 9rem, 8rem"
                           src={venue.logoSrc}
                           unoptimized={venue.logoSrc.endsWith(".svg")}
-                          width={120}
                         />
+                      </div>
+                      <span className="pointer-events-none absolute -bottom-7 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded bg-gray-900/90 px-2 py-1 text-xs font-medium text-white opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+                        {venue.name}
                       </span>
-                    ) : null}
-                    <span className="self-center font-semibold text-text-primary leading-none text-xs sm:text-sm">
-                      {venue.name}
-                    </span>
-                  </div>
+                    </>
+                  ) : null}
                 </li>
               ))}
             </ul>
