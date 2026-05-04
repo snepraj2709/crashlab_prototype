@@ -144,8 +144,7 @@ function JourneyIntro({ intro }: { intro: string }): React.ReactElement {
   return (
     <div className="mt-6 max-w-3xl space-y-5 lg:grid lg:max-w-none lg:grid-cols-[minmax(0,auto)_minmax(0,1fr)] lg:items-start lg:gap-x-10 lg:gap-y-2 lg:space-y-0">
       <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary lg:text-5xl">
-        CRASH Lab Journey
-        <span className="mt-2 block italic text-accent-cyan">The Milestone Timeline</span>
+        CRASH Lab Journey: The Milestone Timeline
       </h2>
       <p
         className="text-base leading-relaxed text-text-secondary md:text-[1.05rem] lg:max-w-xl lg:self-center lg:text-[1rem] lg:leading-snug xl:text-[1.05rem]"
@@ -396,7 +395,7 @@ export function JourneyOutlookSection({
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <JourneyIntro intro={journey.body} />
 
-        <div className="mt-12 lg:mt-5 xl:mt-7">
+        <div className="mt-12 lg:mt-12 xl:mt-14">
           {/* Smaller breakpoints: horizontal scroll */}
           <div className="relative lg:hidden" aria-label="CRASH Lab journey timeline">
             {hasOverflow && canScrollRight ? (

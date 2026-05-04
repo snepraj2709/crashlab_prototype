@@ -151,7 +151,7 @@ export const labMembers: TeamDirectoryMember[] = [
     id: "suvrankar-datta",
     name: getTeamMemberName("suvrankar-datta"),
     tenure: "2025-Present",
-    affiliation: "JIPEMER, AIIMS Delhi, Ashoka University",
+    affiliation: "JIPMER, AIIMS Delhi, Ashoka University",
     groupId: "active-profiles",
     isActive: true,
     position: 1,

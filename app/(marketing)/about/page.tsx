@@ -128,7 +128,7 @@ export default function AboutPage(): React.ReactElement {
       {/* Origin Story */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20">
             <div className="text-left">
               <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight text-text-primary lg:mt-0 lg:text-5xl">
                 {origin.heading}
