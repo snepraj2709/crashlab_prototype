@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import { Database, FileText, Globe, Presentation } from "lucide-react";
 
@@ -35,45 +34,27 @@ export default function AboutPage(): React.ReactElement {
     cta
   } = aboutContent;
   const missionVisionItems = [{ ...vision }, { ...mission }];
-  const subheadlineParts = hero.subheadline.split(hero.mainWebsiteLabel);
 
   return (
     <div>
-      {/* Hero */}
+      {/* Hero + Mission & Vision */}
       <section className="py-8 lg:py-12">
-        <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
-          <p className="mt-6 text-xs uppercase tracking-[0.22em] text-accent-cyan">
-            {hero.eyebrow}
-          </p>
-          <h1 className="mx-auto mt-4 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
-            {hero.headline}
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg text-text-secondary">
-            {subheadlineParts[0]}
-            <Link
-              className="underline decoration-border-focus underline-offset-4 transition-colors hover:text-text-primary"
-              href={hero.mainWebsiteHref}
-              rel="noreferrer"
-              target="_blank"
-            >
-              {hero.mainWebsiteLabel}
-            </Link>
-            {subheadlineParts[1]}
-          </p>
-        </div>
-      </section>
-      
-
-      {/* Mission & Vision */}
-      <section className="pb-8 pt-2 lg:pb-16 lg:pt-6">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div>
+          <div className="text-center">
+            <p className="mt-6 text-xs uppercase tracking-[0.22em] text-accent-cyan">
+              {hero.eyebrow}
+            </p>
+            <h1 className="mx-auto mt-4 max-w-4xl font-display text-5xl text-text-primary lg:text-6xl">
+              {hero.headline}
+            </h1>
+          </div>
+          <div className="mt-12">
             {missionVisionItems.map((item) => (
               <article
                 className="lg:py-15 border-t-2 border-border py-10"
                 key={item.heading}
               >
-                <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:items-center lg:gap-24">
+                <div className="grid gap-8 lg:grid-cols-[minmax(17rem,0.31fr)_minmax(0,0.69fr)] lg:items-start lg:gap-24">
                   <div className="text-left">
                     <h2 className="font-display text-4xl font-semibold tracking-tight text-text-primary lg:text-5xl">
                       {item.heading}
@@ -128,7 +109,7 @@ export default function AboutPage(): React.ReactElement {
       {/* Origin Story */}
       <section className="py-8 lg:py-12">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20">
+          <div className="grid gap-12 border-b-2 border-t-2 border-border py-10 lg:grid-cols-[1fr_1.2fr] lg:items-start lg:gap-20 lg:py-15">
             <div className="text-left">
               <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight text-text-primary lg:mt-0 lg:text-5xl">
                 {origin.heading}

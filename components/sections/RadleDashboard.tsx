@@ -151,9 +151,9 @@ function RadleCategoryTickStacked(props: {
     return null;
   }
   return (
-    <text fill="#4a4a4a" fontSize={10} fontWeight={500} textAnchor="middle" x={x} y={y}>
+    <text fill="#1a1a1a" fontSize={15} fontWeight={600} textAnchor="middle" x={x} y={y}>
       {row.labelLines.map((line, i) => (
-        <tspan dy={i === 0 ? 11 : 10} key={`${row.key}-${line}`} x={x}>
+        <tspan dy={i === 0 ? 14 : 19} key={`${row.key}-${line}`} x={x}>
           {line}
         </tspan>
       ))}
@@ -189,52 +189,41 @@ function RadleBarTopMark(props: {
   const markW = Math.max(barW - 2, 0);
   const slotTop = barTop - MARK_SLOT_H - GAP;
 
-  /** Human marks use fixed pill height inside the slot. */
-  const HUMAN_MARK_H = 22;
-  const humanTop = slotTop + (MARK_SLOT_H - HUMAN_MARK_H) / 2;
   const left = barX + (barW - markW) / 2;
 
-  const iconScale = (HUMAN_MARK_H * 0.78) / 24;
+  const iconScale = MARK_SLOT_H / 24;
 
   if (mark.kind === "human") {
     /** Board-certified — filled clinician silhouette; trainees — stroked graduation cap (24x24 viewBox). */
+    const cx = barX + barW / 2;
+    const cy = slotTop + MARK_SLOT_H / 2;
     return (
-      <g transform={`translate(${left},${humanTop})`}>
+      <g transform={`translate(${cx},${cy}) scale(${iconScale}) translate(-12,-12)`}>
         <title>{row.label}</title>
-        <rect
-          fill={row.barColor}
-          height={HUMAN_MARK_H}
-          rx={HUMAN_MARK_H / 2}
-          width={markW}
-        />
-        <g
-          transform={`translate(${markW / 2},${HUMAN_MARK_H / 2}) scale(${iconScale}) translate(-12,-12)`}
-        >
-          {mark.cohort === "boardCertified" ? (
-            <>
-              <circle cx="12" cy="8" fill="white" r="5" stroke="none" />
-              <path
-                d="M20 21a8 8 0 0 0-16 0"
-                fill="none"
-                stroke="white"
-                strokeLinecap="round"
-                strokeWidth="2"
-              />
-            </>
-          ) : (
-            <g
+        {mark.cohort === "boardCertified" ? (
+          <>
+            <circle cx="12" cy="8" fill={row.barColor} r="5" stroke="none" />
+            <path
+              d="M20 21a8 8 0 0 0-16 0"
               fill="none"
-              stroke="white"
+              stroke={row.barColor}
               strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-            >
-              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.113a2 2 0 0 0-1.66 0L2.6 9.086a1 1 0 0 0 0 1.838l8.58 3.908a2 2 0 0 0 1.66 0z" />
-              <path d="M22 10v6" />
-              <path d="M6 12.5V16a6 6 0 0 0 12 0v-3.5" />
-            </g>
-          )}
-        </g>
+              strokeWidth="2.5"
+            />
+          </>
+        ) : (
+          <g
+            fill="none"
+            stroke={row.barColor}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2.5"
+          >
+            <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.113a2 2 0 0 0-1.66 0L2.6 9.086a1 1 0 0 0 0 1.838l8.58 3.908a2 2 0 0 0 1.66 0z" />
+            <path d="M22 10v6" />
+            <path d="M6 12.5V16a6 6 0 0 0 12 0v-3.5" />
+          </g>
+        )}
       </g>
     );
   }
@@ -387,7 +376,7 @@ export function RadleDashboard(): React.ReactElement {
                   <p className="text-xs font-semibold text-[#676767] sm:text-sm">N = 50 cases</p>
                 </div>
 
-                <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-[#2c2c2c] sm:text-xs">
+                <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-[#2c2c2c] sm:text-[13px]">
                   <span className="inline-flex items-center gap-2">
                     <span className="size-3 rounded-none bg-[#4D50A8]" />
                     Human readers
@@ -424,7 +413,7 @@ export function RadleDashboard(): React.ReactElement {
                             <XAxis
                               axisLine={{ stroke: "#d9d9d9" }}
                               dataKey="key"
-                              height={58}
+                              height={66}
                               interval={0}
                               tick={(props) => <RadleCategoryTickStacked {...props} />}
                               tickLine={false}
@@ -433,11 +422,11 @@ export function RadleDashboard(): React.ReactElement {
                             <YAxis
                               axisLine={{ stroke: "#d9d9d9" }}
                               domain={[0, 100]}
-                              tick={{ fill: "#4a4a4a", fontSize: 11 }}
+                              tick={{ fill: "#4a4a4a", fontSize: 13 }}
                               tickFormatter={(v) => `${v}%`}
                               tickLine={false}
                               ticks={[0, 20, 40, 60, 80, 100]}
-                              width={52}
+                              width={56}
                             />
                             <Tooltip
                               contentStyle={{
@@ -484,7 +473,7 @@ export function RadleDashboard(): React.ReactElement {
                   </div>
                 </div>
 
-                <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-black/10 pt-3 sm:mt-5 sm:grid-cols-4 sm:gap-x-6 sm:pt-4 lg:gap-x-8">
+                <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-black/10 pt-3 sm:mt-5 sm:grid-cols-4 sm:gap-x-6 sm:pt-4 sm:pl-[64px] sm:pr-2 lg:gap-x-8">
                   <div className="min-w-0">
                     <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#797979] sm:text-[11px]">
                       Expert
@@ -523,7 +512,7 @@ export function RadleDashboard(): React.ReactElement {
             </div>
           </div>
 
-          <div className="relative flex flex-col gap-1 border-t border-border bg-bg-secondary/30 px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:px-4 lg:px-5">
+          <div className="relative flex flex-col gap-1 border-t border-border bg-bg-secondary/30 px-3 py-2 sm:flex-row sm:items-center sm:justify-between sm:pl-[100px] sm:pr-11 lg:pr-12">
             <span className="text-[9px] font-mono uppercase tracking-[0.26em] text-text-tertiary sm:text-[10px]">
               RSNA 2025 • Cutting Edge Oral Presentation
             </span>

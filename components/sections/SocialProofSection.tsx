@@ -14,13 +14,13 @@ export async function SocialProofSection(): Promise<React.ReactElement> {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-text-primary">
+            <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">
               What the field said
             </p>
-            <h2 className="mt-2 font-display text-2xl font-bold text-text-primary sm:text-3xl lg:text-4xl">
+            <h2 className="mt-3 font-display text-4xl text-text-primary lg:text-5xl">
               A benchmark the community<br className="hidden sm:block" /> could not stop sharing.
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-text-secondary">
+            <p className="mt-6 max-w-2xl text-base leading-8 text-text-secondary">
               RadLE drew responses from radiologists, AI safety researchers, clinical educators,
               and health-tech writers across the first week of release.
             </p>
@@ -57,7 +57,7 @@ export async function SocialProofSection(): Promise<React.ReactElement> {
       {internationalXPosts.length > 0 ? (
         <>
           <div className="mx-auto mt-6 max-w-7xl px-6 lg:mt-7 lg:px-8">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-text-primary">
+            <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">
               International coverage
             </p>
             <p className="mt-1 text-xs leading-5 text-text-secondary sm:text-sm sm:leading-snug">
@@ -89,7 +89,7 @@ export async function SocialProofSection(): Promise<React.ReactElement> {
       {redditPosts.length > 0 ? (
         <>
           <div className="mx-auto mt-6 max-w-7xl px-6 lg:mt-7 lg:px-8">
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-text-primary">
+            <p className="text-xs uppercase tracking-[0.22em] text-text-tertiary">
               Also discussed on Reddit
             </p>
           </div>

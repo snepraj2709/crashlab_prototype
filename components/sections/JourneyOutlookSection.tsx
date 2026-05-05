@@ -173,7 +173,6 @@ function AxisNode({ segment }: { segment: SegmentKey }): React.ReactElement {
 interface JourneyCardPanelsProps {
   item: JourneyItem;
   segment: SegmentKey;
-  Icon?: LucideIcon;
 }
 
 function JourneyMilestoneDescription({
@@ -256,80 +255,73 @@ function JourneyMilestoneDescription({
   );
 }
 
-/** Above-axis: caption first, coloured period strip at bottom (nearest the axis). */
-function CardAbovePanels({ item, segment, Icon }: JourneyCardPanelsProps): React.ReactElement {
-  const s = SEGMENT_TAILWIND[segment];
-
+function MilestoneTitlePanel({
+  item,
+  revealSide,
+}: {
+  item: JourneyItem;
+  revealSide: "left" | "right";
+}): React.ReactElement {
   return (
-    <div
-      className={cn(
-        "mx-0 overflow-hidden border-2 bg-surface-panel lg:border lg:border-solid",
-        "lg:overflow-visible lg:transition-[width,box-shadow] lg:duration-200 lg:ease-in-out",
-        "lg:group-hover/col:w-[calc(100%+3.5rem)] lg:group-hover/col:shadow-md",
-        s.border,
-      )}
-    >
-      <div className="space-y-1.5 p-4 lg:space-y-1 lg:p-2 lg:px-2.5 lg:pb-2 lg:pt-2">
-        <div className="flex items-start justify-between gap-1.5">
-          <h3 className="line-clamp-2 font-sans text-base font-semibold leading-snug tracking-tight text-text-primary lg:text-[0.8125rem] lg:leading-tight">
-            {item.title}
-          </h3>
-          {Icon !== undefined ? (
-            <Icon aria-hidden="true" className="size-4 shrink-0 text-text-secondary lg:size-3.5 lg:opacity-75" />
-          ) : null}
-        </div>
-        <JourneyMilestoneDescription
-          body={item.body}
-          paragraphClassName="text-xs leading-relaxed text-text-secondary lg:text-[0.6875rem] lg:leading-[1.35]"
-        />
+    <div className="relative h-[7.25rem] bg-surface-panel p-4 lg:h-[6.25rem] lg:p-3 xl:h-[6.75rem] xl:p-4">
+      <div className="flex h-full items-center justify-center">
+        <h3 className="line-clamp-3 max-w-[14rem] text-center font-sans text-base font-semibold leading-tight text-text-primary lg:text-[0.95rem] xl:text-base">
+          {item.title}
+        </h3>
       </div>
       <div
         className={cn(
-          "px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] lg:px-2 lg:py-1.5 lg:text-[0.6rem] lg:tracking-[0.12em]",
-          s.headerBg,
-          s.headerText,
+          "absolute top-1/2 z-30 hidden w-[21rem] -translate-y-1/2 border border-white/10 bg-navy-900 p-5 text-white opacity-0 shadow-[0_24px_70px_rgba(15,23,42,0.24)] transition duration-200 ease-out lg:block",
+          "pointer-events-none group-hover/card:pointer-events-auto group-hover/card:translate-x-0 group-hover/card:opacity-100 group-focus-within/card:pointer-events-auto group-focus-within/card:translate-x-0 group-focus-within/card:opacity-100",
+          revealSide === "right"
+            ? "left-[calc(100%+0.75rem)] -translate-x-2"
+            : "right-[calc(100%+0.75rem)] translate-x-2",
         )}
       >
-        {item.period}
+        <p className="font-sans text-sm font-semibold leading-snug text-white">{item.title}</p>
+        <p className="mt-3 text-sm leading-relaxed text-white/80">
+          {item.body}
+        </p>
       </div>
     </div>
   );
 }
 
-/** Below-axis: coloured period strip on top, caption block below. */
-function CardBelowPanels({ item, segment, Icon }: JourneyCardPanelsProps): React.ReactElement {
+function MilestonePeriodStrip({
+  item,
+}: {
+  item: JourneyItem;
+}): React.ReactElement {
+  return (
+    <div className="bg-navy-900 px-4 py-3 text-center font-mono text-sm font-semibold uppercase leading-none tracking-[0.12em] text-white lg:px-3 lg:py-3 lg:text-[0.8125rem] lg:tracking-[0.1em] xl:px-4 xl:text-sm">
+      {item.period}
+    </div>
+  );
+}
+
+function JourneyMilestoneCard({
+  item,
+  segment,
+  periodPosition,
+  revealSide,
+}: JourneyCardPanelsProps & {
+  periodPosition: "top" | "bottom";
+  revealSide: "left" | "right";
+}): React.ReactElement {
   const s = SEGMENT_TAILWIND[segment];
 
   return (
-    <div className={cn(
-      "mx-0 overflow-hidden border-2 bg-surface-panel lg:border lg:border-solid",
-      "lg:overflow-visible lg:transition-[width,box-shadow] lg:duration-200 lg:ease-in-out",
-      "lg:group-hover/col:w-[calc(100%+3.5rem)] lg:group-hover/col:shadow-md",
-      s.border,
-    )}>
-      <div
-        className={cn(
-          "px-3 py-2.5 font-mono text-[0.6875rem] uppercase tracking-[0.16em] lg:px-2 lg:py-1.5 lg:text-[0.6rem] lg:tracking-[0.12em]",
-          s.headerBg,
-          s.headerText,
-        )}
-      >
-        {item.period}
-      </div>
-      <div className="space-y-1.5 border-t border-border-subtle p-4 lg:space-y-1 lg:p-2 lg:px-2.5 lg:pb-2 lg:pt-2">
-        <div className="flex items-start justify-between gap-1.5">
-          <h3 className="line-clamp-2 font-sans text-base font-semibold leading-snug tracking-tight text-text-primary lg:text-[0.8125rem] lg:leading-tight">
-            {item.title}
-          </h3>
-          {Icon !== undefined ? (
-            <Icon aria-hidden="true" className="size-4 shrink-0 text-text-secondary lg:size-3.5 lg:opacity-75" />
-          ) : null}
-        </div>
-        <JourneyMilestoneDescription
-          body={item.body}
-          paragraphClassName="text-xs leading-relaxed text-text-secondary lg:text-[0.6875rem] lg:leading-[1.35]"
-        />
-      </div>
+    <div
+      className={cn(
+        "ui-focus-ring-panel group/card mx-0 overflow-visible border-2 bg-surface-panel transition-[box-shadow,transform] duration-200 ease-out hover:shadow-soft lg:border lg:border-solid",
+        "lg:hover:-translate-y-0.5",
+        s.border,
+      )}
+      tabIndex={0}
+    >
+      {periodPosition === "top" ? <MilestonePeriodStrip item={item} /> : null}
+      <MilestoneTitlePanel item={item} revealSide={revealSide} />
+      {periodPosition === "bottom" ? <MilestonePeriodStrip item={item} /> : null}
     </div>
   );
 }
@@ -425,16 +417,15 @@ export function JourneyOutlookSection({
                     className="w-[85vw] max-w-[21rem] shrink-0 snap-start sm:w-[22rem]"
                     key={`${item.period}-${item.title}-m`}
                   >
-                    <div className={cn("h-2 w-full shrink-0", s.bar)} />
-                    <div className={cn("border-2 border-t-0 bg-surface-panel", s.border)}>
+                    <div className={cn("border-2 bg-surface-panel", s.border)}>
+                      <div className="bg-navy-900 px-4 py-3 text-center font-mono text-sm font-semibold uppercase leading-none tracking-[0.12em] text-white">
+                        {item.period}
+                      </div>
                       <div className="flex items-start gap-3 p-4">
                         {Icon !== undefined ? (
                           <Icon aria-hidden="true" className="mt-1 size-5 shrink-0 text-text-secondary" />
                         ) : null}
                         <div className="min-w-0 space-y-2">
-                          <p className="font-mono text-xs uppercase tracking-[0.14em] text-text-secondary">
-                            {item.period}
-                          </p>
                           <h3 className="font-sans text-lg font-semibold leading-snug text-text-primary">
                             {item.title}
                           </h3>
@@ -457,16 +448,21 @@ export function JourneyOutlookSection({
               {items.map((item, index) => {
                 const segment = segmentForItem(item, index);
                 const above = index % 2 === 1;
-                const Icon = sectionIconMap[item.icon as keyof typeof sectionIconMap];
+                const revealSide = index < Math.ceil(items.length / 2) ? "right" : "left";
 
                 return (
                   <div
-                    className="group/col relative flex min-h-0 min-w-0 flex-1 flex-col justify-end px-0.5 hover:z-10"
+                    className="relative flex min-h-0 min-w-0 flex-1 flex-col justify-end px-1 hover:z-30 focus-within:z-30"
                     key={`${item.period}-${item.title}-band-up`}
                   >
                     {above ? (
                       <>
-                        <CardAbovePanels Icon={Icon} item={item} segment={segment} />
+                        <JourneyMilestoneCard
+                          item={item}
+                          periodPosition="bottom"
+                          revealSide={revealSide}
+                          segment={segment}
+                        />
                         <ConnectorDown segment={segment} />
                       </>
                     ) : null}
@@ -495,17 +491,22 @@ export function JourneyOutlookSection({
               {items.map((item, index) => {
                 const segment = segmentForItem(item, index);
                 const below = index % 2 === 0;
-                const Icon = sectionIconMap[item.icon as keyof typeof sectionIconMap];
+                const revealSide = index < Math.ceil(items.length / 2) ? "right" : "left";
 
                 return (
                   <div
-                    className="group/col relative flex min-w-0 flex-1 flex-col px-0.5 hover:z-10"
+                    className="relative flex min-w-0 flex-1 flex-col px-1 hover:z-30 focus-within:z-30"
                     key={`${item.period}-${item.title}-band-low`}
                   >
                     {below ? (
                       <>
                         <ConnectorDown segment={segment} />
-                        <CardBelowPanels Icon={Icon} item={item} segment={segment} />
+                        <JourneyMilestoneCard
+                          item={item}
+                          periodPosition="top"
+                          revealSide={revealSide}
+                          segment={segment}
+                        />
                       </>
                     ) : (
                       <div className="min-h-0 flex-1" aria-hidden />

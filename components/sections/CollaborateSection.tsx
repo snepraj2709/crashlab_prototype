@@ -51,11 +51,11 @@ export function CollaborateSection(): React.ReactElement {
   return (
     <section className="border-t border-border py-12 lg:pt-18 lg:pb-24" id="collaborate">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-16 xl:gap-24">
-          <h2 className="max-w-xl font-display text-4xl text-text-primary lg:max-w-2xl lg:text-5xl">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-16 xl:gap-24">
+          <h2 className="max-w-xl font-display text-4xl text-text-primary lg:flex-1 lg:text-5xl">
             AI benchmarks have drifted from real-world clinical practice.
           </h2>
-          <div className="max-w-xl space-y-5 text-base leading-8 text-text-secondary lg:max-w-md lg:pt-1 lg:text-left">
+          <div className="max-w-xl space-y-5 text-base leading-8 text-text-secondary lg:flex-1 lg:pt-1 lg:text-left">
             <p>
               Real-world clinical cases demand more than current generic benchmarks can offer. At CRASH Lab,
               our focus is building evaluations and benchmarks that probe how frontier AI models actually
