@@ -31,4 +31,4 @@ EXPOSE 8080
 ENV PORT=8080
 ENV HOSTNAME="0.0.0.0"
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["node", "server.js"]
