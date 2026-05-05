@@ -2,6 +2,7 @@
 
 import type { ReactElement } from "react";
 import { useCallback, useEffect, useId, useState } from "react";
+import { createPortal } from "react-dom";
 import { Activity, Bot, Database, UserRound, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -43,7 +44,7 @@ const PILLARS: {
         detail: {
             positioning: "We are helping build consortia needed for training foundational AI models.",
             context:
-                "Indian healthcare data is fragmented across private hospitals and under-digitised public institutions, making national-scale AI research nearly impossible today. CRASH Lab is building the consortia and the trusted infrastructure that lets this data work together — consented and governed by Indian law. Our partnerships span public and private hospitals, imaging centres, and academic institutions with extensive data-sharing networks both for research and partnerships.",
+                "Indian healthcare data is fragmented across private hospitals and under-digitised public institutions, making national-scale AI research nearly impossible today. CRASH Lab is building the consortia and the trusted infrastructure that lets this data work together - consented and governed by Indian law. Our partnerships span public and private hospitals, imaging centres, and academic institutions with extensive data-sharing networks both for research and partnerships.",
             capabilities: [
                 {
                     title: "Consortium-Built Data Platforms",
@@ -51,7 +52,7 @@ const PILLARS: {
                 },
                 {
                     title: "Privacy-Preserving Collaboration",
-                    body: "Our data-sharing networks are designed for ethical and DPDP Act-compliant collaboration — solving India's healthcare data fragmentation problem while protecting patient privacy at every layer."
+                    body: "Our data-sharing networks are designed for ethical and DPDP Act-compliant collaboration - solving India's healthcare data fragmentation problem while protecting patient privacy at every layer."
                 },
                 {
                     title: "National-Scale AI Development and Evaluation",
@@ -78,7 +79,7 @@ const PILLARS: {
         detail: {
             positioning: "We measure what generic healthcare benchmarks miss in AI models before they are deployed.",
             context:
-                "Most AI benchmarks have drifted from clinical reality and score models on cases they have already seen, on simplified tasks far from how medicine is practiced in the real world. CRASH Lab builds rigorous, real-world and clinically complex benchmarks — co-designed with practising clinicians and stress-tested across contexts. We also map how models fail, to help the field build something better and safer.",
+                "Most AI benchmarks have drifted from clinical reality and score models on cases they have already seen, on simplified tasks far from how medicine is practiced in the real world. CRASH Lab builds rigorous, real-world and clinically complex benchmarks - co-designed with practising clinicians and stress-tested across contexts. We also map how models fail, to help the field build something better and safer.",
             capabilities: [
                 {
                     title: "Evals beyond Accuracy",
@@ -86,7 +87,7 @@ const PILLARS: {
                 },
                 {
                     title: "Bias and Subgroup Audits",
-                    body: "We build dashboards and tools for bias audits, subgroup analysis and scenario-based stress-testing of AI before deployment — surfacing failures the headline metric hides."
+                    body: "We build dashboards and tools for bias audits, subgroup analysis and scenario-based stress-testing of AI before deployment - surfacing failures the headline metric hides."
                 },
                 {
                     title: "Defining the Gold Standard for Novel AI Workflows",
@@ -148,7 +149,7 @@ const PILLARS: {
         detail: {
             positioning: "AI co-built with clinicians for the future of care delivery.",
             context:
-                "We believe that the future of clinical AI is not a single model but a team of specialised agents working alongside clinicians at the point of care. CRASH Lab is building human-centric multi-agent systems designed with frontline clinicians, deployable at the edge and grounded in policies for the autonomous era of healthcare. Technical capability without governance is unsafe and governance without technical capability is performative theatrics — and we work on both.",
+                "We believe that the future of clinical AI is not a single model but a team of specialised agents working alongside clinicians at the point of care. CRASH Lab is building human-centric multi-agent systems designed with frontline clinicians, deployable at the edge and grounded in policies for the autonomous era of healthcare. Technical capability without governance is unsafe and governance without technical capability is performative theatrics and we work on both.",
             capabilities: [
                 {
                     title: "Multi-Agent Systems",
@@ -199,6 +200,7 @@ export function PillarsSection({
     flowLine = "Each pillar feeds the next: data → benchmarks → models → deployment."
 }: PillarsSectionProps): ReactElement {
     const [openNumber, setOpenNumber] = useState<string | null>(null);
+    const [isMounted, setIsMounted] = useState(false);
     const modalTitleId = useId();
 
     const openPillar = useCallback((number: string) => {
@@ -207,6 +209,10 @@ export function PillarsSection({
 
     const closeModal = useCallback(() => {
         setOpenNumber(null);
+    }, []);
+
+    useEffect(() => {
+        setIsMounted(true);
     }, []);
 
     useEffect(() => {
@@ -225,56 +231,10 @@ export function PillarsSection({
     }, [openNumber, closeModal]);
 
     const activePillar = openNumber ? PILLARS.find((p) => p.number === openNumber) : undefined;
-
-    return (
-        <section className="relative overflow-hidden border-t border-white/10 bg-navy-900 py-5 lg:py-7" id={id}>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-accent-cyan/[0.07] via-transparent to-navy-800/40" />
-            <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 bg-[length:32px_32px] bg-[radial-gradient(#ffffff_1px,transparent_1px)] opacity-[0.05]"
-            />
-
-            <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mb-10 flex flex-col gap-6 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
-                    <div className="text-center lg:text-left">
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white">{overline}</p>
-                        <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white md:text-5xl lg:text-[2.75rem]">
-                            {title}
-                        </h2>
-                        <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white lg:mx-0">
-                            {subtitle}
-                        </p>
-                    </div>
-                    {cta ? (
-                        <a
-                            className="inline-flex shrink-0 items-center justify-center gap-2 self-center text-sm font-medium text-white transition hover:text-white hover:underline lg:self-auto"
-                            href={cta.href}
-                        >
-                            {cta.label}
-                            <span aria-hidden>→</span>
-                        </a>
-                    ) : null}
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                    {PILLARS.map((pillar) => (
-                        <PillarCard
-                            key={pillar.number}
-                            pillar={pillar}
-                            onOpenDetail={() => openPillar(pillar.number)}
-                        />
-                    ))}
-                </div>
-
-                {flowLine !== null && flowLine !== "" ? (
-                    <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-white md:text-[15px]">
-                        <FlowSentence text={flowLine} />
-                    </p>
-                ) : null}
-            </div>
-
-            {activePillar ? (
-                <div className="fixed inset-0 z-[100] flex items-end justify-center p-4 sm:items-center" role="presentation">
+    const modal =
+        isMounted && activePillar
+            ? createPortal(
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="presentation">
                     <button
                         aria-label="Close pillar details"
                         className="absolute inset-0 bg-navy-950/75 backdrop-blur-sm transition-opacity"
@@ -283,7 +243,7 @@ export function PillarsSection({
                     />
                     <div
                         aria-labelledby={modalTitleId}
-                        className="relative z-10 flex max-h-[min(92vh,860px)] w-full max-w-lg flex-col overflow-hidden rounded-none border border-white/[0.08] bg-navy-900 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.55)] sm:max-w-2xl"
+                        className="relative z-10 flex max-h-[min(92dvh,860px)] w-full max-w-lg flex-col overflow-hidden rounded-none border border-white/[0.08] bg-navy-900 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.55)] sm:max-w-2xl"
                         role="dialog"
                         aria-modal="true"
                     >
@@ -329,9 +289,61 @@ export function PillarsSection({
                             </div>
                         </div>
                     </div>
+                </div>,
+                document.body
+            )
+            : null;
+
+    return (
+        <>
+            <section className="relative overflow-hidden border-t border-white/10 bg-navy-900 py-5 lg:py-7" id={id}>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-accent-cyan/[0.07] via-transparent to-navy-800/40" />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-[length:32px_32px] bg-[radial-gradient(#ffffff_1px,transparent_1px)] opacity-[0.05]"
+                />
+
+                <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mb-10 flex flex-col gap-6 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
+                        <div className="text-center lg:text-left">
+                            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white">{overline}</p>
+                            <h2 className="mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-white md:text-5xl lg:text-[2.75rem]">
+                                {title}
+                            </h2>
+                            <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white lg:mx-0">
+                                {subtitle}
+                            </p>
+                        </div>
+                        {cta ? (
+                            <a
+                                className="inline-flex shrink-0 items-center justify-center gap-2 self-center text-sm font-medium text-white transition hover:text-white hover:underline lg:self-auto"
+                                href={cta.href}
+                            >
+                                {cta.label}
+                                <span aria-hidden>→</span>
+                            </a>
+                        ) : null}
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                        {PILLARS.map((pillar) => (
+                            <PillarCard
+                                key={pillar.number}
+                                pillar={pillar}
+                                onOpenDetail={() => openPillar(pillar.number)}
+                            />
+                        ))}
+                    </div>
+
+                    {flowLine !== null && flowLine !== "" ? (
+                        <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-white md:text-[15px]">
+                            <FlowSentence text={flowLine} />
+                        </p>
+                    ) : null}
                 </div>
-            ) : null}
-        </section>
+            </section>
+            {modal}
+        </>
     );
 }
 
@@ -386,13 +398,8 @@ function PillarCard({
                     {pillar.tagline}
                 </p>
 
-                <div className="relative isolate mt-5 flex-1">
-                    <ul
-                        className={cn(
-                            "space-y-2.5 text-sm leading-relaxed text-white transition-all duration-300",
-                            "lg:group-hover:pointer-events-none lg:group-hover:opacity-0"
-                        )}
-                    >
+                <div className="mt-5 flex-1">
+                    <ul className="space-y-2.5 text-sm leading-relaxed text-white">
                         {pillar.bullets.map((line) => (
                             <li className="flex gap-2.5" key={line}>
                                 <span className={cn("mt-0.5 shrink-0 text-xs font-medium", pillar.accent.arrow)} aria-hidden>
@@ -402,14 +409,6 @@ function PillarCard({
                             </li>
                         ))}
                     </ul>
-                    <p
-                        className={cn(
-                            "pointer-events-none absolute inset-0 text-sm font-medium leading-relaxed text-white opacity-0 transition-opacity duration-300 ease-out",
-                            "max-lg:hidden lg:group-hover:opacity-100"
-                        )}
-                    >
-                        {pillar.detail.positioning}
-                    </p>
                 </div>
 
                 <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.12] pt-4 transition-colors duration-300 group-hover:border-white/20">
@@ -417,6 +416,41 @@ function PillarCard({
                         Click for full brief
                     </span>
                     <span className={cn("text-sm transition-colors duration-300 group-hover:text-white", pillar.accent.icon)} aria-hidden>
+                        →
+                    </span>
+                </div>
+            </div>
+
+            <div
+                className={cn(
+                    "pointer-events-none absolute inset-0 z-20 hidden translate-y-3 bg-navy-900 p-5 text-white opacity-0 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.10)] transition duration-300 ease-out lg:flex lg:flex-col",
+                    "group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
+                )}
+            >
+                <div className="flex items-center justify-between gap-3 border-b border-white/[0.12] pb-4">
+                    <span className="font-mono text-xs font-medium tracking-[0.14em] text-white/70">
+                        {pillar.number}
+                    </span>
+                    <pillar.Icon
+                        aria-hidden
+                        className={cn("size-[18px] shrink-0 text-current", pillar.accent.icon)}
+                        strokeWidth={1.65}
+                    />
+                </div>
+                <h3 className="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight text-white">
+                    {pillar.title}
+                </h3>
+                <p className="mt-3 text-sm font-semibold leading-relaxed text-white">
+                    {pillar.detail.positioning}
+                </p>
+                <p className="mt-3 line-clamp-6 text-sm leading-relaxed text-white/80">
+                    {pillar.detail.context}
+                </p>
+                <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.12] pt-4">
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                        Click for full brief
+                    </span>
+                    <span className={cn("text-sm text-white", pillar.accent.icon)} aria-hidden>
                         →
                     </span>
                 </div>

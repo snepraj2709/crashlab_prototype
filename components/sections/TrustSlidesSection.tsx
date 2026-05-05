@@ -24,6 +24,9 @@ type MarqueeSectionProps = {
   description?: string;
   animationDuration?: number;
   direction?: "left" | "right" | "static";
+  logoScale?: "default" | "large";
+  showVenueNames?: boolean;
+  venueLogoScale?: "default" | "large";
 } & (
   | { kind: "logos"; logos: LogoItem[] }
   | { kind: "venues"; venues: VenueItem[] }
@@ -53,7 +56,16 @@ const FEATURED_PILL =
   "inline-flex min-h-11 cursor-help shrink-0 items-center gap-2.5 whitespace-nowrap rounded-none border border-border bg-bg-secondary px-3 py-2 sm:min-h-[3.125rem] sm:gap-3 sm:px-4 sm:py-2";
 
 function MarqueeSection(props: MarqueeSectionProps) {
-  const { eyebrow, title, description, animationDuration = 28, direction = "left" } = props;
+  const {
+    eyebrow,
+    title,
+    description,
+    animationDuration = 28,
+    direction = "left",
+    logoScale = "default",
+    showVenueNames = true,
+    venueLogoScale = "default",
+  } = props;
 
   const isStatic = direction === "static";
 
@@ -70,21 +82,21 @@ function MarqueeSection(props: MarqueeSectionProps) {
       role="group"
     >
       <div>
-        <p className="text-[10px] uppercase tracking-[0.2em] text-text-secondary sm:text-xs sm:tracking-[0.22em]">
+        <h3 className="font-display text-xl text-text-primary sm:text-2xl lg:text-3xl">
           {eyebrow}
-        </p>
+        </h3>
         {title ? (
-          <h3 className="mt-1 font-display text-xl text-text-primary sm:mt-1.5 sm:text-2xl lg:text-3xl">
+          <p className="mt-1 text-base font-medium leading-snug text-text-primary sm:mt-1.5 lg:text-lg">
             {title}
-          </h3>
+          </p>
         ) : null}
         {description ? (
-          <p className="mt-1 max-w-4xl text-xs leading-snug text-text-secondary sm:mt-1.5 sm:text-sm sm:leading-relaxed lg:text-base lg:leading-snug">
+          <p className="mt-2 max-w-4xl text-sm leading-6 text-text-secondary sm:text-base sm:leading-7">
             {description}
           </p>
         ) : null}
 
-        <div className={cn(isStatic ? "mt-6 sm:mt-8" : "mt-2 sm:mt-3 trust-logo-slideshow")}>
+        <div className={cn(isStatic ? "mt-6 sm:mt-8" : "mt-4 sm:mt-5 trust-logo-slideshow")}>
           {props.kind === "logos" && logoItems ? (
             <>
               <div className="sr-only">
@@ -97,7 +109,8 @@ function MarqueeSection(props: MarqueeSectionProps) {
               <div className="trust-logo-slideshow__viewport">
                 <div
                   className={cn(
-                    "trust-logo-slideshow__track items-center gap-7 sm:gap-9 lg:gap-11",
+                    "trust-logo-slideshow__track items-center",
+                    logoScale === "large" ? "gap-12 sm:gap-16 lg:gap-24" : "gap-7 sm:gap-9 lg:gap-11",
                     direction === "right" && "trust-logo-slideshow__track--reverse",
                   )}
                   style={{ animationDuration: `${animationDuration}s` }}
@@ -105,7 +118,11 @@ function MarqueeSection(props: MarqueeSectionProps) {
                   {logoItems.map((logo, index) => (
                     <div
                       aria-hidden={index >= props.logos.length || undefined}
-                      className={TRUST_MARQUEE_SLOT}
+                      className={cn(
+                        logoScale === "large"
+                          ? "relative box-border h-[6.5rem] w-[8.5rem] shrink-0 cursor-help overflow-hidden rounded-none bg-transparent p-0 opacity-75 transition-opacity hover:opacity-100 sm:h-[7.5rem] sm:w-[10.5rem] lg:h-[9rem] lg:w-[13.5rem]"
+                          : TRUST_MARQUEE_SLOT,
+                      )}
                       key={`${logo.name}-${index}`}
                       title={logo.name}
                     >
@@ -113,10 +130,19 @@ function MarqueeSection(props: MarqueeSectionProps) {
                         <Image
                           alt={index < props.logos.length ? logo.name : ""}
                           aria-hidden={index >= props.logos.length ? "true" : undefined}
-                          className={cn(TRUST_MARQUEE_IMG, logo.tuning)}
+                          className={cn(
+                            logoScale === "large"
+                              ? "logo-clean relative block size-full shrink-0 object-contain object-center"
+                              : TRUST_MARQUEE_IMG,
+                            logo.tuning,
+                          )}
                           height={256}
                           loading="lazy"
-                          sizes="(min-width: 1024px) 7.75rem, (min-width: 640px) 6.5rem, 5.25rem"
+                          sizes={
+                            logoScale === "large"
+                              ? "(min-width: 1024px) 13.5rem, (min-width: 640px) 10.5rem, 8.5rem"
+                              : "(min-width: 1024px) 7.75rem, (min-width: 640px) 6.5rem, 5.25rem"
+                          }
                           src={logo.src}
                           unoptimized={/\.svg($|\?)/i.test(logo.src)}
                           width={256}
@@ -152,27 +178,55 @@ function MarqueeSection(props: MarqueeSectionProps) {
                       className="inline-flex shrink-0 items-center"
                       key={`${venue.name}-${index}`}
                     >
-                      <div className={cn(FEATURED_PILL)} title={venue.name}>
+                      <div
+                        className={cn(
+                          showVenueNames
+                            ? FEATURED_PILL
+                            : cn(
+                                "relative box-border flex shrink-0 cursor-help items-center justify-center overflow-hidden rounded-none bg-transparent",
+                                venueLogoScale === "large"
+                                  ? "h-20 w-44 p-2 sm:h-24 sm:w-56 sm:p-2.5 lg:h-28 lg:w-64 lg:p-3"
+                                  : "h-14 w-36 p-2 sm:h-16 sm:w-40 sm:p-2.5",
+                              ),
+                        )}
+                        title={venue.name}
+                      >
                         {venue.logoSrc ? (
-                          <span className="inline-flex h-10 w-11 shrink-0 items-center justify-center sm:h-11 sm:w-12">
+                          <span
+                            className={cn(
+                              "inline-flex shrink-0 items-center justify-center",
+                              showVenueNames ? "h-10 w-11 sm:h-11 sm:w-12" : "size-full",
+                            )}
+                          >
                             <Image
                               alt=""
                               aria-hidden
                               className={cn(
-                                "trust-logo-slideshow__image relative block max-h-[2.125rem] w-auto max-w-full object-contain object-center sm:max-h-[2.375rem]",
+                                "trust-logo-slideshow__image relative block w-auto max-w-full object-contain object-center",
+                                showVenueNames
+                                  ? "max-h-[2.125rem] sm:max-h-[2.375rem]"
+                                  : "max-h-full",
                                 venue.logoTuning,
                               )}
                               height={42}
-                              sizes="(min-width: 640px) 2.375rem, 2.125rem"
+                              sizes={
+                                showVenueNames
+                                  ? "(min-width: 640px) 2.375rem, 2.125rem"
+                                  : venueLogoScale === "large"
+                                    ? "(min-width: 1024px) 16rem, (min-width: 640px) 14rem, 11rem"
+                                    : "(min-width: 640px) 10rem, 9rem"
+                              }
                               src={venue.logoSrc}
                               unoptimized={venue.logoSrc.endsWith(".svg")}
                               width={120}
                             />
                           </span>
                         ) : null}
-                        <span className="self-center font-semibold text-text-primary leading-none text-xs sm:text-sm">
-                          {venue.name}
-                        </span>
+                        {showVenueNames ? (
+                          <span className="self-center font-semibold text-text-primary leading-none text-xs sm:text-sm">
+                            {venue.name}
+                          </span>
+                        ) : null}
                       </div>
                     </div>
                   ))}
@@ -237,12 +291,12 @@ const collaborationLogos: LogoItem[] = [
 ];
 
 const featuredVenues: VenueItem[] = [
-  { name: "RSNA 2025", logoSrc: "/logos/rsna.svg" },
-  { name: "MICCAI 2025", logoSrc: "/logos/miccai.svg" },
-  { name: "KCR 2025", logoSrc: "/logos/kcr.svg" },
-  { name: "IJRI", logoSrc: "/logos/ijri.svg" },
-  { name: "NEJM AI", logoSrc: "/logos/nejm-ai.png" },
-  { name: "AOCR 2025", logoSrc: "/logos/aocr-2025.webp" },
+  { name: "RSNA 2025", logoSrc: "/logos/featured-normalized/rsna.png" },
+  { name: "MICCAI 2025", logoSrc: "/logos/featured-normalized/miccai.png" },
+  { name: "KCR 2025", logoSrc: "/logos/featured-normalized/kcr.png" },
+  { name: "IJRI", logoSrc: "/logos/featured-normalized/ijri.png" },
+  { name: "NEJM AI", logoSrc: "/logos/featured-normalized/nejm-ai.png" },
+  { name: "AOCR 2025", logoSrc: "/logos/featured-normalized/aocr-2025.png" },
 ];
 
 export function TrustSlidesSection(): React.ReactElement {
@@ -262,6 +316,7 @@ export function TrustSlidesSection(): React.ReactElement {
           direction="left"
           eyebrow="Supported By"
           kind="logos"
+          logoScale="large"
           logos={supportedByLogos}
         />
         <MarqueeSection
@@ -273,10 +328,13 @@ export function TrustSlidesSection(): React.ReactElement {
           logos={collaborationLogos}
         />
         <MarqueeSection
+          animationDuration={28}
           description="Recent collaborative research of Dr. Suvrankar Datta and CRASH Lab has been published and presented at:"
-          direction="static"
+          direction="left"
           eyebrow="Featured At"
           kind="venues"
+          showVenueNames={false}
+          venueLogoScale="large"
           venues={featuredVenues}
         />
       </div>
